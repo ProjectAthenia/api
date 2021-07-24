@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Models\Organization;
 
-use App\Contracts\Models\HasPaymentMethodsContract;
 use App\Contracts\Models\HasValidationRulesContract;
 use App\Contracts\Models\IsAnEntity;
 use App\Models\Asset;
@@ -48,7 +47,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  */
 class Organization extends BaseModelAbstract
-    implements HasValidationRulesContract, IsAnEntity, HasPaymentMethodsContract
+    implements HasValidationRulesContract, IsAnEntity
 {
     use HasValidationRules, HasSubscriptions, HasPaymentMethods;
 

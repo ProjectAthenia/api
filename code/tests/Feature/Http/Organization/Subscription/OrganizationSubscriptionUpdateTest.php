@@ -45,6 +45,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
     {
         $subscription = factory(Subscription::class)->create([
             'subscriber_id' => $this->organizaion->id,
+            'subscriber_type' => 'organization',
         ]);
         $response = $this->json('PATCH', $this->path . $subscription->id);
 
