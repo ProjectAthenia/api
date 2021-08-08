@@ -3,7 +3,7 @@ namespace Database\Factories\Vote;
 
 use App\Models\Vote\BallotItem;
 use App\Models\Vote\BallotItemOption;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +24,7 @@ class BallotItemOptionFactory extends Factory
     {
         return [
             'ballot_item_id' => BallotItem::factory()->create()->id,
-            'subject_id' => Iteration::factory()->create()->id,
+            'subject_id' => ArticleIteration::factory()->create()->id,
             'subject_type' => 'iteration',
         ];
     }

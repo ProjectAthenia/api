@@ -6,7 +6,7 @@ namespace Tests\Integration\Repositories\Vote;
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotItem;
 use App\Models\Vote\BallotItemOption;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Vote\BallotItemOptionRepository;
 use App\Repositories\Vote\BallotItemRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -76,8 +76,8 @@ class BallotItemRepositoryTest extends TestCase
         /** @var Ballot $ballot */
         $ballot = Ballot::factory()->create();
 
-        /** @var Iteration $iteration */
-        $iteration = Iteration::factory()->create();
+        /** @var ArticleIteration $iteration */
+        $iteration = ArticleIteration::factory()->create();
 
         /** @var BallotItem $ballotItem */
         $ballotItem = $this->repository->create([

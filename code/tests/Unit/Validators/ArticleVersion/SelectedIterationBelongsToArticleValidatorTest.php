@@ -5,7 +5,7 @@ namespace Tests\Unit\Validators\Test;
 
 use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -73,7 +73,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         $article = new Article();
         $article->id = 453;
         $this->request->shouldReceive('route')->once()->with('article', null)->andReturn($article);
-        $this->repository->shouldReceive('findOrFail')->once()->andReturn(new Iteration([
+        $this->repository->shouldReceive('findOrFail')->once()->andReturn(new ArticleIteration([
             'article_id' => 454,
         ]));
 
@@ -85,7 +85,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         $article = new Article();
         $article->id = 453;
         $this->request->shouldReceive('route')->once()->with('article', null)->andReturn($article);
-        $this->repository->shouldReceive('findOrFail')->once()->andReturn(new Iteration([
+        $this->repository->shouldReceive('findOrFail')->once()->andReturn(new ArticleIteration([
             'article_id' => 453,
         ]));
 

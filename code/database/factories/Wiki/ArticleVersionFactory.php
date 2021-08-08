@@ -5,7 +5,7 @@ namespace Database\Factories\Wiki;
 
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,7 +26,7 @@ class ArticleVersionFactory extends Factory
     {
         return [
             'article_id' => Article::factory()->create()->id,
-            'iteration_id' => Iteration::factory()->create()->id,
+            'article_iteration_id' => ArticleIteration::factory()->create()->id,
         ];
     }
 }

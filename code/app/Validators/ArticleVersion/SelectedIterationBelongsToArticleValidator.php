@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Validators\ArticleVersion;
 
 use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Validators\BaseValidatorAbstract;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -66,7 +66,7 @@ class SelectedIterationBelongsToArticleValidator extends BaseValidatorAbstract
         }
 
         try {
-            /** @var Iteration $iteration */
+            /** @var ArticleIteration $iteration */
             $iteration = $this->iterationRepository->findOrFail($value);
 
             return $iteration->article_id == $article->id;

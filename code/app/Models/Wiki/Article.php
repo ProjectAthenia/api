@@ -8,10 +8,7 @@ use App\Contracts\Models\HasValidationRulesContract;
 use App\Models\BaseModelAbstract;
 use App\Models\Traits\HasValidationRules;
 use App\Models\User\User;
-use Carbon\Carbon;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -26,9 +23,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed|null $updated_at
  * @property-read \App\Models\User\User $createdBy
  * @property-read null|string $content
- * @property-read null|\ArticleVersion $current_version
+ * @property-read null|ArticleVersion $current_version
  * @property-read null|string $last_iteration_content
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\Iteration[] $iterations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleIteration[] $iterations
  * @property-read int|null $iterations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleVersion[] $versions
  * @property-read int|null $versions_count
@@ -58,16 +55,6 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
     ];
 
     /**
-     * All versions related to this article
-     *
-     * @return HasMany
-     */
-    public function versions() : HasMany
-    {
-        return $this->hasMany(ArticleVersion::class)->orderByDesc('created_at')->orderByDesc('id');
-    }
-
-    /**
      * The user that originally created this article
      *
      * @return BelongsTo
@@ -84,7 +71,30 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function iterations() : HasMany
     {
-        return $this->hasMany(Iteration::class)->orderByDesc('created_at')->orderByDesc('id');
+        return $this->hasMany(ArticleIteration::class)
+            ->orderByDesc('created_at')->orderByDesc('id');
+    }
+
+    /**
+     * All modifications for this article
+     *
+     * @return HasMany
+     */
+    public function modifications() : HasMany
+    {
+        return $this->hasMany(ArticleModification::class)
+            ->orderByDesc('created_at')->orderByDesc('id');
+    }
+
+    /**
+     * All versions related to this article
+     *
+     * @return HasMany
+     */
+    public function versions() : HasMany
+    {
+        return $this->hasMany(ArticleVersion::class)
+            ->orderByDesc('created_at')->orderByDesc('id');
     }
 
     /**
@@ -94,9 +104,7 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function getContentAttribute() : ?string
     {
-        /** @var ArticleVersion|null $iteration */
-        $version = $this->current_version;
-        return $version && $version->iteration ? $version->iteration->content : null;
+        return $this->current_version?->iteration?->content;
     }
 
     /**
@@ -106,7 +114,6 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function getCurrentVersionAttribute() : ?ArticleVersion
     {
-        /** @var ArticleVersion|null $iteration */
         return $this->versions()->limit(1)->get()->first();
     }
 
@@ -117,7 +124,7 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function getLastIterationContentAttribute() : ?string
     {
-        /** @var Iteration|null $iteration */
+        /** @var ArticleIteration|null $iteration */
         $iteration = $this->iterations()->limit(1)->get()->first();
         return $iteration ? $iteration->content : null;
     }

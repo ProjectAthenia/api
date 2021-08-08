@@ -14,7 +14,7 @@ use App\Models\User\User;
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         'ballot' => Ballot::class,
         'ballot_completion' => BallotCompletion::class,
         'feature' => Feature::class,
-        'iteration' => Iteration::class,
+        'iteration' => ArticleIteration::class,
         'membership_plan' => MembershipPlan::class,
         'organization' => Organization::class,
         'organization_manager' => OrganizationManager::class,

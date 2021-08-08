@@ -6,7 +6,7 @@ namespace Tests\Integration\Repositories\Wiki;
 use App\Events\Article\ArticleVersionCreatedEvent;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\ArticleVersionRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -79,7 +79,7 @@ class ArticleVersionRepositoryTest extends TestCase
     public function testCreateSuccess()
     {
         $article = Article::factory()->create();
-        $iteration = Iteration::factory()->create();
+        $iteration = ArticleIteration::factory()->create();
 
         $this->dispatcher->shouldReceive('dispatch')->once()->with(\Mockery::on(function (ArticleVersionCreatedEvent $event) {
             return true;

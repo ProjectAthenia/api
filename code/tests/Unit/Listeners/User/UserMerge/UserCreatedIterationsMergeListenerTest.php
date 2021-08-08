@@ -7,7 +7,7 @@ use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
 use App\Events\User\UserMergeEvent;
 use App\Listeners\User\UserMerge\UserCreatedIterationsMergeListener;
 use App\Models\User\User;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Support\Collection;
 use Tests\CustomMockInterface;
 use Tests\TestCase;
@@ -61,7 +61,7 @@ class UserCreatedIterationsMergeListenerTest extends TestCase
         $mergeUser = new User([
             'email' => 'testy@test.com',
             'createdIterations' => new Collection([
-                new Iteration()
+                new ArticleIteration()
             ])
         ]);
 

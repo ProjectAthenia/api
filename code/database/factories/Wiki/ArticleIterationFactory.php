@@ -5,19 +5,19 @@ namespace Database\Factories\Wiki;
 
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * Class IterationFactory
  * @package Database\Factories\Wiki
  */
-class IterationFactory extends Factory
+class ArticleIterationFactory extends Factory
 {
     /**
      * @var string The related model
      */
-    protected $model = Iteration::class;
+    protected $model = ArticleIteration::class;
 
     /**
      * @return array

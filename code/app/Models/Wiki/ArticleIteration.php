@@ -6,7 +6,6 @@ namespace App\Models\Wiki;
 use App\Contracts\Models\HasPolicyContract;
 use App\Models\BaseModelAbstract;
 use App\Models\User\User;
-use Carbon\Carbon;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,19 +24,19 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \App\Models\Wiki\Article $article
  * @property-read \App\Models\User\User $createdBy
  * @property-read \App\Models\Wiki\ArticleVersion|null $version
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Iteration newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Iteration newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Iteration query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereArticleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereCreatedById($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Iteration whereUpdatedAt($value)
+ * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newModelQuery()
+ * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newQuery()
+ * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereArticleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereCreatedById($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Iteration extends BaseModelAbstract implements HasPolicyContract
+class ArticleIteration extends BaseModelAbstract implements HasPolicyContract
 {
     /**
      * The article that this iteration is for
@@ -47,6 +46,26 @@ class Iteration extends BaseModelAbstract implements HasPolicyContract
     public function article() : BelongsTo
     {
         return $this->belongsTo(Article::class);
+    }
+
+    /**
+     * The user that originally created this article
+     *
+     * @return BelongsTo
+     */
+    public function createdBy() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
+    }
+
+    /**
+     * Any modification that is tagged that generated this iteration
+     *
+     * @return BelongsTo
+     */
+    public function modification(): BelongsTo
+    {
+        return $this->belongsTo(ArticleModification::class, 'article_modification_id');
     }
 
     /**
@@ -71,16 +90,6 @@ class Iteration extends BaseModelAbstract implements HasPolicyContract
         $query->orderBy('created_at', 'desc');
 
         return $query;
-    }
-
-    /**
-     * The user that originally created this article
-     *
-     * @return BelongsTo
-     */
-    public function createdBy() : BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     /**

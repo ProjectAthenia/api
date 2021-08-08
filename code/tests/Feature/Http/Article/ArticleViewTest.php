@@ -6,7 +6,7 @@ namespace Tests\Feature\Http\Article;
 use App\Models\Role;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
@@ -71,7 +71,7 @@ class ArticleViewTest extends TestCase
     {
         $this->actAs(Role::ARTICLE_VIEWER);
 
-        $iteration = Iteration::factory()->create([
+        $iteration = ArticleIteration::factory()->create([
             'content' => 'hello',
             'article_id' => $this->article->id,
         ]);

@@ -8,7 +8,7 @@ use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
 use App\Http\Sockets\ArticleIterations;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\ArticleRepository;
 use App\Repositories\Wiki\IterationRepository;
 use App\Services\StringHelperService;
@@ -51,7 +51,7 @@ class ArticleIterationTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
         $this->articleRepository = new ArticleRepository(new Article(), $this->getGenericLogMock());
-        $this->iterationRepository = new IterationRepository(new Iteration(), $this->getGenericLogMock());
+        $this->iterationRepository = new IterationRepository(new ArticleIteration(), $this->getGenericLogMock());
         $this->jwtAuth = mock(JWTAuth::class);
         $this->socket = new ArticleIterations(
             $this->articleRepository,
@@ -66,8 +66,8 @@ class ArticleIterationTest extends TestCase
         $user = User::factory()->create();
         /** @var Article $article */
         $article = Article::factory()->create();
-        /** @var Iteration $initialIteration */
-        Iteration::factory()->create([
+        /** @var ArticleIteration $initialIteration */
+        ArticleIteration::factory()->create([
             'content' => "Test content with a \n line break",
             'article_id' => $article->id,
         ]);
@@ -92,8 +92,8 @@ class ArticleIterationTest extends TestCase
         $user = User::factory()->create();
         /** @var Article $article */
         $article = Article::factory()->create();
-        /** @var Iteration $initialIteration */
-        Iteration::factory()->create([
+        /** @var ArticleIteration $initialIteration */
+        ArticleIteration::factory()->create([
             'content' => "Test content with a \n line break",
             'article_id' => $article->id,
         ]);
@@ -126,8 +126,8 @@ class ArticleIterationTest extends TestCase
         $user = User::factory()->create();
         /** @var Article $article */
         $article = Article::factory()->create();
-        /** @var Iteration $initialIteration */
-        Iteration::factory()->create([
+        /** @var ArticleIteration $initialIteration */
+        ArticleIteration::factory()->create([
             'content' => "Test content with a \n line break",
             'article_id' => $article->id,
         ]);
@@ -169,8 +169,8 @@ class ArticleIterationTest extends TestCase
         $user = User::factory()->create();
         /** @var Article $article */
         $article = Article::factory()->create();
-        /** @var Iteration $initialIteration */
-        Iteration::factory()->create([
+        /** @var ArticleIteration $initialIteration */
+        ArticleIteration::factory()->create([
             'content' => "Test content with a \n line break",
             'article_id' => $article->id,
         ]);

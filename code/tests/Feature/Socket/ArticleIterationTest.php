@@ -6,7 +6,7 @@ namespace Tests\Feature\Socket;
 use App\Http\Sockets\ArticleIterations;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\ArticleRepository;
 use App\Repositories\Wiki\IterationRepository;
 use App\Services\StringHelperService;
@@ -51,7 +51,7 @@ class ArticleIterationTest extends TestCase
         $this->jwtAuth = $this->app->make(JWTAuth::class);
         $this->socket = new ArticleIterations(
             new ArticleRepository(new Article(), $this->getGenericLogMock()),
-            new IterationRepository(new Iteration(), $this->getGenericLogMock()),
+            new IterationRepository(new ArticleIteration(), $this->getGenericLogMock()),
             $this->jwtAuth,
             new StringHelperService(),
         );
@@ -126,10 +126,10 @@ class ArticleIterationTest extends TestCase
         /**
          * Create some old iterations that should not affect the output
          */
-        Iteration::factory()->count(5)->create([
+        ArticleIteration::factory()->count(5)->create([
             'article_id' => $article->id,
         ]);
-        Iteration::factory()->create([
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'This is a removal test of iugwhw something.',
         ]);
@@ -157,10 +157,10 @@ class ArticleIterationTest extends TestCase
         /**
          * Create some old iterations that should not affect the output
          */
-        Iteration::factory()->count(5)->create([
+        ArticleIteration::factory()->count(5)->create([
             'article_id' => $article->id,
         ]);
-        Iteration::factory()->create([
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'This is an add test of something.',
         ]);
@@ -188,10 +188,10 @@ class ArticleIterationTest extends TestCase
         /**
          * Create some old iterations that should not affect the output
          */
-        Iteration::factory()->count(5)->create([
+        ArticleIteration::factory()->count(5)->create([
             'article_id' => $article->id,
         ]);
-        Iteration::factory()->create([
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'This is a replace test of this content.',
         ]);

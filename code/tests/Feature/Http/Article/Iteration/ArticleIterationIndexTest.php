@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Article\Iteration;
 
 use App\Models\Role;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
@@ -77,11 +77,11 @@ class ArticleIterationIndexTest extends TestCase
     {
         $this->actAs(Role::ARTICLE_VIEWER);
         $article = Article::factory()->create();
-        Iteration::factory()->count(15)->create([
+        ArticleIteration::factory()->count(15)->create([
             'article_id' => $article->id,
         ]);
 
-        Iteration::factory()->count(7)->create();
+        ArticleIteration::factory()->count(7)->create();
 
         // first page
         $response = $this->json('GET', $this->path . $article->id . '/iterations');
@@ -96,7 +96,7 @@ class ArticleIterationIndexTest extends TestCase
         ])
             ->assertJsonStructure([
                 'data' => [
-                    '*' =>  array_keys((new Iteration())->toArray())
+                    '*' =>  array_keys((new ArticleIteration())->toArray())
                 ]
             ]);
 
@@ -113,7 +113,7 @@ class ArticleIterationIndexTest extends TestCase
         ])
             ->assertJsonStructure([
                 'data' => [
-                    '*' =>  array_keys((new Iteration())->toArray())
+                    '*' =>  array_keys((new ArticleIteration())->toArray())
                 ]
             ]);
 
@@ -130,7 +130,7 @@ class ArticleIterationIndexTest extends TestCase
         ])
             ->assertJsonStructure([
                 'data' => [
-                    '*' =>  array_keys((new Iteration())->toArray())
+                    '*' =>  array_keys((new ArticleIteration())->toArray())
                 ]
             ]);
     }

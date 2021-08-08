@@ -3,7 +3,7 @@ namespace Database\Factories\Vote;
 
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotItem;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

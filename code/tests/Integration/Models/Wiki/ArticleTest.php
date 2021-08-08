@@ -5,7 +5,7 @@ namespace Tests\Integration\Models\Wiki;
 
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Carbon\Carbon;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -54,15 +54,15 @@ class ArticleTest extends TestCase
         /** @var Article $article */
         $article = Article::factory()->create();
 
-        /** @var Iteration $iteration This should be appended */
-        $iteration = Iteration::factory()->create([
+        /** @var ArticleIteration $iteration This should be appended */
+        $iteration = ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'Hello'
         ]);
 
         ArticleVersion::factory()->create([
             'article_id' => $article->id,
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ]);
 
         $this->assertEquals('Hello', $article->content);
@@ -74,7 +74,7 @@ class ArticleTest extends TestCase
         $article = Article::factory()->create();
 
         /** This should be appended */
-        $iteration = Iteration::factory()->create([
+        $iteration = ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'created_at' => Carbon::now(),
             'content' => 'Hello'
@@ -82,18 +82,18 @@ class ArticleTest extends TestCase
 
         ArticleVersion::factory()->create([
             'article_id' => $article->id,
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ]);
 
         /** This is an old iteration that should not be appended */
-        $iteration = Iteration::factory()->create([
+        $iteration = ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'old content'
         ]);
 
         ArticleVersion::factory()->create([
             'article_id' => $article->id,
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
             'created_at' => Carbon::now()->subDay(),
         ]);
 
@@ -105,8 +105,8 @@ class ArticleTest extends TestCase
         /** @var Article $article */
         $article = Article::factory()->create();
 
-        /** @var Iteration $iteration This should be appended */
-        Iteration::factory()->create([
+        /** @var ArticleIteration $iteration This should be appended */
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'content' => 'Hello'
         ]);
@@ -120,14 +120,14 @@ class ArticleTest extends TestCase
         $article = Article::factory()->create();
 
         /** This should be appended */
-        Iteration::factory()->create([
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'created_at' => Carbon::now(),
             'content' => 'Hello'
         ]);
 
         /** This is an old iteration that should not be appended */
-        Iteration::factory()->create([
+        ArticleIteration::factory()->create([
             'article_id' => $article->id,
             'created_at' => Carbon::now()->subDay(),
             'content' => 'old content'

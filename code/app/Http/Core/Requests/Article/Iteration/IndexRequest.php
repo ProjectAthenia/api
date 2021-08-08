@@ -6,7 +6,7 @@ namespace App\Http\Core\Requests\Article\Iteration;
 use App\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Http\Core\Requests\Traits\HasNoPolicyParameters;
 use App\Http\Core\Requests\Traits\HasNoRules;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Policies\Wiki\IterationPolicy;
 
 /**
@@ -34,7 +34,7 @@ class IndexRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyModel(): string
     {
-        return Iteration::class;
+        return ArticleIteration::class;
     }
 
     /**

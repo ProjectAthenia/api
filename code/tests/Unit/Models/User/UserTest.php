@@ -55,7 +55,7 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(HasMany::class, $relation);
         $this->assertEquals('users.id', $relation->getQualifiedParentKeyName());
-        $this->assertEquals('iterations.created_by_id', $relation->getQualifiedForeignKeyName());
+        $this->assertEquals('article_iterations.created_by_id', $relation->getQualifiedForeignKeyName());
     }
 
     public function testMessages()

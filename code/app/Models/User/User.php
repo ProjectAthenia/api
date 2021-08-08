@@ -16,7 +16,7 @@ use App\Models\Traits\IsEntity;
 use App\Models\Traits\HasValidationRules;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,7 +53,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property-read int|null $ballot_completions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\Article[] $createdArticles
  * @property-read int|null $created_articles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\Iteration[] $createdIterations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleIteration[] $createdIterations
  * @property-read int|null $created_iterations_count
  * @property-read null|string $profile_image_url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Message[] $messages
@@ -155,7 +155,7 @@ class User extends BaseModelAbstract
      */
     public function createdIterations(): HasMany
     {
-        return $this->hasMany(Iteration::class, 'created_by_id');
+        return $this->hasMany(ArticleIteration::class, 'created_by_id');
     }
 
     /**

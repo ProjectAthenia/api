@@ -8,7 +8,7 @@ use App\Contracts\Services\ArticleVersionCalculationServiceContract;
 use App\Events\Article\ArticleVersionCreatedEvent;
 use App\Listeners\Article\ArticleVersionCreatedListener;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Tests\CustomMockInterface;
 use Tests\TestCase;
 
@@ -46,12 +46,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);
@@ -67,12 +67,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);
@@ -89,12 +89,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new Iteration([
+            'iteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);

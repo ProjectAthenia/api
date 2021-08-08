@@ -225,7 +225,7 @@ class Cusco extends Migration
 
         /** @var \App\Models\Wiki\Article $article */
         foreach (\App\Models\Wiki\Article::all() as $article) {
-            /** @var \App\Models\Wiki\Iteration $iteration */
+            /** @var \App\Models\Wiki\ArticleIteration $iteration */
             $iteration = $article->iterations()->limit(1)->get();
 
             $version = new \App\Models\Wiki\ArticleVersion([

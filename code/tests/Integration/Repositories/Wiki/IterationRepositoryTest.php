@@ -6,7 +6,7 @@ namespace Tests\Integration\Repositories\Wiki;
 use App\Exceptions\NotImplementedException;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\IterationRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\DatabaseSetupTrait;
@@ -31,26 +31,26 @@ class IterationRepositoryTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
 
-        $this->repository = new IterationRepository(new Iteration(), $this->getGenericLogMock());
+        $this->repository = new IterationRepository(new ArticleIteration(), $this->getGenericLogMock());
     }
 
     public function testDeleteThrowsException()
     {
         $this->expectException(NotImplementedException::class);
 
-        $this->repository->delete(new Iteration());
+        $this->repository->delete(new ArticleIteration());
     }
 
     public function testUpdateThrowsException()
     {
         $this->expectException(NotImplementedException::class);
 
-        $this->repository->update(new Iteration(), []);
+        $this->repository->update(new ArticleIteration(), []);
     }
 
     public function testFindOrFailSuccess()
     {
-        $model = Iteration::factory()->create();
+        $model = ArticleIteration::factory()->create();
 
         $foundModel = $this->repository->findOrFail($model->id);
         $this->assertEquals($model->id, $foundModel->id);
@@ -58,7 +58,7 @@ class IterationRepositoryTest extends TestCase
 
     public function testFindOrFailFails()
     {
-        Iteration::factory()->create(['id' => 2]);
+        ArticleIteration::factory()->create(['id' => 2]);
 
         $this->expectException(ModelNotFoundException::class);
         $this->repository->findOrFail(1);
@@ -66,7 +66,7 @@ class IterationRepositoryTest extends TestCase
 
     public function testFindAllSuccess()
     {
-        Iteration::factory()->count(5)->create();
+        ArticleIteration::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
@@ -82,7 +82,7 @@ class IterationRepositoryTest extends TestCase
         $article = Article::factory()->create();
         $user = User::factory()->create();
 
-        /** @var Iteration $model */
+        /** @var ArticleIteration $model */
         $model = $this->repository->create([
             'content' => 'hello',
             'created_by_id' => $user->id,

@@ -6,7 +6,7 @@ namespace Tests\Feature\Http\Article\ArticleVersion;
 use App\Models\Role;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
@@ -55,7 +55,7 @@ class ArticleVersionCreateTest extends TestCase
         $article = Article::factory()->create([
             'created_by_id' => $this->actingAs->id,
         ]);
-        $iteration = Iteration::factory()->create([
+        $iteration = ArticleIteration::factory()->create([
             'article_id' => $article->id,
         ]);
 
@@ -118,7 +118,7 @@ class ArticleVersionCreateTest extends TestCase
         $article = Article::factory()->create([
             'created_by_id' => $this->actingAs->id,
         ]);
-        $iteration = Iteration::factory()->create();
+        $iteration = ArticleIteration::factory()->create();
 
         $response = $this->json('POST', $this->path . $article->id . '/versions', [
             'iteration_id' => $iteration->id,

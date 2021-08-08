@@ -4,15 +4,10 @@ declare(strict_types=1);
 namespace App\Models\Wiki;
 
 use App\Contracts\Models\HasValidationRulesContract;
-use App\Events\Article\ArticleVersionCreatedEvent;
 use App\Models\BaseModelAbstract;
 use App\Models\Traits\HasValidationRules;
 use App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
-use Eloquent;
-use Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 /**
@@ -26,7 +21,7 @@ use Illuminate\Validation\Rule;
  * @property mixed|null $created_at
  * @property mixed|null $updated_at
  * @property-read \App\Models\Wiki\Article $article
- * @property-read \App\Models\Wiki\Iteration $iteration
+ * @property-read \App\Models\Wiki\ArticleIteration $iteration
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion newModelQuery()
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion newQuery()
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion query()
@@ -60,7 +55,7 @@ class ArticleVersion extends BaseModelAbstract implements HasValidationRulesCont
      */
     public function iteration(): BelongsTo
     {
-        return $this->belongsTo(Iteration::class);
+        return $this->belongsTo(ArticleIteration::class, 'article_iteration_id');
     }
 
     /**
@@ -70,15 +65,17 @@ class ArticleVersion extends BaseModelAbstract implements HasValidationRulesCont
      */
     public function buildModelValidationRules(...$params): array
     {
+        $articleIterationProps = [
+            'bail',
+            'required',
+            'int',
+            Rule::exists('iterations', 'id'),
+            SelectedIterationBelongsToArticleValidator::KEY,
+        ];
         return [
             static::VALIDATION_RULES_BASE => [
-                'iteration_id' => [
-                    'bail',
-                    'required',
-                    'int',
-                    Rule::exists('iterations', 'id'),
-                    SelectedIterationBelongsToArticleValidator::KEY,
-                ],
+                'article_iteration_id' => $articleIterationProps,
+                'iteration_id' => $articleIterationProps,
             ],
         ];
     }

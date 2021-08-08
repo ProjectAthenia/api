@@ -53,7 +53,7 @@ use App\Models\Vote\BallotItemOption;
 use App\Models\Vote\Vote;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\AssetRepository;
 use App\Repositories\FeatureRepository;
 use App\Repositories\Organization\OrganizationManagerRepository;
@@ -208,7 +208,7 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
             return new FeatureRepository(new Feature(), $this->app->make('log'));
         });
         $this->app->bind(IterationRepositoryContract::class, function() {
-            return new IterationRepository(new Iteration(), $this->app->make('log'));
+            return new IterationRepository(new ArticleIteration(), $this->app->make('log'));
         });
         $this->app->bind(LineItemRepositoryContract::class, function () {
             return new LineItemRepository(

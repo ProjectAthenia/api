@@ -6,7 +6,7 @@ namespace Tests\Integration\Repositories\Vote;
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotItem;
 use App\Models\Vote\BallotItemOption;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Vote\BallotItemOptionRepository;
 use App\Repositories\Vote\BallotRepository;
 use App\Repositories\Vote\BallotItemRepository;
@@ -85,7 +85,7 @@ class BallotRepositoryTest extends TestCase
                 [
                     'ballot_item_options' => [
                         [
-                            'subject_id' => Iteration::factory()->create()->id,
+                            'subject_id' => ArticleIteration::factory()->create()->id,
                             'subject_type' => 'iteration',
                         ],
                     ]
@@ -110,7 +110,7 @@ class BallotRepositoryTest extends TestCase
                     'id' => $subjects[1]->id,
                     'ballot_item_options' => [
                         [
-                            'subject_id' => Iteration::factory()->create()->id,
+                            'subject_id' => ArticleIteration::factory()->create()->id,
                             'subject_type' => 'iteration',
                         ]
                     ]
@@ -118,7 +118,7 @@ class BallotRepositoryTest extends TestCase
                 [
                     'ballot_item_options' => [
                         [
-                            'subject_id' => Iteration::factory()->create()->id,
+                            'subject_id' => ArticleIteration::factory()->create()->id,
                             'subject_type' => 'iteration',
                         ]
                     ]

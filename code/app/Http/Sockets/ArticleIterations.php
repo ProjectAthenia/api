@@ -9,7 +9,7 @@ use App\Contracts\Services\StringHelperServiceContract;
 use App\Exceptions\AuthenticationException;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Models\Wiki\Iteration;
+use App\Models\Wiki\ArticleIteration;
 use Orchid\Socket\BaseSocketListener;
 use Psr\Http\Message\RequestInterface;
 use Ratchet\ConnectionInterface;
@@ -241,7 +241,7 @@ class ArticleIterations extends BaseSocketListener
         $length = $msg['length'] ?? null;
 
         if ($startPosition !== null && $length !== null) {
-            /** @var Iteration $iteration */
+            /** @var ArticleIteration $iteration */
             $this->iterationRepository->create([
                 'content' => $this->stringHelperService->mbSubstrReplace($article->last_iteration_content, '', $startPosition, $length),
                 'created_by_id' => $user->id,
