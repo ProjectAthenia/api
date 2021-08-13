@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Tests\Integration\Http\Sockets;
 
 use App\Contracts\Repositories\Wiki\ArticleRepositoryContract;
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Http\Sockets\ArticleIterations;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\ArticleRepository;
-use App\Repositories\Wiki\IterationRepository;
+use App\Repositories\Wiki\ArticleIterationRepository;
 use App\Services\StringHelperService;
 use Tests\CustomMockInterface;
 use Tests\DatabaseSetupTrait;
@@ -32,7 +32,7 @@ class ArticleIterationTest extends TestCase
     private $articleRepository;
 
     /**
-     * @var IterationRepositoryContract
+     * @var ArticleIterationRepositoryContract
      */
     private $iterationRepository;
 
@@ -51,7 +51,7 @@ class ArticleIterationTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
         $this->articleRepository = new ArticleRepository(new Article(), $this->getGenericLogMock());
-        $this->iterationRepository = new IterationRepository(new ArticleIteration(), $this->getGenericLogMock());
+        $this->iterationRepository = new ArticleIterationRepository(new ArticleIteration(), $this->getGenericLogMock());
         $this->jwtAuth = mock(JWTAuth::class);
         $this->socket = new ArticleIterations(
             $this->articleRepository,

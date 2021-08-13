@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Http\Sockets;
 
 use App\Contracts\Repositories\Wiki\ArticleRepositoryContract;
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Exceptions\AuthenticationException;
 use App\Http\Sockets\ArticleIterations;
 use App\Models\User\User;
@@ -30,7 +30,7 @@ class ArticleIterationsTest extends TestCase
     private $articleRepository;
 
     /**
-     * @var CustomMockInterface|IterationRepositoryContract
+     * @var CustomMockInterface|ArticleIterationRepositoryContract
      */
     private $iterationRepository;
 
@@ -48,7 +48,7 @@ class ArticleIterationsTest extends TestCase
     {
         parent::setUp();
         $this->articleRepository = mock(ArticleRepositoryContract::class);
-        $this->iterationRepository = mock(IterationRepositoryContract::class);
+        $this->iterationRepository = mock(ArticleIterationRepositoryContract::class);
         $this->jwtAuth = mock(JWTAuth::class);
         $this->socket = new ArticleIterations(
             $this->articleRepository,

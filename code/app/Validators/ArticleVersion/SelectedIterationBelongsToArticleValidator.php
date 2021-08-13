@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Validators\ArticleVersion;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Models\Wiki\ArticleIteration;
 use App\Validators\BaseValidatorAbstract;
 use Illuminate\Contracts\Validation\Validator;
@@ -27,16 +27,16 @@ class SelectedIterationBelongsToArticleValidator extends BaseValidatorAbstract
     private $request;
 
     /**
-     * @var IterationRepositoryContract
+     * @var ArticleIterationRepositoryContract
      */
     private $iterationRepository;
 
     /**
      * SelectedIterationBelongsToArticleValidator constructor.
      * @param Request $request
-     * @param IterationRepositoryContract $iterationRepository
+     * @param ArticleIterationRepositoryContract $iterationRepository
      */
-    public function __construct(Request $request, IterationRepositoryContract $iterationRepository)
+    public function __construct(Request $request, ArticleIterationRepositoryContract $iterationRepository)
     {
         $this->request = $request;
         $this->iterationRepository = $iterationRepository;

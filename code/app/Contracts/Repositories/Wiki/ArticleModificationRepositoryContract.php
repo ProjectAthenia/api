@@ -6,8 +6,8 @@ namespace App\Contracts\Repositories\Wiki;
 use App\Contracts\Repositories\BaseRepositoryContract;
 
 /**
- * Interface IterationRepositoryContract
+ * Interface ArticleModificationRepositoryContract
  * @package App\Contracts\Repositories\Wiki
  */
-interface IterationRepositoryContract extends BaseRepositoryContract
+interface ArticleModificationRepositoryContract extends BaseRepositoryContract
 {}

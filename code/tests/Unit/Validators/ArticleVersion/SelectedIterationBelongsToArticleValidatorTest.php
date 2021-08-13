@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Validators\Test;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
@@ -19,7 +19,7 @@ use Tests\TestCase;
 class SelectedIterationBelongsToArticleValidatorTest extends TestCase
 {
     /**
-     * @var CustomMockInterface|IterationRepositoryContract
+     * @var CustomMockInterface|ArticleIterationRepositoryContract
      */
     private $repository;
 
@@ -37,7 +37,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->repository = mock(IterationRepositoryContract::class);
+        $this->repository = mock(ArticleIterationRepositoryContract::class);
         $this->request = mock(Request::class);
 
         $this->validator = new SelectedIterationBelongsToArticleValidator(

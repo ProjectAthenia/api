@@ -8,7 +8,7 @@ use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Repositories\Wiki\ArticleRepository;
-use App\Repositories\Wiki\IterationRepository;
+use App\Repositories\Wiki\ArticleIterationRepository;
 use App\Services\StringHelperService;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
@@ -51,7 +51,7 @@ class ArticleIterationTest extends TestCase
         $this->jwtAuth = $this->app->make(JWTAuth::class);
         $this->socket = new ArticleIterations(
             new ArticleRepository(new Article(), $this->getGenericLogMock()),
-            new IterationRepository(new ArticleIteration(), $this->getGenericLogMock()),
+            new ArticleIterationRepository(new ArticleIteration(), $this->getGenericLogMock()),
             $this->jwtAuth,
             new StringHelperService(),
         );

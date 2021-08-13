@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Article;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
 use App\Http\Core\Requests;
@@ -19,15 +19,15 @@ abstract class IterationControllerAbstract extends BaseControllerAbstract
     use HasIndexRequests;
 
     /**
-     * @var IterationRepositoryContract
+     * @var ArticleIterationRepositoryContract
      */
     private $repository;
 
     /**
      * IterationController constructor.
-     * @param IterationRepositoryContract $repository
+     * @param ArticleIterationRepositoryContract $repository
      */
-    public function __construct(IterationRepositoryContract $repository)
+    public function __construct(ArticleIterationRepositoryContract $repository)
     {
         $this->repository = $repository;
     }

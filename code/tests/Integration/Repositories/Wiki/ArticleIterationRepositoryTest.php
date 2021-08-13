@@ -7,31 +7,34 @@ use App\Exceptions\NotImplementedException;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
-use App\Repositories\Wiki\IterationRepository;
+use App\Repositories\Wiki\ArticleIterationRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
 
 /**
- * Class IterationRepositoryTest
+ * Class ArticleIterationRepositoryTest
  * @package Tests\Integration\Repositories\Wiki
  */
-class IterationRepositoryTest extends TestCase
+class ArticleIterationRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
     /**
-     * @var IterationRepository
+     * @var ArticleIterationRepository
      */
-    private $repository;
+    private ArticleIterationRepository $repository;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
 
-        $this->repository = new IterationRepository(new ArticleIteration(), $this->getGenericLogMock());
+        $this->repository = new ArticleIterationRepository(
+            new ArticleIteration(),
+            $this->getGenericLogMock(),
+        );
     }
 
     public function testDeleteThrowsException()

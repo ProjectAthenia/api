@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\User\UserMerge;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Events\User\UserMergeEvent;
 use App\Listeners\User\UserMerge\UserCreatedIterationsMergeListener;
 use App\Models\User\User;
@@ -19,7 +19,7 @@ use Tests\TestCase;
 class UserCreatedIterationsMergeListenerTest extends TestCase
 {
     /**
-     * @var IterationRepositoryContract|CustomMockInterface
+     * @var ArticleIterationRepositoryContract|CustomMockInterface
      */
     private $repository;
 
@@ -31,7 +31,7 @@ class UserCreatedIterationsMergeListenerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->repository = mock(IterationRepositoryContract::class);
+        $this->repository = mock(ArticleIterationRepositoryContract::class);
         $this->listener = new UserCreatedIterationsMergeListener($this->repository);
     }
 

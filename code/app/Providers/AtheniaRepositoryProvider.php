@@ -25,9 +25,10 @@ use App\Contracts\Repositories\Vote\BallotItemOptionRepositoryContract;
 use App\Contracts\Repositories\Vote\BallotRepositoryContract;
 use App\Contracts\Repositories\Vote\BallotItemRepositoryContract;
 use App\Contracts\Repositories\Vote\VoteRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
 use App\Models\Asset;
 use App\Models\Feature;
@@ -52,6 +53,7 @@ use App\Models\Vote\BallotItem;
 use App\Models\Vote\BallotItemOption;
 use App\Models\Vote\Vote;
 use App\Models\Wiki\Article;
+use App\Models\Wiki\ArticleModification;
 use App\Models\Wiki\ArticleVersion;
 use App\Models\Wiki\ArticleIteration;
 use App\Repositories\AssetRepository;
@@ -76,9 +78,10 @@ use App\Repositories\Vote\BallotItemOptionRepository;
 use App\Repositories\Vote\BallotRepository;
 use App\Repositories\Vote\BallotItemRepository;
 use App\Repositories\Vote\VoteRepository;
+use App\Repositories\Wiki\ArticleModificationRepository;
 use App\Repositories\Wiki\ArticleRepository;
 use App\Repositories\Wiki\ArticleVersionRepository;
-use App\Repositories\Wiki\IterationRepository;
+use App\Repositories\Wiki\ArticleIterationRepository;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -101,6 +104,8 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
     {
         return array_merge([
             ArticleRepositoryContract::class,
+            ArticleIterationRepositoryContract::class,
+            ArticleModificationRepositoryContract::class,
             ArticleVersionRepositoryContract::class,
             AssetRepositoryContract::class,
             BallotRepositoryContract::class,
@@ -109,7 +114,6 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
             BallotItemOptionRepositoryContract::class,
             ContactRepositoryContract::class,
             FeatureRepositoryContract::class,
-            IterationRepositoryContract::class,
             LineItemRepositoryContract::class,
             MembershipPlanRepositoryContract::class,
             MembershipPlanRateRepositoryContract::class,
@@ -152,6 +156,18 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
         $this->app->bind(ArticleRepositoryContract::class, function() {
             return new ArticleRepository(
                 new Article(),
+                $this->app->make('log'),
+            );
+        });
+        $this->app->bind(ArticleIterationRepositoryContract::class, function() {
+            return new ArticleIterationRepository(
+                new ArticleIteration(),
+                $this->app->make('log'),
+            );
+        });
+        $this->app->bind(ArticleModificationRepositoryContract::class, function() {
+            return new ArticleModificationRepository(
+                new ArticleModification(),
                 $this->app->make('log'),
             );
         });
@@ -206,9 +222,6 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
         });
         $this->app->bind(FeatureRepositoryContract::class, function() {
             return new FeatureRepository(new Feature(), $this->app->make('log'));
-        });
-        $this->app->bind(IterationRepositoryContract::class, function() {
-            return new IterationRepository(new ArticleIteration(), $this->app->make('log'));
         });
         $this->app->bind(LineItemRepositoryContract::class, function () {
             return new LineItemRepository(

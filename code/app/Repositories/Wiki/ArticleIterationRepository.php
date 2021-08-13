@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace App\Repositories\Wiki;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Models\Wiki\ArticleIteration;
 use App\Repositories\BaseRepositoryAbstract;
 use App\Repositories\Traits\NotImplemented;
 use Psr\Log\LoggerInterface as LogContract;
 
 /**
- * Class IterationRepository
+ * Class ArticleIterationRepository
  * @package App\Repositories\Wiki
  */
-class IterationRepository extends BaseRepositoryAbstract implements IterationRepositoryContract
+class ArticleIterationRepository extends BaseRepositoryAbstract implements ArticleIterationRepositoryContract
 {
     use NotImplemented\Delete, NotImplemented\Update;
 

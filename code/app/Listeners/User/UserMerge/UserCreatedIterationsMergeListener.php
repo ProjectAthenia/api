@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Listeners\User\UserMerge;
 
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Events\User\UserMergeEvent;
 
 /**
@@ -13,15 +13,15 @@ use App\Events\User\UserMergeEvent;
 class UserCreatedIterationsMergeListener
 {
     /**
-     * @var IterationRepositoryContract
+     * @var ArticleIterationRepositoryContract
      */
     private $iterationRepository;
 
     /**
      * UserCreatedIterationsMergeListener constructor.
-     * @param IterationRepositoryContract $iterationRepository
+     * @param ArticleIterationRepositoryContract $iterationRepository
      */
-    public function __construct(IterationRepositoryContract $iterationRepository)
+    public function __construct(ArticleIterationRepositoryContract $iterationRepository)
     {
         $this->iterationRepository = $iterationRepository;
     }

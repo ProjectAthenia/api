@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Sockets;
 
 use App\Contracts\Repositories\Wiki\ArticleRepositoryContract;
-use App\Contracts\Repositories\Wiki\IterationRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Contracts\Services\StringHelperServiceContract;
 use App\Exceptions\AuthenticationException;
 use App\Models\User\User;
@@ -35,7 +35,7 @@ class ArticleIterations extends BaseSocketListener
     private $articleRepository;
 
     /**
-     * @var IterationRepositoryContract
+     * @var ArticleIterationRepositoryContract
      */
     private $iterationRepository;
 
@@ -52,12 +52,12 @@ class ArticleIterations extends BaseSocketListener
     /**
      * ArticleIterations constructor.
      * @param ArticleRepositoryContract $articleRepository
-     * @param IterationRepositoryContract $iterationRepository
+     * @param ArticleIterationRepositoryContract $iterationRepository
      * @param JWTAuth $jwtAuth
      * @param StringHelperServiceContract $stringHelperService
      */
     public function __construct(ArticleRepositoryContract $articleRepository,
-                                IterationRepositoryContract $iterationRepository,
+                                ArticleIterationRepositoryContract $iterationRepository,
                                 JWTAuth $jwtAuth,
                                 StringHelperServiceContract $stringHelperService)
     {
