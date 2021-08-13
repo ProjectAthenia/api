@@ -21,7 +21,7 @@ use Illuminate\Validation\Rule;
  * @property mixed|null $created_at
  * @property mixed|null $updated_at
  * @property-read \App\Models\Wiki\Article $article
- * @property-read \App\Models\Wiki\ArticleIteration $iteration
+ * @property-read \App\Models\Wiki\ArticleIteration $articleIteration
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion newModelQuery()
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion newQuery()
  * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleVersion query()
@@ -53,9 +53,9 @@ class ArticleVersion extends BaseModelAbstract implements HasValidationRulesCont
      *
      * @return BelongsTo
      */
-    public function iteration(): BelongsTo
+    public function articleIteration(): BelongsTo
     {
-        return $this->belongsTo(ArticleIteration::class, 'article_iteration_id');
+        return $this->belongsTo(ArticleIteration::class);
     }
 
     /**

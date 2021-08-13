@@ -57,8 +57,8 @@ class ArticleVersionCreatedListener implements ShouldQueue
 
             if (count($oldVersionNumber) >= 3) {
 
-                $newVersionContent = $newVersion->iteration ? $newVersion->iteration->content : null;
-                $oldVersionContent = $oldVersion->iteration ? $oldVersion->iteration->content : null;
+                $newVersionContent = $newVersion->articleIteration ? $newVersion->articleIteration->content : null;
+                $oldVersionContent = $oldVersion->articleIteration ? $oldVersion->articleIteration->content : null;
 
                 $major = $oldVersionNumber[0] - 0;
                 $minor = $oldVersionNumber[1] - 0;

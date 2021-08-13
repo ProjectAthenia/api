@@ -87,11 +87,11 @@ class ArticleVersionRepositoryTest extends TestCase
 
         /** @var ArticleVersion $articleVersion */
         $articleVersion = $this->repository->create([
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ], $article);
 
         $this->assertEquals($articleVersion->article_id, $article->id);
-        $this->assertEquals($articleVersion->iteration_id, $iteration->id);
+        $this->assertEquals($articleVersion->article_iteration_id, $iteration->id);
     }
 
     public function testUpdateSuccess()

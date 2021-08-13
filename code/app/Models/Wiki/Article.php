@@ -104,7 +104,7 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function getContentAttribute() : ?string
     {
-        return $this->current_version?->iteration?->content;
+        return $this->current_version?->articleIteration?->content;
     }
 
     /**
