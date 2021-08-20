@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Contracts\Services;
+namespace App\Contracts\Services\Wiki;
 
 use App\Models\Wiki\ArticleVersion;
 
