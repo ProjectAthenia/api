@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Wiki;
 
-use App\Contracts\Services\ArticleVersionCalculationServiceContract;
-use nochso\Diff\Diff;
-use nochso\Diff\DiffLine;
+use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use SebastianBergmann\Diff\Diff;
 
 /**
  * Class ArticleVersionCalculationService
