@@ -124,6 +124,9 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function getLastIterationContentAttribute() : ?string
     {
+        if (isset($this->attributes['last_iteration_content'])) {
+            return $this->attributes['last_iteration_content'];
+        }
         /** @var ArticleIteration|null $iteration */
         $iteration = $this->iterations()->limit(1)->get()->first();
         return $iteration ? $iteration->content : null;

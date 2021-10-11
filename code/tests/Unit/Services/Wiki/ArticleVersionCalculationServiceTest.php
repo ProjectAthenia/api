@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\Services\Wiki;
 
-use App\Services\ArticleVersionCalculationService;
+use App\Services\Wiki\ArticleVersionCalculationService;
 use Tests\TestCase;
 
 /**
