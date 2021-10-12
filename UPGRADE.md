@@ -2,6 +2,10 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+## 1.4.2
+
+Simple one! Copy over `code/app/Repositories/BaseRepositoryAbstract.php` to allow for in and not in filters.
+
 ## 1.4.1
 
 * code/tests/Integration/Repositories/User/UserRepositoryTest.php - Simple fix to function name
