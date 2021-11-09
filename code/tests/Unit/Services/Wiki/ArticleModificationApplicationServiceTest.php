@@ -64,11 +64,46 @@ class ArticleModificationApplicationServiceTest extends TestCase
 
     public function testApplyModificationAdd()
     {
+        $user = new User();
+        $user->id = 23;
+        $article = new Article([
+            'last_iteration_content' => 'This is a removal test of .'
+        ]);
+        $articleModification = new ArticleModification([
+            'action' => 'add',
+            'content' => 'this',
+            'start_position' => 26,
+            'article' => $article,
+        ]);
 
+        $this->iterationRepository->shouldReceive('create')->once()->with([
+            'content' => 'This is a removal test of this.',
+            'created_by_id' => 23,
+        ], $article);
+
+        $this->service->applyModification($user, $articleModification);
     }
 
     public function testApplyModificationReplace()
     {
+        $user = new User();
+        $user->id = 23;
+        $article = new Article([
+            'last_iteration_content' => 'This is a removal test of something.'
+        ]);
+        $articleModification = new ArticleModification([
+            'action' => 'replace',
+            'content' => 'this',
+            'start_position' => 26,
+            'length' => 9,
+            'article' => $article,
+        ]);
 
+        $this->iterationRepository->shouldReceive('create')->once()->with([
+            'content' => 'This is a removal test of this.',
+            'created_by_id' => 23,
+        ], $article);
+
+        $this->service->applyModification($user, $articleModification);
     }
 }
