@@ -7,7 +7,6 @@
     "require": {
         "php": ">=7.2.0",
         "benwilkins/laravel-fcm-notification": "^4.0",
-        "beyondcode/laravel-websockets": "^1.12",
         "cartalyst/stripe-laravel": "^13.0",
         "doctrine/dbal": "^2.10",
         "fico7489/laravel-eloquent-join": "^4.0",
@@ -17,10 +16,9 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "~2.0",
         "pda/pheanstalk": "^4.0",
-        "pusher/pusher-php-server": "~3.0",
+        "pusher/pusher-php-server": "~7.0",
         "roave/security-advisories": "dev-master",
         "sebastian/diff": "^4.0",
-        "tymon/jwt-auth": "^1.0",
         "xantios/mimey": "^2.1"
     },
     "require-dev": {
