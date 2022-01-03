@@ -16,7 +16,7 @@ use Psr\Http\Message\UriInterface;
 use Ratchet\ConnectionInterface;
 use Tests\CustomMockInterface;
 use Tests\TestCase;
-use Tymon\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 /**
  * Class ArticleIterationTest

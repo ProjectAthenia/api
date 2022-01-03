@@ -14,7 +14,7 @@ use Orchid\Socket\BaseSocketListener;
 use Psr\Http\Message\RequestInterface;
 use Ratchet\ConnectionInterface;
 use SplObjectStorage;
-use Tymon\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 /**
  * Class ArticleIterations
