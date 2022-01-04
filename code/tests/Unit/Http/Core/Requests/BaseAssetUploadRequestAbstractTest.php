@@ -72,6 +72,6 @@ class BaseAssetUploadRequestAbstractTest extends TestCase
 
         callMethod($request, 'validationData');
 
-        $this->assertEquals('image/svg', $request->getFileMimeType());
+        $this->assertEquals('image/svg+xml', $request->getFileMimeType());
     }
 }
