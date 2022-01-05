@@ -16,7 +16,9 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "~2.0",
         "pda/pheanstalk": "^4.0",
+        "php-open-source-saver/jwt-auth": "^1.2",
         "pusher/pusher-php-server": "~7.0",
+        "ralouphie/mimey": "^1.0",
         "roave/security-advisories": "dev-master",
         "sebastian/diff": "^4.0",
         "xantios/mimey": "^2.1"

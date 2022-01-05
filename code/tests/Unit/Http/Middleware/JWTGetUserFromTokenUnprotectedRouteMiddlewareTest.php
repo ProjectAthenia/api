@@ -7,7 +7,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use App\Http\Middleware\JWTGetUserFromTokenUnprotectedRouteMiddleware;
 use Tests\TestCase;
-use Tymon\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 /**
  * Class JWTGetUserFromTokenUnprotectedRouteMiddlewareTest

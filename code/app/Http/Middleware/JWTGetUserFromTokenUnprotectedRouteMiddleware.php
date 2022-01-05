@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Application;
-use Tymon\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 /**
  * Class JWTGetUserFromTokenUnprotectedRouteMiddleware
@@ -26,7 +26,7 @@ class JWTGetUserFromTokenUnprotectedRouteMiddleware
      * Create a new middleware instance.
      *
      * @param Application $application
-     * @param \Tymon\JWTAuth\JWTAuth $auth
+     * @param \PHPOpenSourceSaver\JWTAuth\JWTAuth $auth
      */
     public function __construct(Application $application, JWTAuth $auth)
     {

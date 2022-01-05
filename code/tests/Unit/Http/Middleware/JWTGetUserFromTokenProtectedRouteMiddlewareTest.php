@@ -9,7 +9,7 @@ use App\Exceptions\JWT\TokenMissingException;
 use App\Exceptions\JWT\TokenUserNotFoundException;
 use App\Http\Middleware\JWTGetUserFromTokenProtectedRouteMiddleware;
 use Tests\TestCase;
-use Tymon\JWTAuth\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 /**
  * Class JWTGetUserFromTokenProtectedRouteMiddlewareTest
