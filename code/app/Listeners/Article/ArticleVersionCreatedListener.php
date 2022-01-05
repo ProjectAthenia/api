@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Listeners\Article;
 
 use App\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
-use App\Contracts\Services\ArticleVersionCalculationServiceContract;
+use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use App\Events\Article\ArticleVersionCreatedEvent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

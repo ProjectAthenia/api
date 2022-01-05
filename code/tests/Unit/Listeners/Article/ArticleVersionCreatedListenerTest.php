@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Article;
 
 use App\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
-use App\Contracts\Services\ArticleVersionCalculationServiceContract;
+use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use App\Events\Article\ArticleVersionCreatedEvent;
 use App\Listeners\Article\ArticleVersionCreatedListener;
 use App\Models\Wiki\ArticleVersion;
@@ -46,12 +46,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);
@@ -67,12 +67,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);
@@ -89,12 +89,12 @@ class ArticleVersionCreatedListenerTest extends TestCase
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some Content',
             ]),
         ]);
         $newVersion = new ArticleVersion([
-            'iteration' => new ArticleIteration([
+            'articleIteration' => new ArticleIteration([
                 'content' => 'Some new Content',
             ]),
         ]);

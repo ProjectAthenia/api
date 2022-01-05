@@ -21,10 +21,10 @@ class ArticleVersionTest extends TestCase
         $this->assertEquals('article_versions.article_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testIteration()
+    public function testArticleIteration()
     {
         $article = new ArticleVersion();
-        $relation = $article->iteration();
+        $relation = $article->articleIteration();
 
         $this->assertEquals('article_iterations.id', $relation->getQualifiedOwnerKeyName());
         $this->assertEquals('article_versions.article_iteration_id', $relation->getQualifiedForeignKeyName());
