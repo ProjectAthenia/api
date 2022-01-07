@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Services\Wiki;
 
 use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
-use SebastianBergmann\Diff\Diff;
+use SebastianBergmann\Diff\Differ;
 
 /**
  * Class ArticleVersionCalculationService
@@ -13,7 +13,7 @@ use SebastianBergmann\Diff\Diff;
 class ArticleVersionCalculationService implements ArticleVersionCalculationServiceContract
 {
     /**
-     * @var Diff
+     * @var array[]
      */
     private $diff;
 
@@ -39,29 +39,35 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
      */
     public function parseDiff(string $newContent, string $oldContent)
     {
-        $this->diff = Diff::create($newContent, $oldContent);
+        $differ = new Differ();
+        $this->diff = $differ->diffToArray($newContent, $oldContent);
 
-        foreach ($this->diff->getDiffLines() as $line) {
-            if ($line->getText()) {
+        $lineNumber = 0;
+        foreach ($this->diff as $line) {
+            if ($line[0]) {
+                $isAddition = $line[1] == Differ::ADDED;
+                if (!$isAddition) {
+                    $lineNumber++;
+                }
 
-                if ($line->isRemoval()) {
+                if ($line[1] == Differ::REMOVED) {
                     $this->removedLinesOfContent++;
                 }
-                if ($line->isAddition()) {
+                if ($isAddition) {
                     $this->addedLinesOfContent++;
                 }
 
-                if ($line->isRemoval() || $line->isAddition()) {
-                    if (!isset($this->matches[$line->getLineNumberFrom()])) {
-                        $this->matches[$line->getLineNumberFrom()] = [
+                if ($line[1] != Differ::OLD) {
+                    if (!isset($this->matches[$lineNumber])) {
+                        $this->matches[$lineNumber] = [
                             'addition' => null,
                             'removal' => null,
                         ];
                     }
 
-                    $key = $line->isAddition() ? 'addition' : 'removal';
+                    $key = $isAddition ? 'addition' : 'removal';
 
-                    $this->matches[$line->getLineNumberFrom()][$key] = $line;
+                    $this->matches[$lineNumber][$key] = $line[0];
                 }
             }
         }
@@ -81,12 +87,13 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
         $newProcessed = implode("\n", str_split($new));
         $oldProcessed = implode("\n", str_split($old));
 
-        $diff = Diff::create($oldProcessed, $newProcessed);
+        $differ = new Differ();
+        $diff = $differ->diffToArray($oldProcessed . "\n", $newProcessed . "\n");
 
         $charactersChanged = 0;
 
-        foreach ($diff->getDiffLines() as $line) {
-            if ($line->isAddition() || $line->isRemoval()) {
+        foreach ($diff as $line) {
+            if ($line[1] != Differ::OLD) {
                 $charactersChanged++;
             }
         }
@@ -114,20 +121,20 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
 
         foreach ($this->matches as $match) {
 
-            /** @var DiffLine|null $removal */
+            /** @var string|null $removal */
             $removal = $match['removal'];
-            /** @var DiffLine|null $addition */
+            /** @var string|null $addition */
             $addition = $match['addition'];
 
             // If a header is removed we need to a analyze this a bit more
-            if ($removal && strpos($removal->getText(), '#') === 0) {
+            if ($removal && strpos($removal, '#') === 0) {
                 // A header was completely removed
-                if (!$addition || strpos($addition->getText(), '#') !== 0) {
+                if (!$addition || strpos($addition, '#') !== 0) {
                     return true;
                 }
 
                 // now they are both headers, so we will compare the percentage change to see if it was a large change
-                if ($this->calculateTextDiffPercentage($addition->getText(), $removal->getText()) > 0.33) {
+                if ($this->calculateTextDiffPercentage($addition, $removal) > 0.33) {
                     return true;
                 }
             }
@@ -138,7 +145,7 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
             }
 
             if ($removal && $addition) {
-                return $this->calculateTextDiffPercentage($addition->getText(), $removal->getText()) > .5;
+                return $this->calculateTextDiffPercentage($addition, $removal) > .5;
             }
         }
         return false;
@@ -164,9 +171,9 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
 
         foreach ($this->matches as $match) {
 
-            /** @var DiffLine|null $removal */
+            /** @var string|null $removal */
             $removal = $match['removal'];
-            /** @var DiffLine|null $addition */
+            /** @var string|null $addition */
             $addition = $match['addition'];
 
             // If either of these are not here, then we can be 100% certain that there was a pretty big change
@@ -174,7 +181,7 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
                 return true;
             }
 
-            return $this->calculateTextDiffPercentage($addition->getText(), $removal->getText()) > .2;
+            return $this->calculateTextDiffPercentage($addition, $removal) > .2;
         }
 
         return false;
