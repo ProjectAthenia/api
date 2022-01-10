@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Services\Wiki;
 
 use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Pure;
 use SebastianBergmann\Diff\Differ;
 
 /**
@@ -33,6 +35,21 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
     private $matches = [];
 
     /**
+     * Makes sure every piece of content has our correct line endings
+     *
+     * @param $content
+     * @return string
+     */
+    #[Pure] private function normalizeLineEndings($content): string
+    {
+        if (!Str::endsWith($content, "\n")) {
+            $content.= "\n";
+        }
+
+        return $content;
+    }
+
+    /**
      * ArticleVersionCalculationService constructor.
      * @param string $newContent
      * @param string $oldContent
@@ -40,15 +57,17 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
     public function parseDiff(string $newContent, string $oldContent)
     {
         $differ = new Differ();
-        $this->diff = $differ->diffToArray($newContent, $oldContent);
+        $this->diff = $differ->diffToArray($this->normalizeLineEndings($oldContent), $this->normalizeLineEndings($newContent));
 
         $lineNumber = 0;
+        $lastAction = Differ::OLD;
         foreach ($this->diff as $line) {
             if ($line[0]) {
                 $isAddition = $line[1] == Differ::ADDED;
-                if (!$isAddition) {
+                if ($line[1] != Differ::OLD && $line[1] == $lastAction) {
                     $lineNumber++;
                 }
+                $lastAction = $line[1];
 
                 if ($line[1] == Differ::REMOVED) {
                     $this->removedLinesOfContent++;
@@ -164,11 +183,6 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
             $this->parseDiff($new, $old);
         }
 
-        // Any time there is new content, it is a minor bump
-        if ($this->addedLinesOfContent > $this->removedLinesOfContent) {
-            return true;
-        }
-
         foreach ($this->matches as $match) {
 
             /** @var string|null $removal */
@@ -176,12 +190,17 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
             /** @var string|null $addition */
             $addition = $match['addition'];
 
-            // If either of these are not here, then we can be 100% certain that there was a pretty big change
-            if (!$removal || !$addition) {
-                return true;
-            }
+            if ($addition && trim($addition) || $removal && trim($removal)) {
 
-            return $this->calculateTextDiffPercentage($addition, $removal) > .2;
+                // If either of these are not here, then we can be 100% certain that there was a pretty big change
+                if (!$removal || !$addition) {
+                    return true;
+                }
+
+                if ($this->calculateTextDiffPercentage($addition, $removal) > .2) {
+                    return true;
+                }
+            }
         }
 
         return false;

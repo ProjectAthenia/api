@@ -44,8 +44,8 @@ class ArticleVersionCalculationServiceTest extends TestCase
     {
         $service = new ArticleVersionCalculationService();
 
-        $newContent = "# header\n\nSomething for a test\n\n## let's remove this header\n\nHopefully it will work";
-        $oldContent = "# header\n\nSomething for a test\n\nHopefully it will work";
+        $oldContent = "# header\n\nSomething for a test\n\n## let's remove this header\n\nHopefully it will work";
+        $newContent = "# header\n\nSomething for a test\n\nHopefully it will work";
 
         $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
     }
@@ -77,7 +77,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $newContent = "# header\n\nSomething for a test\n\nHopefully it will work\n\nHere's a new paragraph";
         $oldContent = "# header\n\nSomething for a test\n\nHopefully it will work";
 
-        $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
+        $this->assertTrue($service->determineIfMinor($newContent, $oldContent));
     }
 
     public function testDetermineIfMinorReturnsFalseWhenALineBreakWasAdded()
@@ -87,7 +87,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $newContent = "# header\n\nSomething for a test\n\nHopefully it will work\n\n";
         $oldContent = "# header\n\nSomething for a test\n\nHopefully it will work";
 
-        $this->assertFalse($service->determineIfMajor($newContent, $oldContent));
+        $this->assertFalse($service->determineIfMinor($newContent, $oldContent));
     }
 
     public function testDetermineIfMinorReturnsTrueWhenANewSentenceWasAdded()
@@ -97,7 +97,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $newContent = "# header\n\nSomething for a test\n\nHopefully it will work. Here's another sentence";
         $oldContent = "# header\n\nSomething for a test\n\nHopefully it will work";
 
-        $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
+        $this->assertTrue($service->determineIfMinor($newContent, $oldContent));
     }
 
     public function testDetermineIfMinorReturnsFalseWhenPunctuationWasChanged()
@@ -107,6 +107,6 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $newContent = "# header\n\nSomething for a test.\n\nHopefully it will work.";
         $oldContent = "# header\n\nSomething for a test\n\nHopefully it will work";
 
-        $this->assertFalse($service->determineIfMajor($newContent, $oldContent));
+        $this->assertFalse($service->determineIfMinor($newContent, $oldContent));
     }
 }
