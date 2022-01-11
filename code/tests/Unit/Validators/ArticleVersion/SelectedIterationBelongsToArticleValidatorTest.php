@@ -48,14 +48,14 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
 
     public function testValidatePassesQuestionOptionIdNotSet()
     {
-        $this->assertTrue($this->validator->validate('iteration_id', null));
+        $this->assertTrue($this->validator->validate('article_iteration_id', null));
     }
 
     public function testValidateFailsQuestionIdNotSet()
     {
         $this->request->shouldReceive('route')->once()->with('article', null)->andReturn(null);
 
-        $this->assertFalse($this->validator->validate('iteration_id', 332));
+        $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
     public function testValidateFailsQuestionOptionNotFound()
@@ -65,7 +65,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         $this->request->shouldReceive('route')->once()->with('article', null)->andReturn($article);
         $this->repository->shouldReceive('findOrFail')->once()->andThrow(ModelNotFoundException::class);
 
-        $this->assertFalse($this->validator->validate('iteration_id', 332));
+        $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
     public function testValidateFailsQuestionOptionAndQuestionIdDoesNotMatch()
@@ -77,7 +77,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
             'article_id' => 454,
         ]));
 
-        $this->assertFalse($this->validator->validate('iteration_id', 332));
+        $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
     public function testValidatePasses()
@@ -89,6 +89,6 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
             'article_id' => 453,
         ]));
 
-        $this->assertTrue($this->validator->validate('iteration_id', 332));
+        $this->assertTrue($this->validator->validate('article_iteration_id', 332));
     }
 }

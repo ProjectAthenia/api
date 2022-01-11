@@ -53,7 +53,7 @@ class SelectedIterationBelongsToArticleValidator extends BaseValidatorAbstract
      */
     public function validate($attribute, $value, $parameters = [], Validator $validator = null)
     {
-        $this->ensureValidatorAttribute('iteration_id', $attribute);
+        $this->ensureValidatorAttribute('article_iteration_id', $attribute);
 
         if (!$value) {
             return true;

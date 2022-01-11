@@ -11,7 +11,7 @@ use App\Policies\BasePolicyAbstract;
  * Class IterationPolicy
  * @package App\Policies\Wiki
  */
-class IterationPolicy extends BasePolicyAbstract
+class ArticleIterationPolicy extends BasePolicyAbstract
 {
     /**
      * All logged in users can currently see all article iterations right now

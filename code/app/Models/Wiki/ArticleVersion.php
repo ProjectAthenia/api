@@ -65,17 +65,15 @@ class ArticleVersion extends BaseModelAbstract implements HasValidationRulesCont
      */
     public function buildModelValidationRules(...$params): array
     {
-        $articleIterationProps = [
-            'bail',
-            'required',
-            'int',
-            Rule::exists('iterations', 'id'),
-            SelectedIterationBelongsToArticleValidator::KEY,
-        ];
         return [
             static::VALIDATION_RULES_BASE => [
-                'article_iteration_id' => $articleIterationProps,
-                'iteration_id' => $articleIterationProps,
+                'article_iteration_id' => [
+                    'bail',
+                    'required',
+                    'int',
+                    Rule::exists('article_iterations', 'id'),
+                    SelectedIterationBelongsToArticleValidator::KEY,
+                ],
             ],
         ];
     }

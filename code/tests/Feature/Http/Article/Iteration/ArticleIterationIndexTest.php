@@ -48,10 +48,10 @@ class ArticleIterationIndexTest extends TestCase
 
     public function testIncorrectUserRoleBlocked()
     {
+        $article = Article::factory()->create();
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR]) as $role) {
             $this->actAs($role);
 
-            $article = Article::factory()->create();
             $response = $this->json('GET', $this->path . $article->id . '/iterations');
 
             $response->assertStatus(403);
@@ -60,9 +60,9 @@ class ArticleIterationIndexTest extends TestCase
 
     public function testGetPaginationEmpty()
     {
+        $article = Article::factory()->create();
         foreach ([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR] as $role) {
             $this->actAs($role);
-            $article = Article::factory()->create();
             $response = $this->json('GET', $this->path . $article->id . '/iterations');
 
             $response->assertStatus(200);

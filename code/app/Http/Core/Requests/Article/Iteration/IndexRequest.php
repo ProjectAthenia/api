@@ -7,7 +7,7 @@ use App\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Http\Core\Requests\Traits\HasNoPolicyParameters;
 use App\Http\Core\Requests\Traits\HasNoRules;
 use App\Models\Wiki\ArticleIteration;
-use App\Policies\Wiki\IterationPolicy;
+use App\Policies\Wiki\ArticleIterationPolicy;
 
 /**
  * Class IndexRequest
@@ -24,7 +24,7 @@ class IndexRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyAction(): string
     {
-        return IterationPolicy::ACTION_LIST;
+        return ArticleIterationPolicy::ACTION_LIST;
     }
 
     /**

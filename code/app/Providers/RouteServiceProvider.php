@@ -29,10 +29,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     private $modelPlaceHolders = [
         'article' => Article::class,
+        'article_iteration' => ArticleIteration::class,
         'ballot' => Ballot::class,
         'ballot_completion' => BallotCompletion::class,
         'feature' => Feature::class,
-        'iteration' => ArticleIteration::class,
         'membership_plan' => MembershipPlan::class,
         'organization' => Organization::class,
         'organization_manager' => OrganizationManager::class,

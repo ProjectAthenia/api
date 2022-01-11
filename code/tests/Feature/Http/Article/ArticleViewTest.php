@@ -77,7 +77,7 @@ class ArticleViewTest extends TestCase
         ]);
         ArticleVersion::factory()->create([
             'article_id' => $this->article->id,
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ]);
 
         $response = $this->json('GET', $this->path);

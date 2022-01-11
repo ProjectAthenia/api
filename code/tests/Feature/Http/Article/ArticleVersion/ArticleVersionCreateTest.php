@@ -60,13 +60,13 @@ class ArticleVersionCreateTest extends TestCase
         ]);
 
         $response = $this->json('POST', $this->path . $article->id . '/versions', [
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ]);
 
         $response->assertStatus(201);
 
         $articleVersion = ArticleVersion::first();
-        $this->assertEquals($articleVersion->iteration_id, $iteration->id);
+        $this->assertEquals($articleVersion->article_iteration_id, $iteration->id);
     }
 
     public function testCreateInvalidIntegerFields()
@@ -78,14 +78,14 @@ class ArticleVersionCreateTest extends TestCase
         ]);
 
         $response = $this->json('POST', $this->path . $article->id . '/versions', [
-            'iteration_id' => 'hi',
+            'article_iteration_id' => 'hi',
         ]);
 
         $response->assertStatus(400);
 
         $response->assertJson([
             'errors' => [
-                'iteration_id' => ['The iteration id must be an integer.'],
+                'article_iteration_id' => ['The article iteration id must be an integer.'],
             ],
         ]);
     }
@@ -99,14 +99,14 @@ class ArticleVersionCreateTest extends TestCase
         ]);
 
         $response = $this->json('POST', $this->path . $article->id . '/versions', [
-            'iteration_id' => 245,
+            'article_iteration_id' => 245,
         ]);
 
         $response->assertStatus(400);
 
         $response->assertJson([
             'errors' => [
-                'iteration_id' => ['The selected iteration id is invalid.'],
+                'article_iteration_id' => ['The selected article iteration id is invalid.'],
             ],
         ]);
     }
@@ -121,14 +121,14 @@ class ArticleVersionCreateTest extends TestCase
         $iteration = ArticleIteration::factory()->create();
 
         $response = $this->json('POST', $this->path . $article->id . '/versions', [
-            'iteration_id' => $iteration->id,
+            'article_iteration_id' => $iteration->id,
         ]);
 
         $response->assertStatus(400);
 
         $response->assertJson([
             'errors' => [
-                'iteration_id' => ['The selected iteration id does not seem to be from the related article.'],
+                'article_iteration_id' => ['The selected article iteration id does not seem to be from the related article.'],
             ],
         ]);
     }

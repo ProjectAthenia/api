@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Integration\Policies\Wiki;
 
 use App\Models\Role;
-use App\Policies\Wiki\IterationPolicy;
+use App\Policies\Wiki\ArticleIterationPolicy;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\RolesTesting;
@@ -19,7 +19,7 @@ class IterationPolicyTest extends TestCase
 
     public function IterationPolicy()
     {
-        $policy = new IterationPolicy();
+        $policy = new ArticleIterationPolicy();
 
         foreach ([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER] as $role) {
             $user = $this->getUserOfRole($role);
@@ -30,7 +30,7 @@ class IterationPolicyTest extends TestCase
 
     public function testAllBlocks()
     {
-        $policy = new IterationPolicy();
+        $policy = new ArticleIterationPolicy();
 
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER]) as $role) {
             $user = $this->getUserOfRole($role);

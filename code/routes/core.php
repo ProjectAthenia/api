@@ -50,6 +50,9 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
     ]);
     Route::group(['prefix' => 'articles/{article}', 'as' => 'article.'], function () {
         Route::resource('iterations', 'Article\IterationController', [
+            'parameters' => [
+                'iterations' => 'article_iteration',
+            ],
             'only' => [
                 'index',
             ],
