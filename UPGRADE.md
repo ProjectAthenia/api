@@ -25,3 +25,18 @@ The follonw packages have been added...
 * fakerphp/faker - dev
 
 Then the package phploc/phploc needs to be upgraded from ^6.0 to ^7.0
+
+### Ansible changes
+
+The application level ansible stuff was renamed from `athenia` to `app`. All changes after that are listed below.
+
+* ansible/playbook.yml - Updated athenia reference to app
+* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Changed PHP version to 8.0
+* ansible/roles/php/tasks/main.yml - Changed all package installs to related 8.0 versions
+
+
+* code/app/Contracts/Repositories/Wiki/{IterationRepositoryContract.php => ArticleIterationRepositoryContract.php}
+* code/app/Contracts/Repositories/Wiki/ArticleModificationRepositoryContract.php
+* code/app/Contracts/Services/Wiki/ArticleModificationApplicationServiceContract.php
+* code/app/Contracts/Services/{ => Wiki}/ArticleVersionCalculationServiceContract.php
+* code/app/Exceptions/Handler.php 
