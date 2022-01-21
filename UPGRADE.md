@@ -36,30 +36,38 @@ The application level ansible stuff was renamed from `athenia` to `app`. All cha
 
 ### Socket Changes
 
-The socket article functionality has entirely been reworked. With this, a number of cleanup tasks have also ben completed.
+The socket article functionality has entirely been reworked. With this, a number of cleanup tasks have also been completed including renaming the Iteration model to ArticleIteration.
 
 * code/app/Contracts/Repositories/Wiki/{IterationRepositoryContract.php => ArticleIterationRepositoryContract.php}
 * code/app/Contracts/Repositories/Wiki/ArticleModificationRepositoryContract.php
 * code/app/Contracts/Services/Wiki/ArticleModificationApplicationServiceContract.php
 * code/app/Contracts/Services/{ => Wiki}/ArticleVersionCalculationServiceContract.php
 * code/app/Http/Core/Controllers/Article/IterationControllerAbstract.php
-
-
-* code/app/Exceptions/Handler.php
-* code/app/Http/Core/Controllers/AuthenticationControllerAbstract.php
-* code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php
-* code/app/Http/Core/Requests/Article/Iteration/IndexRequest.php
-* code/app/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddleware.php
-* code/app/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddleware.php
-* code/app/Http/Sockets/ArticleIterations.php
-* code/app/Listeners/Article/ArticleVersionCreatedListener.php
-* code/app/Listeners/User/UserMerge/UserCreatedIterationsMergeListener.php
-* code/app/Models/User/User.php
-* code/app/Models/Wiki/Article.php
+* code/app/Http/Core/Requests/Article/Iteration/IndexRequest.php - Updated policy name
+* code/app/Http/Sockets/ArticleIterations.php - Removed
+* code/app/Listeners/Article/ArticleVersionCreatedListener.php - References to Iteration changed to ArticleIteration
+* code/app/Listeners/User/UserMerge/UserCreatedIterationsMergeListener.php - References to Iteration changed to ArticleIteration
+* code/app/Models/User/User.php - References to Iteration changed to ArticleIteration
+* code/app/Models/Wiki/Article.php - Massive changes for the iteration name change
 * code/app/Models/Wiki/{Iteration.php => ArticleIteration.php}
 * code/app/Models/Wiki/ArticleModification.php
 * code/app/Models/Wiki/ArticleVersion.php
 * code/app/Policies/Wiki/{IterationPolicy.php => ArticleIterationPolicy.php}
+
+### JWT Package Change
+
+The old JWT package is no longer being maintained, so that has been replaced. By simply running a find and replace for Tymon -> PHPOpenSourceSaver most of the file changes should be addressed. The below files will automatically be updated when that happens.
+
+* code/app/Exceptions/Handler.php
+* code/app/Http/Core/Controllers/AuthenticationControllerAbstract.php
+* code/app/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddleware.php
+* code/app/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddleware.php
+
+### Default message order
+
+The default order for the message endpoint has been updated to be explicit if an order is not passed in. To complete this update simply update this `code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php` file.
+
+
 * code/app/Providers/AppServiceProvider.php
 * code/app/Providers/AtheniaRepositoryProvider.php
 * code/app/Providers/BroadcastServiceProvider.php
