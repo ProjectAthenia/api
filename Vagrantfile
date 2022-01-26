@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
             "dev-socket.projectathenia.com",
         ]
 
-        dev.vm.box = "ubuntu/bionic64"
+        dev.vm.box = "ubuntu/focal64"
         dev.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "www-data", mount_options: ["dmode=775,fmode=775"]
 
         dev.vm.provider :virtualbox do |vb|
@@ -59,6 +59,7 @@ Vagrant.configure("2") do |config|
         dev.vm.provision "ansible" do |ansible|
             shared_ansible_config ansible
             ansible.host_key_checking = false ## override for local
+            ansible.compatibility_mode = "2.0"
             ansible.extra_vars = {
                 server_name: dev.vm.hostname,
                 socket_server_name: "dev-socket.projectathenia.com",

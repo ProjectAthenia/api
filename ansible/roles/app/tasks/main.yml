@@ -21,43 +21,82 @@
     dest: /etc/nginx/sites-enabled/socket.projectathenia.com.conf
     state: link
 
-- name: Create postgres user
-  become: true
-  become_user: postgres
-  postgresql_user:
-    name="{{postgres_user}}"
-    password="{{postgres_password}}"
-    encrypted=yes
-    role_attr_flags=SUPERUSER
+
+- name: Create mysql user
+  mysql_user:
+    name="{{database_user}}"
+    password="{{database_password}}"
+    priv=*.*:ALL
     state=present
-    login_user=postgres
+    login_user=root
+    login_password={{mysql_root_pass}}
 
 - name: Create empty db
-  become: true
-  become_user: postgres
-  postgresql_db:
+  mysql_db:
     name: "athenia"
+    encoding: "utf8"
+    collation: "utf8_unicode_ci"
     state: "present"
+    login_user: "{{database_user}}"
+    login_password: "{{database_password}}"
 
 - name: Create test mysql user
-  become: true
-  become_user: postgres
-  postgresql_user:
-    name="{{test_postgres_user}}"
-    password="{{test_postgres_pass}}"
-    encrypted=yes
-    role_attr_flags=SUPERUSER
+  mysql_user:
+    name="{{test_database_user}}"
+    password="{{test_database_password}}"
+    priv=*.*:ALL
     state=present
-    login_user=postgres
+    login_user=root
+    login_password={{mysql_root_pass}}
   when: server_env == "development"
 
 - name: Create test empty db
-  become: true
-  become_user: postgres
-  postgresql_db:
-    name: "athenia_test"
+  mysql_db:
+    name: "test_athenia"
+    encoding: "utf8"
+    collation: "utf8_unicode_ci"
     state: "present"
+    login_user: "{{test_database_user}}"
+    login_password: "{{test_database_password}}"
   when: server_env == "development"
+
+#- name: Create postgres user
+#  become: true
+#  become_user: postgres
+#  postgresql_user:
+#    name="{{database_user}}"
+#    password="{{database_password}}"
+#    encrypted=yes
+#    role_attr_flags=SUPERUSER
+#    state=present
+#    login_user=postgres
+#
+#- name: Create empty db
+#  become: true
+#  become_user: postgres
+#  postgresql_db:
+#    name: "athenia"
+#    state: "present"
+#
+#- name: Create test postgres user
+#  become: true
+#  become_user: postgres
+#  postgresql_user:
+#    name="{{test_database_user}}"
+#    password="{{test_database_password}}"
+#    encrypted=yes
+#    role_attr_flags=SUPERUSER
+#    state=present
+#    login_user=postgres
+#  when: server_env == "development"
+#
+#- name: Create test empty db
+#  become: true
+#  become_user: postgres
+#  postgresql_db:
+#    name: "athenia_test"
+#    state: "present"
+#  when: server_env == "development"
 
 - name: Install Apache ANT
   apt: name=ant state=present

@@ -5,5 +5,5 @@
     - beanstalk
     - nginx
     - php
-    - postgres
+    - mysql
     - app

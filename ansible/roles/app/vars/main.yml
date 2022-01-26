@@ -1,4 +1,4 @@
-postgres_user: athenia
-postgres_password: password
-test_postgres_user: test_athenia
-test_postgres_pass: testpassword
+database_user: athenia
+database_password: password
+test_database_user: test_athenia
+test_database_password: testpassword
