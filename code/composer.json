@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=8.0.0",
         "benwilkins/laravel-fcm-notification": "^4.0",
         "cartalyst/stripe-laravel": "^13.0",
         "doctrine/dbal": "^2.10",

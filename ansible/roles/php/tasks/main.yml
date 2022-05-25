@@ -6,14 +6,14 @@
 - name: Install PHP and its modules
   apt: pkg={{ item }} state=latest
   with_items:
-    - php8.0
-    - php8.0-fpm
-    - php8.0-pgsql
-    - php8.0-curl
-    - php8.0-xml
-    - php8.0-mbstring
-    - php8.0-memcached
-    - php8.0-gd
+    - php8.1
+    - php8.1-fpm
+    - php8.1-pgsql
+    - php8.1-curl
+    - php8.1-xml
+    - php8.1-mbstring
+    - php8.1-memcached
+    - php8.1-gd
     - php-imagick
   notify:
     - restart nginx
@@ -21,17 +21,17 @@
 - include: composer.yml
 
 - name: Set upload_max_filesize
-  lineinfile: dest=/etc/php/8.0/fpm/php.ini regexp=^upload_max_filesize line='upload_max_filesize = 5M'
+  lineinfile: dest=/etc/php/8.1/fpm/php.ini regexp=^upload_max_filesize line='upload_max_filesize = 5M'
   notify:
     - restart nginx
 
 - name: Make sure CLI logs to syslog
-  lineinfile: dest=/etc/php/8.0/cli/php.ini regexp=^;?error_log line='error_log = syslog'
+  lineinfile: dest=/etc/php/8.1/cli/php.ini regexp=^;?error_log line='error_log = syslog'
 
 - name: Delete the cron php file
   file: path=/etc/cron.d/php state=absent
 
 - name: Set session garbage collection on
-  lineinfile: dest=/etc/php/8.0/fpm/php.ini regexp=^session.gc_probability line='session.gc_probability = 1'
+  lineinfile: dest=/etc/php/8.1/fpm/php.ini regexp=^session.gc_probability line='session.gc_probability = 1'
   notify:
     - restart nginx
