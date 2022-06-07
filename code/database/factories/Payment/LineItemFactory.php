@@ -26,7 +26,7 @@ class LineItemFactory extends Factory
         return [
             'payment_id' => Payment::factory()->create()->id,
             'item_type' => 'donation',
-            'amount' => $this->faker->numberBetween(0, 100),
+            'amount' => (int) $this->faker->randomDigit(),
         ];
     }
 }

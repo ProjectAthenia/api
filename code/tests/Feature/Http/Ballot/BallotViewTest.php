@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Ballot\Http\Ballot;
+namespace Tests\Feature\Http\Ballot;
 
 use App\Models\Vote\Ballot;
 use App\Models\Role;

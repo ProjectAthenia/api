@@ -15,7 +15,7 @@ class Cusco extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 32);
             $table->timestamps();
             $table->softDeletes();
@@ -109,7 +109,7 @@ class Cusco extends Migration
             $table->timestamps();
         });
         Schema::create('membership_plans', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
             $table->string('name', 40);
 
@@ -119,7 +119,7 @@ class Cusco extends Migration
             $table->timestamps();
         });
         Schema::create('membership_plan_rates', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
             $table->unsignedInteger('membership_plan_id');
             $table->foreign('membership_plan_id')->references('id')->on('membership_plans');
@@ -132,7 +132,7 @@ class Cusco extends Migration
             $table->timestamps();
         });
         Schema::create('payment_methods', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
             $table->unsignedInteger('owner_id');
             $table->string('owner_type', 20)->default('user');
@@ -167,7 +167,7 @@ class Cusco extends Migration
             $table->timestamps();
         });
         Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
             $table->unsignedInteger('payment_method_id');
             $table->foreign('payment_method_id')->references('id')->on('payment_methods');

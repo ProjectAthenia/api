@@ -25,7 +25,7 @@ class PaymentFactory extends Factory
     {
         return [
             'payment_method_id' => PaymentMethod::factory()->create()->id,
-            'amount' => $this->faker->randomFloat(),
+            'amount' => $this->faker->randomFloat(2, 0, 400),
         ];
     }
 }

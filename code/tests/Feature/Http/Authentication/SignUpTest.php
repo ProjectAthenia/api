@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\V2\Authentication;
+namespace Tests\Feature\Http\Authentication;
 
 use App\Events\User\SignUpEvent;
 use App\Models\User\User;

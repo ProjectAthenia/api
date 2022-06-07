@@ -38,7 +38,7 @@ class ProratingCalculationServiceTest extends TestCase
     {
         $service = new ProratingCalculationService();
 
-        $result = $service->calculateRemainingYearlyCharge(Carbon::now()->addDays(44), 35, 75);
+        $result = $service->calculateRemainingYearlyCharge(Carbon::now()->addDays(45), 35, 75);
 
         $this->assertEquals(4.82, $result);
     }
@@ -96,7 +96,7 @@ class ProratingCalculationServiceTest extends TestCase
         $service = new ProratingCalculationService();
 
         $currentSubscription = new Subscription([
-            'expires_at' => Carbon::now()->addDays(44),
+            'expires_at' => Carbon::now()->addDays(45),
             'membershipPlanRate' => new MembershipPlanRate([
                 'cost' => 35,
             ]),

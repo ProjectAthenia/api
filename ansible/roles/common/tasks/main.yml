@@ -72,9 +72,6 @@
 - name: Instapp pip
   apt: name=python3-pip state=present
 
-- name: Enable unattended upgrades
-  lineinfile: dest=/etc/apt/apt.conf.d/20auto-upgrades line='APT::Periodic::Unattended-Upgrade "1";'
-
 - name: Uninstall changelog review
   apt: name=apt-listchanges state=absent
 
