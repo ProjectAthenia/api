@@ -34,8 +34,8 @@ Vagrant.configure("2") do |config|
             "dev-socket.projectathenia.com",
         ]
 
-        dev.vm.box = "generic/ubuntu2004"
-        dev.vm.synced_folder "./", "/web_root/", :owner=> 'www-data', :group=>'www-data'
+        dev.vm.box = "bento/ubuntu-22.04-arm64"
+        dev.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "www-data", mount_options: ["dmode=775,fmode=775"]
 
         dev.vm.provider :virtualbox do |vb|
             vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]

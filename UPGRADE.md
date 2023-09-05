@@ -67,6 +67,7 @@ The old JWT package is no longer being maintained, so that has been replaced. By
 
 The default order for the message endpoint has been updated to be explicit if an order is not passed in. To complete this update simply update this `code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php` file.
 
+### Remaining changes not documented
 
 * code/app/Providers/AppServiceProvider.php
 * code/app/Providers/AtheniaRepositoryProvider.php

@@ -7,7 +7,8 @@ mkdir /home/vagrant/.ssh
 cat /tmp/key.pub >> /home/vagrant/.ssh/authorized_keys
 chgrp -R vagrant /home/vagrant/.ssh
 chown -R vagrant /home/vagrant/.ssh
+sudo add-apt-repository ppa:deadsnakes/ppa -y
 
 sudo apt-get update
 
-sudo apt-get install python -y
+sudo apt-get install python3.7 -y
