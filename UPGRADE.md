@@ -26,13 +26,20 @@ The follonw packages have been added...
 
 Then the package phploc/phploc needs to be upgraded from ^6.0 to ^7.0
 
-### Ansible changes
+### Environment changes
 
-The application level ansible stuff was renamed from `athenia` to `app`. All changes after that are listed below.
+The application level ansible stuff was renamed from `athenia` to `app`, php has been updated to 8.2, the environment has been updated to ubuntu 22, and postgress has been changed to favor mysql. All changes after that are listed below.
 
+* Vagrantfile - Changed box settings, and updated for Parallels and Arm
 * ansible/playbook.yml - Updated athenia reference to app
-* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Changed PHP version to 8.0
-* ansible/roles/php/tasks/main.yml - Changed all package installs to related 8.0 versions
+* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Changed PHP version to 8.2
+* ansible/roles/common/tasks/main.yml - Added pip install and removed unattended upgrades
+* ansible/roles/mysql/ - Added module
+* ansible/roles/php/tasks/main.yml - Changed all package installs to related 8.2 versions
+* ansible/playbook.yml - Changed postgres to mysql and changed athenia to app
+* ansible/roles/postgres/tasks/main.yml - Updated python bindings install
+* code/.env.example - Changed default db driver to mysql
+* vagrant-do-provision.sh - Updated script to run on ubuntu 22
 
 ### Socket Changes
 
@@ -53,6 +60,38 @@ The socket article functionality has entirely been reworked. With this, a number
 * code/app/Models/Wiki/ArticleModification.php
 * code/app/Models/Wiki/ArticleVersion.php
 * code/app/Policies/Wiki/{IterationPolicy.php => ArticleIterationPolicy.php}
+* code/app/Repositories/Wiki/{IterationRepository.php => ArticleIterationRepository.php}
+* code/app/Repositories/Wiki/ArticleModificationRepository.php
+* code/app/Services/Wiki/ArticleModificationApplicationService.php
+* code/app/Services/{ => Wiki}/ArticleVersionCalculationService.php
+* code/app/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidator.php
+* code/config/websockets.php
+* code/database/factories/Wiki/{IterationFactory.php => ArticleIterationFactory.php}
+* code/database/factories/Wiki/ArticleModificationFactory.php
+* code/database/factories/Wiki/ArticleVersionFactory.php
+* code/database/migrations/2021_08_08_161807_create_article_modifications_table.php
+* code/resources/lang/en/validation.php
+* code/tests/Feature/Http/Article/ArticleVersion/ArticleVersionCreateTest.php
+* code/tests/Feature/Http/Article/ArticleViewTest.php
+* code/tests/Feature/Http/Article/Iteration/ArticleIterationIndexTest.php
+* code/tests/Feature/Socket/ArticleIterationTest.php
+* code/tests/Integration/Http/Sockets/ArticleIterationTest.php
+* code/tests/Integration/Models/Wiki/ArticleTest.php
+* code/tests/Integration/Policies/Wiki/IterationPolicyTest.php
+* code/tests/Integration/Repositories/Wiki/{IterationRepositoryTest.php => ArticleIterationRepositoryTest.php}
+* code/tests/Integration/Repositories/Wiki/ArticleModificationRepositoryTest.php
+* code/tests/Integration/Repositories/Wiki/ArticleVersionRepositoryTest.php
+* code/tests/Unit/Http/Sockets/ArticleIterationsTest.php
+* code/tests/Unit/Listeners/Article/ArticleVersionCreatedListenerTest.php
+* code/tests/Unit/Listeners/User/UserMerge/UserCreatedIterationsMergeListenerTest.php
+* code/tests/Unit/Models/User/UserTest.php
+* code/tests/Unit/Models/Wiki/{IterationTest.php => ArticleIterationTest.php}
+* code/tests/Unit/Models/Wiki/ArticleModificationTest.php
+* code/tests/Unit/Models/Wiki/ArticleTest.php
+* code/tests/Unit/Models/Wiki/ArticleVersionTest.php
+* code/tests/Unit/Services/Wiki/ArticleModificationApplicationServiceTest.php
+* code/tests/Unit/Services/{ => Wiki}/ArticleVersionCalculationServiceTest.php
+* code/tests/Unit/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidatorTest.php
 
 ### JWT Package Change
 
@@ -62,6 +101,10 @@ The old JWT package is no longer being maintained, so that has been replaced. By
 * code/app/Http/Core/Controllers/AuthenticationControllerAbstract.php
 * code/app/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddleware.php
 * code/app/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddleware.php
+* code/config/jwt.php
+* code/tests/Feature/Http/Authentication/LogoutTest.php
+* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddlewareTest.php
+* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddlewareTest.php
 
 ### Default message order
 
@@ -74,51 +117,14 @@ The default order for the message endpoint has been updated to be explicit if an
 * code/app/Providers/BroadcastServiceProvider.php
 * code/app/Providers/RouteServiceProvider.php
 * code/app/Repositories/User/MessageRepository.php
-* code/app/Repositories/Wiki/{IterationRepository.php => ArticleIterationRepository.php}
-* code/app/Repositories/Wiki/ArticleModificationRepository.php
-* code/app/Services/Wiki/ArticleModificationApplicationService.php 
-* code/app/Services/{ => Wiki}/ArticleVersionCalculationService.php
-* code/app/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidator.php
 * code/config/app.php
 * code/config/broadcasting.php
-* code/config/jwt.php
-* code/config/websockets.php
 * code/database/factories/Vote/BallotItemFactory.php
 * code/database/factories/Vote/BallotItemOptionFactory.php
-* code/database/factories/Wiki/{IterationFactory.php => ArticleIterationFactory.php}
-* code/database/factories/Wiki/ArticleModificationFactory.php
-* code/database/factories/Wiki/ArticleVersionFactory.php
 * code/database/migrations/0000_00_00_000000_create_websockets_statistics_entries_table.php
 * code/database/migrations/2019_10_29_154335_cusco.php
-* code/database/migrations/2021_08_08_161807_create_article_modifications_table.php
-* code/resources/lang/en/validation.php
 * code/routes/channels.php
 * code/routes/core.php
-* code/tests/Feature/Http/Article/ArticleVersion/ArticleVersionCreateTest.php
-* code/tests/Feature/Http/Article/ArticleViewTest.php
-* code/tests/Feature/Http/Article/Iteration/ArticleIterationIndexTest.php
-* code/tests/Feature/Http/Authentication/LogoutTest.php
-* code/tests/Feature/Socket/ArticleIterationTest.php
-* code/tests/Integration/Http/Sockets/ArticleIterationTest.php
-* code/tests/Integration/Models/Wiki/ArticleTest.php
-* code/tests/Integration/Policies/Wiki/IterationPolicyTest.php
 * code/tests/Integration/Repositories/Vote/BallotItemRepositoryTest.php
 * code/tests/Integration/Repositories/Vote/BallotRepositoryTest.php
-* code/tests/Integration/Repositories/Wiki/{IterationRepositoryTest.php => ArticleIterationRepositoryTest.php}
-* code/tests/Integration/Repositories/Wiki/ArticleModificationRepositoryTest.php
-* code/tests/Integration/Repositories/Wiki/ArticleVersionRepositoryTest.php
 * code/tests/Unit/Http/Core/Requests/BaseAssetUploadRequestAbstractTest.php
-* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddlewareTest.php
-* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddlewareTest.php
-* code/tests/Unit/Http/Sockets/ArticleIterationsTest.php
-* code/tests/Unit/Listeners/Article/ArticleVersionCreatedListenerTest.php
-* code/tests/Unit/Listeners/User/UserMerge/UserCreatedIterationsMergeListenerTest.php
-* code/tests/Unit/Models/User/UserTest.php
-* code/tests/Unit/Models/Wiki/ArticleIterationTest.php
-* code/tests/Unit/Models/Wiki/ArticleModificationTest.php
-* code/tests/Unit/Models/Wiki/ArticleTest.php
-* code/tests/Unit/Models/Wiki/ArticleVersionTest.php
-* code/tests/Unit/Models/Wiki/IterationTest.php
-* code/tests/Unit/Services/Wiki/ArticleModificationApplicationServiceTest.php
-* code/tests/Unit/Services/{ => Wiki}/ArticleVersionCalculationServiceTest.php
-* code/tests/Unit/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidatorTest.php 
