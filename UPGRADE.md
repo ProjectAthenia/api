@@ -60,6 +60,9 @@ The socket article functionality has entirely been reworked. With this, a number
 * code/app/Models/Wiki/ArticleModification.php
 * code/app/Models/Wiki/ArticleVersion.php
 * code/app/Policies/Wiki/{IterationPolicy.php => ArticleIterationPolicy.php}
+* code/app/Providers/AppServiceProvider.php - Namespace for ArticleVersionCalculationServiceContract was renamed
+* code/app/Providers/AtheniaRepositoryProvider.php
+* code/app/Providers/RouteServiceProvider.php - Updated article iteration mapping
 * code/app/Repositories/Wiki/{IterationRepository.php => ArticleIterationRepository.php}
 * code/app/Repositories/Wiki/ArticleModificationRepository.php
 * code/app/Services/Wiki/ArticleModificationApplicationService.php
@@ -108,15 +111,14 @@ The old JWT package is no longer being maintained, so that has been replaced. By
 
 ### Default message order
 
-The default order for the message endpoint has been updated to be explicit if an order is not passed in. To complete this update simply update this `code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php` file.
+The default order for the message endpoint has been updated to be explicit if an order is not passed in. To complete this update update this `code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php` controller and this ` code/app/Repositories/User/MessageRepository.php` repository file.
+
+### Miscellaneous
+
+* code/app/Providers/BroadcastServiceProvider.php - Created
 
 ### Remaining changes not documented
 
-* code/app/Providers/AppServiceProvider.php
-* code/app/Providers/AtheniaRepositoryProvider.php
-* code/app/Providers/BroadcastServiceProvider.php
-* code/app/Providers/RouteServiceProvider.php
-* code/app/Repositories/User/MessageRepository.php
 * code/config/app.php
 * code/config/broadcasting.php
 * code/database/factories/Vote/BallotItemFactory.php
