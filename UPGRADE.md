@@ -26,6 +26,8 @@ The follonw packages have been added...
 
 Then the package phploc/phploc needs to be upgraded from ^6.0 to ^7.0
 
+The config `code/config/app.php` also needs to be updated for the change in JWT auth
+
 ### Environment changes
 
 The application level ansible stuff was renamed from `athenia` to `app`, php has been updated to 8.2, the environment has been updated to ubuntu 22, and postgress has been changed to favor mysql. All changes after that are listed below.
@@ -69,11 +71,16 @@ The socket article functionality has entirely been reworked. With this, a number
 * code/app/Services/{ => Wiki}/ArticleVersionCalculationService.php
 * code/app/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidator.php
 * code/config/websockets.php
+* code/database/factories/Vote/BallotItemFactory.php
+* code/database/factories/Vote/BallotItemOptionFactory.php
 * code/database/factories/Wiki/{IterationFactory.php => ArticleIterationFactory.php}
 * code/database/factories/Wiki/ArticleModificationFactory.php
 * code/database/factories/Wiki/ArticleVersionFactory.php
+* code/database/migrations/0000_00_00_000000_create_websockets_statistics_entries_table.php
+* code/database/migrations/2019_10_29_154335_cusco.php
 * code/database/migrations/2021_08_08_161807_create_article_modifications_table.php
 * code/resources/lang/en/validation.php
+* code/routes/core.php
 * code/tests/Feature/Http/Article/ArticleVersion/ArticleVersionCreateTest.php
 * code/tests/Feature/Http/Article/ArticleViewTest.php
 * code/tests/Feature/Http/Article/Iteration/ArticleIterationIndexTest.php
@@ -81,6 +88,8 @@ The socket article functionality has entirely been reworked. With this, a number
 * code/tests/Integration/Http/Sockets/ArticleIterationTest.php
 * code/tests/Integration/Models/Wiki/ArticleTest.php
 * code/tests/Integration/Policies/Wiki/IterationPolicyTest.php
+* code/tests/Integration/Repositories/Vote/BallotItemRepositoryTest.php
+* code/tests/Integration/Repositories/Vote/BallotRepositoryTest.php
 * code/tests/Integration/Repositories/Wiki/{IterationRepositoryTest.php => ArticleIterationRepositoryTest.php}
 * code/tests/Integration/Repositories/Wiki/ArticleModificationRepositoryTest.php
 * code/tests/Integration/Repositories/Wiki/ArticleVersionRepositoryTest.php
@@ -115,18 +124,7 @@ The default order for the message endpoint has been updated to be explicit if an
 
 ### Miscellaneous
 
+* code/config/broadcasting.php - Updated for recent version of laravel
 * code/app/Providers/BroadcastServiceProvider.php - Created
-
-### Remaining changes not documented
-
-* code/config/app.php
-* code/config/broadcasting.php
-* code/database/factories/Vote/BallotItemFactory.php
-* code/database/factories/Vote/BallotItemOptionFactory.php
-* code/database/migrations/0000_00_00_000000_create_websockets_statistics_entries_table.php
-* code/database/migrations/2019_10_29_154335_cusco.php
-* code/routes/channels.php
-* code/routes/core.php
-* code/tests/Integration/Repositories/Vote/BallotItemRepositoryTest.php
-* code/tests/Integration/Repositories/Vote/BallotRepositoryTest.php
-* code/tests/Unit/Http/Core/Requests/BaseAssetUploadRequestAbstractTest.php
+* code/routes/channels.php - Created
+* code/tests/Unit/Http/Core/Requests/BaseAssetUploadRequestAbstractTest.php - mime type change for SVG
