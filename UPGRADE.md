@@ -2,6 +2,13 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+## 2.1.0
+
+This is a simple one. This adds a new abstract job that is designed to be used both by commands, and any other entry points in the app to allow for this sort of functionality to be more easily reused regardless of whether or not someone is sitting at a console. To complete this update copy over the following new files.
+
+* code/app/Jobs/CanDisplayOutputAbstractJob.php
+* code/tests/Unit/Jobs/CanDisplayOutputAbstractJobTest.php
+
 ## 2.0.0
 
 Another big one! This one brings the app up to PHP 8, which involves quite a few pieces of the app changing. Each section that needs to be updated is separated below.
