@@ -2,6 +2,10 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.2.0
+
+This is another simple one. This adds a large amount of functionality to the search api. To run this update simply copy over `code/app/Repositories/BaseRepositoryAbstract.php`.
+
 ## 2.1.0
 
 This is a simple one. This adds a new abstract job that is designed to be used both by commands, and any other entry points in the app to allow for this sort of functionality to be more easily reused regardless of whether or not someone is sitting at a console. To complete this update copy over the following new files.

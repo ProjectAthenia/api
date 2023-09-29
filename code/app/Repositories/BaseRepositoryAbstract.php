@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Psr\Log\LoggerInterface as LogContract;
@@ -112,7 +111,7 @@ abstract class BaseRepositoryAbstract implements BaseRepositoryContract
                 } else if ($query[1] == 'not in') {
                     $result->whereNotIn($query[0], $query[2]);
                 } else if ($query[1] == 'IS NULL') {
-                    $result->whereNull($query[0]);
+                    $result->whereJoin($query[0], null, null);
                 } else if ($query[1] == 'IS NOT NULL') {
                     $result->whereNotNull($query[0]);
                 } else {
@@ -126,8 +125,22 @@ abstract class BaseRepositoryAbstract implements BaseRepositoryContract
         if (count($searches)) {
 
             $result->where(function (EloquentJoinBuilder $query) use ($searches) {
-                foreach ($searches as $search) {
-                    $query->orWhereJoin($search[0], $search[1], $search[2]);
+                foreach ($searches as $key => $where) {
+                    if (is_array($where)) {
+                        if ($where[1] == 'in') {
+                            $query->orWhereIn($where[0], $where[2]);
+                        } else if ($where[1] == 'not in') {
+                            $query->orWhereNotIn($where[0], $where[2]);
+                        } else if ($where[1] == 'IS NULL') {
+                            $query->orWhereNull($where[0]);
+                        } else if ($where[1] == 'IS NOT NULL') {
+                            $query->orWhereNotNull($where[0]);
+                        } else {
+                            $query->orWhereJoin(...$where);
+                        }
+                    } else {
+                        $query->orWhereJoin($key, '=', $where);
+                    }
                 }
             });
         }
