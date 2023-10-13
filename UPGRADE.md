@@ -2,6 +2,16 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.3.0
+
+This updates adds a new service that will help with copying directories between file systems. To complete this update copy over the following files.
+
+* code/app/Console/Kernel.php - Unrelated, added default schedule function, probably dont need if you are using the command kernel
+* code/app/Contracts/Services/DirectoryCopyServiceContract.php - New Service Contract
+* code/app/Services/DirectoryCopyService.php - New Service
+* code/tests/Unit/Services/DirectoryCopyServiceTest.php - New Test
+* code/app/Providers/AppServiceProvider.php - Registered new service
+
 # 2.2.0
 
 This is another simple one. This adds a large amount of functionality to the search api. To run this update simply copy over `code/app/Repositories/BaseRepositoryAbstract.php`.

@@ -9,6 +9,7 @@ use App\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
+use App\Contracts\Services\DirectoryCopyServiceContract;
 use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use App\Contracts\Services\EntitySubscriptionCreationServiceContract;
 use App\Contracts\Services\ProratingCalculationServiceContract;
@@ -16,6 +17,7 @@ use App\Contracts\Services\StringHelperServiceContract;
 use App\Contracts\Services\StripeCustomerServiceContract;
 use App\Contracts\Services\StripePaymentServiceContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
+use App\Services\DirectoryCopyService;
 use App\Services\Wiki\ArticleVersionCalculationService;
 use App\Services\EntitySubscriptionCreationService;
 use App\Services\ProratingCalculationService;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
     {
         return [
             ArticleVersionCalculationServiceContract::class,
+            DirectoryCopyServiceContract::class,
             EntitySubscriptionCreationServiceContract::class,
             ProratingCalculationServiceContract::class,
             StringHelperServiceContract::class,
@@ -61,6 +64,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ArticleVersionCalculationServiceContract::class, function () {
             return new ArticleVersionCalculationService();
+        });
+        $this->app->bind(DirectoryCopyServiceContract::class, function () {
+            return new DirectoryCopyService();
         });
         $this->app->bind(EntitySubscriptionCreationServiceContract::class, function () {
             return new EntitySubscriptionCreationService(
