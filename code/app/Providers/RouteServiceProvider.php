@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -32,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         'article_iteration' => ArticleIteration::class,
         'ballot' => Ballot::class,
         'ballot_completion' => BallotCompletion::class,
+        'category' => Category::class,
         'feature' => Feature::class,
         'membership_plan' => MembershipPlan::class,
         'organization' => Organization::class,

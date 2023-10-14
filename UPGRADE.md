@@ -2,6 +2,30 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.4.0
+
+This update adds a new category model and set of endpoints. To complete this update, copy over the following new paths.
+
+* code/app/Contracts/Repositories/CategoryRepositoryContract.php 
+* code/app/Http/Core/Controllers/CategoryControllerAbstract.php
+* code/app/Http/Core/Requests/Category/ 
+* code/app/Http/V1/Controllers/CategoryController.php 
+* code/app/Models/Category.php 
+* code/app/Policies/CategoryPolicy.php 
+* code/app/Repositories/CategoryRepository.php 
+* code/database/factories/CategoryFactory.php 
+* code/database/migrations/2023_10_14_184520_add_categories_table.php 
+* code/tests/Feature/Http/Category/
+* code/tests/Integration/Policies/CategoryPolicyTest.php 
+* code/tests/Integration/Repositories/CategoryRepositoryTest.php 
+* code/tests/Unit/Models/CategoryTest.php
+
+Then the following existing files need to be updated
+
+* code/app/Providers/AtheniaRepositoryProvider.php - New repo registered
+* code/app/Providers/RouteServiceProvider.php - New route mapping registered
+* code/routes/core.php - New Route registered
+
 # 2.3.0
 
 This updates adds a new service that will help with copying directories between file systems. To complete this update copy over the following files.

@@ -6,6 +6,15 @@ Route::group(['middleware' => 'jwt.auth.unprotected'], function() {
 
     Route::get('status', 'StatusController')
         ->name('status');
+
+    /**
+     * Categories context
+     */
+    Route::resource('categories', 'CategoryController', [
+        'only' => [
+            'index', 'show'
+        ]
+    ]);
 });
 
 /**
@@ -77,6 +86,14 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
             ],
         ]);
     });
+    /**
+     * Categories context
+     */
+    Route::resource('categories', 'CategoryController', [
+        'only' => [
+            'store', 'update', 'destroy',
+        ]
+    ]);
 
     Route::resource('features', 'FeatureController', [
         'only' => [
