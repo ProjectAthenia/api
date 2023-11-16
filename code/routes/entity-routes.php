@@ -27,3 +27,5 @@ Route::resource('subscriptions', 'Entity\SubscriptionController', [
         'index', 'store', 'update',
     ],
 ]);
+
+// Application level routes below

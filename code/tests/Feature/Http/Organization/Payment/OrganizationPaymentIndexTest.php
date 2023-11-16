@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Organization\Payment;
+namespace Tests\Feature\Http\Organization\Payment;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\Payment;
+namespace Tests\Feature\Http\User\Payment;
 
 use App\Models\Payment\Payment;
 use App\Models\User\User;
