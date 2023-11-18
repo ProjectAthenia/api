@@ -2,6 +2,21 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.5.0
+
+## New validator!
+
+* code/app/Providers/AppValidatorProvider.php - Registered the new validator
+* code/app/Validators/OwnedByValidator.php - The new validator
+* code/resources/lang/en/validation.php - Registered the validator message
+* code/tests/Unit/Validators/OwnedByValidatorTest.php - The test for the validator
+
+## Minor clean up.
+
+* code/routes/entity-routes.php - Added instructional comment block
+* code/tests/Feature/Http/Organization/Payment/OrganizationPaymentIndexTest.php - Fixed Namespace
+* code/tests/Feature/Http/User/Payment/UserPaymentIndexTest.php - Fixed Namespace
+
 # 2.4.0
 
 This update adds a new category model and set of endpoints. To complete this update, copy over the following new paths.
