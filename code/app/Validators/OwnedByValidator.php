@@ -13,6 +13,11 @@ use Illuminate\Validation\Validator;
 class OwnedByValidator
 {
     /**
+     * The key for easy reference around the app
+     */
+    const KEY = 'owned_by';
+
+    /**
      * @var Request
      */
     protected $request;

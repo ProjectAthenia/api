@@ -136,5 +136,7 @@ return [
         'This payment method does not belong to this user.',
     \App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator::KEY =>
         'The selected article iteration id does not seem to be from the related article.',
+    \App\Validators\OwnedByValidator::KEY =>
+        'The :attribute must be owned by the appropriate model.',
 
 ];
