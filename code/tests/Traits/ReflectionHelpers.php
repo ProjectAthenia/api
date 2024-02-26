@@ -22,7 +22,11 @@ trait ReflectionHelpers
      */
     public function getObjectsInNamespace($namespace)
     {
-        $files = scandir($this->getNamespaceDirectory($namespace));
+        try {
+            $files = scandir($this->getNamespaceDirectory($namespace));
+        } catch (\ErrorException $e) {
+            return [];
+        }
         $classes = [];
 
         foreach ($files as $file) {
@@ -30,10 +34,10 @@ trait ReflectionHelpers
 
                 $fullName = $namespace . '\\' . $file;
 
-                if (strpos($fullName, '.php')) {
-                    $classes[] = str_replace('.php', '', $fullName);
-                } else {
+                if (is_dir($fullName)) {
                     $classes = array_merge($classes, $this->getObjectsInNamespace($fullName));
+                } else if (strpos($fullName, '.php')) {
+                    $classes[] = str_replace('.php', '', $fullName);
                 }
             }
         }

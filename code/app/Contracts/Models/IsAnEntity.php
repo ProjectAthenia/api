@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @package App\Contracts\Models
  * @property int $id
  * @property PaymentMethod[]|Collection $paymentMethods
+ * @property \App\Models\Collection\Collection[]|Collection $collections
  */
 interface IsAnEntity extends CanBeMorphedTo
 {
@@ -27,6 +28,13 @@ interface IsAnEntity extends CanBeMorphedTo
      * @return bool
      */
     public function canUserManageEntity(User $user, int $role = Role::MANAGER): bool;
+
+    /**
+     * This is for the relation for the collections the entity owns
+     *
+     * @return MorphMany
+     */
+    public function collections(): MorphMany;
 
     /**
      * This is for the relation for the payment methods

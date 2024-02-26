@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models\Traits;
 
+use App\Models\Collection\Collection;
 use App\Models\Payment\Payment;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Subscription\Subscription;
@@ -15,6 +16,16 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 trait IsEntity
 {
+    /**
+     * All payment methods owned by this model
+     *
+     * @return MorphMany
+     */
+    public function collections(): MorphMany
+    {
+        return $this->morphMany(Collection::class, 'owner');
+    }
+
     /**
      * All payment methods owned by this model
      *
@@ -53,7 +64,7 @@ trait IsEntity
      */
     public function currentSubscription(?Carbon $expiresAfter = null) : ?Subscription
     {
-        return $this->subscriptions->first(function (Subscription $subscription) use ($expiresAfter) {
+        return $this->subscriptions->sortByDesc('created_at')->first(function (Subscription $subscription) use ($expiresAfter) {
             $expiresAfter = $expiresAfter ?? Carbon::now();
             return $subscription->isLifetime() ? true :
                 ($subscription->expires_at ? $subscription->expires_at->greaterThan($expiresAfter) : false);

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Organization\Asset;
+namespace Tests\Feature\Http\Organization\Asset;
 
 use App\Models\Asset;
 use App\Models\Organization\Organization;

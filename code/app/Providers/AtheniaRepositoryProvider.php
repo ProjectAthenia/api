@@ -5,6 +5,8 @@ namespace App\Providers;
 
 use App\Contracts\Repositories\AssetRepositoryContract;
 use App\Contracts\Repositories\CategoryRepositoryContract;
+use App\Contracts\Repositories\Collection\CollectionItemRepositoryContract;
+use App\Contracts\Repositories\Collection\CollectionRepositoryContract;
 use App\Contracts\Repositories\FeatureRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationManagerRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationRepositoryContract;
@@ -33,6 +35,8 @@ use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
 use App\Models\Asset;
 use App\Models\Category;
+use App\Models\Collection\Collection;
+use App\Models\Collection\CollectionItem;
 use App\Models\Feature;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -60,6 +64,8 @@ use App\Models\Wiki\ArticleVersion;
 use App\Models\Wiki\ArticleIteration;
 use App\Repositories\AssetRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\Collection\CollectionItemRepository;
+use App\Repositories\Collection\CollectionRepository;
 use App\Repositories\FeatureRepository;
 use App\Repositories\Organization\OrganizationManagerRepository;
 use App\Repositories\Organization\OrganizationRepository;
@@ -116,6 +122,8 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
             BallotItemRepositoryContract::class,
             BallotItemOptionRepositoryContract::class,
             CategoryRepositoryContract::class,
+            CollectionRepositoryContract::class,
+            CollectionItemRepositoryContract::class,
             ContactRepositoryContract::class,
             FeatureRepositoryContract::class,
             LineItemRepositoryContract::class,
@@ -221,6 +229,19 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryContract::class, function () {
             return new CategoryRepository(
                 new Category(),
+                $this->app->make('log'),
+            );
+        });
+        $this->app->bind(CollectionRepositoryContract::class, function () {
+            return new CollectionRepository(
+                new Collection(),
+                $this->app->make('log'),
+                $this->app->make(CollectionItemRepositoryContract::class),
+            );
+        });
+        $this->app->bind(CollectionItemRepositoryContract::class, function () {
+            return new CollectionItemRepository(
+                new CollectionItem(),
                 $this->app->make('log'),
             );
         });

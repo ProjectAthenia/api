@@ -94,6 +94,43 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
             'store', 'update', 'destroy',
         ]
     ]);
+    /**
+     * Collection context
+     */
+    Route::resource('collections', 'CollectionController', [
+        'only' => [
+            'show', 'update', 'destroy',
+        ]
+    ]);
+    Route::group(['prefix' => 'collections/{collection}', 'as' => 'collection.'], function () {
+
+        Route::resource('items', 'Collection\CollectionItemController', [
+            'only' => [
+                'index', 'store',
+            ],
+        ]);
+    });
+
+    /**
+     * Collection Item context
+     */
+    Route::resource('collection-items', 'CollectionItemController', [
+        'only' => [
+            'show', 'destroy',
+        ]
+    ]);
+    Route::group(['prefix' => 'collection-items/{collection_item}', 'as' => 'collection-item.'], function () {
+        Route::resource('categories', 'CollectionItem\CollectionItemCategoryController', [
+            'only' => [
+                'store',
+            ],
+        ]);
+    });
+    Route::resource('collection-item-categories', 'CollectionItemCategoryController', [
+        'only' => [
+            'update', 'destroy',
+        ],
+    ]);
 
     Route::resource('features', 'FeatureController', [
         'only' => [
