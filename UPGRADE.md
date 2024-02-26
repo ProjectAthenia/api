@@ -2,6 +2,61 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.6.0
+
+## New Module
+
+This update adds a new collection module! The core has also been updated to use php8.3.
+
+### General Changes
+
+* code/tests/Feature/Http/Organization/Asset/OrganizationAssetCreateTest.php - Namespace fixed
+* code/tests/Traits/ReflectionHelpers.php - Fixed directory bug
+
+### php8.3
+
+* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Updated php fpm reference
+* ansible/roles/mysql/tasks/main.yml - Removed root password
+* ansible/roles/php/tasks/main.yml - Updated php install packages
+* code/composer.lock - Updated dependencies for php 8.3
+
+### Collection Module
+
+* code/app/Contracts/Models/IsAnEntity.php - Added Collection relation
+* code/app/Contracts/Repositories/Collection/ - New Path
+* code/app/Contracts/Services/Collection/ - New Path
+* code/app/Http/Core/Controllers/Collection/ - New Path
+* code/app/Http/Core/Controllers/CollectionControllerAbstract.php - New Path
+* code/app/Http/Core/Controllers/CollectionItemControllerAbstract.php - New Path
+* code/app/Http/Core/Controllers/Entity/CollectionControllerAbstract.php - New Path
+* code/app/Http/Core/Requests/Collection/ - New Path
+* code/app/Http/Core/Requests/CollectionItem/ - New Path
+* code/app/Http/Core/Requests/Entity/Collection/ - New Path
+* code/app/Http/V1/Controllers/Collection/ - New Path
+* code/app/Http/V1/Controllers/CollectionController.php - New Path
+* code/app/Http/V1/Controllers/CollectionItemController.php - New Path
+* code/app/Http/V1/Controllers/Entity/CollectionController.php - New Path
+* code/app/Models/Collection/ - New Path
+* code/app/Models/Traits/IsEntity.php - Added Collection relation
+* code/app/Policies/Collection/ - New Path
+* code/app/Providers/AppServiceProvider.php - Registered new service
+* code/app/Providers/AtheniaRepositoryProvider.php - Registered collection repos
+* code/app/Providers/RouteServiceProvider.php - Registered collection route params
+* code/app/Repositories/Collection/ - New Path
+* code/app/Services/Collection/ - New Path
+* code/database/factories/Collection/ - New Path
+* code/database/migrations/2024_02_01_150536_add_user_collections_module.php - New Path
+* code/routes/core.php - Registered new routes
+* code/routes/entity-routes.php - Registered new routes
+* code/tests/Feature/Http/Collection/ - New Path
+* code/tests/Feature/Http/CollectionItem/ - New Path
+* code/tests/Feature/Http/Organization/Collection/ - New Path
+* code/tests/Feature/Http/User/Collection/ - New Path
+* code/tests/Integration/Policies/Collection/ - New Path
+* code/tests/Integration/Repositories/Collection/ - New Path
+* code/tests/Unit/Models/Collection/ - New Path
+* code/tests/Unit/Services/Collection/ - New Path
+
 # 2.5.0
 
 ## New validator!
