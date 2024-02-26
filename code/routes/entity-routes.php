@@ -7,6 +7,11 @@ Route::resource('assets', 'Entity\AssetController', [
         'index', 'store', 'update', 'destroy',
     ],
 ]);
+Route::resource('collections', 'Entity\CollectionController', [
+    'only' => [
+        'index', 'store',
+    ],
+]);
 Route::resource('payments', 'Entity\PaymentController', [
     'only' => [
         'index',
