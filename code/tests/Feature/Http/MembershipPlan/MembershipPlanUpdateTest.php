@@ -20,7 +20,7 @@ class MembershipPlanUpdateTest extends TestCase
     
     const BASE_ROUTE = '/v1/membership-plans/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

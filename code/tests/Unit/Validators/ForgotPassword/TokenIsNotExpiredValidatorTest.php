@@ -39,7 +39,7 @@ class TokenIsNotExpiredValidatorTest extends TestCase
      */
     private $validator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

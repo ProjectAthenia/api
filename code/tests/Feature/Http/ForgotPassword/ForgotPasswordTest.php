@@ -20,7 +20,7 @@ class ForgotPasswordTest extends TestCase
 
     private $route = '/v1/forgot-password';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();

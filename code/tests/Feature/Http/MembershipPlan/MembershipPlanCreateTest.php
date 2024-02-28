@@ -20,7 +20,7 @@ class MembershipPlanCreateTest extends TestCase
     
     private $route = '/v1/membership-plans';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

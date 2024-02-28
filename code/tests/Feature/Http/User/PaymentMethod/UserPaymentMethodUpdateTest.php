@@ -27,7 +27,7 @@ class UserPaymentMethodUpdateTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

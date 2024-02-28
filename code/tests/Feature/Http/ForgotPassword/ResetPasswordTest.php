@@ -21,7 +21,7 @@ class ResetPasswordTest extends TestCase
 
     private $route = '/v1/reset-password';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();

@@ -31,7 +31,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
      */
     private $organization;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

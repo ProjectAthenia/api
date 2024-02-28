@@ -21,7 +21,7 @@ class OrganizationUpdateTest extends TestCase
     
     const BASE_ROUTE = '/v1/organizations/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

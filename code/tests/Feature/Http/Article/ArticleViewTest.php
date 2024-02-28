@@ -30,7 +30,7 @@ class ArticleViewTest extends TestCase
      */
     private $article;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

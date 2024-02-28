@@ -20,7 +20,7 @@ class CategoryUpdateTest extends TestCase
     
     const BASE_ROUTE = '/v1/categories/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

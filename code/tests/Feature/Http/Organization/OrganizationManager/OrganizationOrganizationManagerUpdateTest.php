@@ -24,7 +24,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

@@ -29,7 +29,7 @@ class UserPropertiesMergeListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

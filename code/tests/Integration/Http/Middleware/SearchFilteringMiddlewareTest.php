@@ -16,7 +16,7 @@ class SearchFilteringMiddlewareTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

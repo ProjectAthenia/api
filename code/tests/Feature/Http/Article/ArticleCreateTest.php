@@ -22,7 +22,7 @@ class ArticleCreateTest extends TestCase
      */
     private $path = '/v1/articles';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
