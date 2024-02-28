@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class MembershipPlanTest
  * @package Tests\Unit\Models\Subscription
  */
-class MembershipPlanTest extends TestCase
+final class MembershipPlanTest extends TestCase
 {
     public function testCurrentRate(): void
     {

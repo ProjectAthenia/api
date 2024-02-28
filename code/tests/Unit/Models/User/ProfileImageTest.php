@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class ProfileImageTest
  * @package Tests\Unit\Models\User
  */
-class ProfileImageTest extends TestCase
+final class ProfileImageTest extends TestCase
 {
     public function testOrganization(): void
     {

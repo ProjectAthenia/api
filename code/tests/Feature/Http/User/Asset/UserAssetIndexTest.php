@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserContactIndexTest
  * @package Tests\Feature\User\Asset
  */
-class UserAssetIndexTest extends TestCase
+final class UserAssetIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

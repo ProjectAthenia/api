@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class OrganizationManagerCreatedEventTest
  * @package Tests\Unit\Events\Organization
  */
-class OrganizationManagerCreatedEventTest extends TestCase
+final class OrganizationManagerCreatedEventTest extends TestCase
 {
     public function testWithoutPassword(): void
     {

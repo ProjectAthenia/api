@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSubscriptionIndexTest
  * @package Tests\Feature\User\Payment
  */
-class UserPaymentIndexTest extends TestCase
+final class UserPaymentIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

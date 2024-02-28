@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class CategoryTest
  * @package Tests\Unit\Models
  */
-class CategoryTest extends TestCase
+final class CategoryTest extends TestCase
 {
     public function testNewQueryAddsDefaultOrder(): void
     {

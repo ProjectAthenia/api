@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class TokenGenerationServiceTest
  * @package Tests\Unit\Services
  */
-class TokenGenerationServiceTest extends TestCase
+final class TokenGenerationServiceTest extends TestCase
 {
     public function testGenerateToken(): void
     {

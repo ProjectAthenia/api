@@ -6,7 +6,7 @@ namespace Tests\Unit\Models\Collection;
 use App\Models\Collection\CollectionItem;
 use Tests\TestCase;
 
-class CollectionItemTest extends TestCase
+final class CollectionItemTest extends TestCase
 {
     public function testItem(): void
     {

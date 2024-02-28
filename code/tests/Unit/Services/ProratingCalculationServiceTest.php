@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class ProratingCalculationServiceTest
  * @package Tests\Unit\Services
  */
-class ProratingCalculationServiceTest extends TestCase
+final class ProratingCalculationServiceTest extends TestCase
 {
     public function testCalculateRemainingYearlyChargeWhenToDateIsBeforeToday(): void
     {

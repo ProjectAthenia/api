@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserThreadMessageIndexTest
  * @package Tests\Feature\User\Thread\Message
  */
-class UserThreadMessageIndexTest extends TestCase
+final class UserThreadMessageIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

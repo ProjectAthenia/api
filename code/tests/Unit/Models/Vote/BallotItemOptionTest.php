@@ -6,7 +6,7 @@ namespace Tests\Unit\Models\Vote;
 use App\Models\Vote\BallotItemOption;
 use Tests\TestCase;
 
-class BallotItemOptionTest extends TestCase
+final class BallotItemOptionTest extends TestCase
 {
     public function testBallotItem(): void
     {

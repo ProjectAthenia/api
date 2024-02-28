@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class MembershipPlanTest
  * @package Tests\Integration\Models\Subscription
  */
-class MembershipPlanTest extends TestCase
+final class MembershipPlanTest extends TestCase
 {
     use DatabaseSetupTrait;
 

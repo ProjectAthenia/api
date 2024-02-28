@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class EntitySubscriptionCreationServiceTest
  * @package Tests\Unit\Services
  */
-class EntitySubscriptionCreationServiceTest extends TestCase
+final class EntitySubscriptionCreationServiceTest extends TestCase
 {
     /**
      * @var ProratingCalculationServiceContract

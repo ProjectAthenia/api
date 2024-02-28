@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class BaseRepositoryAbstractTest
  * @package Tests\Unit\Repositories
  */
-class BaseRepositoryAbstractTest extends TestCase
+final class BaseRepositoryAbstractTest extends TestCase
 {
     public function testFindOrFailPassesProperParameters(): void
     {

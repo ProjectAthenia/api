@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSubscriptionCreateTest
  * @package Tests\Feature\Http\User\Subscription
  */
-class UserSubscriptionCreateTest extends TestCase
+final class UserSubscriptionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

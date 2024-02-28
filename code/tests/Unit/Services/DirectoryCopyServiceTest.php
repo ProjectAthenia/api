@@ -7,7 +7,7 @@ use App\Services\DirectoryCopyService;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Tests\TestCase;
 
-class DirectoryCopyServiceTest extends TestCase
+final class DirectoryCopyServiceTest extends TestCase
 {
     public function testCopyDirectoryWithOnlyFiles(): void
     {

@@ -18,7 +18,7 @@ use Tests\Traits\MocksConsoleOutput;
  * Class ResendMessageCommandTest
  * @package Tests\Integration\Console\Commands
  */
-class ResendMessageCommandTest extends TestCase
+final class ResendMessageCommandTest extends TestCase
 {
     use MocksConsoleOutput;
 

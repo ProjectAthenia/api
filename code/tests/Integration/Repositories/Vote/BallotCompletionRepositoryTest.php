@@ -19,7 +19,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class BallotCompletionRepositoryTest
  * @package Tests\Integration\Repositories\Vote
  */
-class BallotCompletionRepositoryTest extends TestCase
+final class BallotCompletionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

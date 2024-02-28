@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class VoteRepositoryTest
  * @package Tests\Integration\Repositories\Vote
  */
-class VoteRepositoryTest extends TestCase
+final class VoteRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

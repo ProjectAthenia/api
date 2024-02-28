@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class IterationTest
  * @package Tests\Unit\Models\Wiki
  */
-class ArticleIterationTest extends TestCase
+final class ArticleIterationTest extends TestCase
 {
     public function testArticle(): void
     {

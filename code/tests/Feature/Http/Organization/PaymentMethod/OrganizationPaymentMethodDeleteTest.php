@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationPaymentMethodDeleteTest
  * @package Tests\Feature\Http\Organization\PaymentMethod
  */
-class OrganizationPaymentMethodDeleteTest extends TestCase
+final class OrganizationPaymentMethodDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

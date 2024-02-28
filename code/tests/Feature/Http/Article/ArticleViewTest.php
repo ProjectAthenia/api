@@ -16,7 +16,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleViewTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleViewTest extends TestCase
+final class ArticleViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

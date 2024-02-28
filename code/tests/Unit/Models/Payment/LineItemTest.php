@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class LineItemTest
  * @package Tests\Unit\Models\Payment
  */
-class LineItemTest extends TestCase
+final class LineItemTest extends TestCase
 {
     public function testItem(): void
     {

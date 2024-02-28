@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserSubscriptionsMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserSubscriptionsMergeListenerTest extends TestCase
+final class UserSubscriptionsMergeListenerTest extends TestCase
 {
     /**
      * @var SubscriptionRepositoryContract|CustomMockInterface

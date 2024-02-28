@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class ArticleVersionCalculationServiceTest
  * @package Tests\Unit\Services
  */
-class ArticleVersionCalculationServiceTest extends TestCase
+final class ArticleVersionCalculationServiceTest extends TestCase
 {
     public function testCalculateTextDiffPercentage(): void
     {

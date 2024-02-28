@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class AppServiceProviderTest
  * @package Tests\Unit\Providers
  */
-class AppServiceProviderTest extends TestCase
+final class AppServiceProviderTest extends TestCase
 {
     /**
      * @param $provide

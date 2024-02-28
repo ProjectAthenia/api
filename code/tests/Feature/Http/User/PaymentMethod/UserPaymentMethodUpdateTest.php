@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodUpdateTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class UserPaymentMethodUpdateTest extends TestCase
+final class UserPaymentMethodUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

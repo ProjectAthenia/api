@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class StatusTest
  * @package Tests\Feature\Http
  */
-class StatusTest extends TestCase
+final class StatusTest extends TestCase
 {
     use MocksApplicationLog;
 

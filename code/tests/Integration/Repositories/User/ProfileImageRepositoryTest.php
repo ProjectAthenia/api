@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ProfileImageRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class ProfileImageRepositoryTest extends TestCase
+final class ProfileImageRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

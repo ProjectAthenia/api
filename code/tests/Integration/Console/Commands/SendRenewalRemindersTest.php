@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class SendRenewalRemindersTest
  * @package Tests\Integration\Console\Commands
  */
-class SendRenewalRemindersTest extends TestCase
+final class SendRenewalRemindersTest extends TestCase
 {
     use DatabaseSetupTrait;
 

@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleTest
  * @package Tests\Integration\Models\Wiki
  */
-class ArticleTest extends TestCase
+final class ArticleTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class ContactCreatedListenerTest
  * @package Tests\Unit\Listeners\User\Contact
  */
-class ContactCreatedListenerTest extends TestCase
+final class ContactCreatedListenerTest extends TestCase
 {
     public function testHandle(): void
     {

@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class PaymentMethodObserverTest
  * @package Tests\Unit\Observers\Payment
  */
-class PaymentMethodObserverTest extends TestCase
+final class PaymentMethodObserverTest extends TestCase
 {
     /**
      * @var Dispatcher|CustomMockInterface

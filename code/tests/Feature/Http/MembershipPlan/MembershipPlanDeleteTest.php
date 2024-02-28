@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanDeleteTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanDeleteTest extends TestCase
+final class MembershipPlanDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

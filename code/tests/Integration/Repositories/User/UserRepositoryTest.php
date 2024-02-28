@@ -19,7 +19,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class UserRepositoryTest extends TestCase
+final class UserRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

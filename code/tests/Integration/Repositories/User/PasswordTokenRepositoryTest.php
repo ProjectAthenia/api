@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class PasswordTokenRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class PasswordTokenRepositoryTest extends TestCase
+final class PasswordTokenRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait;
 

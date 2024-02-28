@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationIndexTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationIndexTest extends TestCase
+final class OrganizationIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

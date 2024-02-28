@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class BaseValidatorAbstractTest
  * @package Tests\Unit\Validators
  */
-class BaseValidatorAbstractTest extends TestCase
+final class BaseValidatorAbstractTest extends TestCase
 {
     public function testEnsureValidatorAttributePasses(): void
     {

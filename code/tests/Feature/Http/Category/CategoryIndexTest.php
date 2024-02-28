@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class CategoryIndexTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryIndexTest extends TestCase
+final class CategoryIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

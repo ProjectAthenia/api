@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class OwnedByTest
  * @package Tests\Unit\Validators
  */
-class OwnedByValidatorTest extends TestCase
+final class OwnedByValidatorTest extends TestCase
 {
     public function testOwnedByValidatorFalse(): void
     {

@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanUpdateTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryUpdateTest extends TestCase
+final class CategoryUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     

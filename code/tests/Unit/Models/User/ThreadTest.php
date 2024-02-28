@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class ThreadTest
  * @package Tests\Unit\Models\User
  */
-class ThreadTest extends TestCase
+final class ThreadTest extends TestCase
 {
     public function testMessages(): void
     {

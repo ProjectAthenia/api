@@ -23,7 +23,7 @@ use Tests\TestCase;
  * Class MessageCreatedListenerTest
  * @package Tests\Unit\Listeners\Message
  */
-class MessageCreatedListenerTest extends TestCase
+final class MessageCreatedListenerTest extends TestCase
 {
     public function testHandleViaEmail(): void
     {

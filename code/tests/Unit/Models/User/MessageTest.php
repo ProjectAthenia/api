@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class MessageTest
  * @package Tests\Unit\Models\User
  */
-class MessageTest extends TestCase
+final class MessageTest extends TestCase
 {
     public function testFrom(): void
     {

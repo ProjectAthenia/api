@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationUpdateTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationUpdateTest extends TestCase
+final class OrganizationUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     

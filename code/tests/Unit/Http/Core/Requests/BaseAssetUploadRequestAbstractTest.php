@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class BaseAssetUploadRequestAbstractTest
  * @package Tests\Unit\Http\V1\Requests
  */
-class BaseAssetUploadRequestAbstractTest extends TestCase
+final class BaseAssetUploadRequestAbstractTest extends TestCase
 {
     public function testValidationDataSetsMimeType(): void
     {

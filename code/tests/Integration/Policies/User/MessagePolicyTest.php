@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class MessagePolicyTest
  * @package Tests\Integration\Policies\User
  */
-class MessagePolicyTest extends TestCase
+final class MessagePolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

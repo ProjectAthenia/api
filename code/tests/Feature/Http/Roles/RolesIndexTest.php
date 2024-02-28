@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class RolesIndexTest
  * @package Tests\Feature\Http\Roles
  */
-class RolesIndexTest extends TestCase
+final class RolesIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

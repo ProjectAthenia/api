@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class OrganizationManagerCreatedListenerTest
  * @package Tests\Unit\Listeners\Organization
  */
-class OrganizationManagerCreatedListenerTest extends TestCase
+final class OrganizationManagerCreatedListenerTest extends TestCase
 {
     public function testHandle(): void
     {

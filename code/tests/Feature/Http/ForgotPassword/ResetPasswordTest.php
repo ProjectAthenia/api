@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ResetPasswordTest
  * @package Tests\Feature\Http\ForgotPassword
  */
-class ResetPasswordTest extends TestCase
+final class ResetPasswordTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

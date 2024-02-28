@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class ContactPolicyTest
  * @package Tests\Integration\Policies\User
  */
-class ContactPolicyTest extends TestCase
+final class ContactPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

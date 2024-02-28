@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserBallotCompletionsMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserBallotCompletionsMergeListenerTest extends TestCase
+final class UserBallotCompletionsMergeListenerTest extends TestCase
 {
     /**
      * @var BallotCompletionRepositoryContract|CustomMockInterface

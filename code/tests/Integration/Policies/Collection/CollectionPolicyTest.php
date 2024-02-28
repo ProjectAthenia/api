@@ -11,7 +11,7 @@ use App\Policies\Collection\CollectionPolicy;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 
-class CollectionPolicyTest extends TestCase
+final class CollectionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

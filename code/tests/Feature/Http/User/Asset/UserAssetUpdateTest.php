@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserAssetUpdateTest
  * @package Tests\Feature\Http\User\Asset
  */
-class UserAssetUpdateTest extends TestCase
+final class UserAssetUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

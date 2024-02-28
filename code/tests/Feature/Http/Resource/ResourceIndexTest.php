@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ResourceIndexTest
  * @package Tests\Feature\Resource
  */
-class ResourceIndexTest extends TestCase
+final class ResourceIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

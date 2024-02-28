@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleVersionIndexTest
  * @package Tests\Feature\Http\Article\Iteration
  */
-class ArticleVersionIndexTest extends TestCase
+final class ArticleVersionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class MessageMailerTest
  * @package Tests\Unit\Mail
  */
-class MessageMailerTest extends TestCase
+final class MessageMailerTest extends TestCase
 {
     public function testBuild(): void
     {

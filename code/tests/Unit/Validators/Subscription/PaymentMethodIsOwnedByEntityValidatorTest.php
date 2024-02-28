@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class PaymentMethodIsOwnedByEntityValidatorTest
  * @package Tests\Unit\Validators\Subscription
  */
-class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
+final class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
 {
     public function testValidateFailsWithNonExistingRate(): void
     {

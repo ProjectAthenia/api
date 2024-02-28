@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class SubscriptionPolicyTest
  * @package Tests\Integration\Policies\Subscription
  */
-class SubscriptionPolicyTest extends TestCase
+final class SubscriptionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

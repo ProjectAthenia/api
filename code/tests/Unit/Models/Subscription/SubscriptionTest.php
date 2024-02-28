@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class SubscriptionTest
  * @package Tests\Unit\Models\Subscription
  */
-class SubscriptionTest extends TestCase
+final class SubscriptionTest extends TestCase
 {
     public function testLineItems(): void
     {

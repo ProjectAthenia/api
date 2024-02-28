@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class BallotCompletionPolicyTest
  * @package Tests\Integration\Policies\Vote
  */
-class BallotCompletionPolicyTest extends TestCase
+final class BallotCompletionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

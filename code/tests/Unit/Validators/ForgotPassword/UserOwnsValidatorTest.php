@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserOwnsValidatorTest
  * @package Tests\Unit\Validators\ForgotPassword
  */
-class UserOwnsValidatorTest extends TestCase
+final class UserOwnsValidatorTest extends TestCase
 {
     /**
      * @var Request|CustomMockInterface

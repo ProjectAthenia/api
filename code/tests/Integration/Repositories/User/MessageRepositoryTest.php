@@ -20,7 +20,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MessageRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class MessageRepositoryTest extends TestCase
+final class MessageRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

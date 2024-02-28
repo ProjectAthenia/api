@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class VoteTest
  * @package Tests\Unit\Models\Vote
  */
-class VoteTest extends TestCase
+final class VoteTest extends TestCase
 {
     public function testBallotCompletion(): void
     {

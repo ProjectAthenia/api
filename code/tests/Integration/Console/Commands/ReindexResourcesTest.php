@@ -21,7 +21,7 @@ use Tests\Traits\MocksConsoleOutput;
  * Class ReindexResourcesTest
  * @package Tests\Integration\Console\Commands
  */
-class ReindexResourcesTest extends TestCase
+final class ReindexResourcesTest extends TestCase
 {
     use MocksApplicationLog, MocksConsoleOutput, DatabaseSetupTrait;
 

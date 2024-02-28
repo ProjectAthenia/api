@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleIndexTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleIndexTest extends TestCase
+final class ArticleIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

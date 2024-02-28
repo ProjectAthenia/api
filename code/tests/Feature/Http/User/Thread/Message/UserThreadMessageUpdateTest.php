@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserThreadMessageUpdateTest
  * @package Tests\Feature\User\Thread\Message
  */
-class UserThreadMessageUpdateTest extends TestCase
+final class UserThreadMessageUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

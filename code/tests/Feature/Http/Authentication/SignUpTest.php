@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSignUpTest
  * @package Tests\Feature\Http\V2\Authentication
  */
-class SignUpTest extends TestCase
+final class SignUpTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

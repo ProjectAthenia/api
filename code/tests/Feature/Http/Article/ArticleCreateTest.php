@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleCreateTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleCreateTest extends TestCase
+final class ArticleCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

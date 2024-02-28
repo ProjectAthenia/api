@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleRepositoryTest
  * @package Tests\Integration\Repositories\Wiki
  */
-class ArticleRepositoryTest extends TestCase
+final class ArticleRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

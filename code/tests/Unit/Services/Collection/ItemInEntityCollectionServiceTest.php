@@ -10,7 +10,7 @@ use App\Models\User\User;
 use App\Services\Collection\ItemInEntityCollectionService;
 use Tests\TestCase;
 
-class ItemInEntityCollectionServiceTest extends TestCase
+final class ItemInEntityCollectionServiceTest extends TestCase
 {
     public function testIsItemInEntityCollectionReturnsFalseWithoutCollections(): void
     {

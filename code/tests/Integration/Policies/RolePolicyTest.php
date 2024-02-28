@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class RolePolicyTest
  * @package Tests\Integration\Policies
  */
-class RolePolicyTest extends TestCase
+final class RolePolicyTest extends TestCase
 {
     public function testAll(): void
     {

@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class ArticleTest
  * @package Tests\Unit\Models\Wiki
  */
-class ArticleTest extends TestCase
+final class ArticleTest extends TestCase
 {
     public function testCreatedBy(): void
     {

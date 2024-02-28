@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class DefaultPaymentMethodSetListenerTest
  * @package Tests\Unit\Listeners\Payment
  */
-class DefaultPaymentMethodSetListenerTest extends TestCase
+final class DefaultPaymentMethodSetListenerTest extends TestCase
 {
     public function testHandle(): void
     {

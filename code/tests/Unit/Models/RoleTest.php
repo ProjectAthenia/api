@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class RoleTest
  * @package Tests\Unit
  */
-class RoleTest extends TestCase
+final class RoleTest extends TestCase
 {
     public function testUsers(): void
     {

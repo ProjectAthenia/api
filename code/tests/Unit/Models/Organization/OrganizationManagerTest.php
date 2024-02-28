@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class OrganizationManagerTest
  * @package Tests\Unit\Models\Organization
  */
-class OrganizationManagerTest extends TestCase
+final class OrganizationManagerTest extends TestCase
 {
     public function testOrganization(): void
     {

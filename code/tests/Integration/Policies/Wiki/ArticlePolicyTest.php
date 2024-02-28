@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticlePolicyTest
  * @package Tests\Integration\Policies\Wiki
  */
-class ArticlePolicyTest extends TestCase
+final class ArticlePolicyTest extends TestCase
 {
     use DatabaseSetupTrait, RolesTesting;
 

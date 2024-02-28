@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class PrivateThreadGateTest
  * @package Tests\Unit\ThreadSecurity
  */
-class PrivateThreadGateTest extends TestCase
+final class PrivateThreadGateTest extends TestCase
 {
     public function testAuthorizeSubject(): void
     {

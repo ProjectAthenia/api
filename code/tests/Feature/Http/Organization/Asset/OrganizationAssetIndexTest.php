@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationContactIndexTest
  * @package Tests\Feature\Organization\Asset
  */
-class OrganizationAssetIndexTest extends TestCase
+final class OrganizationAssetIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

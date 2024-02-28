@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class LoginTest
  * @package Tests\Feature\Http\Authentication
  */
-class LoginTest extends TestCase
+final class LoginTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -12,7 +12,7 @@ use App\Policies\Collection\CollectionItemPolicy;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 
-class CollectionItemPolicyTest extends TestCase
+final class CollectionItemPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

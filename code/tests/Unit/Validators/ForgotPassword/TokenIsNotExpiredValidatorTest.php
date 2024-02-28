@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class TokenIsNotExpiredValidatorTest
  * @package Tests\Unit\Validators\ForgotPassword
  */
-class TokenIsNotExpiredValidatorTest extends TestCase
+final class TokenIsNotExpiredValidatorTest extends TestCase
 {
     /**
      * @var Request|CustomMockInterface

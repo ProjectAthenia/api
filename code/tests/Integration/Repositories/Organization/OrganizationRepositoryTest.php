@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationRepositoryTest
  * @package Tests\Integration\Repositories\Organization
  */
-class OrganizationRepositoryTest extends TestCase
+final class OrganizationRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

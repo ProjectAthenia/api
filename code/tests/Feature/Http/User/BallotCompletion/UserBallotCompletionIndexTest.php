@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserBallotCompletionIndexTest
  * @package Tests\Feature\User\BallotCompletion
  */
-class UserBallotCompletionIndexTest extends TestCase
+final class UserBallotCompletionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

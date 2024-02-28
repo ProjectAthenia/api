@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class categoriesViewTest
  * @package Tests\Feature\V4\categories
  */
-class CategoryViewTest extends TestCase
+final class CategoryViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

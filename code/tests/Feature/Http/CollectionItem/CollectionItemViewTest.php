@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class categoriesViewTest
  * @package Tests\Feature\V4\categories
  */
-class CollectionItemViewTest extends TestCase
+final class CollectionItemViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

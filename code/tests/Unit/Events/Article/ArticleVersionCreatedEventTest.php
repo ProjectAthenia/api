@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class ArticleVersionCreatedEventTest
  * @package Tests\Unit\Events\Article
  */
-class ArticleVersionCreatedEventTest extends TestCase
+final class ArticleVersionCreatedEventTest extends TestCase
 {
     public function testGetNewVersion(): void
     {

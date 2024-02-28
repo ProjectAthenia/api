@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class PasswordTokenTest
  * @package Tests\Unit\Models\User
  */
-class PasswordTokenTest extends TestCase
+final class PasswordTokenTest extends TestCase
 {
     public function testUser(): void
     {

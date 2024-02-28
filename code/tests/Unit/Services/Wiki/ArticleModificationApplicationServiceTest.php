@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class ArticleModificationApplicationServiceTest
  * @package Tests\Unit\Services\Wiki
  */
-class ArticleModificationApplicationServiceTest extends TestCase
+final class ArticleModificationApplicationServiceTest extends TestCase
 {
     /**
      * @var ArticleIterationRepositoryContract|array|LegacyMockInterface|MockInterface|CustomMockInterface

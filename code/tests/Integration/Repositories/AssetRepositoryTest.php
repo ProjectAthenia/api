@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class AssetRepositoryTest
  * @package Tests\Integration\Repositories
  */
-class AssetRepositoryTest extends TestCase
+final class AssetRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class RoleRepositoryTest
  * @package Tests\Integration\Repositories
  */
-class RoleRepositoryTest extends TestCase
+final class RoleRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait;
     

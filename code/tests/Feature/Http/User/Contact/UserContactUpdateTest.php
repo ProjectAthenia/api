@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserContactUpdateTest
  * @package Tests\Feature\User\Contact
  */
-class UserContactUpdateTest extends TestCase
+final class UserContactUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

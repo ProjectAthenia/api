@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserContactCreateTest
  * @package Tests\Feature\User\Contact
  */
-class UserContactCreateTest extends TestCase
+final class UserContactCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

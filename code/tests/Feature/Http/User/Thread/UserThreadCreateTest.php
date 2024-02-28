@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserThreadCreateTest
  * @package Tests\Feature\User\Thread
  */
-class UserThreadCreateTest extends TestCase
+final class UserThreadCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

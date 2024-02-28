@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationPaymentMethodCreateTest
  * @package Tests\Feature\Http\Organization\PaymentMethod
  */
-class OrganizationPaymentMethodCreateTest extends TestCase
+final class OrganizationPaymentMethodCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class RefreshTest
  * @package Tests\Feature\Http\Authentication
  */
-class RefreshTest extends TestCase
+final class RefreshTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class OrganizationPolicyTest
  * @package Tests\Integration\Policies\Organization
  */
-class OrganizationPolicyTest extends TestCase
+final class OrganizationPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

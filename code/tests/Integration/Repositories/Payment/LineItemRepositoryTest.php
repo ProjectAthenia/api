@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class LineItemRepositoryTest
  * @package Tests\Integration\Repositories\Payment
  */
-class LineItemRepositoryTest extends TestCase
+final class LineItemRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

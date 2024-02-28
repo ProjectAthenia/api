@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class IndexableModelObserverTest
  * @package Tests\Unit\Observers
  */
-class IndexableModelObserverTest extends TestCase
+final class IndexableModelObserverTest extends TestCase
 {
     /**
      * @var IndexableModelObserver

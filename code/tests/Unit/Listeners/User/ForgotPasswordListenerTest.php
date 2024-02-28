@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class ForgotPasswordListenerTest
  * @package Tests\Unit\Listeners\User
  */
-class ForgotPasswordListenerTest extends TestCase
+final class ForgotPasswordListenerTest extends TestCase
 {
     public function testHandle(): void
     {

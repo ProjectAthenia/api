@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class PaymentTest
  * @package Tests\Unit\Models\Payment
  */
-class PaymentTest extends TestCase
+final class PaymentTest extends TestCase
 {
     public function testLineItems(): void
     {

@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class ContactTest
  * @package Tests\Unit\Models\User
  */
-class ContactTest extends TestCase
+final class ContactTest extends TestCase
 {
     public function testInitiatedBy(): void
     {

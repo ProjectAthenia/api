@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class SelectedIterationBelongsToArticleValidatorTest
  * @package Tests\Unit\Validators\Test
  */
-class SelectedIterationBelongsToArticleValidatorTest extends TestCase
+final class SelectedIterationBelongsToArticleValidatorTest extends TestCase
 {
     /**
      * @var CustomMockInterface|ArticleIterationRepositoryContract

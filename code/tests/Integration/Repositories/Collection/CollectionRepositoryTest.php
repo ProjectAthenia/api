@@ -13,7 +13,7 @@ use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
 
-class CollectionRepositoryTest extends TestCase
+final class CollectionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

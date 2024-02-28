@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodDeleteTest
  * @package Tests\Feature\Http\User\Asset
  */
-class UserAssetDeleteTest extends TestCase
+final class UserAssetDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

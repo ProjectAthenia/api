@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class HandlerTest
  * @package Tests\Unit\Exceptions
  */
-class HandlerTest extends TestCase 
+final class HandlerTest extends TestCase 
 {
     public function testDebugTrueHasTraceInfoInResponse(): void
     {

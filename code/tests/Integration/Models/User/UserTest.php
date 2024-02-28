@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class UserTest
  * @package Tests\Integration\Models
  */
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     use DatabaseSetupTrait;
     

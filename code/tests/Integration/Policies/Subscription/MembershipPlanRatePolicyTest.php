@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class MembershipPlanRatePolicyTest
  * @package Tests\Integration\Policies\Subscription
  */
-class MembershipPlanRatePolicyTest extends TestCase
+final class MembershipPlanRatePolicyTest extends TestCase
 {
     public function testAll(): void
     {

@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class BallotItemOptionRepositoryTest
  * @package Tests\Integration\Repositories\BallotItemOption
  */
-class BallotItemOptionRepositoryTest extends TestCase
+final class BallotItemOptionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

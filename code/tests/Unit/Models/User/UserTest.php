@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class UserTest
  * @package Tests\Unit\Models\User
  */
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     public function testAssets(): void
     {

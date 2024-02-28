@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class ResourcePolicyTest
  * @package Tests\Integration\Policies
  */
-class ResourcePolicyTest extends TestCase
+final class ResourcePolicyTest extends TestCase
 {
     public function testAll(): void
     {

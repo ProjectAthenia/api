@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodCreateTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class CollectionCollectionItemCreateTest extends TestCase
+final class CollectionCollectionItemCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

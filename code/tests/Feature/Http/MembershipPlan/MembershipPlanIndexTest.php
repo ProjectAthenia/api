@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanIndexTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanIndexTest extends TestCase
+final class MembershipPlanIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

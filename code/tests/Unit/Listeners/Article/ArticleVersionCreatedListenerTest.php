@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class ArticleVersionCreatedListenerTest
  * @package Tests\Unit\Article
  */
-class ArticleVersionCreatedListenerTest extends TestCase
+final class ArticleVersionCreatedListenerTest extends TestCase
 {
     /**
      * @var ArticleVersionRepositoryContract|CustomMockInterface

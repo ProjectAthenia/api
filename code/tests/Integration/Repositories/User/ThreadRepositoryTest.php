@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ThreadRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class ThreadRepositoryTest extends TestCase
+final class ThreadRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

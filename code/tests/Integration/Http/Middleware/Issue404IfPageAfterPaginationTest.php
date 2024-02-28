@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class Issue404IfPageAfterPaginationTest
  * @package Tests\Integration\Middleware
  */
-class Issue404IfPageAfterPaginationTest extends TestCase
+final class Issue404IfPageAfterPaginationTest extends TestCase
 {
     use DatabaseSetupTrait;
 

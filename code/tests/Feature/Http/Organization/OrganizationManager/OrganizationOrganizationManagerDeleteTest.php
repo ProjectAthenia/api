@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationOrganizationManagerDeleteTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class OrganizationOrganizationManagerDeleteTest extends TestCase
+final class OrganizationOrganizationManagerDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

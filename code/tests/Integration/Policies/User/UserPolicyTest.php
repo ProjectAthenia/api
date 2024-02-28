@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class UserPolicyTest
  * @package Tests\Integration\Policies\User
  */
-class UserPolicyTest extends TestCase
+final class UserPolicyTest extends TestCase
 {
     use DatabaseSetupTrait, RolesTesting;
 

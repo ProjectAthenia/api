@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationCreateTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationCreateTest extends TestCase
+final class OrganizationCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     

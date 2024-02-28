@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserCreatedArticlesMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserCreatedArticlesMergeListenerTest extends TestCase
+final class UserCreatedArticlesMergeListenerTest extends TestCase
 {
     /**
      * @var ArticleRepositoryContract|CustomMockInterface

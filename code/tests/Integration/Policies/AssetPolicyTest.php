@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class AssetPolicyTest
  * @package Tests\Integration\Policies
  */
-class AssetPolicyTest extends TestCase
+final class AssetPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

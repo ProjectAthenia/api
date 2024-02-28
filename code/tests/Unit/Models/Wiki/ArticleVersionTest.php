@@ -10,7 +10,7 @@ use Tests\TestCase;
  * Class ArticleVersionTest
  * @package Tests\Unit\Models\Wiki
  */
-class ArticleVersionTest extends TestCase
+final class ArticleVersionTest extends TestCase
 {
     public function testArticle(): void
     {

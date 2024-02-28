@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class FeaturePolicyTest
  * @package Tests\Integration\Policies
  */
-class FeaturePolicyTest extends TestCase
+final class FeaturePolicyTest extends TestCase
 {
     public function testAll(): void
     {

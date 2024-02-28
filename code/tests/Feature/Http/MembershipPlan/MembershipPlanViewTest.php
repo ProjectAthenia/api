@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanViewTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanViewTest extends TestCase
+final class MembershipPlanViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

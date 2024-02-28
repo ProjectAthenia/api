@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSubscriptionIndexTest
  * @package Tests\Feature\User\Payment
  */
-class CollectionCollectionItemIndexTest extends TestCase
+final class CollectionCollectionItemIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

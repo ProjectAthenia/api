@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class FeatureIndexTest
  * @package Tests\Feature\Http\Feature
  */
-class FeatureIndexTest extends TestCase
+final class FeatureIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 

@@ -20,7 +20,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class SubscriptionRepositoryTest
  * @package Tests\Integration\Repositories\Subscription
  */
-class SubscriptionRepositoryTest extends TestCase
+final class SubscriptionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

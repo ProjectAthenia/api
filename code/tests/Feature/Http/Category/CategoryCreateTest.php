@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanCreateTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryCreateTest extends TestCase
+final class CategoryCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     

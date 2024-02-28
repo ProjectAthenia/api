@@ -15,7 +15,7 @@ use Tests\TestCase;
  * Class ThreadPolicyTest
  * @package Tests\Integration\Policies\User
  */
-class ThreadPolicyTest extends TestCase
+final class ThreadPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

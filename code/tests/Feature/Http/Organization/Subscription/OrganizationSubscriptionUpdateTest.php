@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationSubscriptionUpdateTest
  * @package Tests\Feature\Http\Organization\Subscription
  */
-class OrganizationSubscriptionUpdateTest extends TestCase
+final class OrganizationSubscriptionUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

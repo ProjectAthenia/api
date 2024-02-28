@@ -19,7 +19,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSubscriptionCreateTest
  * @package Tests\Feature\Http\Organization\Subscription
  */
-class OrganizationSubscriptionCreateTest extends TestCase
+final class OrganizationSubscriptionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class ThreadTest
  * @package Tests\Integration\Models\User
  */
-class ThreadTest extends TestCase
+final class ThreadTest extends TestCase
 {
     use DatabaseSetupTrait;
 

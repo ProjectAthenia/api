@@ -12,7 +12,7 @@ use Tests\Traits\ReflectionHelpers;
  * Class EventServiceProviderTest
  * @package Tests\Unit\Providers
  */
-class EventServiceProviderTest extends TestCase
+final class EventServiceProviderTest extends TestCase
 {
     use ReflectionHelpers;
 

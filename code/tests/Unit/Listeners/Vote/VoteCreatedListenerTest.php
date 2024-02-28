@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class VoteCreatedListenerTest
  * @package Tests\Unit\Listeners\Vote
  */
-class VoteCreatedListenerTest extends TestCase
+final class VoteCreatedListenerTest extends TestCase
 {
     public function testHandle(): void
     {

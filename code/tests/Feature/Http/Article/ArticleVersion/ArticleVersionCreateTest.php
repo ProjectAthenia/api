@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleVersionCreateTest
  * @package Tests\Feature\Http\Article\ArticleVersion
  */
-class ArticleVersionCreateTest extends TestCase
+final class ArticleVersionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

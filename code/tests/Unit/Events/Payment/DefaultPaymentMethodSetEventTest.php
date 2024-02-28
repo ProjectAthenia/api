@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class DefaultPaymentMethodSetEventTest
  * @package Tests\Unit\Events\Payment
  */
-class DefaultPaymentMethodSetEventTest extends TestCase
+final class DefaultPaymentMethodSetEventTest extends TestCase
 {
     public function testGetPaymentMethod(): void
     {

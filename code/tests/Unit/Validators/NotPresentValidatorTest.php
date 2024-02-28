@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class NotPresentValidatorTest
  * @package Tests\Unit\Validators
  */
-class NotPresentValidatorTest extends TestCase 
+final class NotPresentValidatorTest extends TestCase 
 {
     public function testNotPresentTrue(): void
     {

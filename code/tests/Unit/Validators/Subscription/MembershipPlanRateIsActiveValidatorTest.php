@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class MembershipPlanRateIsActiveValidatorTest
  * @package Tests\Unit\Validators\Subscription
  */
-class MembershipPlanRateIsActiveValidatorTest extends TestCase
+final class MembershipPlanRateIsActiveValidatorTest extends TestCase
 {
     public function testValidateFailsWithNonExistingRate(): void
     {

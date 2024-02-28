@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class UserMergeEventTest
  * @package Tests\Unit\Events\User
  */
-class UserMergeEventTest extends TestCase
+final class UserMergeEventTest extends TestCase
 {
     public function testGetMainUser(): void
     {

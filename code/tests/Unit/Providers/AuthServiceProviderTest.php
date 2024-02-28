@@ -20,7 +20,7 @@ use Tests\Traits\ReflectionHelpers;
  * Class AuthServiceProviderTest
  * @package Tests\Unit\Providers
  */
-class AuthServiceProviderTest extends TestCase
+final class AuthServiceProviderTest extends TestCase
 {
     use ReflectionHelpers;
 

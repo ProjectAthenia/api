@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationSubscriptionIndexTest
  * @package Tests\Feature\Organization\Payment
  */
-class OrganizationCollectionIndexTest extends TestCase
+final class OrganizationCollectionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

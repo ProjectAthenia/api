@@ -8,7 +8,7 @@ use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Tests\TestCase;
 
-class CanDisplayOutputAbstractJobTest extends TestCase
+final class CanDisplayOutputAbstractJobTest extends TestCase
 {
     public function testOutMessageDoesNothingWithoutOutput(): void
     {

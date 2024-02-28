@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class PaymentMethodPolicyTest
  * @package Tests\Integration\Policies\Payment
  */
-class PaymentMethodPolicyTest extends TestCase
+final class PaymentMethodPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 

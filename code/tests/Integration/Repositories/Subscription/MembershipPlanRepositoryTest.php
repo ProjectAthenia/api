@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanRepositoryTest
  * @package Tests\Integration\Repositories\Subscription
  */
-class MembershipPlanRepositoryTest extends TestCase
+final class MembershipPlanRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

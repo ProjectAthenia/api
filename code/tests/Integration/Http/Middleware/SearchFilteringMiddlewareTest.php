@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class SearchFilteringMiddlewareTest
  * @package Tests\Integration\Middleware
  */
-class SearchFilteringMiddlewareTest extends TestCase
+final class SearchFilteringMiddlewareTest extends TestCase
 {
     use DatabaseSetupTrait;
 

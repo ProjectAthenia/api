@@ -11,7 +11,7 @@ use Tests\TestCase;
  * Class ForgotPasswordEventTest
  * @package Tests\Unit\Events\User
  */
-class ForgotPasswordEventTest extends TestCase
+final class ForgotPasswordEventTest extends TestCase
 {
     public function testGetPasswordToken(): void
     {

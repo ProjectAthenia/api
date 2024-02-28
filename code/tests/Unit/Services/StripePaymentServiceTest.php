@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class StripePaymentServiceTest
  * @package Tests\Unit\Services
  */
-class StripePaymentServiceTest extends TestCase
+final class StripePaymentServiceTest extends TestCase
 {
     /**
      * @var PaymentRepositoryContract|CustomMockInterface

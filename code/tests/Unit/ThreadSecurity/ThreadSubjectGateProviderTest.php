@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class ThreadSubjectGateProviderTest
  * @package Tests\Unit\ThreadSecurity
  */
-class ThreadSubjectGateProviderTest extends TestCase
+final class ThreadSubjectGateProviderTest extends TestCase
 {
     public function testCreateGate(): void
     {

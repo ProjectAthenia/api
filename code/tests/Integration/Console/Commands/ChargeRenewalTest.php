@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class ChargeRenewalTest
  * @package Tests\Integration\Console\Commands
  */
-class ChargeRenewalTest extends TestCase
+final class ChargeRenewalTest extends TestCase
 {
     use DatabaseSetupTrait;
 

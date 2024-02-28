@@ -15,7 +15,7 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
  * Class LogoutTest
  * @package Tests\Feature\Http\Authentication
  */
-class LogoutTest extends TestCase
+final class LogoutTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

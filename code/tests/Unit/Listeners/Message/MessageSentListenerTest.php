@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class MessageSentListenerTest
  * @package Tests\Unit\Listeners\Message
  */
-class MessageSentListenerTest extends TestCase
+final class MessageSentListenerTest extends TestCase
 {
     public function testHandle(): void
     {

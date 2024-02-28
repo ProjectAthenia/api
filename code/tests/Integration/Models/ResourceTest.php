@@ -12,7 +12,7 @@ use Tests\TestCase;
  * Class ResourceTest
  * @package Tests\Integration\Models
  */
-class ResourceTest extends TestCase
+final class ResourceTest extends TestCase
 {
     use DatabaseSetupTrait;
 

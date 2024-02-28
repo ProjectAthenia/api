@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class EntityFeatureAccessServiceTest
  * @package Tests\Unit\Services
  */
-class EntityFeatureAccessServiceTest extends TestCase
+final class EntityFeatureAccessServiceTest extends TestCase
 {
     /**
      * @var MembershipPlanRepositoryContract|CustomMockInterface

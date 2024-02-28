@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserAssetCreateTest
  * @package Tests\Feature\User\ProfileImage
  */
-class UserAssetCreateTest extends TestCase
+final class UserAssetCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 

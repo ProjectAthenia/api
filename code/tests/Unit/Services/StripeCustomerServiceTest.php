@@ -21,7 +21,7 @@ use Tests\TestCase;
  * Class StripeCustomerServiceTest
  * @package Tests\Unit\Services
  */
-class StripeCustomerServiceTest extends TestCase
+final class StripeCustomerServiceTest extends TestCase
 {
     /**
      * @var UserRepositoryContract|CustomMockInterface

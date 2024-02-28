@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class BallotViewTest
  * @package Tests\Ballot\Http\Ballot
  */
-class BallotViewTest extends TestCase
+final class BallotViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
