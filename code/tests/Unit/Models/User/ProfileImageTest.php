@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class ProfileImageTest extends TestCase
 {
-    public function testOrganization()
+    public function testOrganization(): void
     {
         $model = new ProfileImage();
         $relation = $model->organization();
@@ -21,7 +21,7 @@ class ProfileImageTest extends TestCase
         $this->assertEquals('organizations.profile_image_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testUser()
+    public function testUser(): void
     {
         $model = new ProfileImage();
         $relation = $model->user();

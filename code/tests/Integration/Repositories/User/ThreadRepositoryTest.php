@@ -36,7 +36,7 @@ class ThreadRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         foreach (Thread::all() as $resource) {
             $resource->delete();
@@ -47,7 +47,7 @@ class ThreadRepositoryTest extends TestCase
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         foreach (Thread::all() as $resource) {
             $resource->delete();
@@ -57,7 +57,7 @@ class ThreadRepositoryTest extends TestCase
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Thread::factory()->create();
 
@@ -65,7 +65,7 @@ class ThreadRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Thread::factory()->create(['id' => 19]);
 
@@ -73,7 +73,7 @@ class ThreadRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $users = User::factory()->count(2)->create();
 
@@ -85,14 +85,14 @@ class ThreadRepositoryTest extends TestCase
         $this->assertCount(2, $thread->users);
     }
 
-    public function testUpdateFails()
+    public function testUpdateFails(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->update(new Thread(), []);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Thread::factory()->create();
 

@@ -29,14 +29,14 @@ class ArticleCreateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR]) as $role) {
             $this->actAs($role);
@@ -46,7 +46,7 @@ class ArticleCreateTest extends TestCase
         }
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -63,7 +63,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -78,7 +78,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -95,7 +95,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringsTooLong()
+    public function testCreateFailsStringsTooLong(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 

@@ -27,13 +27,13 @@ class MembershipPlanCreateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->route);
         $response->assertStatus(403);
     }
 
-    public function testNotAdminUserBlocked()
+    public function testNotAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -42,7 +42,7 @@ class MembershipPlanCreateTest extends TestCase
         }
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         
@@ -61,7 +61,7 @@ class MembershipPlanCreateTest extends TestCase
         $response->assertJson($properties);
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -79,7 +79,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidArrayFields()
+    public function testCreateFailsInvalidArrayFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -98,7 +98,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidNumericFields()
+    public function testCreateFailsInvalidNumericFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('POST', $this->route, [
@@ -118,7 +118,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidNumericMinimums()
+    public function testCreateFailsInvalidNumericMinimums(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('POST', $this->route, [
@@ -136,7 +136,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -161,7 +161,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -180,7 +180,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidModelFields()
+    public function testCreateFailsInvalidModelFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('POST', $this->route, [
@@ -196,7 +196,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringTooLong()
+    public function testCreateFailsStringTooLong(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -215,7 +215,7 @@ class MembershipPlanCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidEnumFields()
+    public function testCreateFailsInvalidEnumFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

@@ -30,7 +30,7 @@ class ArticleVersionPolicyTest extends TestCase
         }
     }
 
-    public function testAllBlocks()
+    public function testAllBlocks(): void
     {
         $policy = new ArticleVersionPolicy();
 
@@ -41,7 +41,7 @@ class ArticleVersionPolicyTest extends TestCase
         }
     }
 
-    public function testCreateBlock()
+    public function testCreateBlock(): void
     {
         $policy = new ArticleVersionPolicy();
 
@@ -51,7 +51,7 @@ class ArticleVersionPolicyTest extends TestCase
         $this->assertFalse($policy->create($user, $article));
     }
 
-    public function testCreatePasses()
+    public function testCreatePasses(): void
     {
         $policy = new ArticleVersionPolicy();
 

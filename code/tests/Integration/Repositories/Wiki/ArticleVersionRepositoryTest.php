@@ -47,20 +47,20 @@ class ArticleVersionRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         ArticleVersion::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = ArticleVersion::factory()->create();
 
@@ -68,7 +68,7 @@ class ArticleVersionRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         ArticleVersion::factory()->create(['id' => 19]);
 
@@ -76,7 +76,7 @@ class ArticleVersionRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $article = Article::factory()->create();
         $iteration = ArticleIteration::factory()->create();
@@ -94,7 +94,7 @@ class ArticleVersionRepositoryTest extends TestCase
         $this->assertEquals($articleVersion->article_iteration_id, $iteration->id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = ArticleVersion::factory()->create([
             'name' => null,
@@ -107,7 +107,7 @@ class ArticleVersionRepositoryTest extends TestCase
         $this->assertEquals('1.0.0', $updated->name);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = ArticleVersion::factory()->create();
 

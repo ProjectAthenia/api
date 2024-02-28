@@ -24,7 +24,7 @@ class CollectionItemViewTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testGetBlocksNotLoggedIn()
+    public function testGetBlocksNotLoggedIn(): void
     {
         CollectionItem::factory()->create([
             'id'    =>  1,
@@ -33,7 +33,7 @@ class CollectionItemViewTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAsUser();
         $response = $this->json('GET', '/v1/collection-items/1');
@@ -43,7 +43,7 @@ class CollectionItemViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAsUser();
         $response = $this->json('GET', '/v1/collection-items/a')
@@ -53,7 +53,7 @@ class CollectionItemViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleNonPublicBlocked()
+    public function testGetSingleNonPublicBlocked(): void
     {
         $this->actAsUser();
         CollectionItem::factory()->create([
@@ -67,7 +67,7 @@ class CollectionItemViewTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAsUser();
         $model = CollectionItem::factory()->create([
@@ -82,7 +82,7 @@ class CollectionItemViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNonPublicSuccess()
+    public function testGetSingleNonPublicSuccess(): void
     {
         $this->actAsUser();
         $model = CollectionItem::factory()->create([

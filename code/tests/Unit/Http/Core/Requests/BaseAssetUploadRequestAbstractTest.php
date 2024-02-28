@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class BaseAssetUploadRequestAbstractTest extends TestCase
 {
-    public function testValidationDataSetsMimeType()
+    public function testValidationDataSetsMimeType(): void
     {
         /** @var BaseAssetUploadRequestAbstract $request */
         $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
@@ -27,7 +27,7 @@ class BaseAssetUploadRequestAbstractTest extends TestCase
         $this->assertEquals($data['mime_type'], 'text/plain');
     }
 
-    public function testGetDecodedContentsThrowsException()
+    public function testGetDecodedContentsThrowsException(): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -37,7 +37,7 @@ class BaseAssetUploadRequestAbstractTest extends TestCase
         $request->getDecodedContents();
     }
 
-    public function testGetDecodedContentsReturnsCorrectContents()
+    public function testGetDecodedContentsReturnsCorrectContents(): void
     {
         /** @var BaseAssetUploadRequestAbstract $request */
         $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
@@ -51,7 +51,7 @@ class BaseAssetUploadRequestAbstractTest extends TestCase
         $this->assertEquals('<svg></svg>', $request->getDecodedContents());
     }
 
-    public function testGetFileMimeTypeThrowsException()
+    public function testGetFileMimeTypeThrowsException(): void
     {
         $this->expectException(RuntimeException::class);
 
@@ -61,7 +61,7 @@ class BaseAssetUploadRequestAbstractTest extends TestCase
         $request->getFileMimeType();
     }
 
-    public function testGetFileMimeTypeReturnsCorrectContents()
+    public function testGetFileMimeTypeReturnsCorrectContents(): void
     {
         /** @var BaseAssetUploadRequestAbstract $request */
         $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);

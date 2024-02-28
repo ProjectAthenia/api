@@ -37,7 +37,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         $this->path.= $this->user->id . '/payment-methods/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -47,7 +47,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -60,7 +60,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserDoesNotOwnPaymentMethodBlocked()
+    public function testUserDoesNotOwnPaymentMethodBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create();
 
@@ -71,7 +71,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -90,7 +90,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsNotAllowedFieldsPresent()
+    public function testUpdateFailsNotAllowedFieldsPresent(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -111,7 +111,7 @@ class UserPaymentMethodUpdateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,

@@ -44,14 +44,14 @@ class OrganizationSubscriptionCreateTest extends TestCase
         $this->path.= $this->organization->id . '/subscriptions';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testNoNonOrganizationManagerUserBlocked()
+    public function testNoNonOrganizationManagerUserBlocked(): void
     {
         $this->actAsUser();
 
@@ -60,7 +60,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAsUser();
 
@@ -102,7 +102,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         $this->assertEquals('organization', $subscription->subscriber_type);
     }
 
-    public function testCreateFailsWhenStripeFails()
+    public function testCreateFailsWhenStripeFails(): void
     {
         $this->actAsUser();
 
@@ -141,7 +141,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         $this->assertNull(Subscription::first());
     }
 
-    public function testCreateFailsWithoutRequiredFields()
+    public function testCreateFailsWithoutRequiredFields(): void
     {
         $this->actAsUser();
 
@@ -162,7 +162,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsWithNotPresentFieldsPresent()
+    public function testCreateFailsWithNotPresentFieldsPresent(): void
     {
         $this->actAsUser();
 
@@ -184,7 +184,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanField()
+    public function testCreateFailsInvalidBooleanField(): void
     {
         $this->actAsUser();
 
@@ -208,7 +208,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidIntegerFields()
+    public function testCreateFailsInvalidIntegerFields(): void
     {
         $this->actAsUser();
 
@@ -232,7 +232,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidModelFields()
+    public function testCreateFailsInvalidModelFields(): void
     {
         $this->actAsUser();
 
@@ -256,7 +256,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsPurchasingInactiveRate()
+    public function testCreateFailsPurchasingInactiveRate(): void
     {
         $this->actAsUser();
 
@@ -282,7 +282,7 @@ class OrganizationSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsPaymentMethodNotOwnedByUser()
+    public function testCreateFailsPaymentMethodNotOwnedByUser(): void
     {
         $this->actAsUser();
 

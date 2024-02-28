@@ -37,20 +37,20 @@ class VoteRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Vote::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Vote::factory()->create();
 
@@ -58,7 +58,7 @@ class VoteRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Vote::factory()->create(['id' => 19]);
 
@@ -66,7 +66,7 @@ class VoteRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var BallotCompletion $ballotCompletion */
         $ballotCompletion = BallotCompletion::factory()->create();
@@ -85,7 +85,7 @@ class VoteRepositoryTest extends TestCase
         $this->assertEquals($ballotCompletion->id, $vote->ballot_completion_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Vote::factory()->create([
             'result' => 1,
@@ -99,7 +99,7 @@ class VoteRepositoryTest extends TestCase
         $this->assertEquals(0, $updated->result);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Vote::factory()->create();
 

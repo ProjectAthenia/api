@@ -15,14 +15,14 @@ class CollectionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAllPasses()
+    public function testAllPasses(): void
     {
         $policy = new CollectionPolicy();
 
         $this->assertTrue($policy->all(new User()));
     }
 
-    public function testCreateBlocksDifferentUser()
+    public function testCreateBlocksDifferentUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -32,7 +32,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->create($user, $otherUser));
     }
 
-    public function testCreateBlocksUserOutOfOrganization()
+    public function testCreateBlocksUserOutOfOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -42,7 +42,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->create($user, $organization));
     }
 
-    public function testCreatePassesWithMatchingUser()
+    public function testCreatePassesWithMatchingUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -51,7 +51,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->create($user, $user));
     }
 
-    public function testCreatesPassesInOrganization()
+    public function testCreatesPassesInOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -66,7 +66,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->create($user, $organization));
     }
 
-    public function testViewPassesWithPublicCollection()
+    public function testViewPassesWithPublicCollection(): void
     {
         $policy = new CollectionPolicy();
 
@@ -77,7 +77,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->view(new User(), $collection));
     }
 
-    public function testViewBlocksDifferentUser()
+    public function testViewBlocksDifferentUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -93,7 +93,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->view($user, $collection));
     }
 
-    public function testViewBlocksUserOutOfOrganization()
+    public function testViewBlocksUserOutOfOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -109,7 +109,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->view($user, $collection));
     }
 
-    public function testViewPassesWithMatchingUser()
+    public function testViewPassesWithMatchingUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -124,7 +124,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->view($user, $collection));
     }
 
-    public function testViewPassesInOrganization()
+    public function testViewPassesInOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -145,7 +145,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->view($user, $collection));
     }
 
-    public function testUpdateBlocksDifferentUser()
+    public function testUpdateBlocksDifferentUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -161,7 +161,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $collection));
     }
 
-    public function testUpdateBlocksUserOutOfOrganization()
+    public function testUpdateBlocksUserOutOfOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -177,7 +177,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $collection));
     }
 
-    public function testUpdatePassesWithMatchingUser()
+    public function testUpdatePassesWithMatchingUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -192,7 +192,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $collection));
     }
 
-    public function testUpdatePassesInOrganization()
+    public function testUpdatePassesInOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -213,7 +213,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $collection));
     }
 
-    public function testDeleteBlocksDifferentUser()
+    public function testDeleteBlocksDifferentUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -229,7 +229,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $collection));
     }
 
-    public function testDeleteBlocksUserOutOfOrganization()
+    public function testDeleteBlocksUserOutOfOrganization(): void
     {
         $policy = new CollectionPolicy();
 
@@ -245,7 +245,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $collection));
     }
 
-    public function testDeletePassesWithMatchingUser()
+    public function testDeletePassesWithMatchingUser(): void
     {
         $policy = new CollectionPolicy();
 
@@ -260,7 +260,7 @@ class CollectionPolicyTest extends TestCase
         $this->assertTrue($policy->delete($user, $collection));
     }
 
-    public function testDeletePassesInOrganization()
+    public function testDeletePassesInOrganization(): void
     {
         $policy = new CollectionPolicy();
 

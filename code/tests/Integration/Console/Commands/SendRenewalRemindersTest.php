@@ -28,7 +28,7 @@ class SendRenewalRemindersTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $subscriptionRepository = new SubscriptionRepository(
             new Subscription(),

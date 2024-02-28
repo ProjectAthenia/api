@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class ItemInEntityCollectionServiceTest extends TestCase
 {
-    public function testIsItemInEntityCollectionReturnsFalseWithoutCollections()
+    public function testIsItemInEntityCollectionReturnsFalseWithoutCollections(): void
     {
         $service = new ItemInEntityCollectionService();
 
@@ -27,7 +27,7 @@ class ItemInEntityCollectionServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testIsItemInEntityCollectionReturnsFalseWithoutItemInCollections()
+    public function testIsItemInEntityCollectionReturnsFalseWithoutItemInCollections(): void
     {
         $service = new ItemInEntityCollectionService();
 
@@ -55,7 +55,7 @@ class ItemInEntityCollectionServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testIsItemInEntityCollectionReturnsFalseWithItemTypeMismatch()
+    public function testIsItemInEntityCollectionReturnsFalseWithItemTypeMismatch(): void
     {
         $service = new ItemInEntityCollectionService();
 
@@ -89,7 +89,7 @@ class ItemInEntityCollectionServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testIsItemInEntityCollectionReturnsFalseWithItemIdMismatch()
+    public function testIsItemInEntityCollectionReturnsFalseWithItemIdMismatch(): void
     {
         $service = new ItemInEntityCollectionService();
 
@@ -123,7 +123,7 @@ class ItemInEntityCollectionServiceTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testIsItemInEntityCollectionReturnsTrue()
+    public function testIsItemInEntityCollectionReturnsTrue(): void
     {
         $service = new ItemInEntityCollectionService();
 

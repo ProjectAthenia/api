@@ -25,7 +25,7 @@ use Tests\TestCase;
  */
 class MessageCreatedListenerTest extends TestCase
 {
-    public function testHandleViaEmail()
+    public function testHandleViaEmail(): void
     {
         $mailer = mock(Mailer::class);
         $messageRepository = mock(MessageRepositoryContract::class);
@@ -58,7 +58,7 @@ class MessageCreatedListenerTest extends TestCase
         $listener->handle($event);
     }
 
-    public function testHandleViaPushToUser()
+    public function testHandleViaPushToUser(): void
     {
         $client = mock(Client::class)->shouldAllowMockingMethod('post');
         $messageRepository = mock(MessageRepositoryContract::class);
@@ -101,7 +101,7 @@ class MessageCreatedListenerTest extends TestCase
         $listener->handle($event);
     }
 
-    public function testHandleViaPushToThread()
+    public function testHandleViaPushToThread(): void
     {
         $client = mock(Client::class)->shouldAllowMockingMethod('post');
         $messageRepository = mock(MessageRepositoryContract::class);
@@ -149,7 +149,7 @@ class MessageCreatedListenerTest extends TestCase
         $listener->handle($event);
     }
 
-    public function testHandleViaPushDoesNotSendDueToSettings()
+    public function testHandleViaPushDoesNotSendDueToSettings(): void
     {
         $messageRepository = mock(MessageRepositoryContract::class);
         $events = mock(Dispatcher::class);

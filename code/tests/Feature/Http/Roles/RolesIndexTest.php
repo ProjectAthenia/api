@@ -29,7 +29,7 @@ class RolesIndexTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testIndexBlocked()
+    public function testIndexBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $user = $this->getUserOfRole($role);
@@ -41,7 +41,7 @@ class RolesIndexTest extends TestCase
         }
     }
 
-    public function testIndexSuccess()
+    public function testIndexSuccess(): void
     {
         $this->actingAs($this->getUserOfRole(Role::SUPER_ADMIN));
         $total = Role::count();

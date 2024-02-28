@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class PasswordTokenTest extends TestCase
 {
-    public function testUser()
+    public function testUser(): void
     {
         $model = new PasswordToken();
 

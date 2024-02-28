@@ -25,13 +25,13 @@ class FeatureIndexTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('GET', '/v1/features');
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -41,7 +41,7 @@ class FeatureIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/features');
@@ -53,7 +53,7 @@ class FeatureIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         Feature::factory()->count(15)->create();

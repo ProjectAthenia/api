@@ -47,7 +47,7 @@ class ResendMessageCommandTest extends TestCase
         $this->mockConsoleOutput($this->command);
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $reflected = new \ReflectionClass($this->command);
         $input = $reflected->getProperty('input');

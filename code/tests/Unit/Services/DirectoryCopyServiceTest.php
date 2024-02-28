@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class DirectoryCopyServiceTest extends TestCase
 {
-    public function testCopyDirectoryWithOnlyFiles()
+    public function testCopyDirectoryWithOnlyFiles(): void
     {
         $service = new DirectoryCopyService();
         $from = mock(FilesystemAdapter::class);
@@ -32,7 +32,7 @@ class DirectoryCopyServiceTest extends TestCase
         $service->copyDirectory($from, $to, $fromPath, $toPath);
     }
 
-    public function testCopyDirectoryRecursively()
+    public function testCopyDirectoryRecursively(): void
     {
         $service = new DirectoryCopyService();
         $from = mock(FilesystemAdapter::class);

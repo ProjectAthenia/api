@@ -28,14 +28,14 @@ class OrganizationDeleteTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Organization::factory()->create();
         $response = $this->json('DELETE', $this->route . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUserBlocked()
+    public function testNonAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -45,7 +45,7 @@ class OrganizationDeleteTest extends TestCase
         }
     }
 
-    public function testOrganizationManagerBlocked()
+    public function testOrganizationManagerBlocked(): void
     {
         $this->actAs(Role::MANAGER);
 
@@ -61,7 +61,7 @@ class OrganizationDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDeleteSingle()
+    public function testDeleteSingle(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
 
@@ -79,7 +79,7 @@ class OrganizationDeleteTest extends TestCase
         $this->assertNull(Organization::find($model->id));
     }
 
-    public function testDeleteSingleInvalidIdFails()
+    public function testDeleteSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -90,7 +90,7 @@ class OrganizationDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testDeleteSingleNotFoundFails()
+    public function testDeleteSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

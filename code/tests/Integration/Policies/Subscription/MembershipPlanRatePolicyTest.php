@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class MembershipPlanRatePolicyTest extends TestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new MembershipPlanRatePolicy();
         $this->assertFalse($policy->all(new User()));

@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class BaseRepositoryAbstractTest extends TestCase
 {
-    public function testFindOrFailPassesProperParameters()
+    public function testFindOrFailPassesProperParameters(): void
     {
         $withArgs = ['with' => 'args'];
         $id = 123;
@@ -27,7 +27,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->findOrFail($id, $withArgs);
     }
 
-    public function testFindOrFailDefaultParameters()
+    public function testFindOrFailDefaultParameters(): void
     {
         $id = 123;
 
@@ -41,7 +41,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->findOrFail($id);
     }
 
-    public function testFindAllPassesProperParameters()
+    public function testFindAllPassesProperParameters(): void
     {
         $whereArgs = ['where' => 'args'];
         $withArgs = ['with' => 'args'];
@@ -61,7 +61,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->findAll($whereArgs, [], [], $withArgs, $limitArg);
     }
 
-    public function testFindAllDefaultParameters()
+    public function testFindAllDefaultParameters(): void
     {
         $mockModel = mock(EloquentJoinBuilder::class)
             ->shouldAllowMockingMethod('with')
@@ -74,7 +74,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->findAll();
     }
 
-    public function testCreatePassesProperParameters()
+    public function testCreatePassesProperParameters(): void
     {
         $args = ['some' => 'args'];
 
@@ -87,7 +87,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->create($args);
     }
 
-    public function testCreateDefaultParameters()
+    public function testCreateDefaultParameters(): void
     {
         $mockModel = mock(User::class)->shouldAllowMockingMethod('create');
         $mockModel->shouldReceive('newInstance')->once()->with([])->andReturn(\Mockery::self());
@@ -98,7 +98,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->create();
     }
 
-    public function testCreatePassesForcedValues()
+    public function testCreatePassesForcedValues(): void
     {
         $mockModel = mock(User::class)->shouldAllowMockingMethod('create');
         $mockModel->shouldReceive('newInstance')->once()->with([])->andReturn(\Mockery::self());
@@ -110,7 +110,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->create([], null, ['test' => 'chicken']);
     }
 
-    public function testUpdatePassesProperParameters()
+    public function testUpdatePassesProperParameters(): void
     {
         $args = ['some' => 'args'];
 
@@ -122,7 +122,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->update($mockModel, $args);
     }
 
-    public function testUpdatePassesForcedValues()
+    public function testUpdatePassesForcedValues(): void
     {
         $args = ['some' => 'args'];
         $forcedArgs = ['other' => 'forced'];
@@ -136,7 +136,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->update($mockModel, $args, $forcedArgs);
     }
 
-    public function testUpdateThrowsExceptionWhenFails()
+    public function testUpdateThrowsExceptionWhenFails(): void
     {
         $this->expectException(\DomainException::class);
         $args = ['some' => 'args'];
@@ -149,7 +149,7 @@ class BaseRepositoryAbstractTest extends TestCase
         $repository->update($mockModel, $args);
     }
 
-    public function testDeleteIsCalled()
+    public function testDeleteIsCalled(): void
     {
         $mockModel = mock(User::class);
         $mockModel->shouldReceive('delete')->once()->andReturn(true);

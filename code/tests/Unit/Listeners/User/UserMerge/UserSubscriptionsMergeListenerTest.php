@@ -35,7 +35,7 @@ class UserSubscriptionsMergeListenerTest extends TestCase
         $this->listener = new UserSubscriptionsMergeListener($this->repository);
     }
 
-    public function testHandleWithoutMerge()
+    public function testHandleWithoutMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',
@@ -51,7 +51,7 @@ class UserSubscriptionsMergeListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testHandleWithMerge()
+    public function testHandleWithMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',

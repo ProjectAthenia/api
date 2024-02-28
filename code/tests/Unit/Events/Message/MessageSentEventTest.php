@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class MessageSentEventTest extends TestCase
 {
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         $message = new Message();
 

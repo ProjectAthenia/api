@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class MessageMailerTest extends TestCase
 {
-    public function testBuild()
+    public function testBuild(): void
     {
         $user = new User([
             'first_name' => 'Darlene Dora',

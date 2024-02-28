@@ -30,7 +30,7 @@ class UserCollectionIndexTest extends TestCase
         User::unsetEventDispatcher();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $user = User::factory()->create();
 
@@ -39,7 +39,7 @@ class UserCollectionIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserNotFound()
+    public function testUserNotFound(): void
     {
         $this->actAsUser();
 
@@ -48,7 +48,7 @@ class UserCollectionIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
 
@@ -61,7 +61,7 @@ class UserCollectionIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
 
@@ -131,7 +131,7 @@ class UserCollectionIndexTest extends TestCase
             ]);
     }
 
-    public function testDifferentUserDoesNotSeeNonPublicCollections()
+    public function testDifferentUserDoesNotSeeNonPublicCollections(): void
     {
         $this->actAsUser();
         $user = User::factory()->create();

@@ -28,7 +28,7 @@ class IterationPolicyTest extends TestCase
         }
     }
 
-    public function testAllBlocks()
+    public function testAllBlocks(): void
     {
         $policy = new ArticleIterationPolicy();
 

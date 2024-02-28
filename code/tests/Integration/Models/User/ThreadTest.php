@@ -17,7 +17,7 @@ class ThreadTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testLastMessage()
+    public function testLastMessage(): void
     {
         $messageDispatcher = mock(Dispatcher::class);
         Message::setEventDispatcher($messageDispatcher);

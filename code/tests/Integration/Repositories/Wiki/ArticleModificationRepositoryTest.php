@@ -35,20 +35,20 @@ class ArticleModificationRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         ArticleModification::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = ArticleModification::factory()->create();
 
@@ -56,7 +56,7 @@ class ArticleModificationRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         ArticleModification::factory()->create(['id' => 19]);
 
@@ -64,7 +64,7 @@ class ArticleModificationRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $article = Article::factory()->create();
 
@@ -81,7 +81,7 @@ class ArticleModificationRepositoryTest extends TestCase
         $this->assertEquals($articleModification->start_position, 0);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = ArticleModification::factory()->create([
             'start_position' => 0,
@@ -94,7 +94,7 @@ class ArticleModificationRepositoryTest extends TestCase
         $this->assertEquals($updated->start_position, 10);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = ArticleModification::factory()->create();
 

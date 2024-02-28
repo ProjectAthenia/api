@@ -23,7 +23,7 @@ class SearchFilteringMiddlewareTest extends TestCase
         $this->actAs(Role::ARTICLE_VIEWER);
     }
 
-    public function testSearchWithLike()
+    public function testSearchWithLike(): void
     {
         Article::factory()->count( 1)->create(['title' => 'h']);
         Article::factory()->count( 1)->create(['title' => 'cart']);
@@ -45,7 +45,7 @@ class SearchFilteringMiddlewareTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         Article::factory()->count( 1)->create(['title' => 'h']);
         Article::factory()->count( 1)->create(['title' => 'cart']);

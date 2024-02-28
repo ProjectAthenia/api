@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class ContactCreatedListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $messageRepository = mock(MessageRepositoryContract::class);
         $listener = new ContactCreatedListener($messageRepository);

@@ -17,7 +17,7 @@ class PaymentMethodPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $policy = new PaymentMethodPolicy();
 
@@ -28,7 +28,7 @@ class PaymentMethodPolicyTest extends TestCase
         $this->assertTrue($policy->create($me, $me));
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $policy = new PaymentMethodPolicy();
 
@@ -44,7 +44,7 @@ class PaymentMethodPolicyTest extends TestCase
         $this->assertTrue($policy->update($me, $me, $paymentMethod));
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $policy = new PaymentMethodPolicy();
 

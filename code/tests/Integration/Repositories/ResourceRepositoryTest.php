@@ -37,7 +37,7 @@ class ResourceRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         foreach (Resource::all() as $resource) {
             $resource->delete();
@@ -48,7 +48,7 @@ class ResourceRepositoryTest extends TestCase
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         foreach (Resource::all() as $resource) {
             $resource->delete();
@@ -58,7 +58,7 @@ class ResourceRepositoryTest extends TestCase
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Resource::factory()->create();
 
@@ -66,7 +66,7 @@ class ResourceRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Resource::factory()->create(['id' => 19]);
 
@@ -74,7 +74,7 @@ class ResourceRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -91,7 +91,7 @@ class ResourceRepositoryTest extends TestCase
         $this->assertEquals('Some Content', $resource->content);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Resource::factory()->create([
             'content' => 'a code'
@@ -104,7 +104,7 @@ class ResourceRepositoryTest extends TestCase
         $this->assertEquals('the same', $updated->content);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Resource::factory()->create();
 

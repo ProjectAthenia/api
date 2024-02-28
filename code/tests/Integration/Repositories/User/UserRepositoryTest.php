@@ -54,20 +54,20 @@ class UserRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         User::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindAllOrderedByEmail()
+    public function testFindAllOrderedByEmail(): void
     {
         $userT = User::factory()->create([
             'email' => 't@t.weg',
@@ -89,7 +89,7 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals($userZ->id, $items[3]->id);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = User::factory()->create();
 
@@ -97,7 +97,7 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         User::factory()->create(['id' => 2]);
 
@@ -106,7 +106,7 @@ class UserRepositoryTest extends TestCase
     }
 
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $user = $this->repository->create([
             'email' => 'test@test.com',
@@ -120,7 +120,7 @@ class UserRepositoryTest extends TestCase
         $this->assertTrue($this->hasher->check('Something secure', $user->password));
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = User::factory()->create(['email' => 'butts@butts.com']);
         $this->repository->update($model, [
@@ -133,7 +133,7 @@ class UserRepositoryTest extends TestCase
         $this->assertTrue($this->hasher->check('Something secure', $updated->password));
     }
 
-    public function testUpdateSyncsRoles()
+    public function testUpdateSyncsRoles(): void
     {
         $model = User::factory()->create();
 
@@ -146,14 +146,14 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals(Role::SUPER_ADMIN, $updated->roles[0]->id);
     }
 
-    public function testDeleteThrowsException()
+    public function testDeleteThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->delete(new User());
     }
 
-    public function testFindByEmailSuccess()
+    public function testFindByEmailSuccess(): void
     {
         $user = User::factory()->create([
             'email' => 'test@test.com',
@@ -164,12 +164,12 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals($user->id, $result->id);
     }
 
-    public function testFindByEmailReturnsNull()
+    public function testFindByEmailReturnsNull(): void
     {
         $this->assertNull($this->repository->findByEmail('test@test.com'));
     }
 
-    public function testFindSuperAdminsSuccess()
+    public function testFindSuperAdminsSuccess(): void
     {
         $this->config->shouldReceive('get')->with('mail.from.name')->andReturn('System User');
         $this->config->shouldReceive('get')->with('mail.from.email')->andReturn('test@test.com');
@@ -185,7 +185,7 @@ class UserRepositoryTest extends TestCase
         $this->assertEquals('test@test.com', $users[0]->email);
     }
 
-    public function testFindSystemUsersSuccess()
+    public function testFindSystemUsersSuccess(): void
     {
         $user1 = User::factory()->create([
             'email' => 'test@test.com',

@@ -18,7 +18,7 @@ class ArticlePolicyTest extends TestCase
 {
     use DatabaseSetupTrait, RolesTesting;
 
-    public function testAllSuccess()
+    public function testAllSuccess(): void
     {
         $policy = new ArticlePolicy();
 
@@ -29,7 +29,7 @@ class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testAllBlocks()
+    public function testAllBlocks(): void
     {
         $policy = new ArticlePolicy();
 
@@ -40,7 +40,7 @@ class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testViewSuccess()
+    public function testViewSuccess(): void
     {
         $policy = new ArticlePolicy();
 
@@ -51,7 +51,7 @@ class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testViewBlocks()
+    public function testViewBlocks(): void
     {
         $policy = new ArticlePolicy();
 
@@ -62,7 +62,7 @@ class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $policy = new ArticlePolicy();
 
@@ -71,7 +71,7 @@ class ArticlePolicyTest extends TestCase
         $this->assertTrue($policy->create($user));
     }
 
-    public function testCreateBlocks()
+    public function testCreateBlocks(): void
     {
         $policy = new ArticlePolicy();
 
@@ -82,7 +82,7 @@ class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $policy = new ArticlePolicy();
 
@@ -95,7 +95,7 @@ class ArticlePolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $article));
     }
 
-    public function testUpdateBlocks()
+    public function testUpdateBlocks(): void
     {
         $policy = new ArticlePolicy();
 

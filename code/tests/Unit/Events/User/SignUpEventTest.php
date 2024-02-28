@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class SignUpEventTest extends TestCase
 {
-    public function testGetUser()
+    public function testGetUser(): void
     {
         $user = new User();
 

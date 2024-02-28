@@ -42,14 +42,14 @@ class OrganizationCollectionCreateTest extends TestCase
         $this->path.= $this->organization->id . '/collections';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testNotPartOfOrganizationUserRoleBlocked()
+    public function testNotPartOfOrganizationUserRoleBlocked(): void
     {
         $this->actAsUser();
         $response = $this->json('POST', $this->path);
@@ -57,7 +57,7 @@ class OrganizationCollectionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAsUser();
 
@@ -77,7 +77,7 @@ class OrganizationCollectionCreateTest extends TestCase
         $response->assertJson($data);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actAsUser();
 
@@ -97,7 +97,7 @@ class OrganizationCollectionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAsUser();
 
@@ -119,7 +119,7 @@ class OrganizationCollectionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $this->actAsUser();
 

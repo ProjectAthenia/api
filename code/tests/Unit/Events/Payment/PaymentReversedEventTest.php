@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class PaymentReversedEventTest extends TestCase
 {
-    public function testGetPayment()
+    public function testGetPayment(): void
     {
         $payment = new Payment();
 

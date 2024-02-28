@@ -42,21 +42,21 @@ class OrganizationAssetCreateTest extends TestCase
         Storage::fake('public');
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testNotRelatedUserBlocked()
+    public function testNotRelatedUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -82,7 +82,7 @@ class OrganizationAssetCreateTest extends TestCase
         $this->assertEquals($asset->owner_type, 'organization');
     }
 
-    public function testCreateFailsRequiredFieldsMissing()
+    public function testCreateFailsRequiredFieldsMissing(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -101,7 +101,7 @@ class OrganizationAssetCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringField()
+    public function testCreateFailsInvalidStringField(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -126,7 +126,7 @@ class OrganizationAssetCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidFileType()
+    public function testCreateFailsInvalidFileType(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([

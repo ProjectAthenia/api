@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class CollectionItemTest extends TestCase
 {
-    public function testItem()
+    public function testItem(): void
     {
         $model = new CollectionItem();
         $relation = $model->item();
@@ -17,7 +17,7 @@ class CollectionItemTest extends TestCase
         $this->assertEquals('item_type', $relation->getMorphType());
     }
 
-    public function testCategories()
+    public function testCategories(): void
     {
         $model = new CollectionItem();
         $relation = $model->categories();
@@ -28,7 +28,7 @@ class CollectionItemTest extends TestCase
         $this->assertEquals('collection_items.id', $relation->getQualifiedParentKeyName());
     }
 
-    public function testCollection()
+    public function testCollection(): void
     {
         $model = new CollectionItem();
         $relation = $model->collection();

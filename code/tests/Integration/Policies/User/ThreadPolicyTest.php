@@ -37,7 +37,7 @@ class ThreadPolicyTest extends TestCase
         $this->policy = new ThreadPolicy($this->gateProvider);
     }
 
-    public function testAllBlocksWhenGateNotFound()
+    public function testAllBlocksWhenGateNotFound(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -47,7 +47,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $requestedUser, 'a_type'));
     }
 
-    public function testAllBlockWhenAccessingAnotherUser()
+    public function testAllBlockWhenAccessingAnotherUser(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -59,7 +59,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $requestedUser, 'a_type'));
     }
 
-    public function testAllBlockWhenGateFails()
+    public function testAllBlockWhenGateFails(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -71,7 +71,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $loggedInUser, 'a_type', 43));
     }
 
-    public function testAllPasses()
+    public function testAllPasses(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -83,7 +83,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertTrue($this->policy->all($loggedInUser, $loggedInUser, 'a_type', 43));
     }
 
-    public function testCreateBlocksWhenGateNotFound()
+    public function testCreateBlocksWhenGateNotFound(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -93,7 +93,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $requestedUser, 'a_type'));
     }
 
-    public function testCreateBlockWhenAccessingAnotherUser()
+    public function testCreateBlockWhenAccessingAnotherUser(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -105,7 +105,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $requestedUser, 'a_type'));
     }
 
-    public function testCreateBlockWhenGateFails()
+    public function testCreateBlockWhenGateFails(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -117,7 +117,7 @@ class ThreadPolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $loggedInUser, 'a_type', 43));
     }
 
-    public function testCreatePasses()
+    public function testCreatePasses(): void
     {
         $loggedInUser = User::factory()->create();
 

@@ -16,7 +16,7 @@ class EventServiceProviderTest extends TestCase
 {
     use ReflectionHelpers;
 
-    public function testAllNonAbstractEventsAreRegistered()
+    public function testAllNonAbstractEventsAreRegistered(): void
     {
         $foundEvents = $this->getObjectsInNamespace('App\Events');
 
@@ -40,7 +40,7 @@ class EventServiceProviderTest extends TestCase
         }
     }
 
-    public function testAllNonAbstractListenersAreRegistered()
+    public function testAllNonAbstractListenersAreRegistered(): void
     {
         $foundListeners = $this->getObjectsInNamespace('App\Listeners');
 

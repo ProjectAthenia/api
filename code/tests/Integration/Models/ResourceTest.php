@@ -16,7 +16,7 @@ class ResourceTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testResource()
+    public function testResource(): void
     {
         User::unsetEventDispatcher();
         $user = User::factory()->create();

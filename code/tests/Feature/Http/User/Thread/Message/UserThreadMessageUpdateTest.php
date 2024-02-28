@@ -46,7 +46,7 @@ class UserThreadMessageUpdateTest extends TestCase
         $this->path.= $this->user->id . '/threads/' . $this->thread->id . '/messages/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         Message::unsetEventDispatcher();
         $message = Message::factory()->create();
@@ -55,7 +55,7 @@ class UserThreadMessageUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         Message::unsetEventDispatcher();
         $this->actingAs($this->user);
@@ -80,7 +80,7 @@ class UserThreadMessageUpdateTest extends TestCase
         $this->assertNotNull($message->seen_at);
     }
 
-    public function testUpdateFailsInvalidBooleanFields()
+    public function testUpdateFailsInvalidBooleanFields(): void
     {
         Message::unsetEventDispatcher();
         $this->actingAs($this->user);

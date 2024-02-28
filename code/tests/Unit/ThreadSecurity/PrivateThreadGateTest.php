@@ -15,14 +15,14 @@ use Tests\TestCase;
  */
 class PrivateThreadGateTest extends TestCase
 {
-    public function testAuthorizeSubject()
+    public function testAuthorizeSubject(): void
     {
         $gate = new PrivateThreadGate();
 
         $this->assertTrue($gate->authorizeSubject(new User()));
     }
 
-    public function testAuthorizeThread()
+    public function testAuthorizeThread(): void
     {
         $gate = new PrivateThreadGate();
 

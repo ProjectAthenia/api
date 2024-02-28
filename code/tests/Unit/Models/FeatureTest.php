@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class FeatureTest extends TestCase
 {
-    public function testMembershipPlans()
+    public function testMembershipPlans(): void
     {
         $role = new Feature();
         $relation = $role->membershipPlans();

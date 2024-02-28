@@ -26,7 +26,7 @@ class LogoutTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testLogout()
+    public function testLogout(): void
     {
         $this->app['env'] = 'testing-override';  // @todo fix this
         $this->app->instance(LogMiddleware::class, new class {

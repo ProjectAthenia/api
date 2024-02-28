@@ -37,20 +37,20 @@ class OrganizationManagerRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         OrganizationManager::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = OrganizationManager::factory()->create();
 
@@ -58,7 +58,7 @@ class OrganizationManagerRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         OrganizationManager::factory()->create(['id' => 3452]);
 
@@ -66,7 +66,7 @@ class OrganizationManagerRepositoryTest extends TestCase
         $this->repository->findOrFail(546);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $organization = Organization::factory()->create();
         $user = User::factory()->create();
@@ -81,7 +81,7 @@ class OrganizationManagerRepositoryTest extends TestCase
         $this->assertEquals(Role::ADMINISTRATOR, $model->role_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = OrganizationManager::factory()->create([
             'role_id' => Role::ADMINISTRATOR,
@@ -95,7 +95,7 @@ class OrganizationManagerRepositoryTest extends TestCase
         $this->assertEquals(Role::MANAGER, $updated->role_id);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = OrganizationManager::factory()->create();
 

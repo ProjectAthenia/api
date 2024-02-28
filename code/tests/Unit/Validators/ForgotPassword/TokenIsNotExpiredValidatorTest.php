@@ -54,14 +54,14 @@ class TokenIsNotExpiredValidatorTest extends TestCase
         );
     }
 
-    public function testFailsNoEmailInRequest()
+    public function testFailsNoEmailInRequest(): void
     {
         $this->request->shouldReceive('input')->once()->with('email', null)->andReturn(null);
 
         $this->assertFalse($this->validator->validate('token', 'hello'));
     }
 
-    public function testFailsUserNotFound()
+    public function testFailsUserNotFound(): void
     {
         $this->request->shouldReceive('input')->once()->with('email', null)->andReturn('test@test.com');
 
@@ -70,7 +70,7 @@ class TokenIsNotExpiredValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('token', 'hello'));
     }
 
-    public function testFailsTokenNotFound()
+    public function testFailsTokenNotFound(): void
     {
         $user = new User();
 
@@ -84,7 +84,7 @@ class TokenIsNotExpiredValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('token', 'hello'));
     }
 
-    public function testFailsTokenExpired()
+    public function testFailsTokenExpired(): void
     {
         $user = new User();
         $passwordToken = new PasswordToken();
@@ -100,7 +100,7 @@ class TokenIsNotExpiredValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('token', 'hello'));
     }
 
-    public function testPasses()
+    public function testPasses(): void
     {
         $user = new User();
         $passwordToken = new PasswordToken();

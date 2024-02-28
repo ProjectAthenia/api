@@ -37,14 +37,14 @@ class UserThreadCreateTest extends TestCase
         $this->path.= $this->user->id . '/threads';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -71,7 +71,7 @@ class UserThreadCreateTest extends TestCase
         $this->assertTrue($thread->users->contains($user->id));
     }
 
-    public function testCreateInvalidArrayFields()
+    public function testCreateInvalidArrayFields(): void
     {
         $this->actingAs($this->user);
 
@@ -89,7 +89,7 @@ class UserThreadCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateInvalidIntegerFields()
+    public function testCreateInvalidIntegerFields(): void
     {
         $this->actingAs($this->user);
 
@@ -109,7 +109,7 @@ class UserThreadCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateInvalidModelFields()
+    public function testCreateInvalidModelFields(): void
     {
         $this->actingAs($this->user);
 

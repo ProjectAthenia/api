@@ -37,7 +37,7 @@ class UserAssetDeleteTest extends TestCase
         $this->path.= $this->user->id . '/assets/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->user->id,
@@ -48,7 +48,7 @@ class UserAssetDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->user->id,
@@ -62,7 +62,7 @@ class UserAssetDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserDoesNotOwnPaymentMethodBlocked()
+    public function testUserDoesNotOwnPaymentMethodBlocked(): void
     {
         $asset = Asset::factory()->create();
 
@@ -73,7 +73,7 @@ class UserAssetDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDeleteSuccessful()
+    public function testDeleteSuccessful(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->user->id,

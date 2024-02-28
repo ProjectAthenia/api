@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class BallotItemTest extends TestCase
 {
-    public function testBallot()
+    public function testBallot(): void
     {
         $model = new BallotItem();
         $relation = $model->ballot();
@@ -21,7 +21,7 @@ class BallotItemTest extends TestCase
         $this->assertEquals('ballot_items.ballot_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testBallotItems()
+    public function testBallotItems(): void
     {
         $model = new BallotItem();
         $relation = $model->ballotItemOptions();

@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class ContactTest extends TestCase
 {
-    public function testInitiatedBy()
+    public function testInitiatedBy(): void
     {
         $contact = new Contact();
         $relation = $contact->initiatedBy();
@@ -21,7 +21,7 @@ class ContactTest extends TestCase
         $this->assertEquals('users.id', $relation->getQualifiedOwnerKeyName());
     }
 
-    public function testRequested()
+    public function testRequested(): void
     {
         $contact = new Contact();
         $relation = $contact->requested();

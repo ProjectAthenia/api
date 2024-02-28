@@ -26,14 +26,14 @@ class CollectionItemDeleteTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = CollectionItem::factory()->create();
         $response = $this->json('DELETE', '/v1/collection-items/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUserBlocked()
+    public function testNonAdminUserBlocked(): void
     {
         $model = CollectionItem::factory()->create();
         foreach ($this->rolesWithoutAdmins() as $role) {
@@ -43,7 +43,7 @@ class CollectionItemDeleteTest extends TestCase
         }
     }
 
-    public function testDeleteSingle()
+    public function testDeleteSingle(): void
     {
         $this->actAsUser();
 
@@ -59,7 +59,7 @@ class CollectionItemDeleteTest extends TestCase
         $this->assertEquals(0, CollectionItem::count());
     }
 
-    public function testDeleteSingleInvalidIdFails()
+    public function testDeleteSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -70,7 +70,7 @@ class CollectionItemDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testDeleteSingleNotFoundFails()
+    public function testDeleteSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

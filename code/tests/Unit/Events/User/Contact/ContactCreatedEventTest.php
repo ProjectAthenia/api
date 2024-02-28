@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class ContactCreatedEventTest extends TestCase
 {
-    public function testGetContact()
+    public function testGetContact(): void
     {
         $contact = new Contact();
 

@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class DefaultPaymentMethodSetListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $defaultPaymentMethod = new PaymentMethod([
             'owner' => new User([

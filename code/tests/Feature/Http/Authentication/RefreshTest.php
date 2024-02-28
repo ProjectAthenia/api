@@ -25,7 +25,7 @@ class RefreshTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testTokenRefresh()
+    public function testTokenRefresh(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',
@@ -58,7 +58,7 @@ class RefreshTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testTokenRefreshAfterRefreshWindowFails()
+    public function testTokenRefreshAfterRefreshWindowFails(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',
@@ -87,7 +87,7 @@ class RefreshTest extends TestCase
         ]);
     }
 
-    public function testTokenRefreshAfterExpirationBeforeRefreshTimeSucceeds()
+    public function testTokenRefreshAfterExpirationBeforeRefreshTimeSucceeds(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',

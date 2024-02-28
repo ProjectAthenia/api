@@ -36,20 +36,20 @@ class BallotItemOptionRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         BallotItemOption::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = BallotItemOption::factory()->create();
 
@@ -57,7 +57,7 @@ class BallotItemOptionRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         BallotItemOption::factory()->create(['id' => 19]);
 
@@ -65,7 +65,7 @@ class BallotItemOptionRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var BallotItem $ballotItem */
         $ballotItem = BallotItem::factory()->create();
@@ -84,7 +84,7 @@ class BallotItemOptionRepositoryTest extends TestCase
         $this->assertEquals($ballotItem->id, $ballotItemOption->ballot_item_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = BallotItemOption::factory()->create([
             'vote_count' => 1,
@@ -98,7 +98,7 @@ class BallotItemOptionRepositoryTest extends TestCase
         $this->assertEquals(2, $updated->vote_count);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = BallotItemOption::factory()->create();
 

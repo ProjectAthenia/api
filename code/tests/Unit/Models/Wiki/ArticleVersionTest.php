@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class ArticleVersionTest extends TestCase
 {
-    public function testArticle()
+    public function testArticle(): void
     {
         $article = new ArticleVersion();
         $relation = $article->article();
@@ -21,7 +21,7 @@ class ArticleVersionTest extends TestCase
         $this->assertEquals('article_versions.article_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testArticleIteration()
+    public function testArticleIteration(): void
     {
         $article = new ArticleVersion();
         $relation = $article->articleIteration();

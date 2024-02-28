@@ -41,7 +41,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $this->path.= $this->organizaion->id . '/subscriptions/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $subscription = Subscription::factory()->create([
             'subscriber_id' => $this->organizaion->id,
@@ -51,7 +51,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDisconnectedUserBlocked()
+    public function testDisconnectedUserBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         $subscription = Subscription::factory()->create([
@@ -63,7 +63,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserThanSubscriptionBlocked()
+    public function testDifferentUserThanSubscriptionBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -77,7 +77,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testWrongRoleBlocked()
+    public function testWrongRoleBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -94,7 +94,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -116,7 +116,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         $this->assertNotNull($updated->canceled_at);
     }
 
-    public function testFailsNotPresentFieldsPresent()
+    public function testFailsNotPresentFieldsPresent(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -142,7 +142,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidBooleanField()
+    public function testUpdateFailsInvalidBooleanField(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -168,7 +168,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidIntegerFields()
+    public function testUpdateFailsInvalidIntegerFields(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -192,7 +192,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidModelFields()
+    public function testUpdateFailsInvalidModelFields(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -216,7 +216,7 @@ class OrganizationSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsPaymentMethodNotOwnedByUser()
+    public function testUpdateFailsPaymentMethodNotOwnedByUser(): void
     {
         $paymentMethod = PaymentMethod::factory()->create();
         $this->actAs(Role::APP_USER);

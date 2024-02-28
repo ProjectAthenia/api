@@ -18,7 +18,7 @@ use Tests\TestCase;
  */
 class OrganizationManagerCreatedListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $organizationManager = new OrganizationManager([
             'organization' => new Organization([

@@ -46,14 +46,14 @@ class UserThreadMessageCreateTest extends TestCase
         $this->path.= $this->user->id . '/threads/' . $this->thread->id . '/messages';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -74,7 +74,7 @@ class UserThreadMessageCreateTest extends TestCase
         $this->assertEquals($this->user->id, $message->from_id);
     }
 
-    public function testCreateMissingRequiredFields()
+    public function testCreateMissingRequiredFields(): void
     {
         $this->actingAs($this->user);
 
@@ -91,7 +91,7 @@ class UserThreadMessageCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateInvalidStringFields()
+    public function testCreateInvalidStringFields(): void
     {
         $this->actingAs($this->user);
 

@@ -17,7 +17,7 @@ class UserPolicyTest extends TestCase
 {
     use DatabaseSetupTrait, RolesTesting;
 
-    public function testViewSelfPasses()
+    public function testViewSelfPasses(): void
     {
         $policy = new UserPolicy();
 
@@ -27,14 +27,14 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($policy->viewSelf($loggedInUser));
     }
 
-    public function testViewSuccess()
+    public function testViewSuccess(): void
     {
         $policy = new UserPolicy();
 
         $this->assertTrue($policy->view(new User(), new User()));
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $policy = new UserPolicy();
 
@@ -44,7 +44,7 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($policy->update($loggedInUser, $loggedInUser));
     }
 
-    public function testUpdateBlocks()
+    public function testUpdateBlocks(): void
     {
         $policy = new UserPolicy();
 

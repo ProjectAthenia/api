@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class BaseValidatorAbstractTest extends TestCase
 {
-    public function testEnsureValidatorAttributePasses()
+    public function testEnsureValidatorAttributePasses(): void
     {
         /** @var BaseValidatorAbstract $validator */
         $validator = $this->getMockForAbstractClass(BaseValidatorAbstract::class);
@@ -21,7 +21,7 @@ class BaseValidatorAbstractTest extends TestCase
         $validator->ensureValidatorAttribute('hello', 'hello');
     }
 
-    public function testEnsureValidatorAttributeThrowsException()
+    public function testEnsureValidatorAttributeThrowsException(): void
     {
         $this->expectException(RuntimeException::class);
 

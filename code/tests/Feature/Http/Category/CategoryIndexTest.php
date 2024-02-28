@@ -23,7 +23,7 @@ class CategoryIndexTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $response = $this->json('GET', '/v1/categories');
 
@@ -34,7 +34,7 @@ class CategoryIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         Category::factory()->count( 15)->create();
 

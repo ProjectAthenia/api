@@ -42,7 +42,7 @@ class ArticleVersionCreatedListenerTest extends TestCase
         $this->listener = new ArticleVersionCreatedListener($this->repository, $this->calculationService);
     }
 
-    public function testMajorVersion()
+    public function testMajorVersion(): void
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
@@ -63,7 +63,7 @@ class ArticleVersionCreatedListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testMinorVersion()
+    public function testMinorVersion(): void
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',
@@ -85,7 +85,7 @@ class ArticleVersionCreatedListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testPatchVersion()
+    public function testPatchVersion(): void
     {
         $oldVersion = new ArticleVersion([
             'name' => '12.45.23',

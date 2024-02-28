@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class PaymentMethodTest extends TestCase
 {
-    public function testPayments()
+    public function testPayments(): void
     {
         $user = new PaymentMethod();
         $relation = $user->payments();
@@ -22,7 +22,7 @@ class PaymentMethodTest extends TestCase
         $this->assertEquals('payments.payment_method_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testSubscriptions()
+    public function testSubscriptions(): void
     {
         $user = new PaymentMethod();
         $relation = $user->subscriptions();
@@ -31,7 +31,7 @@ class PaymentMethodTest extends TestCase
         $this->assertEquals('subscriptions.payment_method_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testOwner()
+    public function testOwner(): void
     {
         $model = new PaymentMethod();
         $relation = $model->owner();

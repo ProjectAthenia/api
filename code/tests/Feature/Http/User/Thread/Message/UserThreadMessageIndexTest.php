@@ -31,7 +31,7 @@ class UserThreadMessageIndexTest extends TestCase
         User::unsetEventDispatcher();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $user = User::factory()->create();
         $thread = Thread::factory()->create([
@@ -43,7 +43,7 @@ class UserThreadMessageIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $this->actAsUser();
         $user = User::factory()->create();
@@ -56,7 +56,7 @@ class UserThreadMessageIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserNotPartOfThreadBlocked()
+    public function testUserNotPartOfThreadBlocked(): void
     {
         $this->actAsUser();
         $thread = Thread::factory()->create([
@@ -68,7 +68,7 @@ class UserThreadMessageIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -77,7 +77,7 @@ class UserThreadMessageIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
         $thread = Thread::factory()->create([
@@ -95,7 +95,7 @@ class UserThreadMessageIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
         $thread = Thread::factory()->create([
@@ -161,7 +161,7 @@ class UserThreadMessageIndexTest extends TestCase
             ]);
     }
 
-    public function testGetPaginationWithProperOrder()
+    public function testGetPaginationWithProperOrder(): void
     {
         $this->actAsUser();
         $thread = Thread::factory()->create([

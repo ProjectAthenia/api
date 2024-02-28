@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class ArticleVersionCalculationServiceTest extends TestCase
 {
-    public function testCalculateTextDiffPercentage()
+    public function testCalculateTextDiffPercentage(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -20,7 +20,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertSame(1.20, (float) number_format($service->calculateTextDiffPercentage('hello steve', 'hello'), 2));
     }
 
-    public function testDetermineIfMajorReturnsTrueWhenHeaderCompletelyChanged()
+    public function testDetermineIfMajorReturnsTrueWhenHeaderCompletelyChanged(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -30,7 +30,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMajorReturnsFalseWhenHeaderPunctuationChanged()
+    public function testDetermineIfMajorReturnsFalseWhenHeaderPunctuationChanged(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -40,7 +40,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertFalse($service->determineIfMajor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMajorReturnsTrueWhenHeaderRemoved()
+    public function testDetermineIfMajorReturnsTrueWhenHeaderRemoved(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -50,7 +50,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMajorReturnsTrueWhenContentChangesALot()
+    public function testDetermineIfMajorReturnsTrueWhenContentChangesALot(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -60,7 +60,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertTrue($service->determineIfMajor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMajorReturnsFalseWhenContentChangesLittle()
+    public function testDetermineIfMajorReturnsFalseWhenContentChangesLittle(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -70,7 +70,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertFalse($service->determineIfMajor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMinorReturnsTrueWhenAParagraphWasAdded()
+    public function testDetermineIfMinorReturnsTrueWhenAParagraphWasAdded(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -80,7 +80,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertTrue($service->determineIfMinor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMinorReturnsFalseWhenALineBreakWasAdded()
+    public function testDetermineIfMinorReturnsFalseWhenALineBreakWasAdded(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -90,7 +90,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertFalse($service->determineIfMinor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMinorReturnsTrueWhenANewSentenceWasAdded()
+    public function testDetermineIfMinorReturnsTrueWhenANewSentenceWasAdded(): void
     {
         $service = new ArticleVersionCalculationService();
 
@@ -100,7 +100,7 @@ class ArticleVersionCalculationServiceTest extends TestCase
         $this->assertTrue($service->determineIfMinor($newContent, $oldContent));
     }
 
-    public function testDetermineIfMinorReturnsFalseWhenPunctuationWasChanged()
+    public function testDetermineIfMinorReturnsFalseWhenPunctuationWasChanged(): void
     {
         $service = new ArticleVersionCalculationService();
 

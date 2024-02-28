@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class NotPresentValidatorTest extends TestCase 
 {
-    public function testNotPresentTrue()
+    public function testNotPresentTrue(): void
     {
         $validator = new NotPresentValidator();
         
@@ -24,7 +24,7 @@ class NotPresentValidatorTest extends TestCase
         $this->assertTrue($validator->validate('not_here', null, [], $validatorObject));
     }
     
-    public function testNotPresentFalse()
+    public function testNotPresentFalse(): void
     {
         $validator = new NotPresentValidator();
 

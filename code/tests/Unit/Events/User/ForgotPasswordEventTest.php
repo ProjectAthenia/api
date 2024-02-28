@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class ForgotPasswordEventTest extends TestCase
 {
-    public function testGetPasswordToken()
+    public function testGetPasswordToken(): void
     {
         $passwordToken = new PasswordToken();
 

@@ -24,7 +24,7 @@ class LoginTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testMissingRequiredFields()
+    public function testMissingRequiredFields(): void
     {
         $response = $this->json('POST', '/v1/auth/login');
 
@@ -41,7 +41,7 @@ class LoginTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testStringFieldsTooLong()
+    public function testStringFieldsTooLong(): void
     {
         $response = $this->json('POST', '/v1/auth/login', [
             'email' => str_repeat('a', 257),
@@ -61,7 +61,7 @@ class LoginTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testEmailFormatIncorrect()
+    public function testEmailFormatIncorrect(): void
     {
         $response = $this->json('POST', '/v1/auth/login', [
             'email' => 'bryce',
@@ -78,7 +78,7 @@ class LoginTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testUserByEmailDoesNotExist()
+    public function testUserByEmailDoesNotExist(): void
     {
         $response = $this->json('POST', '/v1/auth/login', [
             'email' => 'guy@smiley.com',
@@ -91,7 +91,7 @@ class LoginTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function testByEmailPasswordWrong()
+    public function testByEmailPasswordWrong(): void
     {
         User::factory()->create([
             'email' => 'guy@smiley.com',
@@ -108,7 +108,7 @@ class LoginTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function testByEmailSuccessLogin()
+    public function testByEmailSuccessLogin(): void
     {
         User::factory()->create([
             'email' => 'guy@smiley.com',

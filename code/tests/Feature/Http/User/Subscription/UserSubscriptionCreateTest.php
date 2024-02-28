@@ -41,14 +41,14 @@ class UserSubscriptionCreateTest extends TestCase
         $this->path.= $this->user->id . '/subscriptions';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -82,7 +82,7 @@ class UserSubscriptionCreateTest extends TestCase
         $this->assertEquals($subscription->subscriber_id, $this->user->id);
     }
 
-    public function testCreateFailsWhenStripeFails()
+    public function testCreateFailsWhenStripeFails(): void
     {
         $this->actingAs($this->user);
 
@@ -114,7 +114,7 @@ class UserSubscriptionCreateTest extends TestCase
         $this->assertNull(Subscription::first());
     }
 
-    public function testCreateFailsWithoutRequiredFields()
+    public function testCreateFailsWithoutRequiredFields(): void
     {
         $this->actingAs($this->user);
 
@@ -129,7 +129,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsWithNotPresentFieldsPresent()
+    public function testCreateFailsWithNotPresentFieldsPresent(): void
     {
         $this->actingAs($this->user);
 
@@ -145,7 +145,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanField()
+    public function testCreateFailsInvalidBooleanField(): void
     {
         $this->actingAs($this->user);
 
@@ -163,7 +163,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidIntegerFields()
+    public function testCreateFailsInvalidIntegerFields(): void
     {
         $this->actingAs($this->user);
 
@@ -181,7 +181,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidModelFields()
+    public function testCreateFailsInvalidModelFields(): void
     {
         $this->actingAs($this->user);
 
@@ -199,7 +199,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsPurchasingInactiveRate()
+    public function testCreateFailsPurchasingInactiveRate(): void
     {
         $this->actingAs($this->user);
 
@@ -219,7 +219,7 @@ class UserSubscriptionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsPaymentMethodNotOwnedByUser()
+    public function testCreateFailsPaymentMethodNotOwnedByUser(): void
     {
         $this->actingAs($this->user);
 

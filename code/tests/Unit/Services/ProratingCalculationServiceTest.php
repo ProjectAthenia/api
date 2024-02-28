@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class ProratingCalculationServiceTest extends TestCase
 {
-    public function testCalculateRemainingYearlyChargeWhenToDateIsBeforeToday()
+    public function testCalculateRemainingYearlyChargeWhenToDateIsBeforeToday(): void
     {
         $service = new ProratingCalculationService();
 
@@ -25,7 +25,7 @@ class ProratingCalculationServiceTest extends TestCase
         $this->assertEquals(0, $result);
     }
 
-    public function testCalculateRemainingYearlyChargeWhenNewRateIsLessThanOldRate()
+    public function testCalculateRemainingYearlyChargeWhenNewRateIsLessThanOldRate(): void
     {
         $service = new ProratingCalculationService();
 
@@ -34,7 +34,7 @@ class ProratingCalculationServiceTest extends TestCase
         $this->assertEquals(0, $result);
     }
 
-    public function testCalculateRemainingYearlyChargeCalculatesExpectedAmount()
+    public function testCalculateRemainingYearlyChargeCalculatesExpectedAmount(): void
     {
         $service = new ProratingCalculationService();
 
@@ -43,7 +43,7 @@ class ProratingCalculationServiceTest extends TestCase
         $this->assertEquals(4.82, $result);
     }
 
-    public function testCalculateMembershipUpgradeChargeWithNewLifetimeWithOldWithin3Months()
+    public function testCalculateMembershipUpgradeChargeWithNewLifetimeWithOldWithin3Months(): void
     {
         $service = new ProratingCalculationService();
 
@@ -67,7 +67,7 @@ class ProratingCalculationServiceTest extends TestCase
         $this->assertEquals(425, $result);
     }
 
-    public function testCalculateMembershipUpgradeChargeWithNewLifetimeWithOldPast3Months()
+    public function testCalculateMembershipUpgradeChargeWithNewLifetimeWithOldPast3Months(): void
     {
         $service = new ProratingCalculationService();
 
@@ -91,7 +91,7 @@ class ProratingCalculationServiceTest extends TestCase
         $this->assertEquals(500, $result);
     }
 
-    public function testCalculateMembershipUpgradeChargeWithYearlyPlan()
+    public function testCalculateMembershipUpgradeChargeWithYearlyPlan(): void
     {
         $service = new ProratingCalculationService();
 

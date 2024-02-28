@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class TokenGenerationServiceTest extends TestCase
 {
-    public function testGenerateToken()
+    public function testGenerateToken(): void
     {
         $service = new TokenGenerationService();
 

@@ -39,7 +39,7 @@ class OrganizationPaymentMethodDeleteTest extends TestCase
         $this->path.= $this->organization->id . '/payment-methods/';
     }
 
-    public function testNotLoggedInOrganizationBlocked()
+    public function testNotLoggedInOrganizationBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->organization->id,
@@ -50,7 +50,7 @@ class OrganizationPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotAdministratorBlocked()
+    public function testNotAdministratorBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->organization->id,
@@ -69,7 +69,7 @@ class OrganizationPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testOrganizationDoesNotOwnPaymentMethodBlocked()
+    public function testOrganizationDoesNotOwnPaymentMethodBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create();
 
@@ -85,7 +85,7 @@ class OrganizationPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDeleteSuccessful()
+    public function testDeleteSuccessful(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->organization->id,

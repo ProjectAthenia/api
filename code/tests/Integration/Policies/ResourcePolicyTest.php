@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class ResourcePolicyTest extends TestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new ResourcePolicy();
 

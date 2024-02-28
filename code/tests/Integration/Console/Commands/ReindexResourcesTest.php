@@ -60,7 +60,7 @@ class ReindexResourcesTest extends TestCase
         $this->mockConsoleOutput($this->command);
     }
 
-    public function testIndexUsers()
+    public function testIndexUsers(): void
     {
         User::unsetEventDispatcher();
 

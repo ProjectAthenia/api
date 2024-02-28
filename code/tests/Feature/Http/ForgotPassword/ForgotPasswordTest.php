@@ -27,7 +27,7 @@ class ForgotPasswordTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testMissingRequiredFields()
+    public function testMissingRequiredFields(): void
     {
         $response = $this->json('POST', $this->route);
 
@@ -41,7 +41,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testStringFieldsTooLong()
+    public function testStringFieldsTooLong(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => str_repeat('a', 121),
@@ -57,7 +57,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testEmailFormatIncorrect()
+    public function testEmailFormatIncorrect(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'bryce',
@@ -73,7 +73,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testUserByEmailDoesNotExist()
+    public function testUserByEmailDoesNotExist(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'guy@smiley.com',
@@ -87,7 +87,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $user = User::factory()->create([
             'email' => 'test@test.com'

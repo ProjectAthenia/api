@@ -37,7 +37,7 @@ class UserPropertiesMergeListenerTest extends TestCase
         $this->listener = new UserPropertiesMergeListener($this->repository);
     }
 
-    public function testHandleWithoutOptions()
+    public function testHandleWithoutOptions(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',
@@ -61,7 +61,7 @@ class UserPropertiesMergeListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testHandleWithOptions()
+    public function testHandleWithOptions(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',

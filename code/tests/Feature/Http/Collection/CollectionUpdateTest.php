@@ -28,14 +28,14 @@ class CollectionUpdateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Collection::factory()->create();
         $response = $this->json('PATCH', static::BASE_ROUTE . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNotAdminUserBlocked()
+    public function testNotAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -45,7 +45,7 @@ class CollectionUpdateTest extends TestCase
         }
     }
 
-    public function testPatchSuccessful()
+    public function testPatchSuccessful(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -68,7 +68,7 @@ class CollectionUpdateTest extends TestCase
         $this->assertEquals('A Collection', $updated->name);
     }
 
-    public function testPatchSuccessfulWithNewOrder()
+    public function testPatchSuccessfulWithNewOrder(): void
     {
 
         $this->actAs(Role::SUPER_ADMIN);
@@ -100,7 +100,7 @@ class CollectionUpdateTest extends TestCase
         $this->assertEquals($collectionItems[2]->id, $updated->collectionItems[2]->id);
     }
 
-    public function testPatchNotFoundFails()
+    public function testPatchNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -111,7 +111,7 @@ class CollectionUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchInvalidIdFails()
+    public function testPatchInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -122,7 +122,7 @@ class CollectionUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchFailsInvalidStringFields()
+    public function testPatchFailsInvalidStringFields(): void
     {
         $collection = Collection::factory()->create();
 
@@ -143,7 +143,7 @@ class CollectionUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidBooleanFields()
+    public function testPatchFailsInvalidBooleanFields(): void
     {
         $collection = Collection::factory()->create();
 
@@ -164,7 +164,7 @@ class CollectionUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidArrayFields()
+    public function testPatchFailsInvalidArrayFields(): void
     {
         $collection = Collection::factory()->create();
 
@@ -185,7 +185,7 @@ class CollectionUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidIntegerFields()
+    public function testPatchFailsInvalidIntegerFields(): void
     {
         $collection = Collection::factory()->create();
 
@@ -208,7 +208,7 @@ class CollectionUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsModelsDoNotExistFields()
+    public function testPatchFailsModelsDoNotExistFields(): void
     {
         $collection = Collection::factory()->create();
 
@@ -231,7 +231,7 @@ class CollectionUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsUnrelatedCollectionItems()
+    public function testPatchFailsUnrelatedCollectionItems(): void
     {
         $collection = Collection::factory()->create();
 

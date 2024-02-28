@@ -39,14 +39,14 @@ class UserContactCreateTest extends TestCase
         $this->path.= $this->user->id . '/contacts';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -77,7 +77,7 @@ class UserContactCreateTest extends TestCase
         $this->assertEquals($user->id, $contact->requested_id);
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actingAs($this->user);
 
@@ -91,7 +91,7 @@ class UserContactCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsProtectedFieldsPresent()
+    public function testCreateFailsProtectedFieldsPresent(): void
     {
         $this->actingAs($this->user);
 
@@ -111,7 +111,7 @@ class UserContactCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidNumbers()
+    public function testCreateFailsInvalidNumbers(): void
     {
         $this->actingAs($this->user);
 
@@ -127,7 +127,7 @@ class UserContactCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidModelFields()
+    public function testCreateFailsInvalidModelFields(): void
     {
         $this->actingAs($this->user);
 

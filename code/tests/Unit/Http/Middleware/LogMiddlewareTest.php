@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class LogMiddlewareTest extends TestCase
 {
-    public function testTerminate()
+    public function testTerminate(): void
     {
         $request = mock(Request::class);
 

@@ -28,7 +28,7 @@ class ResetPasswordTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testMissingRequiredFields()
+    public function testMissingRequiredFields(): void
     {
         $response = $this->json('POST', $this->route);
 
@@ -48,7 +48,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testStringFieldsTooLong()
+    public function testStringFieldsTooLong(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => str_repeat('a', 121),
@@ -72,7 +72,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testEmailFormatIncorrect()
+    public function testEmailFormatIncorrect(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'bryce',
@@ -88,7 +88,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testModelsDoNotExist()
+    public function testModelsDoNotExist(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'guy@smiley.com',
@@ -104,7 +104,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testUserDoesNotOwnToken()
+    public function testUserDoesNotOwnToken(): void
     {
         User::factory()->create([
             'email' => 'guy@smiley.com',
@@ -126,7 +126,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testTokenExpired()
+    public function testTokenExpired(): void
     {
         PasswordToken::factory()->create([
             'token' => 'hello',
@@ -149,7 +149,7 @@ class ResetPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $user = User::factory()->create([
             'email' => 'test@test.com',

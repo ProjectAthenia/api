@@ -17,7 +17,7 @@ class BallotCompletionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAll()
+    public function testAll(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
@@ -28,7 +28,7 @@ class BallotCompletionPolicyTest extends TestCase
         $this->assertTrue($policy->all($user1, $user1));
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $policy = new BallotCompletionPolicy();
 

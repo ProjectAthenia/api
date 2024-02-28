@@ -17,7 +17,7 @@ class ContactPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAllPasses()
+    public function testAllPasses(): void
     {
         $user = User::factory()->create();
 
@@ -26,7 +26,7 @@ class ContactPolicyTest extends TestCase
         $this->assertTrue($policy->all($user, $user));
     }
 
-    public function testAllFails()
+    public function testAllFails(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
@@ -36,7 +36,7 @@ class ContactPolicyTest extends TestCase
         $this->assertFalse($policy->all($user1, $user2));
     }
 
-    public function testCreatePasses()
+    public function testCreatePasses(): void
     {
         $user = User::factory()->create();
 
@@ -45,7 +45,7 @@ class ContactPolicyTest extends TestCase
         $this->assertTrue($policy->create($user, $user));
     }
 
-    public function testCreateFails()
+    public function testCreateFails(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
@@ -55,7 +55,7 @@ class ContactPolicyTest extends TestCase
         $this->assertFalse($policy->create($user1, $user2));
     }
 
-    public function testUpdatePasses()
+    public function testUpdatePasses(): void
     {
         $user = User::factory()->create();
 
@@ -72,7 +72,7 @@ class ContactPolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $user, $requestedContact));
     }
 
-    public function testUpdateFails()
+    public function testUpdateFails(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
@@ -86,7 +86,7 @@ class ContactPolicyTest extends TestCase
         $this->assertFalse($policy->update($user1, $user1, $contact));
     }
 
-    public function testDeletePasses()
+    public function testDeletePasses(): void
     {
         $user = User::factory()->create();
 
@@ -103,7 +103,7 @@ class ContactPolicyTest extends TestCase
         $this->assertTrue($policy->delete($user, $user, $requestedContact));
     }
 
-    public function testDeleteFails()
+    public function testDeleteFails(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();

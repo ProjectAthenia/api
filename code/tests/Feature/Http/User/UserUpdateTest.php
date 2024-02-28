@@ -29,7 +29,7 @@ class UserUpdateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $character = User::factory()->create();
         $response = $this->json('PUT', $this->path . '/' . $character->id);
@@ -37,7 +37,7 @@ class UserUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserBlocked()
+    public function testDifferentUserBlocked(): void
     {
         $this->actAsUser();
         $user = User::factory()->create();
@@ -47,7 +47,7 @@ class UserUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -56,7 +56,7 @@ class UserUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $user = User::factory()->create([
             'allow_users_to_add_me' => true,
@@ -84,7 +84,7 @@ class UserUpdateTest extends TestCase
         $this->assertEquals('a key', $updated->push_notification_key);
     }
 
-    public function testUpdatePasswordSuccessful()
+    public function testUpdatePasswordSuccessful(): void
     {
         $this->actAsUser([
             'email' => 'test@test.com',
@@ -107,7 +107,7 @@ class UserUpdateTest extends TestCase
         $loginResponse->assertStatus(200);
     }
 
-    public function testUpdateFailsInvalidBooleanFields()
+    public function testUpdateFailsInvalidBooleanFields(): void
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -126,7 +126,7 @@ class UserUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidStringFields()
+    public function testUpdateFailsInvalidStringFields(): void
     {
         $this->actAsUser();
 
@@ -152,7 +152,7 @@ class UserUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidEmail()
+    public function testUpdateFailsInvalidEmail(): void
     {
         $this->actAsUser();
 
@@ -168,7 +168,7 @@ class UserUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsStringLengthWrong()
+    public function testUpdateFailsStringLengthWrong(): void
     {
         $this->actAsUser();
 

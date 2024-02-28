@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class ArticleTest extends TestCase
 {
-    public function testCreatedBy()
+    public function testCreatedBy(): void
     {
         $article = new Article();
         $relation = $article->createdBy();
@@ -23,7 +23,7 @@ class ArticleTest extends TestCase
         $this->assertEquals('articles.created_by_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testIterations()
+    public function testIterations(): void
     {
         $article = new Article();
         $relation = $article->iterations();
@@ -36,7 +36,7 @@ class ArticleTest extends TestCase
         $this->assertStringContainsString('desc', $relation->toSql());
     }
 
-    public function testModifications()
+    public function testModifications(): void
     {
         $article = new Article();
         $relation = $article->modifications();
@@ -49,7 +49,7 @@ class ArticleTest extends TestCase
         $this->assertStringContainsString('desc', $relation->toSql());
     }
 
-    public function testVersions()
+    public function testVersions(): void
     {
         $article = new Article();
         $relation = $article->versions();

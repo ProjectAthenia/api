@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class AppRepositoryProviderTest extends TestCase
 {
-    public function testProvidesAll()
+    public function testProvidesAll(): void
     {
         $app = new Application();
         $repositoryProvider = new AppRepositoryProvider($app);

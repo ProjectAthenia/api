@@ -40,7 +40,7 @@ class UserSubscriptionUpdateTest extends TestCase
         $this->path.= $this->user->id . '/subscriptions/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $subscription = Subscription::factory()->create([
             'subscriber_id' => $this->user->id,
@@ -50,7 +50,7 @@ class UserSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserThanRouteBlocked()
+    public function testDifferentUserThanRouteBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         $subscription = Subscription::factory()->create([
@@ -61,7 +61,7 @@ class UserSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserThanSubscriptionBlocked()
+    public function testDifferentUserThanSubscriptionBlocked(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create();
@@ -70,7 +70,7 @@ class UserSubscriptionUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create([
@@ -86,7 +86,7 @@ class UserSubscriptionUpdateTest extends TestCase
         $this->assertNotNull($updated->canceled_at);
     }
 
-    public function testFailsNotPresentFieldsPresent()
+    public function testFailsNotPresentFieldsPresent(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create([
@@ -106,7 +106,7 @@ class UserSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidBooleanField()
+    public function testUpdateFailsInvalidBooleanField(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create([
@@ -126,7 +126,7 @@ class UserSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidIntegerFields()
+    public function testUpdateFailsInvalidIntegerFields(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create([
@@ -144,7 +144,7 @@ class UserSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidModelFields()
+    public function testUpdateFailsInvalidModelFields(): void
     {
         $this->actingAs($this->user);
         $subscription = Subscription::factory()->create([
@@ -162,7 +162,7 @@ class UserSubscriptionUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsPaymentMethodNotOwnedByUser()
+    public function testUpdateFailsPaymentMethodNotOwnedByUser(): void
     {
         $paymentMethod = PaymentMethod::factory()->create();
         $this->actingAs($this->user);

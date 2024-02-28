@@ -34,20 +34,20 @@ class FeatureRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Feature::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Feature::factory()->create();
 
@@ -55,7 +55,7 @@ class FeatureRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Feature::factory()->create(['id' => 19]);
 
@@ -63,7 +63,7 @@ class FeatureRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Feature $feature */
         $feature = $this->repository->create([
@@ -73,7 +73,7 @@ class FeatureRepositoryTest extends TestCase
         $this->assertEquals('A Feature', $feature->name);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Feature::factory()->create([
             'name' => 'a code'
@@ -86,7 +86,7 @@ class FeatureRepositoryTest extends TestCase
         $this->assertEquals('the same', $updated->name);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Feature::factory()->create();
 

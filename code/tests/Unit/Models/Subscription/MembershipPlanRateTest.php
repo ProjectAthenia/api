@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class MembershipPlanRateTest extends TestCase
 {
-    public function testMembershipPlans()
+    public function testMembershipPlans(): void
     {
         $model = new MembershipPlanRate();
         $relation = $model->membershipPlan();
@@ -24,7 +24,7 @@ class MembershipPlanRateTest extends TestCase
         $this->assertEquals('membership_plan_rates.membership_plan_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testSubscriptions()
+    public function testSubscriptions(): void
     {
         $user = new MembershipPlanRate();
         $relation = $user->subscriptions();

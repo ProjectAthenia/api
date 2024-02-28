@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class VoteCreatedEventTest extends TestCase
 {
-    public function testGetVote()
+    public function testGetVote(): void
     {
         $model = new Vote();
 

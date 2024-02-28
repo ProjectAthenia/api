@@ -30,7 +30,7 @@ class CollectionCollectionItemIndexTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $collection = Collection::factory()->create();
 
@@ -39,7 +39,7 @@ class CollectionCollectionItemIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -48,7 +48,7 @@ class CollectionCollectionItemIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testNonPublicCollectionBlocked()
+    public function testNonPublicCollectionBlocked(): void
     {
         $this->actAsUser();
         $collection = Collection::factory()->create([
@@ -60,7 +60,7 @@ class CollectionCollectionItemIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
         $collection = Collection::factory()->create([
@@ -76,7 +76,7 @@ class CollectionCollectionItemIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
         $collection = Collection::factory()->create([

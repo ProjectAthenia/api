@@ -32,20 +32,20 @@ class CollectionItemRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         CollectionItem::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = CollectionItem::factory()->create();
 
@@ -53,7 +53,7 @@ class CollectionItemRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         CollectionItem::factory()->create(['id' => 19]);
 
@@ -61,7 +61,7 @@ class CollectionItemRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $collection = Collection::factory()->create();
         $item = Article::factory()->create();
@@ -78,7 +78,7 @@ class CollectionItemRepositoryTest extends TestCase
         $this->assertEquals(4, $model->order);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = CollectionItem::factory()->create([
             'item_type' => 'release',
@@ -91,7 +91,7 @@ class CollectionItemRepositoryTest extends TestCase
         $this->assertEquals('game', $updated->item_type);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = CollectionItem::factory()->create();
 

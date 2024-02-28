@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class StringHelperServiceTest extends TestCase
 {
-    public function testMbSubstrReplace()
+    public function testMbSubstrReplace(): void
     {
         $service = new StringHelperService();
 

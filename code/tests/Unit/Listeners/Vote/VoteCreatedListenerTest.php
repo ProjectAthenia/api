@@ -19,7 +19,7 @@ use Tests\TestCase;
  */
 class VoteCreatedListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $vote = new Vote([
             'ballotItemOption' => new BallotItemOption([

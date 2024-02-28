@@ -22,7 +22,7 @@ class Issue404IfPageAfterPaginationTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
 

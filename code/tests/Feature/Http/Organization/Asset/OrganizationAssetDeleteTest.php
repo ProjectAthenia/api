@@ -38,7 +38,7 @@ class OrganizationAssetDeleteTest extends TestCase
         $this->path.= $this->organization->id . '/assets/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->organization->id,
@@ -49,7 +49,7 @@ class OrganizationAssetDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->organization->id,
@@ -64,7 +64,7 @@ class OrganizationAssetDeleteTest extends TestCase
     }
 
 
-    public function testDeleteSuccessful()
+    public function testDeleteSuccessful(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->organization->id,

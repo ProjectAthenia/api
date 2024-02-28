@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class CategoryTest extends TestCase
 {
-    public function testNewQueryAddsDefaultOrder()
+    public function testNewQueryAddsDefaultOrder(): void
     {
         $model = new Category();
         $query = $model->newQuery();

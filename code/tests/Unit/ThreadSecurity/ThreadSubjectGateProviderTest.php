@@ -15,7 +15,7 @@ use Tests\TestCase;
  */
 class ThreadSubjectGateProviderTest extends TestCase
 {
-    public function testCreateGate()
+    public function testCreateGate(): void
     {
         $provider = new ThreadSubjectGateProvider(mock(Application::class));
 

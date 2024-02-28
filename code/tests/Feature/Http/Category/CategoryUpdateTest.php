@@ -27,14 +27,14 @@ class CategoryUpdateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $category = Category::factory()->create();
         $response = $this->json('PATCH', static::BASE_ROUTE . $category->id);
         $response->assertStatus(403);
     }
 
-    public function testNotAdminUserBlocked()
+    public function testNotAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -44,7 +44,7 @@ class CategoryUpdateTest extends TestCase
         }
     }
 
-    public function testPatchSuccessful()
+    public function testPatchSuccessful(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -67,7 +67,7 @@ class CategoryUpdateTest extends TestCase
         $this->assertEquals('A Category', $updated->name);
     }
 
-    public function testPatchNotFoundFails()
+    public function testPatchNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -78,7 +78,7 @@ class CategoryUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchInvalidIdFails()
+    public function testPatchInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -89,7 +89,7 @@ class CategoryUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchFailsInvalidStringFields()
+    public function testPatchFailsInvalidStringFields(): void
     {
         $category = Category::factory()->create();
 

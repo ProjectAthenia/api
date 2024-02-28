@@ -37,21 +37,21 @@ class ArticleIterationRepositoryTest extends TestCase
         );
     }
 
-    public function testDeleteThrowsException()
+    public function testDeleteThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->delete(new ArticleIteration());
     }
 
-    public function testUpdateThrowsException()
+    public function testUpdateThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->update(new ArticleIteration(), []);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = ArticleIteration::factory()->create();
 
@@ -59,7 +59,7 @@ class ArticleIterationRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         ArticleIteration::factory()->create(['id' => 2]);
 
@@ -67,20 +67,20 @@ class ArticleIterationRepositoryTest extends TestCase
         $this->repository->findOrFail(1);
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         ArticleIteration::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $article = Article::factory()->create();
         $user = User::factory()->create();

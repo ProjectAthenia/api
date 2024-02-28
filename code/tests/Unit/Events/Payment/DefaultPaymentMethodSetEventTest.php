@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class DefaultPaymentMethodSetEventTest extends TestCase
 {
-    public function testGetPaymentMethod()
+    public function testGetPaymentMethod(): void
     {
         $paymentMethod = new PaymentMethod();
 

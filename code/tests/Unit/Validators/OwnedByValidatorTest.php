@@ -17,7 +17,7 @@ use Tests\TestCase;
  */
 class OwnedByValidatorTest extends TestCase
 {
-    public function testOwnedByValidatorFalse()
+    public function testOwnedByValidatorFalse(): void
     {
         $paymentMethod = new PaymentMethod();
         $paymentMethod->id = 2345;
@@ -36,7 +36,7 @@ class OwnedByValidatorTest extends TestCase
         $this->assertFalse($ownedBy->validate('payment_method.1', 2345, $params));
     }
 
-    public function testOwnedByValidatorTrue()
+    public function testOwnedByValidatorTrue(): void
     {
         $paymentMethod = new PaymentMethod();
         $paymentMethod->id = 2345;

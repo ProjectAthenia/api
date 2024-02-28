@@ -24,14 +24,14 @@ class MembershipPlanViewTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = MembershipPlan::factory()->create();
         $response = $this->json('GET', '/v1/membership-plans/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAs(Role::APP_USER);
         /** @var MembershipPlan $model */
@@ -45,7 +45,7 @@ class MembershipPlanViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/membership-plans/1')
@@ -55,7 +55,7 @@ class MembershipPlanViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/membership-plans/a')

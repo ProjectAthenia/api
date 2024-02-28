@@ -34,7 +34,7 @@ class UserContactUpdateTest extends TestCase
         $this->path.= $this->user->id . '/contacts/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $contact = Contact::factory()->create();
 
@@ -43,7 +43,7 @@ class UserContactUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actingAs($this->user);
 
@@ -52,7 +52,7 @@ class UserContactUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testUpdateDenySuccessful()
+    public function testUpdateDenySuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -72,7 +72,7 @@ class UserContactUpdateTest extends TestCase
         $this->assertNotNull( $updated->denied_at);
     }
 
-    public function testUpdateConfirmSuccessful()
+    public function testUpdateConfirmSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -92,7 +92,7 @@ class UserContactUpdateTest extends TestCase
         $this->assertNotNull( $updated->confirmed_at);
     }
 
-    public function testUpdateFailsProtectedFieldsPresent()
+    public function testUpdateFailsProtectedFieldsPresent(): void
     {
         $this->actingAs($this->user);
 
@@ -114,7 +114,7 @@ class UserContactUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidBooleanFields()
+    public function testUpdateFailsInvalidBooleanFields(): void
     {
         $this->actingAs($this->user);
 

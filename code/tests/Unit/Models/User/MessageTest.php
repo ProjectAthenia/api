@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class MessageTest extends TestCase
 {
-    public function testFrom()
+    public function testFrom(): void
     {
         $message = new Message();
         $relation = $message->from();
@@ -23,7 +23,7 @@ class MessageTest extends TestCase
         $this->assertEquals('messages.from_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testThread()
+    public function testThread(): void
     {
         $message = new Message();
         $relation = $message->thread();
@@ -33,7 +33,7 @@ class MessageTest extends TestCase
         $this->assertEquals('messages.thread_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testTo()
+    public function testTo(): void
     {
         $message = new Message();
         $relation = $message->to();

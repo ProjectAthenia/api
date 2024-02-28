@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class PaymentTest extends TestCase
 {
-    public function testLineItems()
+    public function testLineItems(): void
     {
         $model = new Payment();
         $relation = $model->lineItems();
@@ -22,7 +22,7 @@ class PaymentTest extends TestCase
         $this->assertEquals('line_items.payment_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testOwner()
+    public function testOwner(): void
     {
         $model = new Payment();
         $relation = $model->owner();
@@ -31,7 +31,7 @@ class PaymentTest extends TestCase
         $this->assertEquals('owner_type', $relation->getMorphType());
     }
 
-    public function testPaymentMethod()
+    public function testPaymentMethod(): void
     {
         $model = new Payment();
         $relation = $model->paymentMethod();

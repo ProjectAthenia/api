@@ -19,7 +19,7 @@ use Tests\TestCase;
  */
 class UserTest extends TestCase
 {
-    public function testAssets()
+    public function testAssets(): void
     {
         $user = new User();
         $relation = $user->assets();
@@ -28,7 +28,7 @@ class UserTest extends TestCase
         $this->assertEquals('assets.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testBallotCompletions()
+    public function testBallotCompletions(): void
     {
         $user = new User();
         $relation = $user->ballotCompletions();
@@ -38,7 +38,7 @@ class UserTest extends TestCase
         $this->assertEquals('ballot_completions.user_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testCreatedArticles()
+    public function testCreatedArticles(): void
     {
         $user = new User();
         $relation = $user->createdArticles();
@@ -48,7 +48,7 @@ class UserTest extends TestCase
         $this->assertEquals('articles.created_by_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testCreatedIterations()
+    public function testCreatedIterations(): void
     {
         $user = new User();
         $relation = $user->createdIterations();
@@ -58,7 +58,7 @@ class UserTest extends TestCase
         $this->assertEquals('article_iterations.created_by_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testMessages()
+    public function testMessages(): void
     {
         $user = new User();
         $relation = $user->messages();
@@ -67,7 +67,7 @@ class UserTest extends TestCase
         $this->assertEquals('messages.to_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testOrganizationManagers()
+    public function testOrganizationManagers(): void
     {
         $user = new User();
         $relation = $user->organizationManagers();
@@ -76,7 +76,7 @@ class UserTest extends TestCase
         $this->assertEquals('organization_managers.user_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testPayments()
+    public function testPayments(): void
     {
         $user = new User();
         $relation = $user->payments();
@@ -85,7 +85,7 @@ class UserTest extends TestCase
         $this->assertEquals('payments.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testPaymentMethods()
+    public function testPaymentMethods(): void
     {
         $user = new User();
         $relation = $user->paymentMethods();
@@ -94,7 +94,7 @@ class UserTest extends TestCase
         $this->assertEquals('payment_methods.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testProfileImage()
+    public function testProfileImage(): void
     {
         $model = new User();
 
@@ -104,7 +104,7 @@ class UserTest extends TestCase
         $this->assertEquals('assets.id', $relation->getQualifiedOwnerKeyName());
     }
 
-    public function testResource()
+    public function testResource(): void
     {
         $user = new User();
         $relation = $user->resource();
@@ -114,7 +114,7 @@ class UserTest extends TestCase
         $this->assertEquals('users.id', $relation->getQualifiedParentKeyName());
     }
 
-    public function testRoles()
+    public function testRoles(): void
     {
         $role = new User();
         $relation = $role->roles();
@@ -125,7 +125,7 @@ class UserTest extends TestCase
         $this->assertEquals('users.id', $relation->getQualifiedParentKeyName());
     }
 
-    public function testSubscriptions()
+    public function testSubscriptions(): void
     {
         $user = new User();
         $relation = $user->subscriptions();
@@ -134,7 +134,7 @@ class UserTest extends TestCase
         $this->assertEquals('subscriptions.subscriber_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testThreads()
+    public function testThreads(): void
     {
         $model = new User();
         $relation = $model->threads();
@@ -145,7 +145,7 @@ class UserTest extends TestCase
         $this->assertEquals('thread_user.thread_id', $relation->getQualifiedRelatedPivotKeyName());
     }
 
-    public function testGetProfileImageUrlAttribute()
+    public function testGetProfileImageUrlAttribute(): void
     {
         $user = new User([
             'profileImage' => new ProfileImage([
@@ -156,7 +156,7 @@ class UserTest extends TestCase
         $this->assertEquals('http://test.test/test.jpg', $user->profile_image_url);
     }
 
-    public function testGetJWTIdentifier()
+    public function testGetJWTIdentifier(): void
     {
         $user = new User();
         $user->id = 4352;
@@ -164,14 +164,14 @@ class UserTest extends TestCase
         $this->assertEquals(4352, $user->getJWTIdentifier());
     }
 
-    public function testGetJWTCustomClaims()
+    public function testGetJWTCustomClaims(): void
     {
         $user = new User();
 
         $this->assertEquals([], $user->getJWTCustomClaims());
     }
 
-    public function testCurrentSubscription()
+    public function testCurrentSubscription(): void
     {
         $noSubscriptionsUser = new User([
             'subscriptions' => new Collection([

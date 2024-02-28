@@ -21,12 +21,12 @@ class AppServiceProviderTest extends TestCase
      * @param $provide
      */
     #[DataProvider('allProviders')]
-    public function testBinds($provide)
+    public function testBinds($provide): void
     {
         $this->app->make($provide);
     }
 
-    public function testProvidesAll()
+    public function testProvidesAll(): void
     {
         $app = new Application();
         $repositoryProvider = new AppServiceProvider($app);
@@ -45,7 +45,7 @@ class AppServiceProviderTest extends TestCase
      *
      * @return array
      */
-    public static function allProviders()
+    public static function allProviders(): array
     {
         $app = new Application();
         $app['env'] = 'testing';
@@ -63,7 +63,7 @@ class AppServiceProviderTest extends TestCase
         return $repositoryContracts;
     }
 
-    public function testRegisterEnvironmentSpecificProviders()
+    public function testRegisterEnvironmentSpecificProviders(): void
     {
         $appMock = mock(Application::class);
         $appMock->shouldReceive('environment')->once()->andReturn('local');

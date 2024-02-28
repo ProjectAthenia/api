@@ -38,27 +38,27 @@ class AssetRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Asset::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->findOrFail(54);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $user = User::factory()->create();
         /** @var Asset $asset */
@@ -73,7 +73,7 @@ class AssetRepositoryTest extends TestCase
         $this->assertEquals($asset->owner_type, 'user');
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $asset = Asset::factory()->create();
 
@@ -84,7 +84,7 @@ class AssetRepositoryTest extends TestCase
         $this->assertEquals('a new url', $asset->url);
     }
 
-    public function testDeleteFails()
+    public function testDeleteFails(): void
     {
         $asset = Asset::factory()->create();
 

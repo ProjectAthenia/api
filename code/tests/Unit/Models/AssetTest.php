@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class AssetTest extends TestCase
 {
-    public function testOwner()
+    public function testOwner(): void
     {
         $model = new Asset();
         $relation = $model->owner();

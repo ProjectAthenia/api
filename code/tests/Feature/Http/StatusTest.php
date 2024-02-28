@@ -23,7 +23,7 @@ class StatusTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $response = $this->get('/v1/status');
 

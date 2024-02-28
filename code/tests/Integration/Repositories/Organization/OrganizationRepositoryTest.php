@@ -34,20 +34,20 @@ class OrganizationRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Organization::factory()->count( 5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Organization::factory()->create();
 
@@ -55,7 +55,7 @@ class OrganizationRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Organization::factory()->create(['id' => 19]);
 
@@ -63,7 +63,7 @@ class OrganizationRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Organization $model */
         $model = $this->repository->create([
@@ -73,7 +73,7 @@ class OrganizationRepositoryTest extends TestCase
         $this->assertEquals('An Organization', $model->name);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Organization::factory()->create([
             'name' => 'A Organization',
@@ -87,7 +87,7 @@ class OrganizationRepositoryTest extends TestCase
         $this->assertEquals('An Organization', $updated->name);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Organization::factory()->create();
 

@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class BallotPolicyTest extends TestCase
 {
-    public function testView()
+    public function testView(): void
     {
         $policy = new BallotPolicy();
 

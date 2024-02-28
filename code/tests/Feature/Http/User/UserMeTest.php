@@ -23,14 +23,14 @@ class UserMeTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('GET', '/v1/users/me');
 
         $response->assertStatus(403);
     }
 
-    public function testGetMeSuccess()
+    public function testGetMeSuccess(): void
     {
         User::unsetEventDispatcher();
         /** @var User $myCurrentUser */
@@ -43,7 +43,7 @@ class UserMeTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testGetMeFailsWithTooManyExpands()
+    public function testGetMeFailsWithTooManyExpands(): void
     {
         $myCurrentUser = User::factory()->create();
 

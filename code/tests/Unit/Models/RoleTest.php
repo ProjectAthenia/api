@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class RoleTest extends TestCase
 {
-    public function testUsers()
+    public function testUsers(): void
     {
         $role = new Role();
         $relation = $role->users();

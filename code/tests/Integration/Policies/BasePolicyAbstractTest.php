@@ -17,7 +17,7 @@ class BasePolicyAbstractTest extends TestCase
 {
     use RolesTesting, DatabaseSetupTrait;
 
-    public function testBefore()
+    public function testBefore(): void
     {
         /** @var BasePolicyAbstract $policy */
         $policy = $this->getMockForAbstractClass(BasePolicyAbstract::class);
