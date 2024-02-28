@@ -1,7 +1,10 @@
 {
     "name": "pomelo/wordpress-controller",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -27,7 +30,7 @@
         "filp/whoops": "~2.0",
         "laracasts/generators": "^2.0",
         "mockery/mockery": "~1.0",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^11.0",
         "spatie/laravel-ignition": "^1.0",
         "symfony/thanks": "^1.0"
@@ -46,8 +49,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
