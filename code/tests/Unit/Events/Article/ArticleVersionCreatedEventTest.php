@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class ArticleVersionCreatedEventTest
  * @package Tests\Unit\Events\Article
  */
-class ArticleVersionCreatedEventTest extends TestCase
+final class ArticleVersionCreatedEventTest extends TestCase
 {
-    public function testGetNewVersion()
+    public function testGetNewVersion(): void
     {
         $newVersion = new ArticleVersion();
         $newVersion->id = 455;
@@ -25,7 +25,7 @@ class ArticleVersionCreatedEventTest extends TestCase
         $this->assertEquals($newVersion, $event->getNewVersion());
     }
 
-    public function testGetOldVersion()
+    public function testGetOldVersion(): void
     {
         $newVersion = new ArticleVersion();
         $newVersion->id = 455;

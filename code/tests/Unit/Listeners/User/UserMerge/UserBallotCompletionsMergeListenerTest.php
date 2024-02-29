@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserBallotCompletionsMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserBallotCompletionsMergeListenerTest extends TestCase
+final class UserBallotCompletionsMergeListenerTest extends TestCase
 {
     /**
      * @var BallotCompletionRepositoryContract|CustomMockInterface
@@ -35,7 +35,7 @@ class UserBallotCompletionsMergeListenerTest extends TestCase
         $this->listener = new UserBallotCompletionsMergeListener($this->repository);
     }
 
-    public function testHandleWithoutMerge()
+    public function testHandleWithoutMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',
@@ -51,7 +51,7 @@ class UserBallotCompletionsMergeListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testHandleWithMerge()
+    public function testHandleWithMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',

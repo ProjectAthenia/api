@@ -14,9 +14,9 @@ use Tests\TestCase;
  * Class MessageSentListenerTest
  * @package Tests\Unit\Listeners\Message
  */
-class MessageSentListenerTest extends TestCase
+final class MessageSentListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $messageRepository = mock(MessageRepositoryContract::class);
         $listener = new MessageSentListener($messageRepository);

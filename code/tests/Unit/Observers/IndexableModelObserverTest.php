@@ -14,7 +14,7 @@ use Tests\TestCase;
  * Class IndexableModelObserverTest
  * @package Tests\Unit\Observers
  */
-class IndexableModelObserverTest extends TestCase
+final class IndexableModelObserverTest extends TestCase
 {
     /**
      * @var IndexableModelObserver
@@ -34,7 +34,7 @@ class IndexableModelObserverTest extends TestCase
         $this->observer = new IndexableModelObserver($this->resourceRepository);
     }
 
-    public function testCreated()
+    public function testCreated(): void
     {
         $user = new User([
             'resource' => null,
@@ -55,7 +55,7 @@ class IndexableModelObserverTest extends TestCase
         $this->observer->created($user);
     }
 
-    public function testUpdated()
+    public function testUpdated(): void
     {
         $user = new User([
             'resource' => null,
@@ -95,7 +95,7 @@ class IndexableModelObserverTest extends TestCase
         $this->observer->updated($user);
     }
 
-    public function testDeleted()
+    public function testDeleted(): void
     {
         $resource = new Resource();
         $user = new User([

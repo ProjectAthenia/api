@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodDeleteTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class UserPaymentMethodDeleteTest extends TestCase
+final class UserPaymentMethodDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -27,7 +27,7 @@ class UserPaymentMethodDeleteTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -37,7 +37,7 @@ class UserPaymentMethodDeleteTest extends TestCase
         $this->path.= $this->user->id . '/payment-methods/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -47,7 +47,7 @@ class UserPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,
@@ -60,7 +60,7 @@ class UserPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserDoesNotOwnPaymentMethodBlocked()
+    public function testUserDoesNotOwnPaymentMethodBlocked(): void
     {
         $paymentMethod = PaymentMethod::factory()->create();
 
@@ -71,7 +71,7 @@ class UserPaymentMethodDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDeleteSuccessful()
+    public function testDeleteSuccessful(): void
     {
         $paymentMethod = PaymentMethod::factory()->create([
             'owner_id' => $this->user->id,

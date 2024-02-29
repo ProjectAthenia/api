@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class StringHelperServiceTest
  * @package Tests\Unit\Services
  */
-class StringHelperServiceTest extends TestCase
+final class StringHelperServiceTest extends TestCase
 {
-    public function testMbSubstrReplace()
+    public function testMbSubstrReplace(): void
     {
         $service = new StringHelperService();
 

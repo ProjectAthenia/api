@@ -14,18 +14,18 @@ use Tests\Traits\MocksApplicationLog;
  * Class RefreshTest
  * @package Tests\Feature\Http\Authentication
  */
-class RefreshTest extends TestCase
+final class RefreshTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();
         $this->setupDatabase();
     }
 
-    public function testTokenRefresh()
+    public function testTokenRefresh(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',
@@ -58,7 +58,7 @@ class RefreshTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testTokenRefreshAfterRefreshWindowFails()
+    public function testTokenRefreshAfterRefreshWindowFails(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',
@@ -87,7 +87,7 @@ class RefreshTest extends TestCase
         ]);
     }
 
-    public function testTokenRefreshAfterExpirationBeforeRefreshTimeSucceeds()
+    public function testTokenRefreshAfterExpirationBeforeRefreshTimeSucceeds(): void
     {
         User::factory()->create([
             'email' => 'test@test.com',

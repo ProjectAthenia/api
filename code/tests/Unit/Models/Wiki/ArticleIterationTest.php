@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class IterationTest
  * @package Tests\Unit\Models\Wiki
  */
-class ArticleIterationTest extends TestCase
+final class ArticleIterationTest extends TestCase
 {
-    public function testArticle()
+    public function testArticle(): void
     {
         $article = new ArticleIteration();
         $relation = $article->article();
@@ -22,7 +22,7 @@ class ArticleIterationTest extends TestCase
         $this->assertEquals('article_iterations.article_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testCreatedBy()
+    public function testCreatedBy(): void
     {
         $article = new ArticleIteration();
         $relation = $article->createdBy();
@@ -31,7 +31,7 @@ class ArticleIterationTest extends TestCase
         $this->assertEquals('article_iterations.created_by_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testModification()
+    public function testModification(): void
     {
         $article = new ArticleIteration();
         $relation = $article->modification();
@@ -40,7 +40,7 @@ class ArticleIterationTest extends TestCase
         $this->assertEquals('article_iterations.article_modification_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testVersions()
+    public function testVersions(): void
     {
         $article = new ArticleIteration();
         $relation = $article->version();

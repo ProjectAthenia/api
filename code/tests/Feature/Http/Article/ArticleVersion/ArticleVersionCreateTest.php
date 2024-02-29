@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleVersionCreateTest
  * @package Tests\Feature\Http\Article\ArticleVersion
  */
-class ArticleVersionCreateTest extends TestCase
+final class ArticleVersionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -31,7 +31,7 @@ class ArticleVersionCreateTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $article = Article::factory()->create();
         $response = $this->json('POST', $this->path . $article->id . '/versions');
@@ -39,7 +39,7 @@ class ArticleVersionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNonOwningUserBlocked()
+    public function testNonOwningUserBlocked(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
         $article = Article::factory()->create();
@@ -48,7 +48,7 @@ class ArticleVersionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -69,7 +69,7 @@ class ArticleVersionCreateTest extends TestCase
         $this->assertEquals($articleVersion->article_iteration_id, $iteration->id);
     }
 
-    public function testCreateInvalidIntegerFields()
+    public function testCreateInvalidIntegerFields(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -90,7 +90,7 @@ class ArticleVersionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateInvalidModelFields()
+    public function testCreateInvalidModelFields(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -111,7 +111,7 @@ class ArticleVersionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsIterationNotFromArticle()
+    public function testCreateFailsIterationNotFromArticle(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 

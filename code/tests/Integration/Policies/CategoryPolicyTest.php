@@ -12,21 +12,21 @@ use Tests\TestCase;
  * Class CategoryPolicyTest
  * @package Tests\Integration\Policies
  */
-class CategoryPolicyTest extends TestCase
+final class CategoryPolicyTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $policy = new CategoryPolicy();
         $this->assertTrue($policy->create(new User()));
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $policy = new CategoryPolicy();
         $this->assertFalse($policy->update(new User(), new Category()));
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $policy = new CategoryPolicy();
         $this->assertFalse($policy->delete(new User(), new Category()));

@@ -19,7 +19,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class BallotCompletionRepositoryTest
  * @package Tests\Integration\Repositories\Vote
  */
-class BallotCompletionRepositoryTest extends TestCase
+final class BallotCompletionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -43,20 +43,20 @@ class BallotCompletionRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         BallotCompletion::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = BallotCompletion::factory()->create();
 
@@ -64,7 +64,7 @@ class BallotCompletionRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         BallotCompletion::factory()->create(['id' => 19]);
 
@@ -72,7 +72,7 @@ class BallotCompletionRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Ballot $ballot */
         $ballot = Ballot::factory()->create();
@@ -89,13 +89,13 @@ class BallotCompletionRepositoryTest extends TestCase
         $this->assertEquals($ballotCompletion->ballot_id, $ballot->id);
     }
 
-    public function testUpdateThrowsException()
+    public function testUpdateThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
         $this->repository->update(new BallotCompletion(), []);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = BallotCompletion::factory()->create();
 

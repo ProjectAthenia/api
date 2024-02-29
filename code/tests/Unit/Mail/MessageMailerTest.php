@@ -12,9 +12,9 @@ use Tests\TestCase;
  * Class MessageMailerTest
  * @package Tests\Unit\Mail
  */
-class MessageMailerTest extends TestCase
+final class MessageMailerTest extends TestCase
 {
-    public function testBuild()
+    public function testBuild(): void
     {
         $user = new User([
             'first_name' => 'Darlene Dora',

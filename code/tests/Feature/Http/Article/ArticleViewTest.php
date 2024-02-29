@@ -16,7 +16,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleViewTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleViewTest extends TestCase
+final class ArticleViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -30,7 +30,7 @@ class ArticleViewTest extends TestCase
      */
     private $article;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -40,14 +40,14 @@ class ArticleViewTest extends TestCase
         $this->path.= $this->article->id;
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('GET', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER]) as $role) {
             $this->actAs($role);
@@ -58,7 +58,7 @@ class ArticleViewTest extends TestCase
         }
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -67,7 +67,7 @@ class ArticleViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testViewSuccessful()
+    public function testViewSuccessful(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
 

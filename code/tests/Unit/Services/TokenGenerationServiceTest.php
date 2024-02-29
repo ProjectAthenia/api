@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class TokenGenerationServiceTest
  * @package Tests\Unit\Services
  */
-class TokenGenerationServiceTest extends TestCase
+final class TokenGenerationServiceTest extends TestCase
 {
-    public function testGenerateToken()
+    public function testGenerateToken(): void
     {
         $service = new TokenGenerationService();
 

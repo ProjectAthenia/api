@@ -15,17 +15,17 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleTest
  * @package Tests\Integration\Models\Wiki
  */
-class ArticleTest extends TestCase
+final class ArticleTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
     }
 
-    public function testContentReturnsNull()
+    public function testContentReturnsNull(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();
@@ -33,7 +33,7 @@ class ArticleTest extends TestCase
         $this->assertNull($article->content);
     }
 
-    public function testCurrentVersionReturnsProperVersion()
+    public function testCurrentVersionReturnsProperVersion(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();
@@ -49,7 +49,7 @@ class ArticleTest extends TestCase
         $this->assertEquals($expected->id, $article->current_version->id);
     }
 
-    public function testContentReturnsModelContent()
+    public function testContentReturnsModelContent(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();
@@ -68,7 +68,7 @@ class ArticleTest extends TestCase
         $this->assertEquals('Hello', $article->content);
     }
 
-    public function testContentReturnsCorrectModel()
+    public function testContentReturnsCorrectModel(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();
@@ -100,7 +100,7 @@ class ArticleTest extends TestCase
         $this->assertEquals('Hello', $article->content);
     }
 
-    public function testLastIterationContentReturnsModelContent()
+    public function testLastIterationContentReturnsModelContent(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();
@@ -114,7 +114,7 @@ class ArticleTest extends TestCase
         $this->assertEquals('Hello', $article->last_iteration_content);
     }
 
-    public function testLastIterationContentReturnsCorrectModel()
+    public function testLastIterationContentReturnsCorrectModel(): void
     {
         /** @var Article $article */
         $article = Article::factory()->create();

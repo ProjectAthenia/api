@@ -15,25 +15,25 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationViewTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationViewTest extends TestCase
+final class OrganizationViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Organization::factory()->create();
         $response = $this->json('GET', '/v1/organizations/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -43,7 +43,7 @@ class OrganizationViewTest extends TestCase
         }
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAs(Role::MANAGER);
         /** @var Organization $model */
@@ -62,7 +62,7 @@ class OrganizationViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/organizations/1')
@@ -72,7 +72,7 @@ class OrganizationViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/organizations/a')

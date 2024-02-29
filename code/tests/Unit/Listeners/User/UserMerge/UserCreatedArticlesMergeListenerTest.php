@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class UserCreatedArticlesMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserCreatedArticlesMergeListenerTest extends TestCase
+final class UserCreatedArticlesMergeListenerTest extends TestCase
 {
     /**
      * @var ArticleRepositoryContract|CustomMockInterface
@@ -35,7 +35,7 @@ class UserCreatedArticlesMergeListenerTest extends TestCase
         $this->listener = new UserCreatedArticlesMergeListener($this->repository);
     }
 
-    public function testHandleWithoutMerge()
+    public function testHandleWithoutMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',
@@ -51,7 +51,7 @@ class UserCreatedArticlesMergeListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testHandleWithMerge()
+    public function testHandleWithMerge(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',

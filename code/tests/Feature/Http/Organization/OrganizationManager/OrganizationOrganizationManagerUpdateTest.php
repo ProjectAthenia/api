@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationUpdateTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class OrganizationOrganizationManagerUpdateTest extends TestCase
+final class OrganizationOrganizationManagerUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -24,7 +24,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -42,14 +42,14 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         $this->route = '/v1/organizations/' . $organizationId . '/organization-managers/' . $organizationManagerId;
     }
 
-    public function testOrganizationNotFound()
+    public function testOrganizationNotFound(): void
     {
         $this->setupRoute(4523, 345);
         $response = $this->json('PUT', $this->route);
         $response->assertStatus(404);
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = OrganizationManager::factory()->create();
         $this->setupRoute($model->organization_id, $model->id);
@@ -57,7 +57,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -69,7 +69,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         }
     }
 
-    public function testNotUserNotOrganizationAdminBlocked()
+    public function testNotUserNotOrganizationAdminBlocked(): void
     {
         $this->actAs(Role::MANAGER);
         $organization = Organization::factory()->create();
@@ -84,7 +84,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -113,7 +113,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         $this->assertEquals( Role::ADMINISTRATOR, $updated->role_id);
     }
 
-    public function testUpdateFailsMissingRequiredFields()
+    public function testUpdateFailsMissingRequiredFields(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $model = OrganizationManager::factory()->create([
@@ -133,7 +133,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidNumericalFields()
+    public function testUpdateFailsInvalidNumericalFields(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $model = OrganizationManager::factory()->create([
@@ -157,7 +157,7 @@ class OrganizationOrganizationManagerUpdateTest extends TestCase
         ]);
     }
 
-    public function testUpdateFailsInvalidRoleId()
+    public function testUpdateFailsInvalidRoleId(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $model = OrganizationManager::factory()->create([

@@ -20,7 +20,7 @@ trait DatabaseSetupTrait
     /**
      * Set up the database after you've done all the parent setup stuff
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();

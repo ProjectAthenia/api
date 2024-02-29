@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class ContactCreatedEventTest
  * @package Tests\Unit\Events\User\Contact
  */
-class ContactCreatedEventTest extends TestCase
+final class ContactCreatedEventTest extends TestCase
 {
-    public function testGetContact()
+    public function testGetContact(): void
     {
         $contact = new Contact();
 

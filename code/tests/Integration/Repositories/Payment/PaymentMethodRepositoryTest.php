@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class PaymentMethodRepositoryTest
  * @package Tests\Integration\Repositories\Payment
  */
-class PaymentMethodRepositoryTest extends TestCase
+final class PaymentMethodRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -24,7 +24,7 @@ class PaymentMethodRepositoryTest extends TestCase
      */
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -35,20 +35,20 @@ class PaymentMethodRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         PaymentMethod::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = PaymentMethod::factory()->create();
 
@@ -56,7 +56,7 @@ class PaymentMethodRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         PaymentMethod::factory()->create(['id' => 2]);
 
@@ -64,7 +64,7 @@ class PaymentMethodRepositoryTest extends TestCase
         $this->repository->findOrFail(1);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -79,7 +79,7 @@ class PaymentMethodRepositoryTest extends TestCase
         $this->assertEquals($user->id, $paymentMethod->owner_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = PaymentMethod::factory()->create([
             'payment_method_key' => 'test_key'
@@ -93,7 +93,7 @@ class PaymentMethodRepositoryTest extends TestCase
         $this->assertEquals('new_key', $updated->payment_method_key);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = PaymentMethod::factory()->create();
 

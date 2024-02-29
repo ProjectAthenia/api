@@ -14,24 +14,24 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationIndexTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationIndexTest extends TestCase
+final class OrganizationIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('GET', '/v1/organizations');
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -41,7 +41,7 @@ class OrganizationIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/organizations');
@@ -53,7 +53,7 @@ class OrganizationIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         Organization::factory()->count(15)->create();

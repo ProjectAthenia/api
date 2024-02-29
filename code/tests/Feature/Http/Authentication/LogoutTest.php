@@ -15,18 +15,18 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
  * Class LogoutTest
  * @package Tests\Feature\Http\Authentication
  */
-class LogoutTest extends TestCase
+final class LogoutTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();
         $this->setupDatabase();
     }
 
-    public function testLogout()
+    public function testLogout(): void
     {
         $this->app['env'] = 'testing-override';  // @todo fix this
         $this->app->instance(LogMiddleware::class, new class {

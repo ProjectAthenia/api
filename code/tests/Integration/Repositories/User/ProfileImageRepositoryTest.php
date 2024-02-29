@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ProfileImageRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class ProfileImageRepositoryTest extends TestCase
+final class ProfileImageRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -38,21 +38,21 @@ class ProfileImageRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllFails()
+    public function testFindAllFails(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->findAll();
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->findOrFail(54);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Asset $asset */
         $asset = $this->repository->create([
@@ -62,14 +62,14 @@ class ProfileImageRepositoryTest extends TestCase
         $this->assertEquals('a url', $asset->url);
     }
 
-    public function testUpdateFails()
+    public function testUpdateFails(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->update(new Asset(), []);
     }
 
-    public function testDeleteFails()
+    public function testDeleteFails(): void
     {
         $this->expectException(NotImplementedException::class);
 

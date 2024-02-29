@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class RoleRepositoryTest
  * @package Tests\Integration\Repositories
  */
-class RoleRepositoryTest extends TestCase
+final class RoleRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait;
     
@@ -22,7 +22,7 @@ class RoleRepositoryTest extends TestCase
      */
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -30,31 +30,31 @@ class RoleRepositoryTest extends TestCase
         $this->repository = new RoleRepository(new Role(), $this->getGenericLogMock());
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         $items = $this->repository->findAll([], [], [], [], 0);
         $this->assertCount(Role::count(), $items);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->expectException(NotImplementedException::class);
         $this->repository->update(new Role(), []);
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->expectException(NotImplementedException::class);
         $this->repository->delete(new Role());
     }
 
-    public function testFindOrFail()
+    public function testFindOrFail(): void
     {
         $this->expectException(NotImplementedException::class);
         $this->repository->findOrFail(1);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->expectException(NotImplementedException::class);
         $this->repository->create([]);

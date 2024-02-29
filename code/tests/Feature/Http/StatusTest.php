@@ -13,17 +13,17 @@ use Tests\Traits\MocksApplicationLog;
  * Class StatusTest
  * @package Tests\Feature\Http
  */
-class StatusTest extends TestCase
+final class StatusTest extends TestCase
 {
     use MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $response = $this->get('/v1/status');
 

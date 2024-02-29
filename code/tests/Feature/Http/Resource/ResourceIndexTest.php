@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ResourceIndexTest
  * @package Tests\Feature\Resource
  */
-class ResourceIndexTest extends TestCase
+final class ResourceIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -30,14 +30,14 @@ class ResourceIndexTest extends TestCase
         User::unsetEventDispatcher();
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('GET', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
 
@@ -50,7 +50,7 @@ class ResourceIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
 
@@ -108,7 +108,7 @@ class ResourceIndexTest extends TestCase
             ]);
     }
 
-    public function testGetPaginationWithExpand()
+    public function testGetPaginationWithExpand(): void
     {
         $this->actAsUser();
 

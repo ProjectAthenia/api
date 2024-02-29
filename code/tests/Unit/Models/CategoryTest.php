@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class CategoryTest
  * @package Tests\Unit\Models
  */
-class CategoryTest extends TestCase
+final class CategoryTest extends TestCase
 {
-    public function testNewQueryAddsDefaultOrder()
+    public function testNewQueryAddsDefaultOrder(): void
     {
         $model = new Category();
         $query = $model->newQuery();

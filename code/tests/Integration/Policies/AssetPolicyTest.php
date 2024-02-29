@@ -13,11 +13,11 @@ use Tests\TestCase;
  * Class AssetPolicyTest
  * @package Tests\Integration\Policies
  */
-class AssetPolicyTest extends TestCase
+final class AssetPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAllFails()
+    public function testAllFails(): void
     {
         $policy = new AssetPolicy();
 
@@ -27,7 +27,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->all($loggedInUser, $requestedUser));
     }
 
-    public function testAllPasses()
+    public function testAllPasses(): void
     {
         $policy = new AssetPolicy();
 
@@ -36,7 +36,7 @@ class AssetPolicyTest extends TestCase
         $this->assertTrue($policy->all($user, $user));
     }
 
-    public function testCreateFails()
+    public function testCreateFails(): void
     {
         $policy = new AssetPolicy();
 
@@ -46,7 +46,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->create($loggedInUser, $requestedUser));
     }
 
-    public function testCreatePasses()
+    public function testCreatePasses(): void
     {
         $policy = new AssetPolicy();
 
@@ -55,7 +55,7 @@ class AssetPolicyTest extends TestCase
         $this->assertTrue($policy->create($user, $user));
     }
 
-    public function testUpdateFailsUserMismatch()
+    public function testUpdateFailsUserMismatch(): void
     {
         $policy = new AssetPolicy();
 
@@ -68,7 +68,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->update($loggedInUser, $requestedUser, $asset));
     }
 
-    public function testUpdateFailsAssetMismatch()
+    public function testUpdateFailsAssetMismatch(): void
     {
         $policy = new AssetPolicy();
 
@@ -78,7 +78,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $user, $asset));
     }
 
-    public function testUpdatePasses()
+    public function testUpdatePasses(): void
     {
         $policy = new AssetPolicy();
 
@@ -91,7 +91,7 @@ class AssetPolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $user, $asset));
     }
 
-    public function testDeleteFailsUserMismatch()
+    public function testDeleteFailsUserMismatch(): void
     {
         $policy = new AssetPolicy();
 
@@ -105,7 +105,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->delete($loggedInUser, $requestedUser, $asset));
     }
 
-    public function testDeleteFailsAssetMismatch()
+    public function testDeleteFailsAssetMismatch(): void
     {
         $policy = new AssetPolicy();
 
@@ -115,7 +115,7 @@ class AssetPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $user, $asset));
     }
 
-    public function testDeletePasses()
+    public function testDeletePasses(): void
     {
         $policy = new AssetPolicy();
 

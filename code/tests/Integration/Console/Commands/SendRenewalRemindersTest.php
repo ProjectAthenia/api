@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class SendRenewalRemindersTest
  * @package Tests\Integration\Console\Commands
  */
-class SendRenewalRemindersTest extends TestCase
+final class SendRenewalRemindersTest extends TestCase
 {
     use DatabaseSetupTrait;
 
@@ -28,7 +28,7 @@ class SendRenewalRemindersTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $subscriptionRepository = new SubscriptionRepository(
             new Subscription(),

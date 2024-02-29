@@ -13,7 +13,7 @@ use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
 
-class CollectionRepositoryTest extends TestCase
+final class CollectionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -37,20 +37,20 @@ class CollectionRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Collection::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Collection::factory()->create();
 
@@ -58,7 +58,7 @@ class CollectionRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Collection::factory()->create(['id' => 19]);
 
@@ -66,7 +66,7 @@ class CollectionRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -80,7 +80,7 @@ class CollectionRepositoryTest extends TestCase
         $this->assertEquals('A Collection', $model->name);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Collection::factory()->create([
             'name' => 'a Collection'
@@ -93,7 +93,7 @@ class CollectionRepositoryTest extends TestCase
         $this->assertEquals('the same', $updated->name);
     }
 
-    public function testUpdateSuccessWithNewOrder()
+    public function testUpdateSuccessWithNewOrder(): void
     {
         $model = Collection::factory()->create();
 
@@ -117,7 +117,7 @@ class CollectionRepositoryTest extends TestCase
         $this->assertEquals($collectionItems[2]->id, $updated->collectionItems[2]->id);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Collection::factory()->create();
 

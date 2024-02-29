@@ -14,25 +14,25 @@ use Tests\Traits\RolesTesting;
  * Class BallotViewTest
  * @package Tests\Ballot\Http\Ballot
  */
-class BallotViewTest extends TestCase
+final class BallotViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Ballot::factory()->create();
         $response = $this->json('GET', '/v1/ballots/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         /** @var Ballot $model */
@@ -46,7 +46,7 @@ class BallotViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/ballots/1')
@@ -56,7 +56,7 @@ class BallotViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/ballots/a')

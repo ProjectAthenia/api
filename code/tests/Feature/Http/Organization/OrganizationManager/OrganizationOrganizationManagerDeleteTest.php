@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationOrganizationManagerDeleteTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class OrganizationOrganizationManagerDeleteTest extends TestCase
+final class OrganizationOrganizationManagerDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -23,7 +23,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -41,7 +41,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         $this->route = '/v1/organizations/' . $organizationId . '/organization-managers/' . $organizationManagerId;
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = OrganizationManager::factory()->create();
         $this->setupRoute($model->organization_id, $model->id);
@@ -49,7 +49,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUserBlocked()
+    public function testNonAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -60,7 +60,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         }
     }
 
-    public function testOrganizationManagerBlocked()
+    public function testOrganizationManagerBlocked(): void
     {
         $this->actAs(Role::MANAGER);
 
@@ -74,7 +74,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDeleteSingle()
+    public function testDeleteSingle(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
 
@@ -90,7 +90,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         $this->assertNull(OrganizationManager::find($model->id));
     }
 
-    public function testDeleteSingleInvalidIdFails()
+    public function testDeleteSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -102,7 +102,7 @@ class OrganizationOrganizationManagerDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testDeleteSingleNotFoundFails()
+    public function testDeleteSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

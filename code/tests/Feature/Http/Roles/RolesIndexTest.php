@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class RolesIndexTest
  * @package Tests\Feature\Http\Roles
  */
-class RolesIndexTest extends TestCase
+final class RolesIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -22,14 +22,14 @@ class RolesIndexTest extends TestCase
      */
     protected $path = '/v1/roles';
     
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp(); 
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testIndexBlocked()
+    public function testIndexBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $user = $this->getUserOfRole($role);
@@ -41,7 +41,7 @@ class RolesIndexTest extends TestCase
         }
     }
 
-    public function testIndexSuccess()
+    public function testIndexSuccess(): void
     {
         $this->actingAs($this->getUserOfRole(Role::SUPER_ADMIN));
         $total = Role::count();

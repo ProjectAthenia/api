@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class MessagePolicyTest
  * @package Tests\Integration\Policies\User
  */
-class MessagePolicyTest extends TestCase
+final class MessagePolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
@@ -39,7 +39,7 @@ class MessagePolicyTest extends TestCase
         $this->policy = new MessagePolicy($this->gateProvider);
     }
 
-    public function testAllBlocksWhenGateNotFound()
+    public function testAllBlocksWhenGateNotFound(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -53,7 +53,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $requestedUser, $thread));
     }
 
-    public function testAllBlockWhenAccessingAnotherUser()
+    public function testAllBlockWhenAccessingAnotherUser(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -69,7 +69,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $requestedUser, $thread));
     }
 
-    public function testAllBlockWhenGateFails()
+    public function testAllBlockWhenGateFails(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -85,7 +85,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->all($loggedInUser, $loggedInUser, $thread));
     }
 
-    public function testAllPasses()
+    public function testAllPasses(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -101,7 +101,7 @@ class MessagePolicyTest extends TestCase
         $this->assertTrue($this->policy->all($loggedInUser, $loggedInUser, $thread));
     }
 
-    public function testCreateBlocksWhenGateNotFound()
+    public function testCreateBlocksWhenGateNotFound(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -115,7 +115,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $requestedUser, $thread));
     }
 
-    public function testCreateBlockWhenAccessingAnotherUser()
+    public function testCreateBlockWhenAccessingAnotherUser(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -131,7 +131,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $requestedUser, $thread));
     }
 
-    public function testCreateBlockWhenGateFails()
+    public function testCreateBlockWhenGateFails(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -147,7 +147,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->create($loggedInUser, $loggedInUser, $thread));
     }
 
-    public function testCreatePasses()
+    public function testCreatePasses(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -163,7 +163,7 @@ class MessagePolicyTest extends TestCase
         $this->assertTrue($this->policy->create($loggedInUser, $loggedInUser, $thread));
     }
 
-    public function testUpdateBlocksWhenGateNotFound()
+    public function testUpdateBlocksWhenGateNotFound(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -178,7 +178,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->update($loggedInUser, $requestedUser, $thread, $message));
     }
 
-    public function testUpdateBlocksUserMismatch()
+    public function testUpdateBlocksUserMismatch(): void
     {
         $loggedInUser = User::factory()->create();
         $requestedUser = User::factory()->create();
@@ -194,7 +194,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->update($loggedInUser, $requestedUser, $thread, $message));
     }
 
-    public function testUpdateBlockWhenGateFails()
+    public function testUpdateBlockWhenGateFails(): void
     {
         $loggedInUser = User::factory()->create();
 
@@ -211,7 +211,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->update($loggedInUser, $loggedInUser, $thread, $message));
     }
 
-    public function testUpdateBlocksMessageNotInThread()
+    public function testUpdateBlocksMessageNotInThread(): void
     {
         $thread = Thread::factory()->create([
             'subject_type' => 'a_type',
@@ -227,7 +227,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->update($user, $user, $thread, $message));
     }
 
-    public function testUpdateBlocksUserNotSentMessage()
+    public function testUpdateBlocksUserNotSentMessage(): void
     {
         $thread = Thread::factory()->create([
             'subject_type' => 'a_type',
@@ -246,7 +246,7 @@ class MessagePolicyTest extends TestCase
         $this->assertFalse($this->policy->update($user, $user, $thread, $message));
     }
 
-    public function testUpdatePasses()
+    public function testUpdatePasses(): void
     {
         $thread = Thread::factory()->create([
             'subject_type' => 'a_type',

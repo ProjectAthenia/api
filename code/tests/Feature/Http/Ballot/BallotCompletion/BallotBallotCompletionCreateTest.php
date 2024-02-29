@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationOrganizationManagerCreateTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class BallotBallotCompletionCreateTest extends TestCase
+final class BallotBallotCompletionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -24,7 +24,7 @@ class BallotBallotCompletionCreateTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -41,14 +41,14 @@ class BallotBallotCompletionCreateTest extends TestCase
         $this->route = '/v1/ballots/' . $ballotId . '/ballot-completions';
     }
 
-    public function testOrganizationNotFound()
+    public function testOrganizationNotFound(): void
     {
         $this->setupRoute(4523);
         $response = $this->json('POST', $this->route);
         $response->assertStatus(404);
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $ballot = Ballot::factory()->create();
         $this->setupRoute($ballot->id);
@@ -56,7 +56,7 @@ class BallotBallotCompletionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAsUser();
         $ballot = Ballot::factory()->create();
@@ -88,7 +88,7 @@ class BallotBallotCompletionCreateTest extends TestCase
         $response->assertJson($properties);
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actAsUser();
         $ballot = Ballot::factory()->create();
@@ -122,7 +122,7 @@ class BallotBallotCompletionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidArrayFields()
+    public function testCreateFailsInvalidArrayFields(): void
     {
         $this->actAsUser();
         $ballot = Ballot::factory()->create();
@@ -157,7 +157,7 @@ class BallotBallotCompletionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidNumericalFields()
+    public function testCreateFailsInvalidNumericalFields(): void
     {
         $this->actAsUser();
         $ballot = Ballot::factory()->create();
@@ -184,7 +184,7 @@ class BallotBallotCompletionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidRoleId()
+    public function testCreateFailsInvalidRoleId(): void
     {
         $this->actAsUser();
         $ballot = Ballot::factory()->create();

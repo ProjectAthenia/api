@@ -12,9 +12,9 @@ use Tests\TestCase;
  * Class BallotPolicyTest
  * @package Tests\Integration\Policies\Vote
  */
-class BallotPolicyTest extends TestCase
+final class BallotPolicyTest extends TestCase
 {
-    public function testView()
+    public function testView(): void
     {
         $policy = new BallotPolicy();
 

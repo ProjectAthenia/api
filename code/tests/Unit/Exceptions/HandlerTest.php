@@ -13,9 +13,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class HandlerTest
  * @package Tests\Unit\Exceptions
  */
-class HandlerTest extends TestCase 
+final class HandlerTest extends TestCase 
 {
-    public function testDebugTrueHasTraceInfoInResponse()
+    public function testDebugTrueHasTraceInfoInResponse(): void
     {
         config(['app.debug' => true]);
         $handler = new Handler($this->app);
@@ -28,7 +28,7 @@ class HandlerTest extends TestCase
         $this->assertStringContainsString('trace', $responseJson);
     }
 
-    public function testDebugFalseNoTraceInfoInResponse()
+    public function testDebugFalseNoTraceInfoInResponse(): void
     {
         $handler = new Handler($this->app);
 
@@ -40,7 +40,7 @@ class HandlerTest extends TestCase
         $this->assertStringNotContainsString('trace', $responseJson);
     }
     
-    public function testMessageSetSpecialForNotFoundHttpException()
+    public function testMessageSetSpecialForNotFoundHttpException(): void
     {
         $handler = new Handler($this->app);
 
@@ -52,7 +52,7 @@ class HandlerTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode(['message'=>'This path was not found.']), $responseJson);
     }
     
-    public function testModelNotFoundDisplaysCustomMessage()
+    public function testModelNotFoundDisplaysCustomMessage(): void
     {
         $handler = new Handler($this->app);
 

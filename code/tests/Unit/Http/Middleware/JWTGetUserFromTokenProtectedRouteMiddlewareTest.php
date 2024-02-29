@@ -15,9 +15,9 @@ use PHPOpenSourceSaver\JWTAuth\JWTAuth;
  * Class JWTGetUserFromTokenProtectedRouteMiddlewareTest
  * @package Tests\Unit\Http\Middleware
  */
-class JWTGetUserFromTokenProtectedRouteMiddlewareTest extends TestCase
+final class JWTGetUserFromTokenProtectedRouteMiddlewareTest extends TestCase
 {
-    public function testHandlePassesAuthenticate()
+    public function testHandlePassesAuthenticate(): void
     {
         $app = mock(Application::class);
 
@@ -40,7 +40,7 @@ class JWTGetUserFromTokenProtectedRouteMiddlewareTest extends TestCase
         $middleware->handle($request, $closure);
     }
 
-    public function testHandleFailsAuthenticate()
+    public function testHandleFailsAuthenticate(): void
     {
         $app = mock(Application::class);
 
@@ -65,7 +65,7 @@ class JWTGetUserFromTokenProtectedRouteMiddlewareTest extends TestCase
         $middleware->handle($request, $closure);
     }
 
-    public function testHandleFailsGetToken()
+    public function testHandleFailsGetToken(): void
     {
         $app = mock(Application::class);
 

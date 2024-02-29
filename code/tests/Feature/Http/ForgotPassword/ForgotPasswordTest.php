@@ -14,20 +14,20 @@ use Tests\Traits\MocksApplicationLog;
  * Class ForgotPasswordTest
  * @package Tests\Feature\Http\ForgotPassword
  */
-class ForgotPasswordTest extends TestCase
+final class ForgotPasswordTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
     private $route = '/v1/forgot-password';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->mockApplicationLog();
         $this->setupDatabase();
     }
 
-    public function testMissingRequiredFields()
+    public function testMissingRequiredFields(): void
     {
         $response = $this->json('POST', $this->route);
 
@@ -41,7 +41,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testStringFieldsTooLong()
+    public function testStringFieldsTooLong(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => str_repeat('a', 121),
@@ -57,7 +57,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testEmailFormatIncorrect()
+    public function testEmailFormatIncorrect(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'bryce',
@@ -73,7 +73,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testUserByEmailDoesNotExist()
+    public function testUserByEmailDoesNotExist(): void
     {
         $response = $this->json('POST', $this->route, [
             'email' => 'guy@smiley.com',
@@ -87,7 +87,7 @@ class ForgotPasswordTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $user = User::factory()->create([
             'email' => 'test@test.com'

@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class UserMergeEventTest
  * @package Tests\Unit\Events\User
  */
-class UserMergeEventTest extends TestCase
+final class UserMergeEventTest extends TestCase
 {
-    public function testGetMainUser()
+    public function testGetMainUser(): void
     {
         $user = new User([
             'email' => 'something@something.something',
@@ -24,7 +24,7 @@ class UserMergeEventTest extends TestCase
         $this->assertEquals($user, $event->getMainUser());
     }
 
-    public function testGetMergeUser()
+    public function testGetMergeUser(): void
     {
         $user = new User([
             'email' => 'something@something.something',
@@ -35,7 +35,7 @@ class UserMergeEventTest extends TestCase
         $this->assertEquals($user, $event->getMergeUser());
     }
 
-    public function testGetMergeOptions()
+    public function testGetMergeOptions(): void
     {
         $options = [
             'email' => true,

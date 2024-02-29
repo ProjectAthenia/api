@@ -10,7 +10,7 @@ use App\Http\Middleware\Issue404IfPageAfterPaginationMiddleware;
 use App\Http\Middleware\JWTGetUserFromTokenProtectedRouteMiddleware;
 use App\Http\Middleware\JWTGetUserFromTokenUnprotectedRouteMiddleware;
 use App\Http\Middleware\SearchFilterParsingMiddleware;
-use Fruitcake\Cors\HandleCors;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;

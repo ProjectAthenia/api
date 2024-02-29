@@ -13,39 +13,39 @@ use Tests\TestCase;
  * Class MembershipPlanPolicyTest
  * @package Tests\Integration\Policies\Subscription
  */
-class MembershipPlanPolicyTest extends TestCase
+final class MembershipPlanPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new MembershipPlanPolicy();
 
         $this->assertTrue($policy->all(new User()));
     }
 
-    public function testView()
+    public function testView(): void
     {
         $policy = new MembershipPlanPolicy();
 
         $this->assertTrue($policy->view(new User(), new MembershipPlan()));
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $policy = new MembershipPlanPolicy();
 
         $this->assertFalse($policy->create(new User()));
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $policy = new MembershipPlanPolicy();
 
         $this->assertFalse($policy->update(new User(), new MembershipPlan()));
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $policy = new MembershipPlanPolicy();
 

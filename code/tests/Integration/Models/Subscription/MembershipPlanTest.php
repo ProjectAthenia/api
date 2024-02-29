@@ -13,11 +13,11 @@ use Tests\TestCase;
  * Class MembershipPlanTest
  * @package Tests\Integration\Models\Subscription
  */
-class MembershipPlanTest extends TestCase
+final class MembershipPlanTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testCurrentCostAttribute()
+    public function testCurrentCostAttribute(): void
     {
         /** @var MembershipPlan $membershipPlan */
         $membershipPlan = MembershipPlan::factory()->create();
@@ -44,7 +44,7 @@ class MembershipPlanTest extends TestCase
         $this->assertEquals(65.43, $membershipPlan->current_cost);
     }
 
-    public function testCurrentRateIdAttribute()
+    public function testCurrentRateIdAttribute(): void
     {
         /** @var MembershipPlan $membershipPlan */
         $membershipPlan = MembershipPlan::factory()->create();

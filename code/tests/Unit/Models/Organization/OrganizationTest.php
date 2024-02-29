@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class OrganizationTest
  * @package Tests\Unit\Models\Organization
  */
-class OrganizationTest extends TestCase
+final class OrganizationTest extends TestCase
 {
-    public function testAssets()
+    public function testAssets(): void
     {
         $user = new Organization();
         $relation = $user->assets();
@@ -21,7 +21,7 @@ class OrganizationTest extends TestCase
         $this->assertEquals('assets.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testOrganizationManagers()
+    public function testOrganizationManagers(): void
     {
         $user = new Organization();
         $relation = $user->organizationManagers();
@@ -30,7 +30,7 @@ class OrganizationTest extends TestCase
         $this->assertEquals('organization_managers.organization_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testPayments()
+    public function testPayments(): void
     {
         $user = new Organization();
         $relation = $user->payments();
@@ -39,7 +39,7 @@ class OrganizationTest extends TestCase
         $this->assertEquals('payments.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testPaymentMethods()
+    public function testPaymentMethods(): void
     {
         $user = new Organization();
         $relation = $user->paymentMethods();
@@ -48,7 +48,7 @@ class OrganizationTest extends TestCase
         $this->assertEquals('payment_methods.owner_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testProfileImage()
+    public function testProfileImage(): void
     {
         $model = new Organization();
 
@@ -58,7 +58,7 @@ class OrganizationTest extends TestCase
         $this->assertEquals('assets.id', $relation->getQualifiedOwnerKeyName());
     }
 
-    public function testSubscriptions()
+    public function testSubscriptions(): void
     {
         $user = new Organization();
         $relation = $user->subscriptions();

@@ -13,26 +13,26 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanCreateTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryCreateTest extends TestCase
+final class CategoryCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     
     private $route = '/v1/categories';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->route);
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::APP_USER);
         
@@ -47,7 +47,7 @@ class CategoryCreateTest extends TestCase
         $response->assertJson($properties);
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actAs(Role::APP_USER);
 
@@ -62,7 +62,7 @@ class CategoryCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::APP_USER);
 

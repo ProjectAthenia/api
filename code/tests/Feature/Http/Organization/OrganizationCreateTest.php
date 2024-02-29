@@ -13,26 +13,26 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationCreateTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationCreateTest extends TestCase
+final class OrganizationCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     
     private $route = '/v1/organizations';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->route);
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         
@@ -47,7 +47,7 @@ class OrganizationCreateTest extends TestCase
         $response->assertJson($properties);
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -62,7 +62,7 @@ class OrganizationCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -81,7 +81,7 @@ class OrganizationCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringTooLong()
+    public function testCreateFailsStringTooLong(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

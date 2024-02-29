@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class PasswordTokenRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class PasswordTokenRepositoryTest extends TestCase
+final class PasswordTokenRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait;
 
@@ -37,7 +37,7 @@ class PasswordTokenRepositoryTest extends TestCase
      */
     private $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -52,35 +52,35 @@ class PasswordTokenRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllThrowsException()
+    public function testFindAllThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->findAll();
     }
 
-    public function testFindOrFailThrowsException()
+    public function testFindOrFailThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->findOrFail(1);
     }
 
-    public function testDeleteThrowsException()
+    public function testDeleteThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->delete(new PasswordToken());
     }
 
-    public function testUpdateThrowsException()
+    public function testUpdateThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->update(new PasswordToken(), []);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $this->dispatcher->shouldReceive('dispatch')->once()
             ->with(\Mockery::on(function (ForgotPasswordEvent $event) {
@@ -99,7 +99,7 @@ class PasswordTokenRepositoryTest extends TestCase
         $this->assertEquals($user->id, $passwordToken->user_id);
     }
 
-    public function testFindForUser()
+    public function testFindForUser(): void
     {
         $user = User::factory()->create();
         $passwordToken = PasswordToken::factory()->create([
@@ -111,7 +111,7 @@ class PasswordTokenRepositoryTest extends TestCase
         $this->assertNull($this->repository->findForUser($user, '12345'));
     }
 
-    public function testGenerateUniqueTokenSuccess()
+    public function testGenerateUniqueTokenSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -120,7 +120,7 @@ class PasswordTokenRepositoryTest extends TestCase
         $this->assertEquals('12345', $this->repository->generateUniqueToken($user));
     }
 
-    public function testGenerateUniqueTokenThrowsException()
+    public function testGenerateUniqueTokenThrowsException(): void
     {
         $user = User::factory()->create();
         PasswordToken::factory()->create([

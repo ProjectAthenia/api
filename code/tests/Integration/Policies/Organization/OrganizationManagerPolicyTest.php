@@ -15,11 +15,11 @@ use Tests\TestCase;
  * Class OrganizationManagerPolicyTest
  * @package Tests\Integration\Policies\Organization
  */
-class OrganizationManagerPolicyTest extends TestCase
+final class OrganizationManagerPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAllBlocksWhenNotOrganizationManager()
+    public function testAllBlocksWhenNotOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -28,7 +28,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->all($user, $organization));
     }
 
-    public function testAllPassesForOrganizationManager()
+    public function testAllPassesForOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -43,7 +43,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertTrue($policy->all($user, $organization));
     }
 
-    public function testCreateBlocksWhenNotOrganizationManager()
+    public function testCreateBlocksWhenNotOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -52,7 +52,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->create($user, $organization));
     }
 
-    public function testCreateBlocksForOrganizationManager()
+    public function testCreateBlocksForOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -67,7 +67,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->create($user, $organization));
     }
 
-    public function testCreatePassesForOrganizationAdmin()
+    public function testCreatePassesForOrganizationAdmin(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -82,7 +82,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertTrue($policy->create($user, $organization));
     }
 
-    public function testUpdateBlocksWithOrganizationMismatch()
+    public function testUpdateBlocksWithOrganizationMismatch(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -92,7 +92,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $organization, $organizationManager));
     }
 
-    public function testUpdateBlocksWhenNotOrganizationNot()
+    public function testUpdateBlocksWhenNotOrganizationNot(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -105,7 +105,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $organization, $organizationManager));
     }
 
-    public function testUpdateBlocksForOrganizationManager()
+    public function testUpdateBlocksForOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -120,7 +120,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->update($user, $organization, $organizationManager));
     }
 
-    public function testUpdatePassesForOrganizationAdmin()
+    public function testUpdatePassesForOrganizationAdmin(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -135,7 +135,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertTrue($policy->update($user, $organization, $organizationManager));
     }
 
-    public function testDeleteBlocksWithOrganizationMismatch()
+    public function testDeleteBlocksWithOrganizationMismatch(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -145,7 +145,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $organization, $organizationManager));
     }
 
-    public function testDeleteBlocksWhenNotOrganizationNot()
+    public function testDeleteBlocksWhenNotOrganizationNot(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -158,7 +158,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $organization, $organizationManager));
     }
 
-    public function testDeleteBlocksForOrganizationManager()
+    public function testDeleteBlocksForOrganizationManager(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();
@@ -173,7 +173,7 @@ class OrganizationManagerPolicyTest extends TestCase
         $this->assertFalse($policy->delete($user, $organization, $organizationManager));
     }
 
-    public function testDeletePassesForOrganizationAdmin()
+    public function testDeletePassesForOrganizationAdmin(): void
     {
         $policy = new OrganizationManagerPolicy();
         $organization = Organization::factory()->create();

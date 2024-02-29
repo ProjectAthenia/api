@@ -16,7 +16,7 @@ use Tests\TestCase;
  * Class SelectedIterationBelongsToArticleValidatorTest
  * @package Tests\Unit\Validators\Test
  */
-class SelectedIterationBelongsToArticleValidatorTest extends TestCase
+final class SelectedIterationBelongsToArticleValidatorTest extends TestCase
 {
     /**
      * @var CustomMockInterface|ArticleIterationRepositoryContract
@@ -46,19 +46,19 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         );
     }
 
-    public function testValidatePassesQuestionOptionIdNotSet()
+    public function testValidatePassesQuestionOptionIdNotSet(): void
     {
         $this->assertTrue($this->validator->validate('article_iteration_id', null));
     }
 
-    public function testValidateFailsQuestionIdNotSet()
+    public function testValidateFailsQuestionIdNotSet(): void
     {
         $this->request->shouldReceive('route')->once()->with('article', null)->andReturn(null);
 
         $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
-    public function testValidateFailsQuestionOptionNotFound()
+    public function testValidateFailsQuestionOptionNotFound(): void
     {
         $article = new Article();
         $article->id = 453;
@@ -68,7 +68,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
-    public function testValidateFailsQuestionOptionAndQuestionIdDoesNotMatch()
+    public function testValidateFailsQuestionOptionAndQuestionIdDoesNotMatch(): void
     {
         $article = new Article();
         $article->id = 453;
@@ -80,7 +80,7 @@ class SelectedIterationBelongsToArticleValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('article_iteration_id', 332));
     }
 
-    public function testValidatePasses()
+    public function testValidatePasses(): void
     {
         $article = new Article();
         $article->id = 453;

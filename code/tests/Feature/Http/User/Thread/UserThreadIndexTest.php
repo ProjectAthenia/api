@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserThreadIndexTest
  * @package Tests\Feature\User\Thread
  */
-class UserThreadIndexTest extends TestCase
+final class UserThreadIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -31,7 +31,7 @@ class UserThreadIndexTest extends TestCase
         User::unsetEventDispatcher();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $user = User::factory()->create();
 
@@ -40,7 +40,7 @@ class UserThreadIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $this->actAsUser();
         $user = User::factory()->create();
@@ -50,7 +50,7 @@ class UserThreadIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserNotFound()
+    public function testUserNotFound(): void
     {
         $this->actAsUser();
 
@@ -59,7 +59,7 @@ class UserThreadIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
 
@@ -72,7 +72,7 @@ class UserThreadIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
 
@@ -144,7 +144,7 @@ class UserThreadIndexTest extends TestCase
             ]);
     }
 
-    public function testGetPaginationWithExpand()
+    public function testGetPaginationWithExpand(): void
     {
         $this->actAsUser();
 

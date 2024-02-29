@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationAssetUpdateTest
  * @package Tests\Feature\Http\Organization\Asset
  */
-class OrganizationAssetUpdateTest extends TestCase
+final class OrganizationAssetUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -29,7 +29,7 @@ class OrganizationAssetUpdateTest extends TestCase
      */
     private $organization;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -40,7 +40,7 @@ class OrganizationAssetUpdateTest extends TestCase
         $this->path.= $this->organization->id . '/assets/';
     }
 
-    public function testNotLoggedInOrganizationBlocked()
+    public function testNotLoggedInOrganizationBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->organization->id,
@@ -51,7 +51,7 @@ class OrganizationAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNotRelatedToOrganizationBlocked()
+    public function testNotRelatedToOrganizationBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         $asset = Asset::factory()->create([
@@ -63,7 +63,7 @@ class OrganizationAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentOrganizationThanAssetBlocked()
+    public function testDifferentOrganizationThanAssetBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -77,7 +77,7 @@ class OrganizationAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -100,7 +100,7 @@ class OrganizationAssetUpdateTest extends TestCase
         $this->assertEquals('A New Name', $updated->name);
     }
 
-    public function testFailsNotPresentFieldsPresent()
+    public function testFailsNotPresentFieldsPresent(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([
@@ -124,7 +124,7 @@ class OrganizationAssetUpdateTest extends TestCase
         ]);
     }
 
-    public function testFailsInvalidStringFields()
+    public function testFailsInvalidStringFields(): void
     {
         $this->actAs(Role::APP_USER);
         OrganizationManager::factory()->create([

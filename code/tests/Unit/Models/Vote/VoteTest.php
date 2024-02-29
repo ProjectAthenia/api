@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class VoteTest
  * @package Tests\Unit\Models\Vote
  */
-class VoteTest extends TestCase
+final class VoteTest extends TestCase
 {
-    public function testBallotCompletion()
+    public function testBallotCompletion(): void
     {
         $model = new Vote();
         $relation = $model->ballotCompletion();
@@ -21,7 +21,7 @@ class VoteTest extends TestCase
         $this->assertEquals('votes.ballot_completion_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testBallotItemOption()
+    public function testBallotItemOption(): void
     {
         $model = new Vote();
         $relation = $model->ballotItemOption();

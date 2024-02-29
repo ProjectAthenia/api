@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationOrganizationManagerIndexTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class OrganizationOrganizationManagerIndexTest extends TestCase
+final class OrganizationOrganizationManagerIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -24,7 +24,7 @@ class OrganizationOrganizationManagerIndexTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -41,7 +41,7 @@ class OrganizationOrganizationManagerIndexTest extends TestCase
         $this->route = '/v1/organizations/' . $organizationId . '/organization-managers';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $organization = Organization::factory()->create();
         $this->setupRoute($organization->id);
@@ -49,7 +49,7 @@ class OrganizationOrganizationManagerIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -61,7 +61,7 @@ class OrganizationOrganizationManagerIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::MANAGER);
         $organization = Organization::factory()->create();

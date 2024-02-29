@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class LineItemRepositoryTest
  * @package Tests\Integration\Repositories\Payment
  */
-class LineItemRepositoryTest extends TestCase
+final class LineItemRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -24,7 +24,7 @@ class LineItemRepositoryTest extends TestCase
      */
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -35,20 +35,20 @@ class LineItemRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         LineItem::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = LineItem::factory()->create();
 
@@ -56,7 +56,7 @@ class LineItemRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         LineItem::factory()->create(['id' => 2]);
 
@@ -64,7 +64,7 @@ class LineItemRepositoryTest extends TestCase
         $this->repository->findOrFail(1);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $payment = Payment::factory()->create();
 
@@ -78,7 +78,7 @@ class LineItemRepositoryTest extends TestCase
         $this->assertEquals($payment->id, $lineItem->payment_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = LineItem::factory()->create([
             'amount' => 11.32,
@@ -92,7 +92,7 @@ class LineItemRepositoryTest extends TestCase
         $this->assertEquals(124.32, $updated->amount);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = LineItem::factory()->create();
 

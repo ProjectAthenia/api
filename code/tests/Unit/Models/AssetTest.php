@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class AssetTest
  * @package Tests\Unit\Models
  */
-class AssetTest extends TestCase
+final class AssetTest extends TestCase
 {
-    public function testOwner()
+    public function testOwner(): void
     {
         $model = new Asset();
         $relation = $model->owner();

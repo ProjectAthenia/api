@@ -12,16 +12,16 @@ use Tests\TestCase;
  * Class FeaturePolicyTest
  * @package Tests\Integration\Policies
  */
-class FeaturePolicyTest extends TestCase
+final class FeaturePolicyTest extends TestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new FeaturePolicy();
 
         $this->assertFalse($policy->all(new User()));
     }
 
-    public function testView()
+    public function testView(): void
     {
         $policy = new FeaturePolicy();
 

@@ -13,11 +13,11 @@ use Tests\TestCase;
  * Class SubscriptionPolicyTest
  * @package Tests\Integration\Policies\Subscription
  */
-class SubscriptionPolicyTest extends TestCase
+final class SubscriptionPolicyTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new SubscriptionPolicy();
 
@@ -28,7 +28,7 @@ class SubscriptionPolicyTest extends TestCase
         $this->assertTrue($policy->all($user1, $user1));
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $policy = new SubscriptionPolicy();
 
@@ -39,7 +39,7 @@ class SubscriptionPolicyTest extends TestCase
         $this->assertTrue($policy->create($user1, $user1));
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $policy = new SubscriptionPolicy();
 

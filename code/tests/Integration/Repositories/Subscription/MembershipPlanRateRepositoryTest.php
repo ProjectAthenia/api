@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanRateRepositoryTest
  * @package Tests\Integration\Repositories\Subscription
  */
-class MembershipPlanRateRepositoryTest extends TestCase
+final class MembershipPlanRateRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -35,20 +35,20 @@ class MembershipPlanRateRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         MembershipPlanRate::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = MembershipPlanRate::factory()->create();
 
@@ -56,7 +56,7 @@ class MembershipPlanRateRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         MembershipPlanRate::factory()->create(['id' => 19]);
 
@@ -64,7 +64,7 @@ class MembershipPlanRateRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
         /** @var MembershipPlanRate $membershipPlanRate */
@@ -77,7 +77,7 @@ class MembershipPlanRateRepositoryTest extends TestCase
         $this->assertEquals($membershipPlan->id, $membershipPlanRate->membership_plan_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = MembershipPlanRate::factory()->create([
             'active' => 1,
@@ -91,7 +91,7 @@ class MembershipPlanRateRepositoryTest extends TestCase
         $this->assertNotTrue($updated->active);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = MembershipPlanRate::factory()->create();
 

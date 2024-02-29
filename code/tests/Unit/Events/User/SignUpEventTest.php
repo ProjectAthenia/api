@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class SignUpEventTest
  * @package Tests\Unit\Events\User
  */
-class SignUpEventTest extends TestCase
+final class SignUpEventTest extends TestCase
 {
-    public function testGetUser()
+    public function testGetUser(): void
     {
         $user = new User();
 

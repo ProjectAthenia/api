@@ -17,9 +17,9 @@ use Tests\TestCase;
  * Class SignUpListenerTest
  * @package Tests\Unit\Listeners\User
  */
-class SignUpListenerTest extends TestCase
+final class SignUpListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         /** @var MessageRepositoryContract|CustomMockInterface $messageRepository */
         $repository = mock(MessageRepositoryContract::class);

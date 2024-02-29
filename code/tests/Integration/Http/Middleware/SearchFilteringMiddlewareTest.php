@@ -12,18 +12,18 @@ use Tests\TestCase;
  * Class SearchFilteringMiddlewareTest
  * @package Tests\Integration\Middleware
  */
-class SearchFilteringMiddlewareTest extends TestCase
+final class SearchFilteringMiddlewareTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->actAs(Role::ARTICLE_VIEWER);
     }
 
-    public function testSearchWithLike()
+    public function testSearchWithLike(): void
     {
         Article::factory()->count( 1)->create(['title' => 'h']);
         Article::factory()->count( 1)->create(['title' => 'cart']);
@@ -45,7 +45,7 @@ class SearchFilteringMiddlewareTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         Article::factory()->count( 1)->create(['title' => 'h']);
         Article::factory()->count( 1)->create(['title' => 'cart']);

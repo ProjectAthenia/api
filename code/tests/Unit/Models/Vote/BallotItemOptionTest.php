@@ -6,9 +6,9 @@ namespace Tests\Unit\Models\Vote;
 use App\Models\Vote\BallotItemOption;
 use Tests\TestCase;
 
-class BallotItemOptionTest extends TestCase
+final class BallotItemOptionTest extends TestCase
 {
-    public function testBallotItem()
+    public function testBallotItem(): void
     {
         $model = new BallotItemOption();
         $relation = $model->ballotItem();
@@ -17,7 +17,7 @@ class BallotItemOptionTest extends TestCase
         $this->assertEquals('ballot_item_options.ballot_item_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testSubject()
+    public function testSubject(): void
     {
         $model = new BallotItemOption();
         $relation = $model->subject();
@@ -26,7 +26,7 @@ class BallotItemOptionTest extends TestCase
         $this->assertEquals('ballot_item_options.subject_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testVotes()
+    public function testVotes(): void
     {
         $model = new BallotItemOption();
         $relation = $model->votes();

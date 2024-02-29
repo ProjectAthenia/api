@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class ArticleModificationApplicationServiceTest
  * @package Tests\Unit\Services\Wiki
  */
-class ArticleModificationApplicationServiceTest extends TestCase
+final class ArticleModificationApplicationServiceTest extends TestCase
 {
     /**
      * @var ArticleIterationRepositoryContract|array|LegacyMockInterface|MockInterface|CustomMockInterface
@@ -40,7 +40,7 @@ class ArticleModificationApplicationServiceTest extends TestCase
         );
     }
 
-    public function testApplyModificationRemove()
+    public function testApplyModificationRemove(): void
     {
         $user = new User();
         $user->id = 23;
@@ -62,7 +62,7 @@ class ArticleModificationApplicationServiceTest extends TestCase
         $this->service->applyModification($user, $articleModification);
     }
 
-    public function testApplyModificationAdd()
+    public function testApplyModificationAdd(): void
     {
         $user = new User();
         $user->id = 23;
@@ -84,7 +84,7 @@ class ArticleModificationApplicationServiceTest extends TestCase
         $this->service->applyModification($user, $articleModification);
     }
 
-    public function testApplyModificationReplace()
+    public function testApplyModificationReplace(): void
     {
         $user = new User();
         $user->id = 23;

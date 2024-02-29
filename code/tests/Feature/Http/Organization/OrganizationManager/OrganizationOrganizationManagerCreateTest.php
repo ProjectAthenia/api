@@ -18,7 +18,7 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationOrganizationManagerCreateTest
  * @package Tests\Feature\Http\Organization\OrganizationManager
  */
-class OrganizationOrganizationManagerCreateTest extends TestCase
+final class OrganizationOrganizationManagerCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -27,7 +27,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
      */
     private $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -44,14 +44,14 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         $this->route = '/v1/organizations/' . $organizationId . '/organization-managers';
     }
 
-    public function testOrganizationNotFound()
+    public function testOrganizationNotFound(): void
     {
         $this->setupRoute(4523);
         $response = $this->json('POST', $this->route);
         $response->assertStatus(404);
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $organization = Organization::factory()->create();
         $this->setupRoute($organization->id);
@@ -59,7 +59,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -71,7 +71,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         }
     }
 
-    public function testNotUserNotOrganizationAdminBlocked()
+    public function testNotUserNotOrganizationAdminBlocked(): void
     {
         $this->actAs(Role::MANAGER);
         $organization = Organization::factory()->create();
@@ -85,7 +85,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessfulWithExistingUser()
+    public function testCreateSuccessfulWithExistingUser(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -128,7 +128,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateSuccessfulWithNewUser()
+    public function testCreateSuccessfulWithNewUser(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -169,7 +169,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         $this->assertNotNull(User::whereEmail('newuser@test.com'));
     }
 
-    public function testCreateFailsMissingRequiredFields()
+    public function testCreateFailsMissingRequiredFields(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -192,7 +192,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -218,7 +218,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidNumericalFields()
+    public function testCreateFailsInvalidNumericalFields(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -244,7 +244,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidEmail()
+    public function testCreateFailsInvalidEmail(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();
@@ -270,7 +270,7 @@ class OrganizationOrganizationManagerCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidRoleId()
+    public function testCreateFailsInvalidRoleId(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
         $organization = Organization::factory()->create();

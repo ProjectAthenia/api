@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationSubscriptionIndexTest
  * @package Tests\Feature\Organization\Payment
  */
-class OrganizationCollectionIndexTest extends TestCase
+final class OrganizationCollectionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -30,7 +30,7 @@ class OrganizationCollectionIndexTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInOrganizationBlocked()
+    public function testNotLoggedInOrganizationBlocked(): void
     {
         $organization = Organization::factory()->create();
 
@@ -49,7 +49,7 @@ class OrganizationCollectionIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testOrganizationNotFound()
+    public function testOrganizationNotFound(): void
     {
         $this->actAsUser();
 
@@ -58,7 +58,7 @@ class OrganizationCollectionIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
         $organization = Organization::factory()->create();
@@ -77,7 +77,7 @@ class OrganizationCollectionIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
         $organization = Organization::factory()->create();
@@ -149,7 +149,7 @@ class OrganizationCollectionIndexTest extends TestCase
             ]);
     }
 
-    public function testDifferentUserDoesNotSeeNonPublicCollections()
+    public function testDifferentUserDoesNotSeeNonPublicCollections(): void
     {
         $this->actAsUser();
         $organization = Organization::factory()->create();

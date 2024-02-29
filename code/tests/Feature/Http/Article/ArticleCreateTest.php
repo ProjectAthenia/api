@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleCreateTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleCreateTest extends TestCase
+final class ArticleCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -22,21 +22,21 @@ class ArticleCreateTest extends TestCase
      */
     private $path = '/v1/articles';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR]) as $role) {
             $this->actAs($role);
@@ -46,7 +46,7 @@ class ArticleCreateTest extends TestCase
         }
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -63,7 +63,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -78,7 +78,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -95,7 +95,7 @@ class ArticleCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringsTooLong()
+    public function testCreateFailsStringsTooLong(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 

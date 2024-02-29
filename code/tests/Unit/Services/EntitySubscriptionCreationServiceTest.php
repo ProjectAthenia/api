@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class EntitySubscriptionCreationServiceTest
  * @package Tests\Unit\Services
  */
-class EntitySubscriptionCreationServiceTest extends TestCase
+final class EntitySubscriptionCreationServiceTest extends TestCase
 {
     /**
      * @var ProratingCalculationServiceContract
@@ -58,7 +58,7 @@ class EntitySubscriptionCreationServiceTest extends TestCase
         );
     }
 
-    public function testThrowsExceptionWhenStripeFails()
+    public function testThrowsExceptionWhenStripeFails(): void
     {
         $user = new User([
             'subscriptions' => collect([]),
@@ -86,7 +86,7 @@ class EntitySubscriptionCreationServiceTest extends TestCase
         $this->service->createSubscription($user, $data);
     }
 
-    public function testSuccessfulWithoutExistingSubscription()
+    public function testSuccessfulWithoutExistingSubscription(): void
     {
         $user = new User([
             'subscriptions' => collect([]),
@@ -116,7 +116,7 @@ class EntitySubscriptionCreationServiceTest extends TestCase
         $this->assertEquals($result, $newSubscription);
     }
 
-    public function testSuccessfulWithExistingSubscription()
+    public function testSuccessfulWithExistingSubscription(): void
     {
         $oldSubscription = new Subscription([
             'expires_at' => Carbon::now()->addMonth(),
@@ -164,7 +164,7 @@ class EntitySubscriptionCreationServiceTest extends TestCase
         $this->assertEquals($result, $newSubscription);
     }
 
-    public function testSuccessfulWithNewLifetimeSubscription()
+    public function testSuccessfulWithNewLifetimeSubscription(): void
     {
         $oldSubscription = new Subscription([
             'expires_at' => Carbon::now()->addMonth(),

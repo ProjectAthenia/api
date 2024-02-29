@@ -18,7 +18,7 @@ use Tests\Traits\MocksConsoleOutput;
  * Class ResendMessageCommandTest
  * @package Tests\Integration\Console\Commands
  */
-class ResendMessageCommandTest extends TestCase
+final class ResendMessageCommandTest extends TestCase
 {
     use MocksConsoleOutput;
 
@@ -47,7 +47,7 @@ class ResendMessageCommandTest extends TestCase
         $this->mockConsoleOutput($this->command);
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $reflected = new \ReflectionClass($this->command);
         $input = $reflected->getProperty('input');

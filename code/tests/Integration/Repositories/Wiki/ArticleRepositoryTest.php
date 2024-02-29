@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ArticleRepositoryTest
  * @package Tests\Integration\Repositories\Wiki
  */
-class ArticleRepositoryTest extends TestCase
+final class ArticleRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -25,7 +25,7 @@ class ArticleRepositoryTest extends TestCase
      */
     private $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -33,27 +33,27 @@ class ArticleRepositoryTest extends TestCase
         $this->repository = new ArticleRepository(new Article(), $this->getGenericLogMock());
     }
 
-    public function testDeleteThrowsException()
+    public function testDeleteThrowsException(): void
     {
         $this->expectException(NotImplementedException::class);
 
         $this->repository->delete(new Article());
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Article::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Article::factory()->create();
 
@@ -61,7 +61,7 @@ class ArticleRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Article::factory()->create(['id' => 2]);
 
@@ -69,7 +69,7 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->findOrFail(1);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $user = User::factory()->create();
 
@@ -83,7 +83,7 @@ class ArticleRepositoryTest extends TestCase
         $this->assertEquals($user->id, $article->created_by_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Article::factory()->create([
             'title' => 'Ann Article'

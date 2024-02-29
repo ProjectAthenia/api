@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class ArticleModificationTest
  * @package Tests\Unit\Models\Wiki
  */
-class ArticleModificationTest extends TestCase
+final class ArticleModificationTest extends TestCase
 {
-    public function testArticle()
+    public function testArticle(): void
     {
         $article = new ArticleModification();
         $relation = $article->article();
@@ -21,7 +21,7 @@ class ArticleModificationTest extends TestCase
         $this->assertEquals('article_modifications.article_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testIterations()
+    public function testIterations(): void
     {
         $article = new ArticleModification();
         $relation = $article->iteration();

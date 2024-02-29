@@ -18,7 +18,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class ContactRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-class ContactRepositoryTest extends TestCase
+final class ContactRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -45,14 +45,14 @@ class ContactRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Contact::factory()->count( 5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllSuccessWithUser()
+    public function testFindAllSuccessWithUser(): void
     {
         $user = User::factory()->create();
 
@@ -69,13 +69,13 @@ class ContactRepositoryTest extends TestCase
         $this->assertCount(7, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Contact::factory()->create();
 
@@ -83,7 +83,7 @@ class ContactRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Contact::factory()->create(['id' => 19]);
 
@@ -91,7 +91,7 @@ class ContactRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         $initiatedBy = User::factory()->create();
         $requested = User::factory()->create();
@@ -107,7 +107,7 @@ class ContactRepositoryTest extends TestCase
         $this->assertEquals($requested->id, $contact->requested_id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Contact::factory()->create();
         $this->repository->update($model, [
@@ -118,7 +118,7 @@ class ContactRepositoryTest extends TestCase
         $this->assertNotNull($updated->denied_at);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Contact::factory()->create();
 

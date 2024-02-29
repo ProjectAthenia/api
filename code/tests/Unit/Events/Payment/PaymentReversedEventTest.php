@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class PaymentReversedEventTest
  * @package Tests\Unit\Events\Payment
  */
-class PaymentReversedEventTest extends TestCase
+final class PaymentReversedEventTest extends TestCase
 {
-    public function testGetPayment()
+    public function testGetPayment(): void
     {
         $payment = new Payment();
 

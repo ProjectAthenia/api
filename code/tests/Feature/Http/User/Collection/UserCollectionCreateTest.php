@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodCreateTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class UserCollectionCreateTest extends TestCase
+final class UserCollectionCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -29,7 +29,7 @@ class UserCollectionCreateTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -40,14 +40,14 @@ class UserCollectionCreateTest extends TestCase
         $this->path.= $this->user->id . '/collections';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         $this->actAsUser();
         $response = $this->json('POST', $this->path);
@@ -55,7 +55,7 @@ class UserCollectionCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -70,7 +70,7 @@ class UserCollectionCreateTest extends TestCase
         $response->assertJson($data);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actingAs($this->user);
 
@@ -85,7 +85,7 @@ class UserCollectionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actingAs($this->user);
 
@@ -102,7 +102,7 @@ class UserCollectionCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $this->actingAs($this->user);
 

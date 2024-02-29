@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserProfileImageCreateTest
  * @package Tests\Feature\Organization\ProfileImage
  */
-class OrganizationProfileImageCreateTest extends TestCase
+final class OrganizationProfileImageCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -41,14 +41,14 @@ class OrganizationProfileImageCreateTest extends TestCase
         Storage::fake('public');
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testNoNonOrganizationManagerUserBlocked()
+    public function testNoNonOrganizationManagerUserBlocked(): void
     {
         $this->actAsUser();
 
@@ -57,7 +57,7 @@ class OrganizationProfileImageCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAsUser();
 
@@ -82,7 +82,7 @@ class OrganizationProfileImageCreateTest extends TestCase
         $this->assertEquals($profileImage->id, $updatedUser->profile_image_id);
     }
 
-    public function testCreateFailsRequiredFieldsMissing()
+    public function testCreateFailsRequiredFieldsMissing(): void
     {
         $this->actAsUser();
 
@@ -101,7 +101,7 @@ class OrganizationProfileImageCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringField()
+    public function testCreateFailsInvalidStringField(): void
     {
         $this->actAsUser();
 
@@ -122,7 +122,7 @@ class OrganizationProfileImageCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidFileType()
+    public function testCreateFailsInvalidFileType(): void
     {
         $this->actAsUser();
 

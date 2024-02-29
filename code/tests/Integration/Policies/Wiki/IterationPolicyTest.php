@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
  * Class IterationPolicyTest
  * @package Tests\Integration\Policies
  */
-class IterationPolicyTest extends TestCase
+final class IterationPolicyTest extends TestCase
 {
     use DatabaseSetupTrait, RolesTesting;
 
@@ -28,7 +28,7 @@ class IterationPolicyTest extends TestCase
         }
     }
 
-    public function testAllBlocks()
+    public function testAllBlocks(): void
     {
         $policy = new ArticleIterationPolicy();
 

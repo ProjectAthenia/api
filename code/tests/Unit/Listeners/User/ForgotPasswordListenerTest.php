@@ -15,9 +15,9 @@ use Tests\TestCase;
  * Class ForgotPasswordListenerTest
  * @package Tests\Unit\Listeners\User
  */
-class ForgotPasswordListenerTest extends TestCase
+final class ForgotPasswordListenerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         /** @var MessageRepositoryContract|CustomMockInterface $repository */
         $repository = mock(MessageRepositoryContract::class);

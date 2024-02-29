@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class FeatureTest
  * @package Tests\Unit\Models
  */
-class FeatureTest extends TestCase
+final class FeatureTest extends TestCase
 {
-    public function testMembershipPlans()
+    public function testMembershipPlans(): void
     {
         $role = new Feature();
         $relation = $role->membershipPlans();

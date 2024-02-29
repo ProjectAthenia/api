@@ -15,18 +15,18 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserSignUpTest
  * @package Tests\Feature\Http\V2\Authentication
  */
-class SignUpTest extends TestCase
+final class SignUpTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testSuccess()
+    public function testSuccess(): void
     {
         $dispatcher = mock(Dispatcher::class);
 
@@ -80,7 +80,7 @@ class SignUpTest extends TestCase
         $this->assertTrue(Hash::check($password, $model->password));
     }
 
-    public function testWebsiteSignUpFailureMissingRequiredFields()
+    public function testWebsiteSignUpFailureMissingRequiredFields(): void
     {
         $response = $this->json('POST', '/v1/auth/sign-up', []);
 
@@ -94,7 +94,7 @@ class SignUpTest extends TestCase
         ]);
     }
 
-    public function testWebsiteSignUpFailsInvalidStringFields()
+    public function testWebsiteSignUpFailsInvalidStringFields(): void
     {
         $response = $this->json('POST', '/v1/auth/sign-up', [
             'email' => 1,
@@ -111,7 +111,7 @@ class SignUpTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testWebsiteSignUpFailsTooShortFields()
+    public function testWebsiteSignUpFailsTooShortFields(): void
     {
         $response = $this->json('POST', '/v1/auth/sign-up', [
             'password' => 'a',
@@ -123,7 +123,7 @@ class SignUpTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testWebsiteSignUpFailsTooLongFields()
+    public function testWebsiteSignUpFailsTooLongFields(): void
     {
         $response = $this->json('POST', '/v1/auth/sign-up', [
             'email' => str_repeat('a', 121),
@@ -139,7 +139,7 @@ class SignUpTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testWebsiteSignUpFailsInvalidEmailFields()
+    public function testWebsiteSignUpFailsInvalidEmailFields(): void
     {
         $response = $this->json('POST', '/v1/auth/sign-up', [
             'email' => 'asdf'
@@ -151,7 +151,7 @@ class SignUpTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testWebsiteSignUpFailsEmailInUse()
+    public function testWebsiteSignUpFailsEmailInUse(): void
     {
         User::factory()->create(['email' => 'test@test.com']);
 

@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class OrganizationPaymentMethodCreateTest
  * @package Tests\Feature\Http\Organization\PaymentMethod
  */
-class OrganizationPaymentMethodCreateTest extends TestCase
+final class OrganizationPaymentMethodCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -31,7 +31,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
      */
     private $organization;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -42,14 +42,14 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         $this->path.= $this->organization->id . '/payment-methods';
     }
 
-    public function testNotLoggedInOrganizationBlocked()
+    public function testNotLoggedInOrganizationBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $this->actAsUser();
         $response = $this->json('POST', $this->path);
@@ -57,7 +57,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actAsUser();
         OrganizationManager::factory()->create([
@@ -94,7 +94,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actAsUser();
         OrganizationManager::factory()->create([
@@ -114,7 +114,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actAsUser();
         OrganizationManager::factory()->create([
@@ -137,7 +137,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $this->actAsUser();
         OrganizationManager::factory()->create([
@@ -159,7 +159,7 @@ class OrganizationPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringsTooLong()
+    public function testCreateFailsStringsTooLong(): void
     {
         $this->actAsUser();
         OrganizationManager::factory()->create([

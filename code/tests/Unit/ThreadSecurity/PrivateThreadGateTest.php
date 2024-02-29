@@ -13,16 +13,16 @@ use Tests\TestCase;
  * Class PrivateThreadGateTest
  * @package Tests\Unit\ThreadSecurity
  */
-class PrivateThreadGateTest extends TestCase
+final class PrivateThreadGateTest extends TestCase
 {
-    public function testAuthorizeSubject()
+    public function testAuthorizeSubject(): void
     {
         $gate = new PrivateThreadGate();
 
         $this->assertTrue($gate->authorizeSubject(new User()));
     }
 
-    public function testAuthorizeThread()
+    public function testAuthorizeThread(): void
     {
         $gate = new PrivateThreadGate();
 

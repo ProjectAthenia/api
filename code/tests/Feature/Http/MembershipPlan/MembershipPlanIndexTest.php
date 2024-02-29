@@ -13,24 +13,24 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanIndexTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanIndexTest extends TestCase
+final class MembershipPlanIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('GET', '/v1/membership-plans');
         $response->assertStatus(403);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/membership-plans');
@@ -42,7 +42,7 @@ class MembershipPlanIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::APP_USER);
         MembershipPlan::factory()->count(15)->create();

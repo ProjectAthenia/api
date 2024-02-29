@@ -14,25 +14,25 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanDeleteTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryDeleteTest extends TestCase
+final class CategoryDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Category::factory()->create();
         $response = $this->json('DELETE', '/v1/categories/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUserBlocked()
+    public function testNonAdminUserBlocked(): void
     {
         $model = Category::factory()->create();
         foreach ($this->rolesWithoutAdmins() as $role) {
@@ -42,7 +42,7 @@ class CategoryDeleteTest extends TestCase
         }
     }
 
-    public function testDeleteSingle()
+    public function testDeleteSingle(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -54,7 +54,7 @@ class CategoryDeleteTest extends TestCase
         $this->assertEquals(0, Category::count());
     }
 
-    public function testDeleteSingleInvalidIdFails()
+    public function testDeleteSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -65,7 +65,7 @@ class CategoryDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testDeleteSingleNotFoundFails()
+    public function testDeleteSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

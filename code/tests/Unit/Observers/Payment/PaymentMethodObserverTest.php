@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class PaymentMethodObserverTest
  * @package Tests\Unit\Observers\Payment
  */
-class PaymentMethodObserverTest extends TestCase
+final class PaymentMethodObserverTest extends TestCase
 {
     /**
      * @var Dispatcher|CustomMockInterface
@@ -33,7 +33,7 @@ class PaymentMethodObserverTest extends TestCase
         $this->observer = new PaymentMethodObserver($this->dispatcher);
     }
 
-    public function testCreated()
+    public function testCreated(): void
     {
         $this->observer->created(new PaymentMethod([
             'default' => false,
@@ -46,7 +46,7 @@ class PaymentMethodObserverTest extends TestCase
         ]));
     }
 
-    public function testUpdated()
+    public function testUpdated(): void
     {
         $this->observer->updated(new PaymentMethod([
             'default' => false,

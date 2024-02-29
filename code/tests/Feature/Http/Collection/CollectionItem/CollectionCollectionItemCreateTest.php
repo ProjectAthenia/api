@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodCreateTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class CollectionCollectionItemCreateTest extends TestCase
+final class CollectionCollectionItemCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -27,7 +27,7 @@ class CollectionCollectionItemCreateTest extends TestCase
      */
     private Collection $collection;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -38,14 +38,14 @@ class CollectionCollectionItemCreateTest extends TestCase
         $this->path.= $this->collection->id . '/items';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $this->actAsUser();
         $response = $this->json('POST', $this->path);
@@ -53,7 +53,7 @@ class CollectionCollectionItemCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->collection->owner);
 
@@ -71,7 +71,7 @@ class CollectionCollectionItemCreateTest extends TestCase
         $response->assertJson($data);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actingAs($this->collection->owner);
 
@@ -88,7 +88,7 @@ class CollectionCollectionItemCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidEnumFields()
+    public function testCreateFailsInvalidEnumFields(): void
     {
         $this->actingAs($this->collection->owner);
 
@@ -105,7 +105,7 @@ class CollectionCollectionItemCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidIntegerFields()
+    public function testCreateFailsInvalidIntegerFields(): void
     {
         $this->actingAs($this->collection->owner);
 

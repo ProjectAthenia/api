@@ -13,7 +13,7 @@ use Tests\TestCase;
  * Class RoleRepositoryTest
  * @package Tests\Integration\Repositories
  */
-class CategoryRepositoryTest extends TestCase
+final class CategoryRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait;
     
@@ -22,7 +22,7 @@ class CategoryRepositoryTest extends TestCase
      */
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -30,20 +30,20 @@ class CategoryRepositoryTest extends TestCase
         $this->repository = new CategoryRepository(new Category(), $this->getGenericLogMock());
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Category::factory()->count( 5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Category::factory()->create();
 
@@ -51,7 +51,7 @@ class CategoryRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Category::factory()->create(['id' => 19]);
 
@@ -59,7 +59,7 @@ class CategoryRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Category $category */
         $category = $this->repository->create([
@@ -69,7 +69,7 @@ class CategoryRepositoryTest extends TestCase
         $this->assertEquals('A Category', $category->name);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Category::factory()->create([
             'name' => 'An Category',
@@ -82,7 +82,7 @@ class CategoryRepositoryTest extends TestCase
         $this->assertEquals('A Category', $updated->name);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Category::factory()->create();
 

@@ -15,9 +15,9 @@ use Tests\TestCase;
  * Class SubscriptionTest
  * @package Tests\Unit\Models\Subscription
  */
-class SubscriptionTest extends TestCase
+final class SubscriptionTest extends TestCase
 {
-    public function testLineItems()
+    public function testLineItems(): void
     {
         $model = new Subscription();
         $relation = $model->lineItems();
@@ -27,7 +27,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('subscriptions.id', $relation->getQualifiedParentKeyName());
     }
 
-    public function testMembershipPlanRate()
+    public function testMembershipPlanRate(): void
     {
         $model = new Subscription();
         $relation = $model->membershipPlanRate();
@@ -36,7 +36,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('subscriptions.membership_plan_rate_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testPayments()
+    public function testPayments(): void
     {
         $user = new Subscription();
         $relation = $user->payments();
@@ -47,7 +47,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('item_type', $relation->getMorphType());
     }
 
-    public function testPaymentMethod()
+    public function testPaymentMethod(): void
     {
         $model = new Subscription();
         $relation = $model->paymentMethod();
@@ -57,7 +57,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('subscriptions.payment_method_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testSubscriber()
+    public function testSubscriber(): void
     {
         $model = new Subscription();
         $relation = $model->subscriber();
@@ -66,7 +66,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('subscriber_type', $relation->getMorphType());
     }
 
-    public function testIsLifetime()
+    public function testIsLifetime(): void
     {
         $yearSubscription = new Subscription([
             'membershipPlanRate' => new MembershipPlanRate([
@@ -89,7 +89,7 @@ class SubscriptionTest extends TestCase
         $this->assertTrue($lifetimeSubscription->isLifetime());
     }
 
-    public function testFormattedExpiresAt()
+    public function testFormattedExpiresAt(): void
     {
         $subscription = new Subscription();
         $this->assertNull($subscription->formatted_expires_at);
@@ -100,7 +100,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('February 12th 2018', $subscription->formatted_expires_at);
     }
 
-    public function testFormattedCost()
+    public function testFormattedCost(): void
     {
         $subscription = new Subscription();
         $this->assertNull($subscription->formatted_cost);

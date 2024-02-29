@@ -14,27 +14,27 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanUpdateTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanUpdateTest extends TestCase
+final class MembershipPlanUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     
     const BASE_ROUTE = '/v1/membership-plans/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
         $response = $this->json('PATCH', static::BASE_ROUTE . $membershipPlan->id);
         $response->assertStatus(403);
     }
 
-    public function testNotAdminUserBlocked()
+    public function testNotAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -44,7 +44,7 @@ class MembershipPlanUpdateTest extends TestCase
         }
     }
 
-    public function testPatchSuccessful()
+    public function testPatchSuccessful(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -68,7 +68,7 @@ class MembershipPlanUpdateTest extends TestCase
         $this->assertEquals('Test Membership Plan', $updated->name);
     }
 
-    public function testPatchNotFoundFails()
+    public function testPatchNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -79,7 +79,7 @@ class MembershipPlanUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchInvalidIdFails()
+    public function testPatchInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -90,7 +90,7 @@ class MembershipPlanUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchSuccessfulNoFields()
+    public function testPatchSuccessfulNoFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -103,7 +103,7 @@ class MembershipPlanUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testPatchFailsInvalidArrayFields()
+    public function testPatchFailsInvalidArrayFields(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -126,7 +126,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidNumericFields()
+    public function testPatchFailsInvalidNumericFields(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -148,7 +148,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidNumericMinimums()
+    public function testPatchFailsInvalidNumericMinimums(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -168,7 +168,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidStringFields()
+    public function testPatchFailsInvalidStringFields(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -191,7 +191,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidBooleanFields()
+    public function testPatchFailsInvalidBooleanFields(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -212,7 +212,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsInvalidModelFields()
+    public function testPatchFailsInvalidModelFields(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -231,7 +231,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsTooLongFields()
+    public function testPatchFailsTooLongFields(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 
@@ -252,7 +252,7 @@ class MembershipPlanUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsProtectedFieldsPresent()
+    public function testPatchFailsProtectedFieldsPresent(): void
     {
         $membershipPlan = MembershipPlan::factory()->create();
 

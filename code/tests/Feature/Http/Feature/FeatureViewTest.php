@@ -14,25 +14,25 @@ use Tests\Traits\RolesTesting;
  * Class FeatureViewTest
  * @package Tests\Feature\Http\Feature
  */
-class FeatureViewTest extends TestCase
+final class FeatureViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = Feature::factory()->create();
         $response = $this->json('GET', '/v1/features/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUsersBlocked()
+    public function testNonAdminUsersBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -42,7 +42,7 @@ class FeatureViewTest extends TestCase
         }
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         /** @var Feature $model */
@@ -56,7 +56,7 @@ class FeatureViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/features/1')
@@ -66,7 +66,7 @@ class FeatureViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/features/a')

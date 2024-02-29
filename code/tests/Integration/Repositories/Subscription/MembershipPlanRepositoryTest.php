@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MembershipPlanRepositoryTest
  * @package Tests\Integration\Repositories\Subscription
  */
-class MembershipPlanRepositoryTest extends TestCase
+final class MembershipPlanRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -41,7 +41,7 @@ class MembershipPlanRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         foreach (MembershipPlan::all() as $model) {
             $model->delete();
@@ -52,7 +52,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         foreach (MembershipPlan::all() as $model) {
             $model->delete();
@@ -62,7 +62,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = MembershipPlan::factory()->create();
 
@@ -70,7 +70,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         MembershipPlan::factory()->create(['id' => 19]);
 
@@ -78,7 +78,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var MembershipPlan $membershipPlan */
         $membershipPlan = $this->repository->create([
@@ -90,7 +90,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEquals('a plan', $membershipPlan->name);
     }
 
-    public function testCreateSuccessWithCost()
+    public function testCreateSuccessWithCost(): void
     {
         /** @var MembershipPlan $membershipPlan */
         $membershipPlan = $this->repository->create([
@@ -104,7 +104,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEquals(10.12, $membershipPlan->current_cost);
     }
 
-    public function testCreateSuccessWithFeatures()
+    public function testCreateSuccessWithFeatures(): void
     {
         /** @var MembershipPlan $membershipPlan */
         $membershipPlan = $this->repository->create([
@@ -118,7 +118,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertCount(3, $membershipPlan->features);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = MembershipPlan::factory()->create([
             'name' => 'a plan'
@@ -130,7 +130,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEquals('the same plan', $updated->name);
     }
 
-    public function testUpdateSuccessWithCost()
+    public function testUpdateSuccessWithCost(): void
     {
         $model = MembershipPlan::factory()->create([
             'name' => 'a plan'
@@ -146,7 +146,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertEquals(3.99, $updated->current_cost);
     }
 
-    public function testUpdateSuccessWithFeatures()
+    public function testUpdateSuccessWithFeatures(): void
     {
         $model = MembershipPlan::factory()->create();
         $model->features()->sync(Feature::factory()->count(2)->create()->pluck('id'));
@@ -158,7 +158,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertCount(3, $updated->features);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = MembershipPlan::factory()->create();
 
@@ -167,7 +167,7 @@ class MembershipPlanRepositoryTest extends TestCase
         $this->assertNull(MembershipPlan::find($model->id));
     }
 
-    public function testFindDefaultMembershipPlanForEntity()
+    public function testFindDefaultMembershipPlanForEntity(): void
     {
         $this->assertNull($this->repository->findDefaultMembershipPlanForEntity('user'));
 

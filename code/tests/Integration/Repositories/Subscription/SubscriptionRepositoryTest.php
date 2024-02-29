@@ -20,7 +20,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class SubscriptionRepositoryTest
  * @package Tests\Integration\Repositories\Subscription
  */
-class SubscriptionRepositoryTest extends TestCase
+final class SubscriptionRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -44,20 +44,20 @@ class SubscriptionRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         Subscription::factory()->count( 5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = Subscription::factory()->create();
 
@@ -65,7 +65,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         Subscription::factory()->create(['id' => 19]);
 
@@ -73,7 +73,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccessWithLifeTimeMembership()
+    public function testCreateSuccessWithLifeTimeMembership(): void
     {
         $membershipPlanRate = MembershipPlanRate::factory()->create([
             'membership_plan_id' => MembershipPlan::factory()->create([
@@ -97,7 +97,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertNull($subscription->expires_at);
     }
 
-    public function testCreateSuccessWithYearlyMembership()
+    public function testCreateSuccessWithYearlyMembership(): void
     {
         $membershipPlanRate = MembershipPlanRate::factory()->create([
             'membership_plan_id' => MembershipPlan::factory()->create([
@@ -123,7 +123,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertEquals('2019-02-12 00:00:00', $subscription->expires_at->toDateTimeString());
     }
 
-    public function testCreateSuccessWithMonthlyMembership()
+    public function testCreateSuccessWithMonthlyMembership(): void
     {
         $membershipPlanRate = MembershipPlanRate::factory()->create([
             'membership_plan_id' => MembershipPlan::factory()->create([
@@ -149,7 +149,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertEquals('2018-03-12 00:00:00', $subscription->expires_at->toDateTimeString());
     }
 
-    public function testCreateSuccessWhenAttemptingATrialWithoutATrialPeriod()
+    public function testCreateSuccessWhenAttemptingATrialWithoutATrialPeriod(): void
     {
         $membershipPlanRate = MembershipPlanRate::factory()->create();
         $paymentMethod = PaymentMethod::factory()->create();
@@ -172,7 +172,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertFalse($subscription->is_trial);
     }
 
-    public function testCreateSuccessWithTrialPeriod()
+    public function testCreateSuccessWithTrialPeriod(): void
     {
         $membershipPlanRate = MembershipPlanRate::factory()->create([
             'membership_plan_id' => MembershipPlan::factory()->create([
@@ -200,7 +200,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertEquals('2018-02-26 00:00:00', $subscription->expires_at->toDateTimeString());
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = Subscription::factory()->create([
             'expires_at' => null,
@@ -214,7 +214,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertNotNull($updated->expires_at);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = Subscription::factory()->create();
 
@@ -223,7 +223,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertNull(Subscription::find($model->id));
     }
 
-    public function testFindExpiring()
+    public function testFindExpiring(): void
     {
         $expirationDate = new Carbon('2018-10-21 04:00:00');
 
@@ -261,7 +261,7 @@ class SubscriptionRepositoryTest extends TestCase
         $this->assertNotContains($subscription7->id, $result->pluck('id'));
     }
 
-    public function testFindExpiresAfter()
+    public function testFindExpiresAfter(): void
     {
         $expirationDate = new Carbon('2018-10-21 04:00:00');
 

@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class ContactTest
  * @package Tests\Unit\Models\User
  */
-class ContactTest extends TestCase
+final class ContactTest extends TestCase
 {
-    public function testInitiatedBy()
+    public function testInitiatedBy(): void
     {
         $contact = new Contact();
         $relation = $contact->initiatedBy();
@@ -21,7 +21,7 @@ class ContactTest extends TestCase
         $this->assertEquals('users.id', $relation->getQualifiedOwnerKeyName());
     }
 
-    public function testRequested()
+    public function testRequested(): void
     {
         $contact = new Contact();
         $relation = $contact->requested();

@@ -14,9 +14,9 @@ use Tests\TestCase;
  * Class LogMiddlewareTest
  * @package Tests\Unit\Http\Middleware
  */
-class LogMiddlewareTest extends TestCase
+final class LogMiddlewareTest extends TestCase
 {
-    public function testTerminate()
+    public function testTerminate(): void
     {
         $request = mock(Request::class);
 

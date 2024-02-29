@@ -20,7 +20,7 @@ use Tests\Traits\ReflectionHelpers;
  * Class AuthServiceProviderTest
  * @package Tests\Unit\Providers
  */
-class AuthServiceProviderTest extends TestCase
+final class AuthServiceProviderTest extends TestCase
 {
     use ReflectionHelpers;
 
@@ -34,7 +34,7 @@ class AuthServiceProviderTest extends TestCase
         return $property->getValue($gate);
     }
 
-    public function testUserAuthenticationRegistered()
+    public function testUserAuthenticationRegistered(): void
     {
         $app = mock(Application::class);
 
@@ -59,7 +59,7 @@ class AuthServiceProviderTest extends TestCase
         $provider->boot();
     }
 
-    public function testGuessPolicyName()
+    public function testGuessPolicyName(): void
     {
         $provider = new AuthServiceProvider(mock(Application::class));
 

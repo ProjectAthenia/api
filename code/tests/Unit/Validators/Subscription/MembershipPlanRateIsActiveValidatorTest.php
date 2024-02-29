@@ -13,9 +13,9 @@ use Tests\TestCase;
  * Class MembershipPlanRateIsActiveValidatorTest
  * @package Tests\Unit\Validators\Subscription
  */
-class MembershipPlanRateIsActiveValidatorTest extends TestCase
+final class MembershipPlanRateIsActiveValidatorTest extends TestCase
 {
-    public function testValidateFailsWithNonExistingRate()
+    public function testValidateFailsWithNonExistingRate(): void
     {
         $repository = mock(MembershipPlanRateRepositoryContract::class);
         $validator = new MembershipPlanRateIsActiveValidator($repository);
@@ -25,7 +25,7 @@ class MembershipPlanRateIsActiveValidatorTest extends TestCase
         $this->assertFalse($validator->validate('membership_plan_rate_id', 214));
     }
 
-    public function testValidateFailsMembershipPlanRateNotActive()
+    public function testValidateFailsMembershipPlanRateNotActive(): void
     {
         $repository = mock(MembershipPlanRateRepositoryContract::class);
         $validator = new MembershipPlanRateIsActiveValidator($repository);
@@ -38,7 +38,7 @@ class MembershipPlanRateIsActiveValidatorTest extends TestCase
         $this->assertFalse($validator->validate('membership_plan_rate_id', 214));
     }
 
-    public function testValidateSuccess()
+    public function testValidateSuccess(): void
     {
         $repository = mock(MembershipPlanRateRepositoryContract::class);
         $validator = new MembershipPlanRateIsActiveValidator($repository);

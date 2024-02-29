@@ -17,7 +17,7 @@ use Tests\TestCase;
  * Class UserPropertiesMergeListenerTest
  * @package Tests\Unit\Listeners\User\UserMerge
  */
-class UserPropertiesMergeListenerTest extends TestCase
+final class UserPropertiesMergeListenerTest extends TestCase
 {
     /**
      * @var UserRepositoryContract|CustomMockInterface
@@ -29,7 +29,7 @@ class UserPropertiesMergeListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -37,7 +37,7 @@ class UserPropertiesMergeListenerTest extends TestCase
         $this->listener = new UserPropertiesMergeListener($this->repository);
     }
 
-    public function testHandleWithoutOptions()
+    public function testHandleWithoutOptions(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',
@@ -61,7 +61,7 @@ class UserPropertiesMergeListenerTest extends TestCase
         $this->listener->handle($event);
     }
 
-    public function testHandleWithOptions()
+    public function testHandleWithOptions(): void
     {
         $mainUser = new User([
             'email' => 'test@test.com',

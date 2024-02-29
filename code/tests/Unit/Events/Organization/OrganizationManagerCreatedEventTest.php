@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class OrganizationManagerCreatedEventTest
  * @package Tests\Unit\Events\Organization
  */
-class OrganizationManagerCreatedEventTest extends TestCase
+final class OrganizationManagerCreatedEventTest extends TestCase
 {
-    public function testWithoutPassword()
+    public function testWithoutPassword(): void
     {
         $organizationManager = new OrganizationManager();
         $event = new OrganizationManagerCreatedEvent($organizationManager);
@@ -22,7 +22,7 @@ class OrganizationManagerCreatedEventTest extends TestCase
         $this->assertNull($event->getTempPassword());
     }
 
-    public function testWithPassword()
+    public function testWithPassword(): void
     {
         $organizationManager = new OrganizationManager();
         $event = new OrganizationManagerCreatedEvent($organizationManager, 'password');

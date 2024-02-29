@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleIndexTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleIndexTest extends TestCase
+final class ArticleIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -23,21 +23,21 @@ class ArticleIndexTest extends TestCase
      */
     private $path = '/v1/articles';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('GET', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR]) as $role ) {
             $this->actAs($role);
@@ -47,7 +47,7 @@ class ArticleIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         foreach ([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER] as $role) {
             $this->actAs($role);
@@ -62,7 +62,7 @@ class ArticleIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
         Article::factory()->count(15)->create();

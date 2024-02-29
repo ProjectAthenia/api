@@ -6,9 +6,9 @@ namespace Tests\Unit\Models\Collection;
 use App\Models\Collection\Collection;
 use Tests\TestCase;
 
-class CollectionTest extends TestCase
+final class CollectionTest extends TestCase
 {
-    public function testCollectionItems()
+    public function testCollectionItems(): void
     {
         $model = new Collection();
         $relation = $model->collectionItems();
@@ -17,7 +17,7 @@ class CollectionTest extends TestCase
         $this->assertEquals('collection_items.collection_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testOwner()
+    public function testOwner(): void
     {
         $model = new Collection();
         $relation = $model->owner();

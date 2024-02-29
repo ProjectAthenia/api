@@ -14,25 +14,25 @@ use Tests\Traits\RolesTesting;
  * Class MembershipPlanDeleteTest
  * @package Tests\Feature\Http\MembershipPlan
  */
-class MembershipPlanDeleteTest extends TestCase
+final class MembershipPlanDeleteTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $model = MembershipPlan::factory()->create();
         $response = $this->json('DELETE', '/v1/membership-plans/' . $model->id);
         $response->assertStatus(403);
     }
 
-    public function testNonAdminUserBlocked()
+    public function testNonAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -42,7 +42,7 @@ class MembershipPlanDeleteTest extends TestCase
         }
     }
 
-    public function testDeleteSingle()
+    public function testDeleteSingle(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -54,7 +54,7 @@ class MembershipPlanDeleteTest extends TestCase
         $this->assertEquals(0, MembershipPlan::count());
     }
 
-    public function testDeleteSingleInvalidIdFails()
+    public function testDeleteSingleInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -65,7 +65,7 @@ class MembershipPlanDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testDeleteSingleNotFoundFails()
+    public function testDeleteSingleNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 

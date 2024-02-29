@@ -18,7 +18,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class BallotItemRepositoryTest
  * @package Tests\Integration\Repositories\Vote
  */
-class BallotItemRepositoryTest extends TestCase
+final class BallotItemRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -42,20 +42,20 @@ class BallotItemRepositoryTest extends TestCase
         );
     }
 
-    public function testFindAllSuccess()
+    public function testFindAllSuccess(): void
     {
         BallotItem::factory()->count(5)->create();
         $items = $this->repository->findAll();
         $this->assertCount(5, $items);
     }
 
-    public function testFindAllEmpty()
+    public function testFindAllEmpty(): void
     {
         $items = $this->repository->findAll();
         $this->assertEmpty($items);
     }
 
-    public function testFindOrFailSuccess()
+    public function testFindOrFailSuccess(): void
     {
         $model = BallotItem::factory()->create();
 
@@ -63,7 +63,7 @@ class BallotItemRepositoryTest extends TestCase
         $this->assertEquals($model->id, $foundModel->id);
     }
 
-    public function testFindOrFailFails()
+    public function testFindOrFailFails(): void
     {
         BallotItem::factory()->create(['id' => 19]);
 
@@ -71,7 +71,7 @@ class BallotItemRepositoryTest extends TestCase
         $this->repository->findOrFail(20);
     }
 
-    public function testCreateSuccess()
+    public function testCreateSuccess(): void
     {
         /** @var Ballot $ballot */
         $ballot = Ballot::factory()->create();
@@ -94,7 +94,7 @@ class BallotItemRepositoryTest extends TestCase
         $this->assertEquals($ballotItem->ballot_id, $ballot->id);
     }
 
-    public function testUpdateSuccess()
+    public function testUpdateSuccess(): void
     {
         $model = BallotItem::factory()->create([
             'votes_cast' => 1,
@@ -108,7 +108,7 @@ class BallotItemRepositoryTest extends TestCase
         $this->assertEquals(5, $updated->votes_cast);
     }
 
-    public function testDeleteSuccess()
+    public function testDeleteSuccess(): void
     {
         $model = BallotItem::factory()->create();
 

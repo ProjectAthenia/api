@@ -11,7 +11,7 @@ abstract class CanDisplayOutputAbstractJob
     /**
      * @var array|ProgressBar[]
      */
-    private $progressBars = [];
+    private array $progressBars = [];
 
     /**
      * @param OutputStyle|null $output
@@ -25,7 +25,7 @@ abstract class CanDisplayOutputAbstractJob
      * @param string $message
      * @return void
      */
-    public function outputMessage(string $message)
+    public function outputMessage(string $message): void
     {
         $this->output?->text($message);
     }
@@ -37,7 +37,7 @@ abstract class CanDisplayOutputAbstractJob
      * @param int $steps
      * @return void
      */
-    public function createProgress(string $name, int $steps)
+    public function createProgress(string $name, int $steps): void
     {
         $this->progressBars[$name] = $this->output?->createProgressBar($steps);
     }
@@ -48,7 +48,7 @@ abstract class CanDisplayOutputAbstractJob
      * @param string $name
      * @return void
      */
-    public function advanceProgress(string $name)
+    public function advanceProgress(string $name): void
     {
         ($this->progressBars[$name] ?? null)?->advance();
     }

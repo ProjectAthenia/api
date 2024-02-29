@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class OrganizationManagerTest
  * @package Tests\Unit\Models\Organization
  */
-class OrganizationManagerTest extends TestCase
+final class OrganizationManagerTest extends TestCase
 {
-    public function testOrganization()
+    public function testOrganization(): void
     {
         $message = new OrganizationManager();
         $relation = $message->organization();
@@ -21,7 +21,7 @@ class OrganizationManagerTest extends TestCase
         $this->assertEquals('organization_managers.organization_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testRole()
+    public function testRole(): void
     {
         $message = new OrganizationManager();
         $relation = $message->role();
@@ -30,7 +30,7 @@ class OrganizationManagerTest extends TestCase
         $this->assertEquals('organization_managers.role_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testUser()
+    public function testUser(): void
     {
         $message = new OrganizationManager();
         $relation = $message->user();

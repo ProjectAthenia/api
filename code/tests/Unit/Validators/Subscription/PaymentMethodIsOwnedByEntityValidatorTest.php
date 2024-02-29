@@ -17,9 +17,9 @@ use Tests\TestCase;
  * Class PaymentMethodIsOwnedByEntityValidatorTest
  * @package Tests\Unit\Validators\Subscription
  */
-class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
+final class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
 {
-    public function testValidateFailsWithNonExistingRate()
+    public function testValidateFailsWithNonExistingRate(): void
     {
         $repository = mock(PaymentMethodRepositoryContract::class);
         $request = mock(Request::class);
@@ -30,7 +30,7 @@ class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
         $this->assertFalse($validator->validate('payment_method_id', 214));
     }
 
-    public function testValidateFailsWithMismatchedUser()
+    public function testValidateFailsWithMismatchedUser(): void
     {
         $repository = mock(PaymentMethodRepositoryContract::class);
         $request = mock(Request::class);
@@ -53,7 +53,7 @@ class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
         $this->assertFalse($validator->validate('payment_method_id', 214));
     }
 
-    public function testValidateFailsWithMismatchedOwnerType()
+    public function testValidateFailsWithMismatchedOwnerType(): void
     {
         $repository = mock(PaymentMethodRepositoryContract::class);
         $request = mock(Request::class);
@@ -76,7 +76,7 @@ class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
         $this->assertFalse($validator->validate('payment_method_id', 214));
     }
 
-    public function testValidatePassesWithUser()
+    public function testValidatePassesWithUser(): void
     {
         $repository = mock(PaymentMethodRepositoryContract::class);
         $request = mock(Request::class);
@@ -99,7 +99,7 @@ class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
         $this->assertTrue($validator->validate('payment_method_id', 214));
     }
 
-    public function testValidatePassesWithOrganization()
+    public function testValidatePassesWithOrganization(): void
     {
         $repository = mock(PaymentMethodRepositoryContract::class);
         $request = mock(Request::class);

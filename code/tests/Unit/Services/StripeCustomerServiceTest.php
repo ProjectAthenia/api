@@ -21,7 +21,7 @@ use Tests\TestCase;
  * Class StripeCustomerServiceTest
  * @package Tests\Unit\Services
  */
-class StripeCustomerServiceTest extends TestCase
+final class StripeCustomerServiceTest extends TestCase
 {
     /**
      * @var UserRepositoryContract|CustomMockInterface
@@ -53,7 +53,7 @@ class StripeCustomerServiceTest extends TestCase
      */
     private $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->userRepository = mock(UserRepositoryContract::class);
@@ -70,7 +70,7 @@ class StripeCustomerServiceTest extends TestCase
         );
     }
 
-    public function testCreateCustomerWithUser()
+    public function testCreateCustomerWithUser(): void
     {
         $user = new User([
             'first_name' => 'John',
@@ -99,7 +99,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->assertEquals('cus_test', $user->stripe_customer_key);
     }
 
-    public function testCreateCustomerWithOrganizationWithoutManagers()
+    public function testCreateCustomerWithOrganizationWithoutManagers(): void
     {
         $user = new Organization([
             'name' => 'An Organization',
@@ -128,7 +128,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->assertEquals('cus_test', $user->stripe_customer_key);
     }
 
-    public function testCreateCustomerWithOrganizationWithManagers()
+    public function testCreateCustomerWithOrganizationWithManagers(): void
     {
         $user = new Organization([
             'name' => 'An Organization',
@@ -170,7 +170,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->assertEquals('cus_test', $user->stripe_customer_key);
     }
 
-    public function testRetrieveCustomerFailsWithoutToken()
+    public function testRetrieveCustomerFailsWithoutToken(): void
     {
         $user = new User();
 
@@ -179,7 +179,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->service->retrieveCustomer($user);
     }
 
-    public function testRetrieveCustomer()
+    public function testRetrieveCustomer(): void
     {
         $user = new User([
             'stripe_customer_key' => 'cus_test'
@@ -198,7 +198,7 @@ class StripeCustomerServiceTest extends TestCase
         ]);
     }
 
-    public function testCreatePaymentMethodWithoutExistingStripeCustomer()
+    public function testCreatePaymentMethodWithoutExistingStripeCustomer(): void
     {
         $user = new User([
             'first_name' => 'John',
@@ -244,7 +244,7 @@ class StripeCustomerServiceTest extends TestCase
         ]);
     }
 
-    public function testCreatePaymentMethodWithExistingStripeCustomer()
+    public function testCreatePaymentMethodWithExistingStripeCustomer(): void
     {
         $user = new User([
             'email' => 'test@test.com',
@@ -278,7 +278,7 @@ class StripeCustomerServiceTest extends TestCase
         ]);
     }
 
-    public function testDeletePaymentMethodFailsWithoutToken()
+    public function testDeletePaymentMethodFailsWithoutToken(): void
     {
         $paymentMethod = new PaymentMethod([
             'owner' => new User(),
@@ -289,7 +289,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->service->deletePaymentMethod($paymentMethod);
     }
 
-    public function testDeletePaymentMethod()
+    public function testDeletePaymentMethod(): void
     {
         $paymentMethod = new PaymentMethod([
             'payment_method_key' => 'card_test',
@@ -310,7 +310,7 @@ class StripeCustomerServiceTest extends TestCase
         ]);
     }
 
-    public function testRetrievePaymentMethodReturnsNullWithoutCard()
+    public function testRetrievePaymentMethodReturnsNullWithoutCard(): void
     {
         $paymentMethod = new PaymentMethod([
             'payment_method_key' => 'card_test',
@@ -322,7 +322,7 @@ class StripeCustomerServiceTest extends TestCase
         $this->assertNull($this->service->retrievePaymentMethod($paymentMethod));
     }
 
-    public function testRetrievePaymentMethod()
+    public function testRetrievePaymentMethod(): void
     {
         $paymentMethod = new PaymentMethod([
             'payment_method_key' => 'card',

@@ -14,11 +14,11 @@ use Tests\TestCase;
  * Class UserTest
  * @package Tests\Integration\Models
  */
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     use DatabaseSetupTrait;
     
-    public function testHasRole()
+    public function testHasRole(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -49,7 +49,7 @@ class UserTest extends TestCase
         $this->assertFalse($user->hasRole([4,5]));
     }
 
-    public function testCanManageOrganization()
+    public function testCanManageOrganization(): void
     {
         /** @var Organization $organization */
         $organization = Organization::factory()->create();

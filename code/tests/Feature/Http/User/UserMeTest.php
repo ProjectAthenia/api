@@ -12,25 +12,25 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserMeTest
  * @package Tests\Feature\Http\User
  */
-class UserMeTest extends TestCase
+final class UserMeTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $response = $this->json('GET', '/v1/users/me');
 
         $response->assertStatus(403);
     }
 
-    public function testGetMeSuccess()
+    public function testGetMeSuccess(): void
     {
         User::unsetEventDispatcher();
         /** @var User $myCurrentUser */
@@ -43,7 +43,7 @@ class UserMeTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testGetMeFailsWithTooManyExpands()
+    public function testGetMeFailsWithTooManyExpands(): void
     {
         $myCurrentUser = User::factory()->create();
 

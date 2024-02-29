@@ -18,7 +18,7 @@ use Tests\TestCase;
  * Class EntityFeatureAccessServiceTest
  * @package Tests\Unit\Services
  */
-class EntityFeatureAccessServiceTest extends TestCase
+final class EntityFeatureAccessServiceTest extends TestCase
 {
     /**
      * @var MembershipPlanRepositoryContract|CustomMockInterface
@@ -37,7 +37,7 @@ class EntityFeatureAccessServiceTest extends TestCase
         $this->service = new EntityFeatureAccessService($this->membershipPlanRepository);
     }
 
-    public function testCanAccessReturnsFalseWithoutDefaultMembershipPlan()
+    public function testCanAccessReturnsFalseWithoutDefaultMembershipPlan(): void
     {
         $user = new User([
             'subscriptions' => collect([]),
@@ -50,7 +50,7 @@ class EntityFeatureAccessServiceTest extends TestCase
         $this->assertFalse($this->service->canAccess($user, 21));
     }
 
-    public function testCanAccessReturnsFalseWhenDefaultMembershipPlanDoesNotContainFeature()
+    public function testCanAccessReturnsFalseWhenDefaultMembershipPlanDoesNotContainFeature(): void
     {
         $feature = new Feature();
         $feature->id = 12;
@@ -72,7 +72,7 @@ class EntityFeatureAccessServiceTest extends TestCase
         $this->assertFalse($this->service->canAccess($user, 21));
     }
 
-    public function testCanAccessReturnsTrueWhenDefaultMembershipPlanDoesContainsFeature()
+    public function testCanAccessReturnsTrueWhenDefaultMembershipPlanDoesContainsFeature(): void
     {
         $feature = new Feature();
         $feature->id = 21;
@@ -94,7 +94,7 @@ class EntityFeatureAccessServiceTest extends TestCase
         $this->assertTrue($this->service->canAccess($user, 21));
     }
 
-    public function testCanAccessReturnsFalseWhenEntityMembershipPlanDoesNotContainFeature()
+    public function testCanAccessReturnsFalseWhenEntityMembershipPlanDoesNotContainFeature(): void
     {
         $feature = new Feature();
         $feature->id = 12;
@@ -119,7 +119,7 @@ class EntityFeatureAccessServiceTest extends TestCase
         $this->assertFalse($this->service->canAccess($user, 21));
     }
 
-    public function testCanAccessReturnsTrueWhenEnityMembershipPlanDoesContainsFeature()
+    public function testCanAccessReturnsTrueWhenEnityMembershipPlanDoesContainsFeature(): void
     {
         $feature = new Feature();
         $feature->id = 21;

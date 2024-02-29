@@ -10,9 +10,9 @@ use Tests\TestCase;
  * Class LineItemTest
  * @package Tests\Unit\Models\Payment
  */
-class LineItemTest extends TestCase
+final class LineItemTest extends TestCase
 {
-    public function testItem()
+    public function testItem(): void
     {
         $model = new LineItem();
         $relation = $model->item();
@@ -21,7 +21,7 @@ class LineItemTest extends TestCase
         $this->assertEquals('item_type', $relation->getMorphType());
     }
 
-    public function testPayment()
+    public function testPayment(): void
     {
         $model = new LineItem();
         $relation = $model->payment();

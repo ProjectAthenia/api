@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class ChargeRenewalTest
  * @package Tests\Integration\Console\Commands
  */
-class ChargeRenewalTest extends TestCase
+final class ChargeRenewalTest extends TestCase
 {
     use DatabaseSetupTrait;
 
@@ -32,7 +32,7 @@ class ChargeRenewalTest extends TestCase
         $this->setupDatabase();
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $now = new Carbon('2018-01-21 12:33:23');
         Carbon::setTestNow($now);

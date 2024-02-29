@@ -14,7 +14,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleUpdateTest
  * @package Tests\Feature\Http\Article
  */
-class ArticleUpdateTest extends TestCase
+final class ArticleUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -23,14 +23,14 @@ class ArticleUpdateTest extends TestCase
      */
     private $path = '/v1/articles';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $article = Article::factory()->create();
         $response = $this->json('PUT', $this->path . '/' . $article->id);
@@ -38,7 +38,7 @@ class ArticleUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR]) as $role) {
             $this->actAs($role);
@@ -52,7 +52,7 @@ class ArticleUpdateTest extends TestCase
         }
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -61,7 +61,7 @@ class ArticleUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -85,7 +85,7 @@ class ArticleUpdateTest extends TestCase
         $this->assertEquals('A different title', $updated->title);
     }
 
-    public function testUpdateBlockedUserHasNotCreatedArticle()
+    public function testUpdateBlockedUserHasNotCreatedArticle(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
         
@@ -95,7 +95,7 @@ class ArticleUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateFailsInvalidStringFields()
+    public function testUpdateFailsInvalidStringFields(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 
@@ -116,7 +116,7 @@ class ArticleUpdateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringsTooLong()
+    public function testCreateFailsStringsTooLong(): void
     {
         $this->actAs(Role::ARTICLE_EDITOR);
 

@@ -12,17 +12,17 @@ use Tests\TestCase;
  * Class Issue404IfPageAfterPaginationTest
  * @package Tests\Integration\Middleware
  */
-class Issue404IfPageAfterPaginationTest extends TestCase
+final class Issue404IfPageAfterPaginationTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
 

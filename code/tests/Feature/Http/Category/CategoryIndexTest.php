@@ -12,18 +12,18 @@ use Tests\Traits\MocksApplicationLog;
  * Class CategoryIndexTest
  * @package Tests\Feature\Http\Category
  */
-class CategoryIndexTest extends TestCase
+final class CategoryIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $response = $this->json('GET', '/v1/categories');
 
@@ -34,7 +34,7 @@ class CategoryIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         Category::factory()->count( 15)->create();
 

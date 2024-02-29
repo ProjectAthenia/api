@@ -15,27 +15,27 @@ use Tests\Traits\RolesTesting;
  * Class OrganizationUpdateTest
  * @package Tests\Feature\Http\Organization
  */
-class OrganizationUpdateTest extends TestCase
+final class OrganizationUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
     
     const BASE_ROUTE = '/v1/organizations/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $membershipPlan = Organization::factory()->create();
         $response = $this->json('PATCH', static::BASE_ROUTE . $membershipPlan->id);
         $response->assertStatus(403);
     }
 
-    public function testNotAdminUserBlocked()
+    public function testNotAdminUserBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins() as $role) {
             $this->actAs($role);
@@ -45,7 +45,7 @@ class OrganizationUpdateTest extends TestCase
         }
     }
 
-    public function testPatchSuccessful()
+    public function testPatchSuccessful(): void
     {
         $this->actAs(Role::ADMINISTRATOR);
 
@@ -74,7 +74,7 @@ class OrganizationUpdateTest extends TestCase
         $this->assertEquals('Test Organization', $updated->name);
     }
 
-    public function testPatchNotFoundFails()
+    public function testPatchNotFoundFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -85,7 +85,7 @@ class OrganizationUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchInvalidIdFails()
+    public function testPatchInvalidIdFails(): void
     {
         $this->actAs(Role::SUPER_ADMIN);
 
@@ -96,7 +96,7 @@ class OrganizationUpdateTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testPatchFailsInvalidStringFields()
+    public function testPatchFailsInvalidStringFields(): void
     {
         $organization = Organization::factory()->create();
 
@@ -117,7 +117,7 @@ class OrganizationUpdateTest extends TestCase
         ]);
     }
 
-    public function testPatchFailsTooLongFields()
+    public function testPatchFailsTooLongFields(): void
     {
         $organization = Organization::factory()->create();
 

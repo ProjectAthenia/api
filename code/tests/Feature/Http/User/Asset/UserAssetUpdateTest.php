@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserAssetUpdateTest
  * @package Tests\Feature\Http\User\Asset
  */
-class UserAssetUpdateTest extends TestCase
+final class UserAssetUpdateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -28,7 +28,7 @@ class UserAssetUpdateTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -39,7 +39,7 @@ class UserAssetUpdateTest extends TestCase
         $this->path.= $this->user->id . '/assets/';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $asset = Asset::factory()->create([
             'owner_id' => $this->user->id,
@@ -50,7 +50,7 @@ class UserAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserThanRouteBlocked()
+    public function testDifferentUserThanRouteBlocked(): void
     {
         $this->actAs(Role::APP_USER);
         $asset = Asset::factory()->create([
@@ -62,7 +62,7 @@ class UserAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDifferentUserThanAssetBlocked()
+    public function testDifferentUserThanAssetBlocked(): void
     {
         $this->actingAs($this->user);
         $asset = Asset::factory()->create();
@@ -71,7 +71,7 @@ class UserAssetUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateSuccessful()
+    public function testUpdateSuccessful(): void
     {
         $this->actingAs($this->user);
         $asset = Asset::factory()->create([
@@ -89,7 +89,7 @@ class UserAssetUpdateTest extends TestCase
         $this->assertEquals('A New Name', $updated->name);
     }
 
-    public function testFailsNotPresentFieldsPresent()
+    public function testFailsNotPresentFieldsPresent(): void
     {
         $this->actingAs($this->user);
         $asset = Asset::factory()->create([
@@ -108,7 +108,7 @@ class UserAssetUpdateTest extends TestCase
         ]);
     }
 
-    public function testFailsInvalidStringFields()
+    public function testFailsInvalidStringFields(): void
     {
         $this->actingAs($this->user);
         $asset = Asset::factory()->create([

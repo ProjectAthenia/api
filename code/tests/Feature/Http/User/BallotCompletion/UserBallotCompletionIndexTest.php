@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserBallotCompletionIndexTest
  * @package Tests\Feature\User\BallotCompletion
  */
-class UserBallotCompletionIndexTest extends TestCase
+final class UserBallotCompletionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -30,7 +30,7 @@ class UserBallotCompletionIndexTest extends TestCase
         User::unsetEventDispatcher();
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $user = User::factory()->create();
 
@@ -39,7 +39,7 @@ class UserBallotCompletionIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserBlocked()
+    public function testIncorrectUserBlocked(): void
     {
         $this->actAsUser();
         $user = User::factory()->create();
@@ -49,7 +49,7 @@ class UserBallotCompletionIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUserNotFound()
+    public function testUserNotFound(): void
     {
         $this->actAsUser();
 
@@ -58,7 +58,7 @@ class UserBallotCompletionIndexTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $this->actAsUser();
 
@@ -71,7 +71,7 @@ class UserBallotCompletionIndexTest extends TestCase
         ]);
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAsUser();
 

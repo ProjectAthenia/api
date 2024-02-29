@@ -15,7 +15,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserPaymentMethodCreateTest
  * @package Tests\Feature\Http\User\PaymentMethod
  */
-class UserPaymentMethodCreateTest extends TestCase
+final class UserPaymentMethodCreateTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -29,7 +29,7 @@ class UserPaymentMethodCreateTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -40,14 +40,14 @@ class UserPaymentMethodCreateTest extends TestCase
         $this->path.= $this->user->id . '/payment-methods';
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('POST', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         $this->actAsUser();
         $response = $this->json('POST', $this->path);
@@ -55,7 +55,7 @@ class UserPaymentMethodCreateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testCreateSuccessful()
+    public function testCreateSuccessful(): void
     {
         $this->actingAs($this->user);
 
@@ -87,7 +87,7 @@ class UserPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsRequiredFieldsNotPresent()
+    public function testCreateFailsRequiredFieldsNotPresent(): void
     {
         $this->actingAs($this->user);
 
@@ -102,7 +102,7 @@ class UserPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidStringFields()
+    public function testCreateFailsInvalidStringFields(): void
     {
         $this->actingAs($this->user);
 
@@ -120,7 +120,7 @@ class UserPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsInvalidBooleanFields()
+    public function testCreateFailsInvalidBooleanFields(): void
     {
         $this->actingAs($this->user);
 
@@ -137,7 +137,7 @@ class UserPaymentMethodCreateTest extends TestCase
         ]);
     }
 
-    public function testCreateFailsStringsTooLong()
+    public function testCreateFailsStringsTooLong(): void
     {
         $this->actingAs($this->user);
 

@@ -13,11 +13,11 @@ use Tests\TestCase;
  * Class ThreadTest
  * @package Tests\Integration\Models\User
  */
-class ThreadTest extends TestCase
+final class ThreadTest extends TestCase
 {
     use DatabaseSetupTrait;
 
-    public function testLastMessage()
+    public function testLastMessage(): void
     {
         $messageDispatcher = mock(Dispatcher::class);
         Message::setEventDispatcher($messageDispatcher);

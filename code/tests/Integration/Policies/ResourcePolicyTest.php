@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class ResourcePolicyTest
  * @package Tests\Integration\Policies
  */
-class ResourcePolicyTest extends TestCase
+final class ResourcePolicyTest extends TestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $policy = new ResourcePolicy();
 

@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleIterationIndexTest
  * @package Tests\Feature\Http\Article\Iteration
  */
-class ArticleIterationIndexTest extends TestCase
+final class ArticleIterationIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -24,21 +24,21 @@ class ArticleIterationIndexTest extends TestCase
      */
     private $path = '/v1/articles/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $response = $this->json('GET', $this->path . '124/iterations');
 
         $response->assertStatus(404);
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $article = Article::factory()->create();
         $response = $this->json('GET', $this->path . $article->id . '/iterations');
@@ -46,7 +46,7 @@ class ArticleIterationIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         $article = Article::factory()->create();
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR]) as $role) {
@@ -58,7 +58,7 @@ class ArticleIterationIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         $article = Article::factory()->create();
         foreach ([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR] as $role) {
@@ -73,7 +73,7 @@ class ArticleIterationIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
         $article = Article::factory()->create();

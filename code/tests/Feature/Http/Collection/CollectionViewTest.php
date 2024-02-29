@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class categoriesViewTest
  * @package Tests\Feature\V4\categories
  */
-class CollectionViewTest extends TestCase
+final class CollectionViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -23,7 +23,7 @@ class CollectionViewTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testGetBlocksNotLoggedIn()
+    public function testGetBlocksNotLoggedIn(): void
     {
         Collection::factory()->create([
             'id'    =>  1,
@@ -33,7 +33,7 @@ class CollectionViewTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $this->actAsUser();
         $response = $this->json('GET', '/v1/collections/1');
@@ -43,7 +43,7 @@ class CollectionViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $this->actAsUser();
         $response = $this->json('GET', '/v1/collections/a')
@@ -53,7 +53,7 @@ class CollectionViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleNonPublicBlocked()
+    public function testGetSingleNonPublicBlocked(): void
     {
         $this->actAsUser();
         Collection::factory()->create([
@@ -65,7 +65,7 @@ class CollectionViewTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $this->actAsUser();
         $model = Collection::factory()->create([
@@ -78,7 +78,7 @@ class CollectionViewTest extends TestCase
         $response->assertJson($model->toArray());
     }
 
-    public function testGetSingleNonPublicSuccess()
+    public function testGetSingleNonPublicSuccess(): void
     {
         $this->actAsUser();
         $model = Collection::factory()->create([

@@ -15,7 +15,7 @@ use Tests\Traits\RolesTesting;
  * Class ArticleVersionIndexTest
  * @package Tests\Feature\Http\Article\Iteration
  */
-class ArticleVersionIndexTest extends TestCase
+final class ArticleVersionIndexTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog, RolesTesting;
 
@@ -24,21 +24,21 @@ class ArticleVersionIndexTest extends TestCase
      */
     private $path = '/v1/articles/';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $response = $this->json('GET', $this->path . '124/versions');
 
         $response->assertStatus(404);
     }
 
-    public function testNotLoggedUserBlocked()
+    public function testNotLoggedUserBlocked(): void
     {
         $article = Article::factory()->create();
         $response = $this->json('GET', $this->path . $article->id . '/versions');
@@ -46,7 +46,7 @@ class ArticleVersionIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked()
+    public function testIncorrectUserRoleBlocked(): void
     {
         foreach ($this->rolesWithoutAdmins([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR]) as $role) {
             $this->actAs($role);
@@ -58,7 +58,7 @@ class ArticleVersionIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationEmpty()
+    public function testGetPaginationEmpty(): void
     {
         foreach ([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR] as $role) {
             $this->actAs($role);
@@ -73,7 +73,7 @@ class ArticleVersionIndexTest extends TestCase
         }
     }
 
-    public function testGetPaginationResult()
+    public function testGetPaginationResult(): void
     {
         $this->actAs(Role::ARTICLE_VIEWER);
         $article = Article::factory()->create();

@@ -22,7 +22,7 @@ use Tests\TestCase;
  * Class StripePaymentServiceTest
  * @package Tests\Unit\Services
  */
-class StripePaymentServiceTest extends TestCase
+final class StripePaymentServiceTest extends TestCase
 {
     /**
      * @var PaymentRepositoryContract|CustomMockInterface
@@ -73,7 +73,7 @@ class StripePaymentServiceTest extends TestCase
         );
     }
 
-    public function testCreatePayment()
+    public function testCreatePayment(): void
     {
         $user = new User([
             'stripe_customer_key' => 'cus_test'
@@ -121,7 +121,7 @@ class StripePaymentServiceTest extends TestCase
         $this->assertEquals($result, $payment);
     }
 
-    public function testCreatePaymentWithZeroCost()
+    public function testCreatePaymentWithZeroCost(): void
     {
         $user = new User();
         $user->id = 436;
@@ -158,7 +158,7 @@ class StripePaymentServiceTest extends TestCase
         $this->assertEquals($result, $payment);
     }
 
-    public function testReversePaymentFailsWithoutStripe()
+    public function testReversePaymentFailsWithoutStripe(): void
     {
         $payment = new Payment([
             'paymentMethod' => new PaymentMethod(),
@@ -169,7 +169,7 @@ class StripePaymentServiceTest extends TestCase
         $this->service->reversePayment($payment);
     }
 
-    public function testReversePaymentSuccess()
+    public function testReversePaymentSuccess(): void
     {
         $payment = new Payment([
             'paymentMethod' => new PaymentMethod([
@@ -201,7 +201,7 @@ class StripePaymentServiceTest extends TestCase
         $this->service->reversePayment($payment);
     }
 
-    public function testIssuePartialRefundFailsWithoutStripe()
+    public function testIssuePartialRefundFailsWithoutStripe(): void
     {
         $payment = new Payment([
             'paymentMethod' => new PaymentMethod(),
@@ -212,7 +212,7 @@ class StripePaymentServiceTest extends TestCase
         $this->service->issuePartialRefund($payment, 5);
     }
 
-    public function testIssuePartialRefundSuccess()
+    public function testIssuePartialRefundSuccess(): void
     {
         $payment = new Payment([
             'paymentMethod' => new PaymentMethod([

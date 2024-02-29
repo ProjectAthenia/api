@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class categoriesViewTest
  * @package Tests\Feature\V4\categories
  */
-class CategoryViewTest extends TestCase
+final class CategoryViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -23,7 +23,7 @@ class CategoryViewTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testGetSingleSuccess()
+    public function testGetSingleSuccess(): void
     {
         $model = Category::factory()->create([
             'id'    =>  1
@@ -34,7 +34,7 @@ class CategoryViewTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testGetSingleNotFoundFails()
+    public function testGetSingleNotFoundFails(): void
     {
         $response = $this->json('GET', '/v1/categories/1')
             ->assertExactJson([
@@ -43,7 +43,7 @@ class CategoryViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleInvalidIdFails()
+    public function testGetSingleInvalidIdFails(): void
     {
         $response = $this->json('GET', '/v1/categories/a')
             ->assertExactJson([
@@ -52,7 +52,7 @@ class CategoryViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testGetSingleAssetsEmpty()
+    public function testGetSingleAssetsEmpty(): void
     {
         $model = Category::factory()->create([
             'id'    =>  1

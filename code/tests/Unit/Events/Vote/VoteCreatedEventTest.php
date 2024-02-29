@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class VoteCreatedEventTest
  * @package Tests\Unit\Events\Vote
  */
-class VoteCreatedEventTest extends TestCase
+final class VoteCreatedEventTest extends TestCase
 {
-    public function testGetVote()
+    public function testGetVote(): void
     {
         $model = new Vote();
 

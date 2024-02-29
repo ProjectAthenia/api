@@ -13,11 +13,11 @@ use Tests\Traits\RolesTesting;
  * Class BasePolicyAbstractTest
  * @package Tests\Integration\Policies
  */
-class BasePolicyAbstractTest extends TestCase
+final class BasePolicyAbstractTest extends TestCase
 {
     use RolesTesting, DatabaseSetupTrait;
 
-    public function testBefore()
+    public function testBefore(): void
     {
         /** @var BasePolicyAbstract $policy */
         $policy = $this->getMockForAbstractClass(BasePolicyAbstract::class);

@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class ThreadTest
  * @package Tests\Unit\Models\User
  */
-class ThreadTest extends TestCase
+final class ThreadTest extends TestCase
 {
-    public function testMessages()
+    public function testMessages(): void
     {
         $user = new Thread();
         $relation = $user->messages();
@@ -23,7 +23,7 @@ class ThreadTest extends TestCase
         $this->assertEquals('messages.thread_id', $relation->getQualifiedForeignKeyName());
     }
 
-    public function testUsers()
+    public function testUsers(): void
     {
         $model = new Thread();
         $relation = $model->users();

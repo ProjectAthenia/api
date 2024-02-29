@@ -11,9 +11,9 @@ use Tests\TestCase;
  * Class MessageSentEventTest
  * @package Tests\Unit\Events\Message
  */
-class MessageSentEventTest extends TestCase
+final class MessageSentEventTest extends TestCase
 {
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         $message = new Message();
 

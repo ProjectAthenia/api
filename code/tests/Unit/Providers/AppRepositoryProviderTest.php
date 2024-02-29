@@ -12,9 +12,9 @@ use Tests\TestCase;
  * Class AppRepositoryProviderTest
  * @package Tests\Unit\Providers
  */
-class AppRepositoryProviderTest extends TestCase
+final class AppRepositoryProviderTest extends TestCase
 {
-    public function testProvidesAll()
+    public function testProvidesAll(): void
     {
         $app = new Application();
         $repositoryProvider = new AppRepositoryProvider($app);

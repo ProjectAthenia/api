@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class UserViewTest
  * @package Tests\Feature\Http\User
  */
-class UserViewTest extends TestCase
+final class UserViewTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -26,7 +26,7 @@ class UserViewTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -36,14 +36,14 @@ class UserViewTest extends TestCase
         $this->path.= $this->user->id;
     }
 
-    public function testNotLoggedInUserBlocked()
+    public function testNotLoggedInUserBlocked(): void
     {
         $response = $this->json('GET', $this->path);
 
         $response->assertStatus(403);
     }
 
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->actAsUser();
 
@@ -52,7 +52,7 @@ class UserViewTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function testViewSuccessful()
+    public function testViewSuccessful(): void
     {
         $this->actAsUser();
 
