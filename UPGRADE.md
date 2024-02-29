@@ -2,6 +2,31 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.7.0
+
+## Laravel 9 Upgrade
+
+This turned out to be a really easy upgrade. First off, inspect your composer.json for differences with the main project, and check anything not listed. The following packages have been completly removed from the core.
+
+* fruitcake/laravel-cors
+* facade/ignition
+* phploc/phploc
+
+### CORS change
+
+Laravel now has built in CORS middlewares. In code/app/Http/Kernel.php you need to change the import `Fruitcake\Cors\HandleCors;` to `Illuminate\Http\Middleware\HandleCors;`.
+
+### Testing changes
+
+All testing files have been updated with type signatures. This can be handled easily by running phpunit shift https://laravelshift.com/shifts. The phpunit version should remain the same though. In addition, update the following files.
+
+* code/tests/Traits/MocksConsoleOutput.php - Changed references to Progress mock due to changes in Laravel
+* code/tests/bootstrap.php - Added a new package that allows mocking final classes
+
+### General changes
+
+The file `code/app/Jobs/CanDisplayOutputAbstractJob.php` now has type signatures to prepare for the eventual php 9 upgrade. The lang directory in `code/resources`, should be moved to `code`
+
 # 2.6.0
 
 ## New Module
