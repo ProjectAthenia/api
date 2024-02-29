@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Providers;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
@@ -18,9 +17,9 @@ use Tests\TestCase;
 final class AppServiceProviderTest extends TestCase
 {
     /**
+     * @dataProvider allProviders
      * @param $provide
      */
-    #[DataProvider('allProviders')]
     public function testBinds($provide): void
     {
         $this->app->make($provide);
@@ -45,7 +44,7 @@ final class AppServiceProviderTest extends TestCase
      *
      * @return array
      */
-    public static function allProviders(): array
+    public function allProviders(): array
     {
         $app = new Application();
         $app['env'] = 'testing';

@@ -26,6 +26,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",
+        "dg/bypass-finals": "^1.6",
         "fakerphp/faker": "^1.14",
         "filp/whoops": "~2.0",
         "laracasts/generators": "^2.0",
