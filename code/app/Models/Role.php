@@ -21,9 +21,9 @@ use Illuminate\Support\Carbon;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\User[] $users
  * @property-read int|null $users_count
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Role query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereId($value)

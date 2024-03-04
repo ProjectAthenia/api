@@ -23,9 +23,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $subject
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vote\Vote[] $votes
  * @property-read int|null $votes_count
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\BallotItemOption query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\BallotItemOption whereBallotItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\BallotItemOption whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\BallotItemOption whereDeletedAt($value)

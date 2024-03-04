@@ -72,9 +72,9 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Thread[] $threads
  * @property-read int|null $threads_count
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereAboutMe($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereAllowUsersToAddMe($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereCreatedAt($value)

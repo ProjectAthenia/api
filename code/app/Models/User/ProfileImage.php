@@ -29,9 +29,9 @@ use Illuminate\Support\Carbon;
  * @property-read \App\Models\Organization\Organization|null $organization
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $owner
  * @property-read \App\Models\User\User|null $user
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\ProfileImage query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\ProfileImage whereCaption($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\ProfileImage whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\ProfileImage whereDeletedAt($value)

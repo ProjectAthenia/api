@@ -5,7 +5,7 @@ namespace Tests\Unit\Repositories;
 
 use App\Models\User\User;
 use App\Repositories\BaseRepositoryAbstract;
-use Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder;
+use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
 use Tests\TestCase;
 
 /**

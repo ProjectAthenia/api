@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed|null $updated_at
  * @property-read \App\Models\Vote\BallotCompletion $ballotCompletion
  * @property-read \App\Models\Vote\BallotItemOption $ballotItemOption
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Vote\Vote query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\Vote whereBallotCompletionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\Vote whereBallotItemOptionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vote\Vote whereCreatedAt($value)

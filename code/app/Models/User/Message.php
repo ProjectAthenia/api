@@ -37,9 +37,9 @@ use App\Models\BaseModelAbstract;
  * @property-read \App\Models\User\User|null $from
  * @property-read \App\Models\User\Thread|null $thread
  * @property-read \App\Models\User\User|null $to
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Message whereAction($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Message whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Message whereData($value)

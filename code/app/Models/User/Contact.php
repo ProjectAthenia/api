@@ -25,9 +25,9 @@ use Illuminate\Validation\Rule;
  * @property mixed|null $updated_at
  * @property-read \App\Models\User\User $initiatedBy
  * @property-read \App\Models\User\User $requested
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Contact query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Contact whereConfirmedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Contact whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Contact whereDeletedAt($value)

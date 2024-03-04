@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property-read int|null $line_items_count
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $owner
  * @property-read \App\Models\Payment\PaymentMethod $paymentMethod
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Payment\Payment query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Payment\Payment whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Payment\Payment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Payment\Payment whereDeletedAt($value)

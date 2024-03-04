@@ -11,7 +11,7 @@ use App\Models\Traits\BelongsToOrganization;
 use App\Models\Traits\HasValidationRules;
 use App\Models\User\User;
 use Eloquent;
-use Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder;
+use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -30,9 +30,9 @@ use Illuminate\Validation\Rule;
  * @property-read \App\Models\Organization\Organization $organization
  * @property-read \App\Models\Role $role
  * @property-read \App\Models\User\User $user
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereId($value)

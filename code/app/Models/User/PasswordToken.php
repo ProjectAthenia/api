@@ -16,9 +16,9 @@ use App\Models\BaseModelAbstract;
  * @property mixed|null $created_at
  * @property mixed|null $updated_at
  * @property-read \App\Models\User\User $user
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\PasswordToken query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\PasswordToken whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\PasswordToken whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\PasswordToken whereId($value)

@@ -21,9 +21,9 @@ use Illuminate\Support\Carbon;
  * @property mixed|null $created_at
  * @property mixed|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $resource
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Resource query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resource whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resource whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resource whereDeletedAt($value)

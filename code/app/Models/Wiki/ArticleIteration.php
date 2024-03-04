@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \App\Models\Wiki\Article $article
  * @property-read \App\Models\User\User $createdBy
  * @property-read \App\Models\Wiki\ArticleVersion|null $version
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newModelQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newQuery()
- * @method static \Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration newQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\ArticleIteration query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereArticleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereCreatedAt($value)

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Repositories\Traits;
 
 use App\Models\BaseModelAbstract;
-use Fico7489\Laravel\EloquentJoin\EloquentJoinBuilder;
+use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
