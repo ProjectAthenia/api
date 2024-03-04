@@ -72,16 +72,6 @@ class Subscription extends BaseModelAbstract implements HasValidationRulesContra
     use HasValidationRules, HasPayments;
 
     /**
-     * @var array All dates for the subscription
-     */
-    protected $dates = [
-        'last_renewed_at',
-        'subscribed_at',
-        'expires_at',
-        'canceled_at',
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array

@@ -26,15 +26,6 @@ abstract class BaseModelAbstract extends Model
     ];
 
     /**
-     * All models have a deleted at along with the standard fields
-     *
-     * @var array
-     */
-    protected $dates = [
-        'deleted_at',
-    ];
-
-    /**
      * All models can be mass assigned within our app by default
      *
      * @var string[]
@@ -49,6 +40,7 @@ abstract class BaseModelAbstract extends Model
     protected $casts = [
         'created_at' => 'datetime:c',
         'updated_at' => 'datetime:c',
+        'deleted_at' => 'datetime:c',
     ];
 
     /**

@@ -45,9 +45,9 @@ class Contact extends BaseModelAbstract implements HasValidationRulesContract
     /**
      * @var array
      */
-    protected $dates = [
-        'confirmed_at',
-        'denied_at',
+    protected $casts = [
+        'confirmed_at' => 'datetime',
+        'denied_at' => 'datetime',
     ];
 
     /**

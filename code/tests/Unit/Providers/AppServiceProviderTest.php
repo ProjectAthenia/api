@@ -44,7 +44,7 @@ final class AppServiceProviderTest extends TestCase
      *
      * @return array
      */
-    public function allProviders(): array
+    public static function allProviders(): array
     {
         $app = new Application();
         $app['env'] = 'testing';

@@ -70,18 +70,12 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
     /**
      * @var array
      */
-    protected $dates = [
-        'seen_at',
-        'sent_at',
-        'scheduled_at',
-    ];
-
-    /**
-     * @var array
-     */
     protected $casts = [
         'data' => 'array',
         'via' => 'array',
+        'seen_at' => 'datetime',
+        'sent_at' => 'datetime',
+        'scheduled_at' => 'datetime',
     ];
 
     /**

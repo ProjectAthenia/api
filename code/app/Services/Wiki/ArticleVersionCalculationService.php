@@ -7,10 +7,12 @@ use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
 use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
 /**
  * Class ArticleVersionCalculationService
  * @package App\Services
+ * @todo inject diff
  */
 class ArticleVersionCalculationService implements ArticleVersionCalculationServiceContract
 {
@@ -56,7 +58,11 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
      */
     public function parseDiff(string $newContent, string $oldContent)
     {
-        $differ = new Differ();
+        $builder = new UnifiedDiffOutputBuilder(
+            "--- Original\n+++ New\n", // custom header
+            false                      // do not add line numbers to the diff
+        );
+        $differ = new Differ($builder);
         $this->diff = $differ->diffToArray($this->normalizeLineEndings($oldContent), $this->normalizeLineEndings($newContent));
 
         $lineNumber = 0;
@@ -106,7 +112,11 @@ class ArticleVersionCalculationService implements ArticleVersionCalculationServi
         $newProcessed = implode("\n", str_split($new));
         $oldProcessed = implode("\n", str_split($old));
 
-        $differ = new Differ();
+        $builder = new UnifiedDiffOutputBuilder(
+            "--- Original\n+++ New\n", // custom header
+            false                      // do not add line numbers to the diff
+        );
+        $differ = new Differ($builder);
         $diff = $differ->diffToArray($oldProcessed . "\n", $newProcessed . "\n");
 
         $charactersChanged = 0;

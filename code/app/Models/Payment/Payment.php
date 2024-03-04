@@ -46,9 +46,9 @@ class Payment extends BaseModelAbstract
     /**
      * @var array All custom dates
      */
-    protected $dates = [
-        'refunded_at',
-        'deleted_at',
+    protected $casts = [
+        'refunded_at' => 'datetime:c',
+        'deleted_at' => 'datetime:c',
     ];
 
     /**
