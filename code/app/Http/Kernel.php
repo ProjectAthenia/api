@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'auth' => Authenticate::class,
         'bindings' => SubstituteBindings::class,
         'throttle' => ThrottleRequests::class,
