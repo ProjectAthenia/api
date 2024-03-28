@@ -3,6 +3,14 @@
 - include_vars: production_mysql.yml
   when: server_env == "production"
 
+- name: Specify MySQL root password before installing
+  debconf: name='mysql-server' question='mysql-server/root_password' value='{{mysql_root_pass | quote}}' vtype='password'
+  become: true
+
+- name: Confirm MySQL root password before installing
+  debconf: name='mysql-server' question='mysql-server/root_password_again' value='{{mysql_root_pass | quote}}' vtype='password'
+  become: true
+
 - name: Install MySQL Server
   apt: name=mysql-server state=present
 
