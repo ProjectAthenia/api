@@ -2,6 +2,37 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+# 2.8.0
+
+## Laravel 10 Upgrade
+
+This is a bigger one than normal, but it should be relatively easy to implement. To start run a find and replace on the whole project for Fico7489 and replace it with AdminUI. After that, make the following changes.
+
+### Composer
+
+* php - min changed to ">=8.1.0"
+* "fico7489/laravel-eloquent-join": "^4.0" changed to "adminui/laravel-eloquent-joins": "^10.0" 
+* "benwilkins/laravel-fcm-notification" changed to "davidvrsantos/laravel-fcm-notification"
+* cartalyst/stripe-laravel - min changed to "^15.0"
+* "fideloper/proxy" - removed
+* "laravel/framework" - min changed to "^10.0"
+* "sebastian/diff" - min changed to "^5.0"
+* "phpunit/phpunit" - min changed to "^10.0"
+* "spatie/laravel-ignition" - min changed to "^2.0"
+
+### Files Changed
+
+* ansible/roles/mysql/tasks/main.yml - Added root password stuff again
+* code/app/Http/Kernel.php - Variable routeMiddleware was renamed to middlewareAliases
+* code/app/Models/BaseModelAbstract.php - Dates array was removed and the deleted at timestamp was added to the casts array
+* code/app/Models/Payment/Payment.php - Dates array changed to casts array
+* code/app/Models/Subscription/Subscription.php - Dates array simply removed
+* code/app/Models/User/Contact.php - Dates array changed to casts array
+* code/app/Models/User/Message.php - Dates array merged into casts array
+* code/app/Services/Wiki/ArticleVersionCalculationService.php - The diff package was changed quite a bit, so most of this file was changed
+* code/phpunit.xml - General clean up and some renames of props for PHP unit update
+* code/tests/Unit/Providers/AppServiceProviderTest.php - allProviders function changed to static
+
 # 2.7.0
 
 ## Laravel 9 Upgrade
