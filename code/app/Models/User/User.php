@@ -279,9 +279,9 @@ class User extends BaseModelAbstract
      *
      * @return null|string
      */
-    public function getProfileImageUrlAttribute()
+    public function getProfileImageUrlAttribute(): string|null
     {
-        return $this->profileImage ? $this->profileImage->url : null;
+        return $this->profileImage?->url;
     }
 
     /**

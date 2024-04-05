@@ -2,6 +2,22 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step. With every update make sure to run `php artisan ide-helper:models --smart-reset`
 
+The fastest way to upgrade is to run the following commands from your repos root
+
+* rsync -arv $ATHENIA_REPO/ansible ./
+* rsync -arv $ATHENIA_REPO/code ./ --exclude vendor  --exclude storage  --exclude '.env*'
+
+After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
+
+# 2.8.1
+
+This one is just a little bit of clean up. The following paths have been changed.
+
+* code/app/Models/User/User.php - Set return type for getProfileImageUrlAttribute
+* code/app/Providers/AppRepositoryProvider.php - Set return type for registerApp
+* code/app/Providers/AtheniaRepositoryProvider.php - Set return type for provides, register, and registerApp
+* code/tests/Unit/Console/{Command => Commands}/ResendMessageCommandTest.php - Fixed naming
+
 # 2.8.0
 
 ## Laravel 10 Upgrade

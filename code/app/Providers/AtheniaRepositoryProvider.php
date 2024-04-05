@@ -109,7 +109,7 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
     /**
      * @return array Holds information on every contract that is provided with this provider
      */
-    public final function provides()
+    public final function provides(): array
     {
         return array_merge([
             ArticleRepositoryContract::class,
@@ -157,7 +157,7 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
      *
      * @return void
      */
-    public final function register()
+    public final function register(): void
     {
         Relation::morphMap(array_merge([
             'organization' => Organization::class,
@@ -368,7 +368,7 @@ abstract class AtheniaRepositoryProvider extends ServiceProvider
     /**
      * Runs any app specific registrations
      *
-     * @return mixed
+     * @return void
      */
-    public abstract function registerApp();
+    public abstract function registerApp(): void;
 }

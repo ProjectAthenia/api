@@ -32,9 +32,9 @@ class AppRepositoryProvider extends AtheniaRepositoryProvider
     /**
      * Runs any app specific registrations
      *
-     * @return mixed
+     * @return void
      */
-    public function registerApp()
+    public function registerApp(): void
     {
 
     }
