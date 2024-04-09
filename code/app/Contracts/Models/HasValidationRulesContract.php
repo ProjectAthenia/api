@@ -53,6 +53,18 @@ interface HasValidationRulesContract
     public function getValidationRules(string $context = null): array;
 
     /**
+     * Gets the validation rules on another model, and prepends all rules with whatever is passed in
+     *
+     * @param HasValidationRulesContract $relatedModel
+     * @param string $prependKey
+     * @param mixed ...$params
+     * @return array
+     */
+    public function prependValidationRules(HasValidationRulesContract $relatedModel,
+                                           string $prependKey,
+                                           ...$params): array;
+
+    /**
      * Build the model validation rules
      * @param array $params
      * @return array

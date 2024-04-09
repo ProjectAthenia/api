@@ -55,4 +55,37 @@ trait HasValidationRules
 
         return $rules;
     }
+
+    /**
+     * Gets the validation rules on another model, and prepends all rules with whatever is passed in
+     *
+     * @param HasValidationRulesContract $relatedModel
+     * @param string $prependKey
+     * @param mixed ...$params
+     * @return array
+     */
+    public function prependValidationRules(HasValidationRulesContract $relatedModel,
+                                           string $prependKey,
+                                           ...$params): array
+    {
+        $baseRules = $relatedModel->buildModelValidationRules(...$params);
+        $prependedBaseRules = [];
+
+        foreach ($baseRules as $groupKey => $rulesGroup) {
+            $prependedRules = [];
+            if ($groupKey == HasValidationRulesContract::VALIDATION_RULES_BASE) {
+                foreach ($rulesGroup as $key => $rule) {
+                    $prependedRules[$prependKey . $key] = $rule;
+                }
+            } else {
+                foreach ($rulesGroup as $specialInstructionsKey => $fields) {
+                    $prependedRules[$specialInstructionsKey] = array_map(fn (string $field) => $prependKey . $field, $fields);
+                }
+            }
+
+            $prependedBaseRules[$groupKey] = $prependedRules;
+        }
+
+        return $prependedBaseRules;
+    }
 }
