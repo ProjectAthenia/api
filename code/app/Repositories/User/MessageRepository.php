@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\User;
 
+use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
 use App\Models\BaseModelAbstract;
 use App\Models\User\User;
@@ -20,7 +21,7 @@ use App\Repositories\Traits\NotImplemented as NotImplemented;
  */
 class MessageRepository extends BaseRepositoryAbstract implements MessageRepositoryContract
 {
-    use NotImplemented\Delete, NotImplemented\FindOrFail;
+    use NotImplemented\Delete;
 
     /**
      * @var UserRepositoryContract
@@ -71,11 +72,34 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
         return $this->create([
             'subject' => $subject,
             'template' => $template,
+            'to_id' => $user->id,
             'email' => $user->email,
             'data' => array_merge($baseTemplateData, [
                 'greeting' => $greeting ?? 'Hello ' . $user->first_name,
             ]),
-        ], $user);
+        ]);
+    }
+
+    /**
+     * Sends an email directly to a user
+     *
+     * @param string $email
+     * @param string $subject
+     * @param string $template
+     * @param string $greeting
+     * @param array $baseTemplateData
+     * @return Message|BaseModelAbstract
+     */
+    public function sendDirectEmail(string $email, string $subject, string $template, string $greeting, array $baseTemplateData = []): Message
+    {
+        return $this->create([
+            'subject' => $subject,
+            'template' => $template,
+            'email' => $email,
+            'data' => array_merge($baseTemplateData, [
+                'greeting' => $greeting,
+            ]),
+        ]);
     }
 
     /**
@@ -93,6 +117,8 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
     public function findAll(array $filters = [], array $searches = [], array $orderBy = [], array $with = [], $limit = 10, array $belongsToArray = [], int $pageNumber = 1)
     {
         $query = $this->buildFindAllQuery($filters, $searches, $orderBy, $with, $belongsToArray);
+
+        $query->orderBy('created_at', 'desc');
 
         if ($limit) {
             return $query->paginate($limit, $columns = ['*'], $pageName = 'page', $pageNumber);
@@ -118,5 +144,23 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
         }
 
         return $messages;
+    }
+
+    /**
+     * Sends a text message to a related model
+     *
+     * @param CanReceiveTextMessagesContract $model
+     * @param string $message
+     * @return BaseModelAbstract|Message
+     */
+    public function sendTextMessage(CanReceiveTextMessagesContract $model, string $message): Message
+    {
+        return $this->create([
+            'to_id' => $model->id,
+            'via' => [Message::VIA_SMS],
+            'data' => [
+                'message' => $message,
+            ],
+        ]);
     }
 }

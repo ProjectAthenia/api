@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Events\Message\MessageCreatedEvent;
 use App\Models\BaseModelAbstract;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Class Message
@@ -65,6 +66,7 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
     use HasValidationRules;
 
     const VIA_EMAIL = 'email';
+    const VIA_SMS = 'sms';
     const VIA_PUSH_NOTIFICATION = 'push';
 
     /**
@@ -90,11 +92,11 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
     /**
      * Each message belongs to a user
      *
-     * @return BelongsTo
+     * @return MorphTo
      */
-    public function from() : BelongsTo
+    public function from() : MorphTo
     {
-        return $this->belongsTo(User::class, 'from_id');
+        return $this->morphTo(User::class);
     }
 
     /**
@@ -110,11 +112,11 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
     /**
      * Each message belongs to a user
      *
-     * @return BelongsTo
+     * @return MorphTo
      */
-    public function to() : BelongsTo
+    public function to() : MorphTo
     {
-        return $this->belongsTo(User::class, 'to_id');
+        return $this->morphTo(User::class);
     }
 
     /**
