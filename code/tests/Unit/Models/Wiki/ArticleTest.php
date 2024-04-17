@@ -49,6 +49,16 @@ final class ArticleTest extends TestCase
         $this->assertStringContainsString('desc', $relation->toSql());
     }
 
+    public function testResource(): void
+    {
+        $user = new Article();
+        $relation = $user->resource();
+
+        $this->assertEquals('resources.resource_id', $relation->getQualifiedForeignKeyName());
+        $this->assertEquals('resources.resource_type', $relation->getQualifiedMorphType());
+        $this->assertEquals('articles.id', $relation->getQualifiedParentKeyName());
+    }
+
     public function testVersions(): void
     {
         $article = new Article();

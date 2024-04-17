@@ -31,6 +31,7 @@ use App\Listeners\User\UserMerge\UserSubscriptionsMergeListener;
 use App\Listeners\Vote\VoteCreatedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
+use App\Models\Wiki\Article;
 use App\Observers\IndexableModelObserver;
 use App\Observers\Payment\PaymentMethodObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -99,6 +100,7 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
+        Article::observe(IndexableModelObserver::class);
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
     }

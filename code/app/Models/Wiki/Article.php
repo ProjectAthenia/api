@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
+use App\Contracts\Models\CanBeIndexedContract;
 use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
 use App\Models\BaseModelAbstract;
+use App\Models\Traits\CanBeIndexed;
 use App\Models\Traits\HasValidationRules;
 use App\Models\User\User;
 use Eloquent;
@@ -40,9 +42,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract
+class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContract
 {
-    use HasValidationRules;
+    use HasValidationRules, CanBeIndexed;
 
     /**
      * Values that are appending on a toArray function call
@@ -133,6 +135,24 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
     }
 
     /**
+     * @return string
+     */
+    public function morphRelationName(): string
+    {
+        return 'article';
+    }
+
+    /**
+     * Gets the content that will be indexed for this resource
+     *
+     * @return string|null
+     */
+    public function getContentString(): ?string
+    {
+        return $this->title . ' ' . ($this->content ?? '');
+    }
+
+    /**
      * Build the model validation rules
      * @param array $params
      * @return array
@@ -153,65 +173,4 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
             ],
         ];
     }
-
-    /**
-     * Swagger definition below...
-     *
-     * @SWG\Definition(
-     *     type="object",
-     *     definition="Article",
-     *     @SWG\Property(
-     *         property="id",
-     *         type="integer",
-     *         format="int32",
-     *         description="The primary id of the model",
-     *         readOnly=true
-     *     ),
-     *     @SWG\Property(
-     *         property="created_at",
-     *         type="string",
-     *         format="date-time",
-     *         description="UTC date of the time this was created",
-     *         readOnly=true
-     *     ),
-     *     @SWG\Property(
-     *         property="updated_at",
-     *         type="string",
-     *         format="date-time",
-     *         description="UTC date of the time this was last updated",
-     *         readOnly=true
-     *     ),
-     *     @SWG\Property(
-     *         property="title",
-     *         type="string",
-     *         maxLength=120,
-     *         description="The title of this article"
-     *     ),
-     *     @SWG\Property(
-     *         property="content",
-     *         type="string",
-     *         readonly=true,
-     *         description="The content of this article. Note that this can not be changed directly through the article. It should be saved by adding a new iteration to the article"
-     *     ),
-     *     @SWG\Property(
-     *         property="created_by_id",
-     *         type="integer",
-     *         format="int32",
-     *         description="The primary id of the user that created this article",
-     *         readOnly=true
-     *     ),
-     *     @SWG\Property(
-     *         property="createdBy",
-     *         description="The users that created this article.",
-     *         type="array",
-     *         @SWG\Items(ref="#/definitions/User")
-     *     ),
-     *     @SWG\Property(
-     *         property="iterations",
-     *         description="The iterations for this article.",
-     *         type="array",
-     *         @SWG\Items(ref="#/definitions/Iterations")
-     *     )
-     * )
-     */
 }
