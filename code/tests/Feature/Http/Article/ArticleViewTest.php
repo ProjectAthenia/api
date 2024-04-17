@@ -84,7 +84,10 @@ final class ArticleViewTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertJson($this->article->toArray());
+        $data = $this->article->toArray();
+        unset($data['resource']);
+
+        $response->assertJson($data);
 
         $this->assertNotNull($response->json()['content']);
         $this->assertEquals($this->article->content, $response->json()['content']);

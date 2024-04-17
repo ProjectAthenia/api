@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Repositories\User;
 
+use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Events\Message\MessageCreatedEvent;
 use App\Exceptions\NotImplementedException;
 use App\Models\Role;
@@ -12,6 +13,7 @@ use App\Repositories\User\MessageRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
@@ -20,7 +22,7 @@ use Tests\Traits\MocksApplicationLog;
  * Class MessageRepositoryTest
  * @package Tests\Integration\Repositories\User
  */
-final class MessageRepositoryTest extends TestCase
+class MessageRepositoryTest extends TestCase
 {
     use DatabaseSetupTrait, MocksApplicationLog;
 
@@ -29,7 +31,7 @@ final class MessageRepositoryTest extends TestCase
      */
     private $repository;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
@@ -96,6 +98,7 @@ final class MessageRepositoryTest extends TestCase
             'template' => 'test_template',
             'email' => 'test@test.com',
             'to_id' => $user->id,
+            'to_type' => 'user',
             'data' => ['greeting' => 'hello'],
         ]);
 
@@ -114,10 +117,19 @@ final class MessageRepositoryTest extends TestCase
         $this->repository->delete(new Message());
     }
 
-    public function testFindOrFailThrowsException(): void
+    public function testFindOrFailSuccess(): void
     {
-        $this->expectException(NotImplementedException::class);
+        $model = Message::factory()->create();
 
+        $foundModel = $this->repository->findOrFail($model->id);
+        $this->assertEquals($model->id, $foundModel->id);
+    }
+
+    public function testFindOrFailFails(): void
+    {
+        Message::factory()->create(['id' => 2]);
+
+        $this->expectException(ModelNotFoundException::class);
         $this->repository->findOrFail(1);
     }
 
@@ -154,10 +166,10 @@ final class MessageRepositoryTest extends TestCase
             ->with(\Mockery::on(function (String $eventName) {
                 return true;
             }),
-            \Mockery::on(function (Message $message) {
-                return true;
-            })
-        );
+                \Mockery::on(function (Message $message) {
+                    return true;
+                })
+            );
         $dispatcher->shouldReceive('dispatch')->once()
             ->with(\Mockery::on(function (MessageCreatedEvent $event) {
                 return true;
@@ -197,7 +209,7 @@ final class MessageRepositoryTest extends TestCase
             ->with(\Mockery::on(function (MessageCreatedEvent $event) {
                 return true;
             })
-            );
+        );
 
         Message::setEventDispatcher($dispatcher);
 
@@ -233,5 +245,15 @@ final class MessageRepositoryTest extends TestCase
         $this->assertCount(2, $result);
         $this->assertContains($user1->id, $result->pluck('to_id'));
         $this->assertContains($user2->id, $result->pluck('to_id'));
+    }
+
+    public function testSendTextMessage(): void
+    {
+        $textMessageReceiver = mock(CanReceiveTextMessagesContract::class);
+        $textMessageReceiver->id = 234;
+        $textMessageReceiver->shouldReceive('morphRelationName')->andReturn('text_message');
+        $result = $this->repository->sendTextMessage($textMessageReceiver, 'hello');
+
+        $this->assertEquals(['message' => 'hello'], $result->data);
     }
 }
