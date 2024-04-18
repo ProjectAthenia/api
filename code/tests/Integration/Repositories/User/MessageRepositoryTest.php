@@ -97,7 +97,6 @@ class MessageRepositoryTest extends TestCase
             'template' => 'test_template',
             'email' => 'test@test.com',
             'to_id' => $user->id,
-            'to_type' => 'user',
             'data' => ['greeting' => 'hello'],
         ]);
 
