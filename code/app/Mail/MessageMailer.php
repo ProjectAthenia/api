@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 /**
  * Class NotificationMailer
- * @package App\Mail
+ * @package App\Mailers
  */
 class MessageMailer extends Mailable implements ShouldQueue
 {
@@ -26,6 +26,7 @@ class MessageMailer extends Mailable implements ShouldQueue
     /**
      * NotificationMailer constructor.
      * @param Message $message
+     * // TODO revamp this to take in a contract for the entity that can receive emails
      */
     public function __construct(Message $message)
     {
@@ -40,8 +41,8 @@ class MessageMailer extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $name = $this->message->to->first_name;
-        if ($this->message->to->last_name) {
+        $name = $this->message->to ? $this->message->to->first_name : null;
+        if ($this->message->to && $this->message->to->last_name) {
             $name.= ' ' . $this->message->to->last_name;
         }
         $message = $this->subject($this->message->subject)
@@ -52,6 +53,12 @@ class MessageMailer extends Mailable implements ShouldQueue
 
         if ($this->message->reply_to_email) {
             $message->replyTo($this->message->reply_to_email, $this->message->reply_to_name);
+        }
+
+        if (isset ($this->message->data['attachments'])) {
+            foreach ($this->message->data['attachments'] as $attachment) {
+                $message->attach($attachment);
+            }
         }
 
         return $message;
