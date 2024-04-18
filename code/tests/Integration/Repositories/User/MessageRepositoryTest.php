@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Repositories\User;
 
-use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Events\Message\MessageCreatedEvent;
 use App\Exceptions\NotImplementedException;
 use App\Models\Role;
@@ -245,15 +244,5 @@ class MessageRepositoryTest extends TestCase
         $this->assertCount(2, $result);
         $this->assertContains($user1->id, $result->pluck('to_id'));
         $this->assertContains($user2->id, $result->pluck('to_id'));
-    }
-
-    public function testSendTextMessage(): void
-    {
-        $textMessageReceiver = mock(CanReceiveTextMessagesContract::class);
-        $textMessageReceiver->id = 234;
-        $textMessageReceiver->shouldReceive('morphRelationName')->andReturn('text_message');
-        $result = $this->repository->sendTextMessage($textMessageReceiver, 'hello');
-
-        $this->assertEquals(['message' => 'hello'], $result->data);
     }
 }

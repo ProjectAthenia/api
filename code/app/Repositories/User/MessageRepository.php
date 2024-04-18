@@ -20,7 +20,7 @@ use App\Repositories\Traits\NotImplemented as NotImplemented;
  */
 class MessageRepository extends BaseRepositoryAbstract implements MessageRepositoryContract
 {
-    use NotImplemented\Delete, NotImplemented\FindOrFail;
+    use NotImplemented\Delete;
 
     /**
      * @var UserRepositoryContract
