@@ -23,9 +23,17 @@ interface MessageRepositoryContract extends BaseRepositoryContract
      * @param string $template
      * @param array $baseTemplateData
      * @param string|null $greeting
+     * @param array $via
      * @return Message
      */
-    public function sendEmailToUser(User $user, string $subject, string $template, array $baseTemplateData = [], $greeting = null): Message;
+    public function sendEmailToUser(
+        User $user,
+        string $subject,
+        string $template,
+        array $baseTemplateData = [],
+        string $greeting = null,
+        array $via = [Message::VIA_EMAIL],
+    ): Message;
 
     /**
      * Sends an email directly to the main system users in the system
@@ -34,7 +42,14 @@ interface MessageRepositoryContract extends BaseRepositoryContract
      * @param string $template
      * @param array $baseTemplateData
      * @param string|null $greeting
+     * @param array $via
      * @return Collection
      */
-    public function sendEmailToSuperAdmins(string $subject, string $template, array $baseTemplateData = [], $greeting = null): Collection;
+    public function sendEmailToSuperAdmins(
+        string $subject,
+        string $template,
+        array $baseTemplateData = [],
+        string $greeting = null,
+        array $via = [Message::VIA_EMAIL],
+    ): Collection;
 }

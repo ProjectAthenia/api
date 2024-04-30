@@ -57,28 +57,6 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
     }
 
     /**
-     * Sends an email directly to a user
-     *
-     * @param User $user
-     * @param string $subject
-     * @param string $template
-     * @param array $baseTemplateData
-     * @param null $greeting
-     * @return Message|BaseModelAbstract
-     */
-    public function sendEmailToUser(User $user, string $subject, string $template, array $baseTemplateData = [], $greeting = null): Message
-    {
-        return $this->create([
-            'subject' => $subject,
-            'template' => $template,
-            'email' => $user->email,
-            'data' => array_merge($baseTemplateData, [
-                'greeting' => $greeting ?? 'Hello ' . $user->first_name,
-            ]),
-        ], $user);
-    }
-
-    /**
      * Find all
      *
      * @param array $filters
@@ -101,6 +79,35 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
     }
 
     /**
+     * Sends an email directly to a user
+     *
+     * @param User $user
+     * @param string $subject
+     * @param string $template
+     * @param array $baseTemplateData
+     * @param null $greeting
+     * @return Message|BaseModelAbstract
+     */
+    public function sendEmailToUser(
+        User $user,
+        string $subject,
+        string $template,
+        array $baseTemplateData = [],
+        string $greeting = null,
+        array $via = [Message::VIA_EMAIL],
+    ): Message {
+        return $this->create([
+            'subject' => $subject,
+            'template' => $template,
+            'email' => $user->email,
+            'via' => $via,
+            'data' => array_merge($baseTemplateData, [
+                'greeting' => $greeting ?? 'Hello ' . $user->first_name,
+            ]),
+        ], $user);
+    }
+
+    /**
      * Sends an email directly to the main system users in the system
      *
      * @param string $subject
@@ -109,12 +116,19 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
      * @param string|null $greeting
      * @return Collection
      */
-    public function sendEmailToSuperAdmins(string $subject, string $template, array $baseTemplateData = [], $greeting = null): Collection
-    {
+    public function sendEmailToSuperAdmins(
+        string $subject,
+        string $template,
+        array $baseTemplateData = [],
+        string $greeting = null,
+        array $via = [Message::VIA_EMAIL],
+    ): Collection {
         $messages = new Collection();
 
         foreach ($this->userRepository->findSuperAdmins() as $user) {
-            $messages->push($this->sendEmailToUser($user, $subject, $template, $baseTemplateData, $greeting));
+            $messages->push(
+                $this->sendEmailToUser($user, $subject, $template, $baseTemplateData, $greeting, $via)
+            );
         }
 
         return $messages;
