@@ -20,4 +20,12 @@ final class StringHelperServiceTest extends TestCase
 
         $this->assertEquals('你好，李', $result);
     }
+
+    public function testHasDomainName()
+    {
+        $service = new StringHelperService();
+
+        $this->assertTrue($service->hasDomainName('hello https://welcome.bye'));
+        $this->assertFalse($service->hasDomainName('hello welcome'));
+    }
 }
