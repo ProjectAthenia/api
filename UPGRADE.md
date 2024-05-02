@@ -9,6 +9,15 @@ The fastest way to upgrade is to run the following commands from your repos root
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
+# 2.10.0
+
+* code/app/Contracts/Repositories/User/MessageRepositoryContract.php - Added $via param to helper functions
+* code/app/Contracts/Services/StringHelperServiceContract.php - Added new function to identify domains
+* code/app/Repositories/User/MessageRepository.php - Added $via param to helper functions
+* code/app/Services/StringHelperService.php - Added new function to identify domains
+* code/tests/Feature/Http/Category/CategoryViewTest.php - Removed extra test
+* code/tests/Unit/Services/StringHelperServiceTest.php - Tested new function
+
 # 2.9.1
 
 Minor little bug fix
