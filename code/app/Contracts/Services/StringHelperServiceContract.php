@@ -19,4 +19,12 @@ interface StringHelperServiceContract
      * @return mixed
      */
     public function mbSubstrReplace($original, $replacement, $position, $length);
+
+    /**
+     * Checks whether or not the passed in string contains a domain name within it
+     *
+     * @param string $needle
+     * @return bool
+     */
+    public function hasDomainName(string $needle) : bool;
 }

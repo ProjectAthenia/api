@@ -9,6 +9,42 @@ The fastest way to upgrade is to run the following commands from your repos root
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
+# 2.10.0
+
+* code/app/Contracts/Repositories/User/MessageRepositoryContract.php - Added $via param to helper functions
+* code/app/Contracts/Services/StringHelperServiceContract.php - Added new function to identify domains
+* code/app/Repositories/User/MessageRepository.php - Added $via param to helper functions
+* code/app/Services/StringHelperService.php - Added new function to identify domains
+* code/tests/Feature/Http/Category/CategoryViewTest.php - Removed extra test
+* code/tests/Unit/Services/StringHelperServiceTest.php - Tested new function
+
+# 2.9.1
+
+Minor little bug fix
+
+* code/app/Providers/AtheniaRepositoryProvider.php - Registered morph name for Article
+
+# 2.9.0
+
+Nice little feature one. This update makes the article model indexable. It also expands the validation rules mapping to allow for rule groups to stay on their related model and the then easily be prepended into their parent model if need be. Finally, this also adds the find or fail function to the message repository, fixing a previous bug.
+
+## Article Indexing
+
+* code/app/Models/Wiki/Article.php - Added index functions and removed swagger definition
+* code/app/Providers/EventServiceProvider.php - Added IndexableModelObserver to Article
+* code/tests/Feature/Http/Article/ArticleViewTest.php - Made sure to unset resource variable
+* code/tests/Unit/Models/Wiki/ArticleTest.php - tested resource relation
+
+## Expanded Rule Groups
+
+* code/app/Contracts/Models/HasValidationRulesContract.php - Added prependValidationRules function for prepending rules
+* code/app/Models/Traits/HasValidationRules.php - Implemented prependValidationRules
+
+# Message Repository Update
+
+* code/app/Repositories/User/MessageRepository.php - Removed not implemented function
+* code/tests/Integration/Repositories/User/MessageRepositoryTest.php - Tested function
+
 # 2.8.1
 
 This one is just a little bit of clean up. The following paths have been changed.

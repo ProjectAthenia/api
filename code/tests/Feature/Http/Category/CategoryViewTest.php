@@ -51,15 +51,4 @@ final class CategoryViewTest extends TestCase
             ]);
         $response->assertStatus(404);
     }
-
-    public function testGetSingleAssetsEmpty(): void
-    {
-        $model = Category::factory()->create([
-            'id'    =>  1
-        ]);
-
-        $response = $this->json('GET', '/v1/categories/1');
-        $response->assertStatus(200);
-        $response->assertJson($model->toArray());
-    }
 }
