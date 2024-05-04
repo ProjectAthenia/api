@@ -15,7 +15,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./code:/var/www/html:delegated
     depends_on:
       - php
       - redis
@@ -68,7 +68,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./code:/var/www/html:delegated
     networks:
       - laravel
 
@@ -88,7 +88,7 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./src:/var/www/html
+      - ./codes:/var/www/html
     depends_on:
       - php
     entrypoint: [ 'composer', '--ignore-platform-reqs' ]
