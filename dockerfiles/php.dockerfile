@@ -15,7 +15,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 # MacOS staff group's gid is 20, so is the dialout group in alpine linux. We're not using it, let's just remove it.
 RUN delgroup dialout
 
+# Setup users and enable sudo
+RUN apt update && \
+      apt -y install sudo
+
 RUN adduser laravel
+RUN adduser laravel sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf

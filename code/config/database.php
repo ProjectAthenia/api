@@ -56,11 +56,11 @@ return [
 
         'mysql-test' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '33306'),
-            'database' => env('DB_DATABASE', 'test_athenia'),
-            'username' => env('DB_USERNAME', 'test_athenia'),
-            'password' => env('DB_PASSWORD', 'testpassword'),
+            'host' => env('TEST_DB_HOST', 'mysql-test'),
+            'port' => env('TEST_DB_PORT', '3306'),
+            'database' => env('TEST_DB_DATABASE', 'test_athenia'),
+            'username' => env('TEST_DB_USERNAME', 'test_athenia'),
+            'password' => env('TEST_DB_PASSWORD', 'testpassword'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
