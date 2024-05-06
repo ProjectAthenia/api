@@ -10,7 +10,9 @@ Use the command `docker ps` to identify the id of the running container. You can
 
 ### Setting up the App
 
-The final bit of setup has to do with setting up the remaining environment variables for the actual app. In order to do this run `cd .env.example .env` from within the code directory. Then, within the api-php container run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup.
+The final bit of setup has to do with setting up the remaining environment variables for the actual app. In order to do this run `cd .env.example .env` from within the code directory. In your env file, while running in docker, make sure your `DB_HOST` variable is set to `mysql`. The mysql test DB is configured as if it is always running in docker.
+
+Within the api-php container you then want to run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup. You can then run `./vendor/bin/phpunit` to verify the tests are running. Finally, on your host, you can attempt to access the web server from http://localhost:{EXPOSED_HTTP_PORT}/v1/status where you should see a simple JSON with status OK.
 
 ## Development
 
