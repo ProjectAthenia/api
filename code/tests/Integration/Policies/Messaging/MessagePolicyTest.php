@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies;
+namespace Tests\Integration\Policies\Messaging;
 
 use App\Contracts\ThreadSecurity\ThreadSubjectGateContract;
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;

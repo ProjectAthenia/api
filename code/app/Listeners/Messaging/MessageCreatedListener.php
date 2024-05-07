@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Listeners\Messaging;
 
-use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\Messaging\MessageCreatedEvent;
 use App\Events\Messaging\MessageSentEvent;
@@ -21,8 +20,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use NotificationChannels\Twilio\Twilio;
-use NotificationChannels\Twilio\TwilioSmsMessage;
 
 /**
  * Class MessageCreatedListener
@@ -43,8 +40,7 @@ class MessageCreatedListener implements ShouldQueue
                                 private Client $client,
                                 private MessageRepositoryContract $messageRepository,
                                 private Dispatcher $events,
-                                private Repository $config,
-                                private Twilio $twilio)
+                                private Repository $config)
     {}
 
     /**
@@ -93,23 +89,23 @@ class MessageCreatedListener implements ShouldQueue
         if (in_array(Message::VIA_EMAIL, $via) && ($message->email || ($message->to && $message->to->email))) {
             $this->mailer->send(new MessageMailer($message));
         }
-        if (in_array(Message::VIA_SMS, $via)) {
-            $sms = new TwilioSmsMessage($message->data['message']);
-            /** @var Organization|User $to */
-            $to = $message->to;
-            if ($to instanceof CanReceiveTextMessagesContract) {
-                $this->twilio->sendMessage($sms, $to->routeNotificationForTwilio());
-                $this->events->dispatch(new MessageSentEvent($message));
-            } else if ($to instanceof Organization) {
-                foreach ($to->organizationManagers as $organizationManager) {
-                    $user = $organizationManager->user;
-                    if ($user instanceof CanReceiveTextMessagesContract) {
-                        $this->twilio->sendMessage($sms, $user->routeNotificationForTwilio());
-                        $this->events->dispatch(new MessageSentEvent($message));
-                    }
-                }
-            }
-        }
+//        if (in_array(Message::VIA_SMS, $via)) {
+//            $sms = new TwilioSmsMessage($message->data['message']);
+//            /** @var Organization|User $to */
+//            $to = $message->to;
+//            if ($to instanceof CanReceiveTextMessagesContract) {
+//                $this->twilio->sendMessage($sms, $to->routeNotificationForTwilio());
+//                $this->events->dispatch(new MessageSentEvent($message));
+//            } else if ($to instanceof Organization) {
+//                foreach ($to->organizationManagers as $organizationManager) {
+//                    $user = $organizationManager->user;
+//                    if ($user instanceof CanReceiveTextMessagesContract) {
+//                        $this->twilio->sendMessage($sms, $user->routeNotificationForTwilio());
+//                        $this->events->dispatch(new MessageSentEvent($message));
+//                    }
+//                }
+//            }
+//        }
     }
 
     public function sendMessage(User $user, Message $message)

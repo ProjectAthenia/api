@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Database\Factories\User;
+namespace Database\Factories\Messaging;
 
 use App\Models\Messaging\Message;
 use App\Models\User\User;
