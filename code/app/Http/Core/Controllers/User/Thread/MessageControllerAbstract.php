@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\User\Thread;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
 use App\Http\Core\Requests;
 use App\Models\BaseModelAbstract;
-use App\Models\User\Message;
-use App\Models\User\Thread;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

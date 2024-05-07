@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\User;
+namespace Tests\Integration\Policies;
 
 use App\Contracts\ThreadSecurity\ThreadSubjectGateContract;
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
-use App\Models\User\Message;
-use App\Models\User\Thread;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
-use App\Policies\User\MessagePolicy;
+use App\Policies\Messaging\MessagePolicy;
 use Tests\CustomMockInterface;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

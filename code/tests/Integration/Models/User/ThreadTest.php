@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Models\User;
 
-use App\Models\User\Message;
-use App\Models\User\Thread;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

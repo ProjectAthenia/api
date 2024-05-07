@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Repositories\User;
+namespace App\Repositories\Messaging;
 
-use App\Contracts\Repositories\User\ThreadRepositoryContract;
+use App\Contracts\Repositories\Messaging\ThreadRepositoryContract;
 use App\Models\BaseModelAbstract;
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use App\Repositories\BaseRepositoryAbstract;
 use App\Repositories\Traits\NotImplemented;
 use App\Traits\CanGetAndUnset;

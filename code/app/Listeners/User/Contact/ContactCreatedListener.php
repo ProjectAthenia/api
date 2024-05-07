@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Listeners\User\Contact;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\Contact\ContactCreatedEvent;
-use App\Models\User\Message;
+use App\Models\Messaging\Message;
 
 /**
  * Class ContactCreatedListener

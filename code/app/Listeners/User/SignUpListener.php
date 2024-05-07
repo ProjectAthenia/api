@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Listeners\User;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\SignUpEvent;
 
 /**

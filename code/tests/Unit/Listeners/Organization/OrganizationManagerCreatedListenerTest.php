@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\Organization;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\Organization\OrganizationManagerCreatedEvent;
 use App\Listeners\Organization\OrganizationManagerCreatedListener;
 use App\Models\Organization\Organization;

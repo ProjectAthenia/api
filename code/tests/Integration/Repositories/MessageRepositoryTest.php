@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\User;
+namespace Tests\Integration\Repositories;
 
 use App\Contracts\Models\CanReceiveTextMessagesContract;
-use App\Events\Message\MessageCreatedEvent;
+use App\Events\Messaging\MessageCreatedEvent;
 use App\Exceptions\NotImplementedException;
+use App\Models\Messaging\Message;
 use App\Models\Role;
-use App\Models\User\Message;
 use App\Models\User\User;
-use App\Repositories\User\MessageRepository;
+use App\Repositories\Messaging\MessageRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;

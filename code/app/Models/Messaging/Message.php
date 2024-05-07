@@ -1,17 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Models\Messaging;
 
 use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\Traits\HasValidationRules;
-use Carbon\Carbon;
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Events\Message\MessageCreatedEvent;
+use App\Events\Messaging\MessageCreatedEvent;
 use App\Models\BaseModelAbstract;
+use App\Models\Traits\HasValidationRules;
+use App\Models\User\User;
+use Eloquent;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -36,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string|null $reply_to_email
  * @property string|null $reply_to_name
  * @property-read \App\Models\User\User|null $from
- * @property-read \App\Models\User\Thread|null $thread
+ * @property-read \App\Models\Messaging\Thread|null $thread
  * @property-read \App\Models\User\User|null $to
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newModelQuery()
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\Message newQuery()

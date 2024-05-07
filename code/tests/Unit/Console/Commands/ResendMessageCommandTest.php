@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Console\Commands;
 
 use App\Console\Commands\ResendMessageCommand;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Models\User\Message;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Models\Messaging\Message;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;

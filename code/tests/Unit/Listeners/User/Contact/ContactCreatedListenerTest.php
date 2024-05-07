@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\User\Contact;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\Contact\ContactCreatedEvent;
 use App\Listeners\User\Contact\ContactCreatedListener;
 use App\Models\User\Contact;

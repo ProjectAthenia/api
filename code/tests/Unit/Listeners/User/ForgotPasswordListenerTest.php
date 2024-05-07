@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\User;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\ForgotPasswordEvent;
 use App\Listeners\User\ForgotPasswordListener;
 use App\Models\User\PasswordToken;

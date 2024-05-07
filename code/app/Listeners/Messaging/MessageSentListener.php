@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Listeners\Message;
+namespace App\Listeners\Messaging;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Events\Message\MessageSentEvent;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Events\Messaging\MessageSentEvent;
 use Carbon\Carbon;
 
 /**

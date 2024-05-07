@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\User\UserMerge;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\UserMergeEvent;
 use App\Listeners\User\UserMerge\UserMessagesMergeListener;
-use App\Models\User\Message;
+use App\Models\Messaging\Message;
 use App\Models\User\User;
 use Illuminate\Support\Collection;
 use Tests\CustomMockInterface;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Tests\Integration\Repositories\User;
 
 use App\Exceptions\NotImplementedException;
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
-use App\Repositories\User\ThreadRepository;
+use App\Repositories\Messaging\ThreadRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

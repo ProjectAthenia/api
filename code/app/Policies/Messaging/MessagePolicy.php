@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Policies\User;
+namespace App\Policies\Messaging;
 
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
-use App\Models\User\Message;
-use App\Models\User\Thread;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
 use App\Policies\BasePolicyAbstract;
 

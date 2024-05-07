@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories\User;
+namespace App\Contracts\Repositories\Messaging;
 
 use App\Contracts\Repositories\BaseRepositoryContract;
 

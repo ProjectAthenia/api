@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Repositories\User;
+namespace App\Repositories\Messaging;
 
 use App\Contracts\Models\CanReceiveTextMessagesContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
 use App\Models\BaseModelAbstract;
+use App\Models\Messaging\Message;
 use App\Models\User\User;
+use App\Repositories\BaseRepositoryAbstract;
+use App\Repositories\Traits\NotImplemented as NotImplemented;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Psr\Log\LoggerInterface as LogContract;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Models\User\Message;
-use App\Repositories\BaseRepositoryAbstract;
-use App\Repositories\Traits\NotImplemented as NotImplemented;
 
 /**
  * Class MessageRepository

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\User;
+namespace Tests\Unit\Models;
 
+use App\Models\Messaging\Message;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\User\Message;
 use Tests\TestCase;
 
 /**

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\Message;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Events\Message\MessageSentEvent;
-use App\Listeners\Message\MessageSentListener;
-use App\Models\User\Message;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Events\Messaging\MessageSentEvent;
+use App\Listeners\Messaging\MessageSentListener;
+use App\Models\Messaging\Message;
 use Carbon\Carbon;
 use Tests\TestCase;
 

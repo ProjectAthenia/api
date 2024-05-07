@@ -1,18 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Models\Messaging;
 
 use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
 use App\Models\BaseModelAbstract;
 use App\Models\Traits\HasValidationRules;
+use App\Models\User\User;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 /**
@@ -26,7 +24,7 @@ use Illuminate\Validation\Rule;
  * @property mixed|null $created_at
  * @property mixed|null $updated_at
  * @property-read null|string $last_message
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Message[] $messages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Messaging\Message[] $messages
  * @property-read int|null $messages_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\User[] $users
  * @property-read int|null $users_count

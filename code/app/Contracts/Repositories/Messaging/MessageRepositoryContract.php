@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories\User;
+namespace App\Contracts\Repositories\Messaging;
 
 use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Contracts\Repositories\BaseRepositoryContract;
-use App\Models\User\Message;
+use App\Models\Messaging\Message;
 use App\Models\User\User;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 /**

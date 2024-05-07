@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Integration\Console\Commands;
 
 use App\Console\Commands\ChargeRenewal;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Contracts\Services\StripePaymentServiceContract;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Subscription\MembershipPlanRate;

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\User;
 
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models\User;
 
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\TestCase;
 

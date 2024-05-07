@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Events\Message;
 
-use App\Events\Message\MessageCreatedEvent;
-use App\Models\User\Message;
+use App\Events\Messaging\MessageCreatedEvent;
+use App\Models\Messaging\Message;
 use Tests\TestCase;
 
 /**

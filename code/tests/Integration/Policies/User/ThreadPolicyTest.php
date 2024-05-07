@@ -6,7 +6,7 @@ namespace Tests\Integration\Policies\User;
 use App\Contracts\ThreadSecurity\ThreadSubjectGateContract;
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
 use App\Models\User\User;
-use App\Policies\User\ThreadPolicy;
+use App\Policies\Messaging\ThreadPolicy;
 use Tests\CustomMockInterface;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

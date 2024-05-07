@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Events\Message;
+namespace App\Events\Messaging;
 
+use App\Models\Messaging\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\User\Message;
 
 /**
- * Class MessageSentEvent
+ * Class MessageCreatedEvent
  * @package App\Events\Message
  */
-class MessageSentEvent implements ShouldQueue
+class MessageCreatedEvent implements ShouldQueue
 {
     use Queueable;
 
@@ -21,7 +21,7 @@ class MessageSentEvent implements ShouldQueue
     private $message;
 
     /**
-     * MessageSentEvent constructor.
+     * MessageCreatedEvent constructor.
      * @param Message $message
      */
     public function __construct(Message $message)

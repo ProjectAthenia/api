@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Listeners\Organization;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\Organization\OrganizationManagerCreatedEvent;
 
 /**

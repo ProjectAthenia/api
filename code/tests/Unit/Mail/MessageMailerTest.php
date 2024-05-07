@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Mail;
 
 use App\Mail\MessageMailer;
-use App\Models\User\Message;
+use App\Models\Messaging\Message;
 use App\Models\User\User;
 use Tests\TestCase;
 

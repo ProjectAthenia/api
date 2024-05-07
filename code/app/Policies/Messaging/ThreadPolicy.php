@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Policies\User;
+namespace App\Policies\Messaging;
 
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
 use App\Models\User\User;

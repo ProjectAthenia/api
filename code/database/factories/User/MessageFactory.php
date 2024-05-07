@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\User;
 
-use App\Models\User\Message;
+use App\Models\Messaging\Message;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
