@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\User;
+namespace Tests\Unit\Models\Messaging;
 
 use App\Models\Messaging\Thread;
 use Illuminate\Database\Eloquent\Relations\HasMany;

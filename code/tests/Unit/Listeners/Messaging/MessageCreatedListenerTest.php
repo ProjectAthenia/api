@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\Message;
+namespace Tests\Unit\Listeners\Messaging;
 
 use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\Messaging\MessageCreatedEvent;

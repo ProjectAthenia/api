@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\User;
+namespace Tests\Integration\Repositories\Messaging;
 
 use App\Exceptions\NotImplementedException;
 use App\Models\Messaging\Thread;

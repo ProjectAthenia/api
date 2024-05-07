@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models;
+namespace Tests\Unit\Models\Messaging;
 
 use App\Models\Messaging\Message;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

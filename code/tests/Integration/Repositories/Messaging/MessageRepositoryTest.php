@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories;
+namespace Tests\Integration\Repositories\Messaging;
 
 use App\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Events\Messaging\MessageCreatedEvent;

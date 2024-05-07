@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Message;
+namespace Tests\Unit\Events\Messaging;
 
 use App\Events\Messaging\MessageSentEvent;
 use App\Models\Messaging\Message;
