@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Providers\AtheniaProviders\BaseRepositoryProvider;
+
 /**
  * Class AppRepositoryProvider
  * @package App\Providers
  */
-class AppRepositoryProvider extends AtheniaRepositoryProvider
+class AppRepositoryProvider extends BaseRepositoryProvider
 {
     /**
      * All app specific repositories that are provided here

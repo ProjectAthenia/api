@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace App\Providers\AtheniaProviders;
 
 use App\Contracts\Repositories\AssetRepositoryContract;
 use App\Contracts\Repositories\CategoryRepositoryContract;
 use App\Contracts\Repositories\Collection\CollectionItemRepositoryContract;
 use App\Contracts\Repositories\Collection\CollectionRepositoryContract;
 use App\Contracts\Repositories\FeatureRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\ThreadRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationManagerRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationRepositoryContract;
 use App\Contracts\Repositories\Payment\LineItemRepositoryContract;
@@ -19,25 +21,26 @@ use App\Contracts\Repositories\Subscription\MembershipPlanRateRepositoryContract
 use App\Contracts\Repositories\Subscription\MembershipPlanRepositoryContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Contracts\Repositories\User\ContactRepositoryContract;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
 use App\Contracts\Repositories\User\PasswordTokenRepositoryContract;
 use App\Contracts\Repositories\User\ProfileImageRepositoryContract;
-use App\Contracts\Repositories\User\ThreadRepositoryContract;
+use App\Contracts\Repositories\User\UserRepositoryContract;
 use App\Contracts\Repositories\Vote\BallotCompletionRepositoryContract;
 use App\Contracts\Repositories\Vote\BallotItemOptionRepositoryContract;
-use App\Contracts\Repositories\Vote\BallotRepositoryContract;
 use App\Contracts\Repositories\Vote\BallotItemRepositoryContract;
+use App\Contracts\Repositories\Vote\BallotRepositoryContract;
 use App\Contracts\Repositories\Vote\VoteRepositoryContract;
+use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
-use App\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
 use App\Models\Feature;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Payment\LineItem;
@@ -49,24 +52,25 @@ use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\MembershipPlanRate;
 use App\Models\Subscription\Subscription;
 use App\Models\User\Contact;
-use App\Models\User\Message;
 use App\Models\User\PasswordToken;
 use App\Models\User\ProfileImage;
-use App\Models\User\Thread;
+use App\Models\User\User;
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Vote\BallotItem;
 use App\Models\Vote\BallotItemOption;
 use App\Models\Vote\Vote;
 use App\Models\Wiki\Article;
+use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
 use App\Models\Wiki\ArticleVersion;
-use App\Models\Wiki\ArticleIteration;
 use App\Repositories\AssetRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\Collection\CollectionItemRepository;
 use App\Repositories\Collection\CollectionRepository;
 use App\Repositories\FeatureRepository;
+use App\Repositories\Messaging\MessageRepository;
+use App\Repositories\Messaging\ThreadRepository;
 use App\Repositories\Organization\OrganizationManagerRepository;
 use App\Repositories\Organization\OrganizationRepository;
 use App\Repositories\Payment\LineItemRepository;
@@ -78,33 +82,29 @@ use App\Repositories\Subscription\MembershipPlanRateRepository;
 use App\Repositories\Subscription\MembershipPlanRepository;
 use App\Repositories\Subscription\SubscriptionRepository;
 use App\Repositories\User\ContactRepository;
-use App\Repositories\User\MessageRepository;
 use App\Repositories\User\PasswordTokenRepository;
 use App\Repositories\User\ProfileImageRepository;
-use App\Repositories\User\ThreadRepository;
+use App\Repositories\User\UserRepository;
 use App\Repositories\Vote\BallotCompletionRepository;
 use App\Repositories\Vote\BallotItemOptionRepository;
-use App\Repositories\Vote\BallotRepository;
 use App\Repositories\Vote\BallotItemRepository;
+use App\Repositories\Vote\BallotRepository;
 use App\Repositories\Vote\VoteRepository;
+use App\Repositories\Wiki\ArticleIterationRepository;
 use App\Repositories\Wiki\ArticleModificationRepository;
 use App\Repositories\Wiki\ArticleRepository;
 use App\Repositories\Wiki\ArticleVersionRepository;
-use App\Repositories\Wiki\ArticleIterationRepository;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\Repositories\User\UserRepositoryContract;
-use App\Models\User\User;
-use App\Repositories\User\UserRepository;
 
 /**
  * Class AtheniaRepositoryProvider
  * @package App\Providers
  */
-abstract class AtheniaRepositoryProvider extends ServiceProvider
+abstract class BaseRepositoryProvider extends ServiceProvider
 {
     /**
      * @return array Holds information on every contract that is provided with this provider

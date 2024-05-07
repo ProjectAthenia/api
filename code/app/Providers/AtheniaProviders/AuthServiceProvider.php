@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace App\Providers\AtheniaProviders;
 
 use App\Contracts\Repositories\User\UserRepositoryContract;
 use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
-use App\Gate\GeneralThreadGate;
 use App\Services\UserAuthenticationService;
 use App\ThreadSecurity\ThreadSubjectGateProvider;
 use Illuminate\Auth\AuthManager;
