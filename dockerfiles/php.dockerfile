@@ -27,6 +27,9 @@ RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.con
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
+# Install some utils
+RUN apt update && apt -y install gnupg wget lsb-release
+
 RUN docker-php-ext-install pdo pdo_mysql
 
 RUN mkdir -p /usr/src/php/ext/redis \
@@ -59,6 +62,13 @@ RUN apt update \
     && apt install -y libcurl4-openssl-dev \
     && docker-php-ext-install curl
 RUN docker-php-ext-install xml
+
+# Install mysql client for artisan utils
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+RUN DEBIAN_FRONTEND=noninteractive dpkg -i ./mysql-apt-config_0.8.29-1_all.deb
+RUN apt update \
+    && apt install -y mysql-common
+
 
 ADD ./php/php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
