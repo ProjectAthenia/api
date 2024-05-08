@@ -63,8 +63,6 @@ services:
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    ports:
-      - "9000:9000"
     volumes:
       - ./code:/var/www/html:delegated
     networks:
@@ -73,8 +71,6 @@ services:
   redis:
     image: redis:bookworm
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     networks:
       - laravel
 
