@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('from_type')->nullable();
         });
 
-        foreach (\App\Models\User\Message::all() as $message) {
+        foreach (\App\Models\Messaging\Message::all() as $message) {
             if ($message->to_id) {
                 $message->to_type = 'user';
             }

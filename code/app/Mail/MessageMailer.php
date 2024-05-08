@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
-use App\Events\Message\MessageSentEvent;
-use App\Models\User\Message;
+use App\Events\Messaging\MessageSentEvent;
+use App\Models\Messaging\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

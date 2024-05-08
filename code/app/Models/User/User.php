@@ -4,16 +4,20 @@ declare(strict_types=1);
 namespace App\Models\User;
 
 use App\Contracts\Models\CanBeIndexedContract;
+use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
 use App\Contracts\Models\IsAnEntity;
 use App\Models\Asset;
+use App\Models\BaseModelAbstract;
+use App\Models\Messaging\Message;
+use App\Models\Messaging\Thread;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Resource;
 use App\Models\Role;
 use App\Models\Traits\CanBeIndexed;
-use App\Models\Traits\IsEntity;
 use App\Models\Traits\HasValidationRules;
+use App\Models\Traits\IsEntity;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
@@ -22,8 +26,6 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Contracts\Models\HasPolicyContract;
-use App\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Validation\Rule;
@@ -56,7 +58,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleIteration[] $createdIterations
  * @property-read int|null $created_iterations_count
  * @property-read null|string $profile_image_url
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Message[] $messages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Messaging\Message[] $messages
  * @property-read int|null $messages_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Organization\OrganizationManager[] $organizationManagers
  * @property-read int|null $organization_managers_count
@@ -70,7 +72,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription\Subscription[] $subscriptions
  * @property-read int|null $subscriptions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Thread[] $threads
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Messaging\Thread[] $threads
  * @property-read int|null $threads_count
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newModelQuery()
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\User\User newQuery()

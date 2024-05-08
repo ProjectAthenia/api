@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 /**
  * Class ThreadSubjectGateProvider
  * @package App\ThreadSecurity
+ * @deprecated Inject a reworked version of this into the actual thread policy and set this up as services
  */
 class ThreadSubjectGateProvider implements ThreadSubjectGateProviderContract
 {

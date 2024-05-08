@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ThreadSecurity;
 
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
 use App\ThreadSecurity\PrivateThreadGate;
 use Illuminate\Support\Collection;

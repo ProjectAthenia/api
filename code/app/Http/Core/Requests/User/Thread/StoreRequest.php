@@ -5,8 +5,8 @@ namespace App\Http\Core\Requests\User\Thread;
 
 use App\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Http\Core\Requests\Traits\HasNoExpands;
-use App\Models\User\Thread;
-use App\Policies\User\ThreadPolicy;
+use App\Models\Messaging\Thread;
+use App\Policies\Messaging\ThreadPolicy;
 
 /**
  * Class StoreRequest

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Events\Message\MessageCreatedEvent;
-use App\Models\User\Message;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Events\Messaging\MessageCreatedEvent;
+use App\Models\Messaging\Message;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 

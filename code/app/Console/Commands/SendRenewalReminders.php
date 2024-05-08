@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
 use App\Models\Subscription\Subscription;
 use Carbon\Carbon;
 use Illuminate\Console\Command;

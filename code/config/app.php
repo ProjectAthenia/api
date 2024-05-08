@@ -157,10 +157,10 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\AtheniaProviders\AuthServiceProvider::class,
         App\Providers\AppRepositoryProvider::class,
         App\Providers\AppValidatorProvider::class,
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

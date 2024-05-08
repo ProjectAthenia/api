@@ -1,24 +1,24 @@
 # Athenia App Read Me 
 
-## Project Setup 
+## Project Setup
 
-In order to get everything ready you will need to make sure that you have vagrant, virtualbox, ansible and the vagrant hosts plugin installed in your system. Once you have that setup run `vagrant up dev` in order to allow the development environment to build.
+In order to get everything ready you will need to make sure that you have docker installed in your system. Once you have that setup, you are going to want to setup your docker environment by running `cd .env.example .env` in the root of the project. After that run `docker compose build` in order to allow the development environment to build. You can now run `docker compose up` to bring the environment up.
 
-Once the vagrant has been installed the project dependencies will need to be installed. In order to do this login to the vm with `vagrant ssh dev`, and then run `sudo su` to become the super user. Once you are the super user run `cd /vagrant/code` in order to navigate to the projects root directory. Then run `composer install` in order to install all project dependencies.
+### Accessing the Environment
 
-The final bit of setup has to do with setting up the remaining environment variables. In order to do this run `cd .env.example .env` from within the project root in the vagrant. Then run `php artisan key:generate && php artisan jwt:secret` in order to generate the application hashes needed. Finally run `php artisan migrate` in order to get the database setup, and finish the setup.
+A handy little script has been included at the root named `dev_login.sh`, which will log you into the PHP app container when ran. Within that container, you can interact with artisan and phpunit with full access to the docker PHP environment.
 
-## Swagger
+### Setting up the App
 
-This project uses swagger to generate api documentation. The swagger file is located in docs/swagger.json - and should be double checked whenever changes are made to inline swagger docs.
+The final bit of setup has to do with setting up the remaining environment variables for the actual app. In order to do this run `cd .env.example .env` from within the code directory. In your env file, while running in docker, make sure your `DB_HOST` variable is set to `mysql`. The mysql test DB is configured as if it is always running in docker.
 
-To generate a fresh copy of swagger.json, run the following command from the root of the project within the VM:
+Within the api-php container you then want to run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup. You can then run `./vendor/bin/phpunit` to verify the tests are running, and passing. Finally, on your host, you can attempt to access the web server from http://localhost:{EXPOSED_HTTP_PORT}/v1/status where you should see a simple JSON with status OK.
 
-`code/vendor/bin/swagger code/app --output docs/`
+## Development
 
-Model definitions should all be located at the bottom of a PHP model with all available API properties listed there. Each repository should also have a comment block at the bottom of the class that defines the array variables for swagger.
+This app is a slightly customized laravel app. Most of the docs for Laravel will explain how to do everything you may want to do within this app.
 
-## Defining Routes
+### Defining Routes
 
 When you want to create a new set of routes there are a number of steps that you should do. Inside of the HTTP namespace you will find that there are two very important directories `Core` and `V1`. Each of these directories contain a set of controllers. The controllers in `Core` are all abstract, and are not meant to be implemented directly. The controllers in `V1` are the controllers that should be implemented for the API, and the ones in this project are simple extensions of the ones in the `Core` directory. 
 

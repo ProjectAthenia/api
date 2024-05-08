@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: true
-  roles:
-    - beanstalk
-    - nginx
-    - php
-    - mysql
-    - app

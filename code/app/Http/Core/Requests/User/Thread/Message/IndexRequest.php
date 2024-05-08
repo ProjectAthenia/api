@@ -5,8 +5,8 @@ namespace App\Http\Core\Requests\User\Thread\Message;
 
 use App\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Http\Core\Requests\Traits\HasNoRules;
-use App\Models\User\Message;
-use App\Policies\User\MessagePolicy;
+use App\Models\Messaging\Message;
+use App\Policies\Messaging\MessagePolicy;
 
 /**
  * Class IndexRequest

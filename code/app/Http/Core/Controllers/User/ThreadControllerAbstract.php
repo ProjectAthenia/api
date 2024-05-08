@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\User;
 
-use App\Contracts\Repositories\User\ThreadRepositoryContract;
+use App\Contracts\Repositories\Messaging\ThreadRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
 use App\Http\Core\Requests;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Integration\Console\Commands;
 
 use App\Console\Commands\SendRenewalReminders;
-use App\Contracts\Repositories\User\MessageRepositoryContract;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Models\Subscription\MembershipPlanRate;
 use App\Models\Subscription\Subscription;
 use App\Repositories\Subscription\MembershipPlanRateRepository;

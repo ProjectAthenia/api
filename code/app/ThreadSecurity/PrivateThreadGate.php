@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\ThreadSecurity;
 
 use App\Contracts\ThreadSecurity\ThreadSubjectGateContract;
-use App\Models\User\Thread;
+use App\Models\Messaging\Thread;
 use App\Models\User\User;
 
 /**

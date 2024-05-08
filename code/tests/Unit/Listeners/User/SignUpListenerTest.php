@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Listeners\User;
 
-use App\Contracts\Repositories\User\MessageRepositoryContract;
-use App\Events\Message\MessageCreatedEvent;
+use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Events\User\SignUpEvent;
 use App\Listeners\User\SignUpListener;
-use App\Models\User\Message;
 use App\Models\User\User;
-use Illuminate\Contracts\Events\Dispatcher;
 use Tests\CustomMockInterface;
 use Tests\TestCase;
 
