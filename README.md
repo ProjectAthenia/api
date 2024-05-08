@@ -6,17 +6,19 @@ In order to get everything ready you will need to make sure that you have docker
 
 ### Accessing the Environment
 
-Use the command `docker ps` to identify the id of the running container. You can then log into the api-php container with this command `docker exec -it {CONTAINER_ID} /bin/bash`
+A handy little script has been included at the root named `dev_login.sh`, which will log you into the PHP app container when ran. Within that container, you can interact with artisan and phpunit with full access to the docker PHP environment.
 
 ### Setting up the App
 
 The final bit of setup has to do with setting up the remaining environment variables for the actual app. In order to do this run `cd .env.example .env` from within the code directory. In your env file, while running in docker, make sure your `DB_HOST` variable is set to `mysql`. The mysql test DB is configured as if it is always running in docker.
 
-Within the api-php container you then want to run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup. You can then run `./vendor/bin/phpunit` to verify the tests are running. Finally, on your host, you can attempt to access the web server from http://localhost:{EXPOSED_HTTP_PORT}/v1/status where you should see a simple JSON with status OK.
+Within the api-php container you then want to run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup. You can then run `./vendor/bin/phpunit` to verify the tests are running, and passing. Finally, on your host, you can attempt to access the web server from http://localhost:{EXPOSED_HTTP_PORT}/v1/status where you should see a simple JSON with status OK.
 
 ## Development
 
-## Defining Routes
+This app is a slightly customized laravel app. Most of the docs for Laravel will explain how to do everything you may want to do within this app.
+
+### Defining Routes
 
 When you want to create a new set of routes there are a number of steps that you should do. Inside of the HTTP namespace you will find that there are two very important directories `Core` and `V1`. Each of these directories contain a set of controllers. The controllers in `Core` are all abstract, and are not meant to be implemented directly. The controllers in `V1` are the controllers that should be implemented for the API, and the ones in this project are simple extensions of the ones in the `Core` directory. 
 
