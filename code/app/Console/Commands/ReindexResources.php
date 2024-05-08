@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Contracts\Models\CanBeIndexedContract;
+use App\Contracts\Models\CanBeIndexedContractContract;
 use App\Contracts\Repositories\BaseRepositoryContract;
 use App\Contracts\Repositories\ResourceRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
@@ -82,7 +82,7 @@ class ReindexResources extends Command
         $models = $repository->findAll([], [], [], [],null);
         $progressBar = $this->output->createProgressBar($models->count());
 
-        /** @var CanBeIndexedContract $model */
+        /** @var CanBeIndexedContractContract $model */
         foreach ($models as $model) {
 
             $progressBar->advance();

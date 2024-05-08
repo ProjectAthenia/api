@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Integration\Repositories\Messaging;
 
-use App\Contracts\Models\CanReceiveTextMessagesContract;
+use App\Contracts\Models\Messaging\CanReceiveTextMessagesContract;
 use App\Events\Messaging\MessageCreatedEvent;
 use App\Exceptions\NotImplementedException;
 use App\Models\Messaging\Message;

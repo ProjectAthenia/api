@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Requests\Entity\Traits;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use Illuminate\Routing\Route;
 
 /**
@@ -16,9 +16,9 @@ trait IsEntityRequestTrait
     /**
      * Gets the entity out of the route. It will almost always be the first object.
      *
-     * @return IsAnEntity|Route|object|string
+     * @return IsAnEntityContract|Route|object|string
      */
-    public function getEntity(): IsAnEntity
+    public function getEntity(): IsAnEntityContract
     {
         $entityKey = $this->route()->parameterNames[0];
 

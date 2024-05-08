@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * Interface HasPaymentsContract
  * @package App\Contracts\Models
  */
-interface HasPaymentsContract extends CanBeMorphedTo
+interface HasPaymentsContract extends CanBeMorphedToContract
 {
     /**
      * THe line items that are related to this model.

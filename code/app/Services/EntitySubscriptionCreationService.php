@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Contracts\Services\EntitySubscriptionCreationServiceContract;
 use App\Contracts\Services\ProratingCalculationServiceContract;
@@ -51,11 +51,11 @@ class EntitySubscriptionCreationService implements EntitySubscriptionCreationSer
     /**
      * Creates a subscription for an entity while replacing any current one that may exist for an entity
      *
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param array $data
      * @return Subscription
      */
-    public function createSubscription(IsAnEntity $entity, array $data): Subscription
+    public function createSubscription(IsAnEntityContract $entity, array $data): Subscription
     {
         $currentSubscription = $entity->currentSubscription(Carbon::now()->endOfDay());
 

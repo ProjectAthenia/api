@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
  * @property PaymentMethod[]|Collection $paymentMethods
  * @property \App\Models\Collection\Collection[]|Collection $collections
  */
-interface IsAnEntity extends CanBeMorphedTo
+interface IsAnEntityContract extends CanBeMorphedToContract
 {
     /**
      * Tells us whether or not the logged in user can manage this entity

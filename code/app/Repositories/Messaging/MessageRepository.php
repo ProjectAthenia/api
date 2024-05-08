@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories\Messaging;
 
-use App\Contracts\Models\CanReceiveTextMessagesContract;
+use App\Contracts\Models\Messaging\CanReceiveTextMessagesContract;
 use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
 use App\Models\BaseModelAbstract;

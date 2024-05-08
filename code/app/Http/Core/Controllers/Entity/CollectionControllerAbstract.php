@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Entity;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Collection\CollectionRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
@@ -34,7 +34,7 @@ abstract class CollectionControllerAbstract extends BaseControllerAbstract
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function index(Requests\Entity\Collection\IndexRequest $request, IsAnEntity $entity)
+    public function index(Requests\Entity\Collection\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 
@@ -68,7 +68,7 @@ abstract class CollectionControllerAbstract extends BaseControllerAbstract
      * @param User $user
      * @return JsonResponse
      */
-    public function store(Requests\Entity\Collection\StoreRequest $request, IsAnEntity $entity) : JsonResponse
+    public function store(Requests\Entity\Collection\StoreRequest $request, IsAnEntityContract $entity) : JsonResponse
     {
         $data = $request->json()->all();
 

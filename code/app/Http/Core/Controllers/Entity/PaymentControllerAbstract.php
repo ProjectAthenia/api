@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Entity;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
@@ -35,10 +35,10 @@ abstract class PaymentControllerAbstract extends BaseControllerAbstract
 
     /**
      * @param Requests\Entity\Payment\IndexRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return LengthAwarePaginator|Collection
      */
-    public function index(Requests\Entity\Payment\IndexRequest $request, IsAnEntity $entity)
+    public function index(Requests\Entity\Payment\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 

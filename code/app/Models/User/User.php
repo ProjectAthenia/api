@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models\User;
 
-use App\Contracts\Models\CanBeIndexedContract;
+use App\Contracts\Models\CanBeIndexedContractContract;
 use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Asset;
 use App\Models\BaseModelAbstract;
 use App\Models\Messaging\Message;
@@ -97,7 +97,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 class User extends BaseModelAbstract
     implements AuthenticatableContract, JWTSubject,
             HasPolicyContract, HasValidationRulesContract,
-            CanBeIndexedContract, IsAnEntity
+            CanBeIndexedContractContract, IsAnEntityContract
 {
     use Authenticatable, HasValidationRules, IsEntity, CanBeIndexed;
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policies\Collection;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Collection\Collection;
 use App\Models\Role;
 use App\Models\User\User;
@@ -26,10 +26,10 @@ class CollectionPolicy extends BasePolicyAbstract
      * Only organization admins can create new organization managers
      *
      * @param User $user
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function create(User $user, IsAnEntity $entity)
+    public function create(User $user, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($user, Role::MANAGER);
     }
@@ -43,7 +43,7 @@ class CollectionPolicy extends BasePolicyAbstract
      */
     public function view(User $user, Collection $collection)
     {
-        /** @var IsAnEntity $entity */
+        /** @var IsAnEntityContract $entity */
         $entity = $collection->owner;
         return $collection->is_public || $entity->canUserManageEntity($user, Role::MANAGER);
     }
@@ -57,7 +57,7 @@ class CollectionPolicy extends BasePolicyAbstract
      */
     public function update(User $user, Collection $collection)
     {
-        /** @var IsAnEntity $entity */
+        /** @var IsAnEntityContract $entity */
         $entity = $collection->owner;
         return $entity->canUserManageEntity($user, Role::MANAGER);
     }
@@ -71,7 +71,7 @@ class CollectionPolicy extends BasePolicyAbstract
      */
     public function delete(User $user, Collection $collection)
     {
-        /** @var IsAnEntity $entity */
+        /** @var IsAnEntityContract $entity */
         $entity = $collection->owner;
         return $entity->canUserManageEntity($user, Role::MANAGER);
     }

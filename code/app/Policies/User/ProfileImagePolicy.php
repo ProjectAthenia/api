@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policies\User;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\User\User;
 use App\Policies\BasePolicyAbstract;
 
@@ -17,10 +17,10 @@ class ProfileImagePolicy extends BasePolicyAbstract
      * Only admins can update a user
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function create(User $loggedInUser, IsAnEntity $entity)
+    public function create(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser);
     }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Organization\OrganizationRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
@@ -73,10 +73,10 @@ class StripeCustomerService implements StripeCustomerServiceContract
     /**
      * Creates a new stripe customer for a user
      *
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return mixed
      */
-    public function createCustomer(IsAnEntity $entity)
+    public function createCustomer(IsAnEntityContract $entity)
     {
         if ($entity->morphRelationName() == 'user') {
             /** @var User $entity */
@@ -118,10 +118,10 @@ class StripeCustomerService implements StripeCustomerServiceContract
     /**
      * Retrieves a customer from stripe
      *
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return mixed
      */
-    public function retrieveCustomer(IsAnEntity $entity)
+    public function retrieveCustomer(IsAnEntityContract $entity)
     {
         if (!$entity->stripe_customer_key) {
             throw new InvalidArgumentException('The passed in user does not have a stripe customer key associated with their account.');
@@ -133,11 +133,11 @@ class StripeCustomerService implements StripeCustomerServiceContract
     /**
      * Creates a new payment method
      *
-     * @param BaseModelAbstract|IsAnEntity $entity
+     * @param BaseModelAbstract|IsAnEntityContract $entity
      * @param array $paymentData
      * @return mixed
      */
-    public function createPaymentMethod(IsAnEntity $entity, $paymentData): PaymentMethod
+    public function createPaymentMethod(IsAnEntityContract $entity, $paymentData): PaymentMethod
     {
         if (!$entity->stripe_customer_key) {
             $this->createCustomer($entity);

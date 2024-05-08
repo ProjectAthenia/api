@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Contracts\Services;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 
 /**
  * Interface EntityFeatureAccessServiceContract
@@ -14,9 +14,9 @@ interface EntityFeatureAccessServiceContract
     /**
      * Tells us whether or not the passed in entity can acess the related feature ID
      *
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param int $featureId
      * @return bool
      */
-    public function canAccess(IsAnEntity $entity, int $featureId): bool;
+    public function canAccess(IsAnEntityContract $entity, int $featureId): bool;
 }

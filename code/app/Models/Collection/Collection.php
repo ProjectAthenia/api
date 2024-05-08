@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Models\Collection;
 
 use App\Contracts\Models\HasValidationRulesContract;
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\BaseModelAbstract;
 use App\Models\Traits\HasValidationRules;
 use App\Validators\OwnedByValidator;

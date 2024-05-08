@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Entity;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\User\ProfileImageRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Requests;
@@ -91,10 +91,10 @@ abstract class ProfileImageControllerAbstract extends BaseControllerAbstract
      * )
      *
      * @param Requests\Entity\ProfileImage\StoreRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(Requests\Entity\ProfileImage\StoreRequest $request, IsAnEntity $entity)
+    public function store(Requests\Entity\ProfileImage\StoreRequest $request, IsAnEntityContract $entity)
     {
         $data = [];
 

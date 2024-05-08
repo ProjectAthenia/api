@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policies\Subscription;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Role;
 use App\Models\Subscription\Subscription;
 use App\Models\User\User;
@@ -19,10 +19,10 @@ class SubscriptionPolicy extends BasePolicyAbstract
      * Only available for super admins and admins of the entity
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function all(User $loggedInUser, IsAnEntity $entity)
+    public function all(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR);
     }
@@ -31,10 +31,10 @@ class SubscriptionPolicy extends BasePolicyAbstract
      * Only Available for super admins
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function create(User $loggedInUser, IsAnEntity $entity)
+    public function create(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR);
     }
@@ -43,11 +43,11 @@ class SubscriptionPolicy extends BasePolicyAbstract
      * Only available to super admins
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param Subscription $subscription
      * @return bool
      */
-    public function update(User $loggedInUser, IsAnEntity $entity, Subscription $subscription)
+    public function update(User $loggedInUser, IsAnEntityContract $entity, Subscription $subscription)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR)
             && $subscription->subscriber_type == $entity->morphRelationName()

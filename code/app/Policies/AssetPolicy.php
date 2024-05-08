@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Asset;
 use App\Models\User\User;
 
@@ -15,31 +15,31 @@ class AssetPolicy extends BasePolicyAbstract
 {
     /**
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function all(User $loggedInUser, IsAnEntity $entity)
+    public function all(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser);
     }
 
     /**
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function create(User $loggedInUser, IsAnEntity $entity)
+    public function create(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser);
     }
 
     /**
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param Asset $asset
      * @return bool
      */
-    public function update(User $loggedInUser, IsAnEntity $entity, Asset $asset)
+    public function update(User $loggedInUser, IsAnEntityContract $entity, Asset $asset)
     {
         return $asset->owner_type == $entity->morphRelationName() && $asset->owner_id == $entity->id
             && $entity->canUserManageEntity($loggedInUser);
@@ -47,11 +47,11 @@ class AssetPolicy extends BasePolicyAbstract
 
     /**
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param Asset $asset
      * @return bool
      */
-    public function delete(User $loggedInUser, IsAnEntity $entity, Asset $asset)
+    public function delete(User $loggedInUser, IsAnEntityContract $entity, Asset $asset)
     {
         return $asset->owner_type == $entity->morphRelationName() && $asset->owner_id == $entity->id
             && $entity->canUserManageEntity($loggedInUser);

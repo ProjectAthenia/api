@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Models\Organization;
 
 use App\Contracts\Models\HasValidationRulesContract;
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Asset;
 use App\Models\BaseModelAbstract;
 use App\Models\Role;
@@ -51,7 +51,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @mixin \Eloquent
  */
 class Organization extends BaseModelAbstract
-    implements HasValidationRulesContract, IsAnEntity
+    implements HasValidationRulesContract, IsAnEntityContract
 {
     use HasValidationRules, IsEntity;
 

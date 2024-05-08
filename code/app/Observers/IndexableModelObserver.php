@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
-use App\Contracts\Models\CanBeIndexedContract;
+use App\Contracts\Models\CanBeIndexedContractContract;
 use App\Contracts\Repositories\ResourceRepositoryContract;
 
 /**
@@ -29,10 +29,10 @@ class IndexableModelObserver
     /**
      * Handle the CanBeIndexedContract "created" event.
      *
-     * @param CanBeIndexedContract $model
+     * @param CanBeIndexedContractContract $model
      * @return void
      */
-    public function created(CanBeIndexedContract $model)
+    public function created(CanBeIndexedContractContract $model)
     {
         $this->indexModel($model);
     }
@@ -40,10 +40,10 @@ class IndexableModelObserver
     /**
      * Handle the CanBeIndexedContract "updated" event.
      *
-     * @param CanBeIndexedContract $model
+     * @param CanBeIndexedContractContract $model
      * @return void
      */
-    public function updated(CanBeIndexedContract $model)
+    public function updated(CanBeIndexedContractContract $model)
     {
         $this->indexModel($model);
     }
@@ -51,9 +51,9 @@ class IndexableModelObserver
     /**
      * Creates an index of the model
      *
-     * @param CanBeIndexedContract $model
+     * @param CanBeIndexedContractContract $model
      */
-    private function indexModel(CanBeIndexedContract $model)
+    private function indexModel(CanBeIndexedContractContract $model)
     {
         if ($model->getContentString()) {
             $data = [
@@ -73,10 +73,10 @@ class IndexableModelObserver
     /**
      * Handle the CanBeIndexedContract "deleted" event.
      *
-     * @param CanBeIndexedContract $event
+     * @param CanBeIndexedContractContract $event
      * @return void
      */
-    public function deleted(CanBeIndexedContract $event)
+    public function deleted(CanBeIndexedContractContract $event)
     {
         if ($event->resource) {
             $this->resourceRepository->delete($event->resource);

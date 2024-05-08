@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Entity;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\AssetRepositoryContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
 use App\Http\Core\Controllers\Traits\HasIndexRequests;
@@ -50,10 +50,10 @@ abstract class AssetControllerAbstract extends BaseControllerAbstract
      * Gets all assets for a user
      *
      * @param Requests\Entity\Asset\IndexRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return LengthAwarePaginator
      */
-    public function index(Requests\Entity\Asset\IndexRequest $request, IsAnEntity $entity)
+    public function index(Requests\Entity\Asset\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 
@@ -75,10 +75,10 @@ abstract class AssetControllerAbstract extends BaseControllerAbstract
      * Creates the new asset for us
      *
      * @param Requests\Entity\Asset\StoreRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(Requests\Entity\Asset\StoreRequest $request, IsAnEntity $entity)
+    public function store(Requests\Entity\Asset\StoreRequest $request, IsAnEntityContract $entity)
     {
         $data = $request->json()->all();
 
@@ -96,11 +96,11 @@ abstract class AssetControllerAbstract extends BaseControllerAbstract
      * Updates an asset properly
      *
      * @param Requests\Entity\Asset\UpdateRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param Asset $asset
      * @return BaseModelAbstract
      */
-    public function update(Requests\Entity\Asset\UpdateRequest $request, IsAnEntity $entity, Asset $asset)
+    public function update(Requests\Entity\Asset\UpdateRequest $request, IsAnEntityContract $entity, Asset $asset)
     {
         return $this->repository->update($asset, $request->json()->all());
     }
@@ -109,11 +109,11 @@ abstract class AssetControllerAbstract extends BaseControllerAbstract
      * Deletes an asset from the server
      *
      * @param Requests\Entity\Asset\DeleteRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param Asset $asset
      * @return ResponseFactory|Response
      */
-    public function destroy(Requests\Entity\Asset\DeleteRequest $request, IsAnEntity $entity, Asset $asset)
+    public function destroy(Requests\Entity\Asset\DeleteRequest $request, IsAnEntityContract $entity, Asset $asset)
     {
         $this->repository->delete($asset);
         return response(null, 204);

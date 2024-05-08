@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policies\Payment;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Role;
 use App\Models\User\User;
@@ -19,10 +19,10 @@ class PaymentMethodPolicy extends BasePolicyAbstract
      * Any logged in users can create a payment methods
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return bool
      */
-    public function create(User $loggedInUser, IsAnEntity $entity)
+    public function create(User $loggedInUser, IsAnEntityContract $entity)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR);
     }
@@ -31,11 +31,11 @@ class PaymentMethodPolicy extends BasePolicyAbstract
      * Any logged in entity can update their own payment method
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return bool
      */
-    public function update(User $loggedInUser, IsAnEntity $entity, PaymentMethod $paymentMethod)
+    public function update(User $loggedInUser, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR)
             && $paymentMethod->owner_type == $entity->morphRelationName()
@@ -46,11 +46,11 @@ class PaymentMethodPolicy extends BasePolicyAbstract
      * Any logged in users can delete their own payment method
      *
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return bool
      */
-    public function delete(User $loggedInUser, IsAnEntity $entity, PaymentMethod $paymentMethod)
+    public function delete(User $loggedInUser, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         return $entity->canUserManageEntity($loggedInUser, Role::ADMINISTRATOR)
             && $paymentMethod->owner_type == $entity->morphRelationName()

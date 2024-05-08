@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Contracts\Models\CanBeMorphedTo;
+use App\Contracts\Models\CanBeMorphedToContract;
 use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -276,7 +276,7 @@ abstract class BaseRepositoryAbstract implements BaseRepositoryContract
      * Syncs all child data with full models
      *
      * @param BaseRepositoryContract $childRepository
-     * @param BaseModelAbstract|CanBeMorphedTo $parentModel
+     * @param BaseModelAbstract|CanBeMorphedToContract $parentModel
      * @param array $childrenData
      * @param Collection|null $existingChildren
      * @param string|null $morphRelationship

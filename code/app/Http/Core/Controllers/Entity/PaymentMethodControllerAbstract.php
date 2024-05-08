@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Controllers\Entity;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Contracts\Services\StripeCustomerServiceContract;
 use App\Http\Core\Controllers\BaseControllerAbstract;
@@ -95,10 +95,10 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
      * )
      *
      * @param Requests\Entity\PaymentMethod\StoreRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(Requests\Entity\PaymentMethod\StoreRequest $request, IsAnEntity $entity)
+    public function store(Requests\Entity\PaymentMethod\StoreRequest $request, IsAnEntityContract $entity)
     {
         $data = $request->json()->all();
 
@@ -108,11 +108,11 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
 
     /**
      * @param Requests\Entity\PaymentMethod\UpdateRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return \App\Models\BaseModelAbstract
      */
-    public function update(Requests\Entity\PaymentMethod\UpdateRequest $request, IsAnEntity $entity, PaymentMethod $paymentMethod)
+    public function update(Requests\Entity\PaymentMethod\UpdateRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         $data = $request->json()->all();
 
@@ -176,11 +176,11 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
      * )
      *
      * @param Requests\Entity\PaymentMethod\DeleteRequest $request
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return null
      */
-    public function destroy(Requests\Entity\PaymentMethod\DeleteRequest $request, IsAnEntity $entity, PaymentMethod $paymentMethod)
+    public function destroy(Requests\Entity\PaymentMethod\DeleteRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         $this->repository->delete($paymentMethod);
         return response(null, 204);

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property Resource $resource
  * @property int $id
  */
-interface CanBeIndexedContract extends CanBeMorphedTo
+interface CanBeIndexedContract extends CanBeMorphedToContract
 {
     /**
      * Gets the content string to index

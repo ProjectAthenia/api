@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Contracts\Models\IsAnEntity;
+use App\Contracts\Models\IsAnEntityContract;
 use App\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Contracts\Services\StripePaymentServiceContract;
@@ -93,13 +93,13 @@ class StripePaymentService implements StripePaymentServiceContract
     }
 
     /**
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @param string $description
      * @param array $lineItems
      * @return BaseModelAbstract|Payment
      */
-    public function createPayment(IsAnEntity $entity, PaymentMethod $paymentMethod, string $description, array $lineItems) : Payment
+    public function createPayment(IsAnEntityContract $entity, PaymentMethod $paymentMethod, string $description, array $lineItems) : Payment
     {
         $amount = 0;
         foreach ($lineItems as $lineItem) {

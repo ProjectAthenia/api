@@ -7,7 +7,7 @@ namespace App\Contracts\Models;
  * Interface CanBeMorphedTo
  * @package App\Contracts\Models
  */
-interface CanBeMorphedTo
+interface CanBeMorphedToContract
 {
     /**
      * The name of the morph relation

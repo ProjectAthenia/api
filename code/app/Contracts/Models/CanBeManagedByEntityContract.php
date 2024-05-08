@@ -5,13 +5,13 @@ namespace App\Contracts\Models;
 
 use App\Models\User\User;
 
-interface CanBeManagedByEntity
+interface CanBeManagedByEntityContract
 {
     /**
      * @param User $loggedInUser
-     * @param IsAnEntity $entity
+     * @param IsAnEntityContract $entity
      * @param string $action
      * @return bool
      */
-    public function canUserManage(User $loggedInUser, IsAnEntity $entity, string $action): bool;
+    public function canUserManage(User $loggedInUser, IsAnEntityContract $entity, string $action): bool;
 }
