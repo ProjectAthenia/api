@@ -31,6 +31,18 @@ return new class extends Migration
                 $message->save();
             }
         }
+
+        Schema::create('push_notification_keys', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->unsignedInteger('owner_id');
+            $table->string('owner_type');
+
+            $table->string('push_notification_key');
+
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -38,6 +50,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::drop('push_notification_keys');
         Schema::table('messages', function (Blueprint $table) {
             $table->dropColumn('to_type');
             $table->dropColumn('from_type');
