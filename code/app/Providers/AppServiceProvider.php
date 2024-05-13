@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\AssetRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationRepositoryContract;
 use App\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
+use App\Contracts\Services\AssetImportServiceContract;
 use App\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
 use App\Contracts\Services\DirectoryCopyServiceContract;
 use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
@@ -18,6 +20,7 @@ use App\Contracts\Services\StringHelperServiceContract;
 use App\Contracts\Services\StripeCustomerServiceContract;
 use App\Contracts\Services\StripePaymentServiceContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
+use App\Services\AssetImportService;
 use App\Services\Collection\ItemInEntityCollectionService;
 use App\Services\DirectoryCopyService;
 use App\Services\Wiki\ArticleVersionCalculationService;
@@ -45,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
     {
         return [
             ArticleVersionCalculationServiceContract::class,
+            AssetImportServiceContract::class,
             DirectoryCopyServiceContract::class,
             EntitySubscriptionCreationServiceContract::class,
             ItemInEntityCollectionServiceContract::class,
@@ -67,6 +71,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ArticleVersionCalculationServiceContract::class, function () {
             return new ArticleVersionCalculationService();
+        });
+        $this->app->bind(AssetImportServiceContract::class, function () {
+            return new AssetImportService(
+                $this->app->make(AssetRepositoryContract::class),
+            );
         });
         $this->app->bind(DirectoryCopyServiceContract::class, function () {
             return new DirectoryCopyService();
