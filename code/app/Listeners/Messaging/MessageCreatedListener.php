@@ -89,23 +89,8 @@ class MessageCreatedListener implements ShouldQueue
         if (in_array(Message::VIA_EMAIL, $via) && ($message->email || ($message->to && $message->to->email))) {
             $this->mailer->send(new MessageMailer($message));
         }
-//        if (in_array(Message::VIA_SMS, $via)) {
-//            $sms = new TwilioSmsMessage($message->data['message']);
-//            /** @var Organization|User $to */
-//            $to = $message->to;
-//            if ($to instanceof CanReceiveTextMessagesContract) {
-//                $this->twilio->sendMessage($sms, $to->routeNotificationForTwilio());
-//                $this->events->dispatch(new MessageSentEvent($message));
-//            } else if ($to instanceof Organization) {
-//                foreach ($to->organizationManagers as $organizationManager) {
-//                    $user = $organizationManager->user;
-//                    if ($user instanceof CanReceiveTextMessagesContract) {
-//                        $this->twilio->sendMessage($sms, $user->routeNotificationForTwilio());
-//                        $this->events->dispatch(new MessageSentEvent($message));
-//                    }
-//                }
-//            }
-//        }
+        if (in_array(Message::VIA_SMS, $via)) {
+        }
     }
 
     public function sendMessage(User $user, Message $message)
@@ -121,34 +106,6 @@ class MessageCreatedListener implements ShouldQueue
     public function sendPushNotification(User $user, Message $message)
     {
         if ($user->pushNotificationKeys->count() && $user->receive_push_notifications) {
-            $pushNotification = new FcmMessage();
-
-            $pushNotification->priority(FcmMessage::PRIORITY_HIGH);
-            $pushNotification->contentAvailable(true);
-
-            $notificationData = $message->data;
-
-            if ($message->action) {
-                $pushNotification->data([
-                    'action' => $message->action,
-                    'click_action' => $message->action,
-                ]);
-            }
-
-            $pushNotification->content($notificationData);
-
-            $fcmKey = $this->config->get('services.fcm.key');
-
-            foreach ($user->pushNotificationKeys as $pushNotificationKey){
-                $pushNotification->to($pushNotificationKey->push_notification_key);
-                $this->client->post(FcmChannel::API_URI, [
-                    'headers' => [
-                        'Authorization' => 'key=' . $fcmKey,
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => $pushNotification->formatData(),
-                ]);
-            }
         }
     }
 }

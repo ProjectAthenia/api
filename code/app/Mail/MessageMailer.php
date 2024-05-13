@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Contracts\Models\Messaging\CanReceiveEmailsContract;
 use App\Events\Messaging\MessageSentEvent;
 use App\Models\Messaging\Message;
 use Illuminate\Bus\Queueable;
@@ -19,18 +20,12 @@ class MessageMailer extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     /**
-     * @var Message
-     */
-    private $message;
-
-    /**
      * NotificationMailer constructor.
+     * @param CanReceiveEmailsContract $receiver
      * @param Message $message
-     * // TODO revamp this to take in a contract for the entity that can receive emails
      */
-    public function __construct(Message $message)
+    public function __construct(private CanReceiveEmailsContract $receiver, private Message $message)
     {
-        $this->message = $message;
         $this->chain([new MessageSentEvent($message)]);
     }
 
@@ -41,12 +36,10 @@ class MessageMailer extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $name = $this->message->to ? $this->message->to->first_name : null;
-        if ($this->message->to && $this->message->to->last_name) {
-            $name.= ' ' . $this->message->to->last_name;
-        }
+        $email = $this->receiver->getEmailAddress();
+        $name = $this->receiver->getEmailToName();
         $message = $this->subject($this->message->subject)
-            ->to($this->message->email, $name)
+            ->to($email, $name)
             ->from('thehaeckelsociety@gmail.com', 'Project Athenia')
             ->bcc('thehaeckelsociety@gmail.com', 'Project Athenia')
             ->view('mailers.' . $this->message->template, $this->message->data);

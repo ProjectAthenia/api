@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace App\Providers\AtheniaProviders;
 
+use App\Contracts\Repositories\AssetRepositoryContract;
 use App\Contracts\Repositories\Organization\OrganizationRepositoryContract;
 use App\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Contracts\Repositories\User\UserRepositoryContract;
+use App\Contracts\Services\AssetImportServiceContract;
 use App\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
 use App\Contracts\Services\DirectoryCopyServiceContract;
 use App\Contracts\Services\EntitySubscriptionCreationServiceContract;
@@ -18,6 +20,7 @@ use App\Contracts\Services\StripeCustomerServiceContract;
 use App\Contracts\Services\StripePaymentServiceContract;
 use App\Contracts\Services\TokenGenerationServiceContract;
 use App\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use App\Services\AssetImportService;
 use App\Services\Collection\ItemInEntityCollectionService;
 use App\Services\DirectoryCopyService;
 use App\Services\EntitySubscriptionCreationService;
@@ -41,6 +44,7 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         return array_merge([
             ArticleVersionCalculationServiceContract::class,
+            AssetImportServiceContract::class,
             DirectoryCopyServiceContract::class,
             EntitySubscriptionCreationServiceContract::class,
             ItemInEntityCollectionServiceContract::class,
@@ -68,40 +72,45 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         $this->registerEnvironmentSpecificProviders();
 
-        $this->app->bind(ArticleVersionCalculationServiceContract::class, function () {
-            return new ArticleVersionCalculationService();
-        });
-        $this->app->bind(DirectoryCopyServiceContract::class, function () {
-            return new DirectoryCopyService();
-        });
-        $this->app->bind(EntitySubscriptionCreationServiceContract::class, function () {
-            return new EntitySubscriptionCreationService(
+        $this->app->bind(ArticleVersionCalculationServiceContract::class, fn () =>
+            new ArticleVersionCalculationService()
+        );
+        $this->app->bind(AssetImportServiceContract::class, fn () =>
+            new AssetImportService(
+                $this->app->make(AssetRepositoryContract::class),
+            )
+        );
+        $this->app->bind(DirectoryCopyServiceContract::class, fn () => 
+            new DirectoryCopyService()
+        );
+        $this->app->bind(EntitySubscriptionCreationServiceContract::class, fn () =>
+            new EntitySubscriptionCreationService(
                 $this->app->make(ProratingCalculationServiceContract::class),
                 $this->app->make(SubscriptionRepositoryContract::class),
                 $this->app->make(StripePaymentServiceContract::class),
-            );
-        });
-        $this->app->bind(ItemInEntityCollectionServiceContract::class, function () {
-            return new ItemInEntityCollectionService();
-        });
-        $this->app->bind(ProratingCalculationServiceContract::class, function () {
-            return new ProratingCalculationService();
-        });
-        $this->app->bind(StringHelperServiceContract::class, function () {
-            return new StringHelperService();
-        });
-        $this->app->bind(StripeCustomerServiceContract::class, function () {
-            return new StripeCustomerService(
+            )
+        );
+        $this->app->bind(ItemInEntityCollectionServiceContract::class, fn () =>
+            new ItemInEntityCollectionService()
+        );
+        $this->app->bind(ProratingCalculationServiceContract::class, fn () =>
+            new ProratingCalculationService()
+        );
+        $this->app->bind(StringHelperServiceContract::class, fn () =>
+            new StringHelperService()
+        );
+        $this->app->bind(StripeCustomerServiceContract::class, fn () =>
+            new StripeCustomerService(
                 $this->app->make(UserRepositoryContract::class),
                 $this->app->make(OrganizationRepositoryContract::class),
                 $this->app->make(PaymentMethodRepositoryContract::class),
                 $this->app->make('stripe')->customers(),
                 $this->app->make('stripe')->cards(),
-            );
-        });
+            )
+        );
         $this->app->bind(StripePaymentServiceContract::class, function () {
             $stripe = $this->app->make('stripe');
-            return new StripePaymentService(
+            new StripePaymentService(
                 $this->app->make(PaymentRepositoryContract::class),
                 $this->app->make(LineItemRepositoryContract::class),
                 $this->app->make(Dispatcher::class),
@@ -109,9 +118,9 @@ abstract class BaseServiceProvider extends ServiceProvider
                 $stripe->refunds(),
             );
         });
-        $this->app->bind(TokenGenerationServiceContract::class, function() {
-            return new TokenGenerationService();
-        });
+        $this->app->bind(TokenGenerationServiceContract::class, fn () =>
+            new TokenGenerationService()
+        );
         $this->registerApp();
     }
 

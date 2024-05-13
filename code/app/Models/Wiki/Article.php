@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Contracts\Models\CanBeIndexedContractContract;
+use App\Contracts\Models\CanBeIndexedContract;
 use App\Contracts\Models\HasPolicyContract;
 use App\Contracts\Models\HasValidationRulesContract;
 use App\Models\BaseModelAbstract;
@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContractContract
+class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContract
 {
     use HasValidationRules, CanBeIndexed;
 

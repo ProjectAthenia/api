@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Contracts\Models\Messaging;
 
-interface CanReceiveEmailsContract
+interface CanReceiveEmailsContract extends CanReceiveMessageContract
 {
     /**
      * The email address to send the email to

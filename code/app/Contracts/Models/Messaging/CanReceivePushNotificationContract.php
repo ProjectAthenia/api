@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property-read Collection|PushNotificationKey[] $assets
+ * @property-read Collection|PushNotificationKey[] $pushNotificationKeys
  */
 interface CanReceivePushNotificationContract extends CanReceiveMessageContract
 {
