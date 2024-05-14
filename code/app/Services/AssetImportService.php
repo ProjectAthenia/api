@@ -31,6 +31,7 @@ class AssetImportService implements AssetImportServiceContract
         $assetContent = file_get_contents($url);
 
         return ($assetContent && isset($fileInformation['extension'])) ? $this->assetRepository->create([
+            'source' => $url,
             'file_contents' => $assetContent,
             'file_extension' => $fileInformation['extension'],
             'owner_type' => $owner->morphRelationName(),
