@@ -13,9 +13,12 @@ use Psr\Log\LoggerInterface;
 
 class SendSMSNotificationService implements SendSMSServiceContract
 {
-    public function __construct(private Twilio $twilio, private LoggerInterface $log)
-    {
-    }
+    /**
+     * @param Twilio $twilio
+     * @param LoggerInterface $logger
+     */
+    public function __construct(private Twilio $twilio, private LoggerInterface $logger)
+    {}
 
     /**
      * Attempts to send a message to the receiver
@@ -33,7 +36,9 @@ class SendSMSNotificationService implements SendSMSServiceContract
                 $this->twilio->sendMessage($sms, $receiver->getPhoneNumber());
                 return true;
             } catch (\Exception $e) {
-
+                $error = 'Failed Sending SMS - ' . $e->getMessage();
+                $this->logger->error($error, $e->getTrace());
+                return false;
             }
         }
 

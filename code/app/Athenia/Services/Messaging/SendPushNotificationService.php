@@ -16,6 +16,11 @@ use Psr\Log\LoggerInterface;
 
 class SendPushNotificationService implements SendPushNotificationServiceContract
 {
+    /**
+     * @param string $fcmKey
+     * @param Client $client
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         private string $fcmKey,
         private Client $client,
@@ -78,7 +83,7 @@ class SendPushNotificationService implements SendPushNotificationServiceContract
      *
      * @param FcmMessage $pushNotification
      * @param PushNotificationKey $pushNotificationKey
-     * @return void
+     * @return bool
      */
     public function sendPushNotification(FcmMessage $pushNotification, PushNotificationKey $pushNotificationKey): bool
     {
