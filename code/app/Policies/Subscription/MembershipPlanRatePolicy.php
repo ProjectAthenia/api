@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Policies\Subscription;
 
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class MembershipPlanRatePolicy

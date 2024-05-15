@@ -3,23 +3,23 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Athenia\Console\BaseKernel;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 /**
  * Class Kernel
  * @package App\Console
  */
-class Kernel extends ConsoleKernel
+class Kernel extends BaseKernel
 {
     /**
-     * Register the commands for the application.
+     * Gets the commands path for the child app
      *
-     * @return void
+     * @return string
      */
-    protected function commands()
+    public function getAppCommandsPath(): string
     {
-        $this->load(__DIR__.'/Commands');
+        return __DIR__.'./Commands';
     }
 
     /**

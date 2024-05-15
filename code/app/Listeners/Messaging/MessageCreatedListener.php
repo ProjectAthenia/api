@@ -3,16 +3,14 @@ declare(strict_types=1);
 
 namespace App\Listeners\Messaging;
 
-use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
-use App\Events\Messaging\MessageCreatedEvent;
-use App\Events\Messaging\MessageSentEvent;
-use App\Mail\MessageMailer;
+use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Events\Messaging\MessageCreatedEvent;
+use App\Athenia\Events\Messaging\MessageSentEvent;
+use App\Athenia\Mail\MessageMailer;
 use App\Models\Messaging\Message;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\User\User;
-use Benwilkins\FCM\FcmChannel;
-use Benwilkins\FCM\FcmMessage;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;

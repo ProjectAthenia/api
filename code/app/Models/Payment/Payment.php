@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models\Payment;
 
-use App\Models\BaseModelAbstract;
+use App\Athenia\Models\BaseModelAbstract;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

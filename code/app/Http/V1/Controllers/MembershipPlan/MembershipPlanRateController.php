@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers\MembershipPlan;
 
-use App\Http\Core\Controllers\MembershipPlan\MembershipPlanRateControllerAbstract;
+use App\Athenia\Http\Core\Controllers\MembershipPlan\MembershipPlanRateControllerAbstract;
 
 /**
  * Class MembershipPlanRateController

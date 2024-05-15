@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers;
 
-use App\Http\Core\Controllers\CategoryControllerAbstract;
+use App\Athenia\Http\Core\Controllers\CategoryControllerAbstract;
 
 /**
  * Class CategoryController

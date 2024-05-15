@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Models\Organization;
 
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
+use App\Athenia\Models\Traits\IsEntity;
 use App\Models\Asset;
-use App\Models\BaseModelAbstract;
 use App\Models\Role;
-use App\Models\Traits\IsEntity;
-use App\Models\Traits\HasValidationRules;
 use App\Models\User\ProfileImage;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

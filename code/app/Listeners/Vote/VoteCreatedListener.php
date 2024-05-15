@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Listeners\Vote;
 
-use App\Contracts\Repositories\Vote\BallotItemOptionRepositoryContract;
-use App\Contracts\Repositories\Vote\BallotItemRepositoryContract;
-use App\Events\Vote\VoteCreatedEvent;
+use App\Athenia\Contracts\Repositories\Vote\BallotItemOptionRepositoryContract;
+use App\Athenia\Contracts\Repositories\Vote\BallotItemRepositoryContract;
+use App\Athenia\Events\Vote\VoteCreatedEvent;
 
 /**
  * Class VoteCreatedListener

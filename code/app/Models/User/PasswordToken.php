@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models\User;
 
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\BaseModelAbstract;
 
 /**
  * Class PasswordToken

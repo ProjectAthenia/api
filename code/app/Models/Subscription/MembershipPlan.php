@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Models\Subscription;
 
-use App\Contracts\Models\HasPolicyContract;
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
+use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\DiscountCode;
 use App\Models\Feature;
 use App\Models\Questionnaire\Question;
-use App\Models\Traits\HasValidationRules;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;

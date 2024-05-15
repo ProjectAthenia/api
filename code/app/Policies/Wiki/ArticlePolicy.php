@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Policies\Wiki;
 
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\Role;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class ArticlePolicy

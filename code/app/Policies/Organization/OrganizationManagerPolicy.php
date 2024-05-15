@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Policies\Organization;
 
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Role;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class OrganizationManagerPolicy

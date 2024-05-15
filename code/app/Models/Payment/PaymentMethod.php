@@ -3,15 +3,13 @@ declare(strict_types=1);
 
 namespace App\Models\Payment;
 
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Contracts\Models\IsAnEntityContract;
-use App\Models\BaseModelAbstract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\Subscription\Subscription;
-use App\Models\Traits\HasValidationRules;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Validation\Rule;
 
 /**
  * Class PaymentMethod

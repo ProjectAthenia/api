@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers\Organization;
 
-use App\Http\Core\Controllers\Organization\OrganizationManagerControllerAbstract;
+use App\Athenia\Http\Core\Controllers\Organization\OrganizationManagerControllerAbstract;
 
 /**
  * Class OrganizationController

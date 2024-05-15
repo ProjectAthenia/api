@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers;
 
-use App\Http\Core\Controllers\CollectionControllerAbstract;
+use App\Athenia\Http\Core\Controllers\CollectionControllerAbstract;
 
 class CollectionController extends CollectionControllerAbstract
 {}

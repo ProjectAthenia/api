@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Listeners\User\Contact;
 
-use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
-use App\Events\User\Contact\ContactCreatedEvent;
+use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Events\User\Contact\ContactCreatedEvent;
 use App\Models\Messaging\Message;
 
 /**
@@ -37,7 +37,7 @@ class ContactCreatedListener
         $contact = $event->getContact();
 
         $this->messageRepository->create([
-            'subject' => 'SGCI New Contact Request!',
+            'subject' => 'New Contact Request!',
             'to_id' => $contact->requested_id,
             'data' => [
                 'body' => $contact->initiatedBy->first_name . ' ' . $contact->initiatedBy->last_name

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
-use App\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
-use App\Contracts\Services\StripePaymentServiceContract;
+use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
+use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Models\Subscription\Subscription;
 use Carbon\Carbon;
 use Cartalyst\Stripe\Exception\ApiLimitExceededException;

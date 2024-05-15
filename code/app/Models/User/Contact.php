@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 namespace App\Models\User;
 
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
-use App\Models\Traits\HasValidationRules;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 /**

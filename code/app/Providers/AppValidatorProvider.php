@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Providers\AtheniaProviders\BaseValidatorProvider;
+use App\Athenia\Providers\BaseValidatorProvider;
 use Illuminate\Contracts\Validation\Factory;
 
 class AppValidatorProvider extends BaseValidatorProvider

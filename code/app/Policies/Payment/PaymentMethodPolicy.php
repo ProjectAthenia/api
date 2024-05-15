@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Policies\Payment;
 
-use App\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Role;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class PaymentMethodPolicy

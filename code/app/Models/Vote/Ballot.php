@@ -3,13 +3,9 @@ declare(strict_types=1);
 
 namespace App\Models\Vote;
 
-use App\Models\BaseModelAbstract;
+use App\Athenia\Models\BaseModelAbstract;
 use Eloquent;
-use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
 /**
  * Class Ballot

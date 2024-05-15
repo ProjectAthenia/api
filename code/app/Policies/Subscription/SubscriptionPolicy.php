@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Policies\Subscription;
 
-use App\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\Role;
 use App\Models\Subscription\Subscription;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class SubscriptionPolicy

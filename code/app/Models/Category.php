@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\Traits\HasValidationRules;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
 use Illuminate\Database\Query\Builder;
 
 /**

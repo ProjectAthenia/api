@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-use App\Http\Middleware\LogMiddleware;
-use App\Http\Middleware\TrimStrings;
-use App\Http\Middleware\ExpandParsingMiddleware;
-use App\Http\Middleware\Issue404IfPageAfterPaginationMiddleware;
-use App\Http\Middleware\JWTGetUserFromTokenProtectedRouteMiddleware;
-use App\Http\Middleware\JWTGetUserFromTokenUnprotectedRouteMiddleware;
-use App\Http\Middleware\SearchFilterParsingMiddleware;
-use Illuminate\Http\Middleware\HandleCors;
+use App\Athenia\Http\Middleware\ExpandParsingMiddleware;
+use App\Athenia\Http\Middleware\Issue404IfPageAfterPaginationMiddleware;
+use App\Athenia\Http\Middleware\JWTGetUserFromTokenProtectedRouteMiddleware;
+use App\Athenia\Http\Middleware\JWTGetUserFromTokenUnprotectedRouteMiddleware;
+use App\Athenia\Http\Middleware\LogMiddleware;
+use App\Athenia\Http\Middleware\SearchFilterParsingMiddleware;
+use App\Athenia\Http\Middleware\TrimStrings;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 

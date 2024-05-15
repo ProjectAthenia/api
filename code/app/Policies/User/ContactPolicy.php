@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Policies\User;
 
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\User\Contact;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class ContactPolicy

@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Contracts\Models\CanBeIndexedContract;
-use App\Contracts\Models\HasPolicyContract;
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
-use App\Models\Traits\CanBeIndexed;
-use App\Models\Traits\HasValidationRules;
+use App\Athenia\Contracts\Models\CanBeIndexedContract;
+use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\CanBeIndexed;
+use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -3,21 +3,15 @@ declare(strict_types=1);
 
 namespace App\Models\Subscription;
 
-use App\Contracts\Models\HasPaymentsContract;
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
-use App\Models\Payment\Payment;
+use App\Athenia\Contracts\Models\HasPaymentsContract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasPayments;
+use App\Athenia\Models\Traits\HasValidationRules;
+use App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator;
+use App\Athenia\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator;
 use App\Models\Payment\PaymentMethod;
-use App\Models\Payment\LineItem;
-use App\Models\Traits\HasPayments;
-use App\Models\Traits\HasValidationRules;
-use App\Models\User\User;
-use App\Validators\Subscription\MembershipPlanRateIsActiveValidator;
-use App\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator;
-use Carbon\Carbon;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Validation\Rule;

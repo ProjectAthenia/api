@@ -3,16 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models\User;
 
-use App\Contracts\Models\BelongsToOrganizationContract;
 use App\Models\Asset;
 use App\Models\Organization\Organization;
-use App\Models\Traits\BelongsToOrganization;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 
 /**
  * Class ProfileImage

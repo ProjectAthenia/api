@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Contracts\Models\HasPolicyContract;
-use App\Models\BaseModelAbstract;
+use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Models\BaseModelAbstract;
 use App\Models\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

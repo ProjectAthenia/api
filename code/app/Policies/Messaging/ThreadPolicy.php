@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Policies\Messaging;
 
-use App\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
+use App\Athenia\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 
 /**
  * Class ThreadPolicy

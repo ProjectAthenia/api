@@ -130,13 +130,13 @@ return [
     'token_is_not_expired' => 'The reset password token has expired. You are going to have to request a new one.',
     'user_owns_token' => 'The reset password token does not seem to be for the entered email address.',
     'not_present' => 'The :attribute field is not allowed or can not be set for this request.',
-    \App\Validators\Subscription\MembershipPlanRateIsActiveValidator::KEY =>
+    \App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator::KEY =>
         'The membership plan rate must be active for you to purchase it.',
-    \App\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator::KEY =>
+    \App\Athenia\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator::KEY =>
         'This payment method does not belong to this user.',
-    \App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator::KEY =>
+    \App\Athenia\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator::KEY =>
         'The selected article iteration id does not seem to be from the related article.',
-    \App\Validators\OwnedByValidator::KEY =>
+    \App\Athenia\Validators\OwnedByValidator::KEY =>
         'The :attribute must be owned by the appropriate model.',
 
 ];

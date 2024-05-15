@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers\User\Thread;
 
-use App\Http\Core\Controllers\User\Thread\MessageControllerAbstract;
+use App\Athenia\Http\Core\Controllers\User\Thread\MessageControllerAbstract;
 
 /**
  * Class MessageController

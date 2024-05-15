@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Policies\User;
 
-use App\Contracts\Models\HasPolicyContract;
-use App\Contracts\Policies\BasePolicyContract;
+use App\Athenia\Contracts\BasePolicyContract;
+use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**

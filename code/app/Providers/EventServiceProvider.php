@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Providers\AtheniaProviders\BaseEventServiceProvider;
+use App\Athenia\Providers\BaseEventServiceProvider;
 
 /**
  * Class EventServiceProvider

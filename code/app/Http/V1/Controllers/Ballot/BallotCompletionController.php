@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers\Ballot;
 
-use App\Http\Core\Controllers\Ballot\BallotCompletionControllerAbstract;
+use App\Athenia\Http\Core\Controllers\Ballot\BallotCompletionControllerAbstract;
 
 /**
  * Class BallotCompletionController

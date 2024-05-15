@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Models\BaseModelAbstract;
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 

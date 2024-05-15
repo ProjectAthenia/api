@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models\Vote;
 
-use App\Events\Vote\VoteCreatedEvent;
-use App\Models\BaseModelAbstract;
+use App\Athenia\Events\Vote\VoteCreatedEvent;
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

@@ -3,18 +3,15 @@ declare(strict_types=1);
 
 namespace App\Models\Organization;
 
-use App\Contracts\Models\BelongsToOrganizationContract;
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
+use App\Athenia\Contracts\Models\BelongsToOrganizationContract;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\BelongsToOrganization;
+use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\Role;
-use App\Models\Traits\BelongsToOrganization;
-use App\Models\Traits\HasValidationRules;
 use App\Models\User\User;
 use Eloquent;
-use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 /**

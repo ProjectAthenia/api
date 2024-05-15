@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\Models\HasPolicyContract;
+use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Models\BaseModelAbstract;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Resource

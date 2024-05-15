@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models\Messaging;
 
-use App\Contracts\Models\Messaging\CanReceivePushNotificationContract;
-use App\Models\BaseModelAbstract;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Athenia\Contracts\Models\Messaging\CanReceivePushNotificationContract;
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 

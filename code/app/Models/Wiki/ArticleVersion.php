@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Contracts\Models\HasValidationRulesContract;
-use App\Models\BaseModelAbstract;
-use App\Models\Traits\HasValidationRules;
-use App\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
+use App\Athenia\Contracts\Models\HasValidationRulesContract;
+use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasValidationRules;
+use App\Athenia\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 

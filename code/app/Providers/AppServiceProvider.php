@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Providers\AtheniaProviders\BaseServiceProvider;
+use App\Athenia\Providers\BaseServiceProvider;
 
 /**
  * Class AppServiceProvider

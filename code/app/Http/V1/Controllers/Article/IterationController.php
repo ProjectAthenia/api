@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\V1\Controllers\Article;
 
-use App\Http\Core\Controllers\Article\IterationControllerAbstract;
+use App\Athenia\Http\Core\Controllers\Article\IterationControllerAbstract;
 
 /**
  * Class IterationController

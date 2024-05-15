@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Listeners\Organization;
 
-use App\Contracts\Repositories\Messaging\MessageRepositoryContract;
-use App\Events\Organization\OrganizationManagerCreatedEvent;
+use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Events\Organization\OrganizationManagerCreatedEvent;
 
 /**
  * Class OrganizationManagerCreatedListener
