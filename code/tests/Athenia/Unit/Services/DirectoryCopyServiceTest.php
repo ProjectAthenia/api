@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Services\DirectoryCopyService;
 use Illuminate\Filesystem\FilesystemAdapter;

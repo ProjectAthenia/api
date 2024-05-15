@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Exceptions;
+namespace Tests\Athenia\Unit\Exceptions;
 
 use App\Athenia\Exceptions\Handler;
 use App\Athenia\Exceptions\ValidationException;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class HandlerTest
- * @package Tests\Unit\Exceptions
+ * @package Tests\Athenia\Unit\Exceptions
  */
 final class HandlerTest extends TestCase 
 {

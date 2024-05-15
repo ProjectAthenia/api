@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies;
+namespace Tests\Athenia\Integration\Policies;
 
 use App\Models\Category;
 use App\Models\User\User;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class CategoryPolicyTest
- * @package Tests\Integration\Policies
+ * @package Tests\Athenia\Integration\Policies
  */
 final class CategoryPolicyTest extends TestCase
 {

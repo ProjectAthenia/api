@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators;
+namespace Tests\Athenia\Unit\Validators;
 
 use App\Athenia\Validators\BaseValidatorAbstract;
 use RuntimeException;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class BaseValidatorAbstractTest
- * @package Tests\Unit\Validators
+ * @package Tests\Athenia\Unit\Validators
  */
 final class BaseValidatorAbstractTest extends TestCase
 {

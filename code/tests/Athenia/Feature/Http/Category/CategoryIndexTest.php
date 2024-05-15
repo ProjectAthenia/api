@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Category;
+namespace Tests\Athenia\Feature\Http\Category;
 
 use App\Models\Category;
 use Tests\DatabaseSetupTrait;
@@ -10,7 +10,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class CategoryIndexTest
- * @package Tests\Feature\Http\Category
+ * @package Tests\Athenia\Feature\Http\Category
  */
 final class CategoryIndexTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories;
+namespace Tests\Athenia\Integration\Repositories;
 
 use App\Athenia\Repositories\CategoryRepository;
 use App\Models\Category;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class RoleRepositoryTest
- * @package Tests\Integration\Repositories
+ * @package Tests\Athenia\Integration\Repositories
  */
 final class CategoryRepositoryTest extends TestCase
 {

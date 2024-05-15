@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserPaymentMethodCreateTest
- * @package Tests\Feature\Http\User\PaymentMethod
+ * @package Tests\Athenia\Feature\Http\User\PaymentMethod
  */
 final class OrganizationCollectionCreateTest extends TestCase
 {

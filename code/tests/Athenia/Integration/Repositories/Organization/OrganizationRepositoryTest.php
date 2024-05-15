@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Organization;
+namespace Tests\Athenia\Integration\Repositories\Organization;
 
 use App\Athenia\Repositories\Organization\OrganizationRepository;
 use App\Models\Organization\Organization;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class OrganizationRepositoryTest
- * @package Tests\Integration\Repositories\Organization
+ * @package Tests\Athenia\Integration\Repositories\Organization
  */
 final class OrganizationRepositoryTest extends TestCase
 {

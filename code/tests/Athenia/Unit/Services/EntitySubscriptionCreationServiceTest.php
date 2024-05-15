@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Athenia\Contracts\Services\ProratingCalculationServiceContract;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 
 /**
  * Class EntitySubscriptionCreationServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class EntitySubscriptionCreationServiceTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Models\User;
+namespace Tests\Athenia\Integration\Models\User;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class UserTest
- * @package Tests\Integration\Models
+ * @package Tests\Athenia\Integration\Models
  */
 final class UserTest extends TestCase
 {

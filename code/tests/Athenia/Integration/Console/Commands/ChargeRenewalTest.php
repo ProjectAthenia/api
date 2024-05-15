@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Console\Commands;
+namespace Tests\Athenia\Integration\Console\Commands;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 
 /**
  * Class ChargeRenewalTest
- * @package Tests\Integration\Console\Commands
+ * @package Tests\Athenia\Integration\Console\Commands
  */
 final class ChargeRenewalTest extends TestCase
 {

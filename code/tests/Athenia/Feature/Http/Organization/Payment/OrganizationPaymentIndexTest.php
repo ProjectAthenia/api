@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Organization\Payment;
+namespace Tests\Athenia\Feature\Http\Organization\Payment;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class OrganizationSubscriptionIndexTest
- * @package Tests\Feature\Organization\Payment
+ * @package Tests\Athenia\Feature\Organization\Payment
  */
 final class OrganizationPaymentIndexTest extends TestCase
 {

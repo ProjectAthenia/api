@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Console\Commands;
+namespace Tests\Athenia\Integration\Console\Commands;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Repositories\Subscription\MembershipPlanRateRepository;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * Class SendRenewalRemindersTest
- * @package Tests\Integration\Console\Commands
+ * @package Tests\Athenia\Integration\Console\Commands
  */
 final class SendRenewalRemindersTest extends TestCase
 {

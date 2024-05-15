@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Services\ProratingCalculationService;
 use App\Models\Subscription\MembershipPlan;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class ProratingCalculationServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class ProratingCalculationServiceTest extends TestCase
 {

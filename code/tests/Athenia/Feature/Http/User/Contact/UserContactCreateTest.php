@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\Contact;
+namespace Tests\Athenia\Feature\User\Contact;
 
 use App\Athenia\Events\User\Contact\ContactCreatedEvent;
 use App\Models\User\Contact;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserContactCreateTest
- * @package Tests\Feature\User\Contact
+ * @package Tests\Athenia\Feature\User\Contact
  */
 final class UserContactCreateTest extends TestCase
 {

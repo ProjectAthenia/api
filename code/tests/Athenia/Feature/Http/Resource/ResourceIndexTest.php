@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Resource;
+namespace Tests\Athenia\Feature\Resource;
 
 use App\Models\Resource;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ResourceIndexTest
- * @package Tests\Feature\Resource
+ * @package Tests\Athenia\Feature\Resource
  */
 final class ResourceIndexTest extends TestCase
 {

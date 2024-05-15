@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\User\Contact;
+namespace Tests\Athenia\Unit\Listeners\User\Contact;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Events\User\Contact\ContactCreatedEvent;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class ContactCreatedListenerTest
- * @package Tests\Unit\Listeners\User\Contact
+ * @package Tests\Athenia\Unit\Listeners\User\Contact
  */
 final class ContactCreatedListenerTest extends TestCase
 {

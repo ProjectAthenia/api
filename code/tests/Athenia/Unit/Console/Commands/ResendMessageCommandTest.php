@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Console\Commands;
+namespace Tests\Athenia\Unit\Console\Commands;
 
 use App\Athenia\Console\Commands\ResendMessageCommand;
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;

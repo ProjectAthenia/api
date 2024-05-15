@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\Messaging;
+namespace Tests\Athenia\Unit\Listeners\Messaging;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Events\Messaging\MessageSentEvent;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class MessageSentListenerTest
- * @package Tests\Unit\Listeners\Message
+ * @package Tests\Athenia\Unit\Listeners\Message
  */
 final class MessageSentListenerTest extends TestCase
 {

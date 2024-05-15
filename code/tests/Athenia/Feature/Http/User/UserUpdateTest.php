@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User;
+namespace Tests\Athenia\Feature\Http\User;
 
 use App\Models\User\User;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserUpdateTest
- * @package Tests\Feature\Http\User
+ * @package Tests\Athenia\Feature\Http\User
  */
 final class UserUpdateTest extends TestCase
 {

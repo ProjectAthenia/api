@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\Wiki;
+namespace Tests\Athenia\Unit\Services\Wiki;
 
 use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Services\StringHelperService;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * Class ArticleModificationApplicationServiceTest
- * @package Tests\Unit\Services\Wiki
+ * @package Tests\Athenia\Unit\Services\Wiki
  */
 final class ArticleModificationApplicationServiceTest extends TestCase
 {

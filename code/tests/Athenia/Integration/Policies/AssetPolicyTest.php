@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies;
+namespace Tests\Athenia\Integration\Policies;
 
 use App\Models\Asset;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class AssetPolicyTest
- * @package Tests\Integration\Policies
+ * @package Tests\Athenia\Integration\Policies
  */
 final class AssetPolicyTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\ThreadSecurity;
+namespace Tests\Athenia\Unit\ThreadSecurity;
 
 use App\Athenia\ThreadSecurity\GeneralThreadGate;
 use App\Athenia\ThreadSecurity\PrivateThreadGate;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class ThreadSubjectGateProviderTest
- * @package Tests\Unit\ThreadSecurity
+ * @package Tests\Athenia\Unit\ThreadSecurity
  */
 final class ThreadSubjectGateProviderTest extends TestCase
 {

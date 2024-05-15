@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Vote;
+namespace Tests\Athenia\Unit\Models\Vote;
 
 use App\Models\Vote\Ballot;
 use Tests\TestCase;
 
 /**
  * Class BallotTest
- * @package Tests\Unit\Models\Vote
+ * @package Tests\Athenia\Unit\Models\Vote
  */
 final class BallotTest extends TestCase
 {

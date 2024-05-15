@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\Thread;
+namespace Tests\Athenia\Feature\User\Thread;
 
 use App\Models\Messaging\Thread;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserThreadCreateTest
- * @package Tests\Feature\User\Thread
+ * @package Tests\Athenia\Feature\User\Thread
  */
 final class UserThreadCreateTest extends TestCase
 {

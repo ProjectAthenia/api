@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Observers;
+namespace Tests\Athenia\Unit\Observers;
 
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
 use App\Athenia\Observer\IndexableModelObserver;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class IndexableModelObserverTest
- * @package Tests\Unit\Observers
+ * @package Tests\Athenia\Unit\Observers
  */
 final class IndexableModelObserverTest extends TestCase
 {

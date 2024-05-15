@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Vote;
+namespace Tests\Athenia\Unit\Models\Vote;
 
 use App\Models\Vote\BallotItemOption;
 use Tests\TestCase;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\User;
+namespace Tests\Athenia\Integration\Repositories\User;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\User\ProfileImageRepository;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ProfileImageRepositoryTest
- * @package Tests\Integration\Repositories\User
+ * @package Tests\Athenia\Integration\Repositories\User
  */
 final class ProfileImageRepositoryTest extends TestCase
 {

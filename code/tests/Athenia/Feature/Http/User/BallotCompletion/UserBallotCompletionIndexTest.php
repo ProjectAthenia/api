@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\BallotCompletion;
+namespace Tests\Athenia\Feature\User\BallotCompletion;
 
 use App\Models\User\User;
 use App\Models\Vote\BallotCompletion;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserBallotCompletionIndexTest
- * @package Tests\Feature\User\BallotCompletion
+ * @package Tests\Athenia\Feature\User\BallotCompletion
  */
 final class UserBallotCompletionIndexTest extends TestCase
 {

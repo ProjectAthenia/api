@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Authentication;
+namespace Tests\Athenia\Feature\Http\Authentication;
 
 use App\Athenia\Http\Middleware\LogMiddleware;
 use App\Models\User\User;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class LogoutTest
- * @package Tests\Feature\Http\Authentication
+ * @package Tests\Athenia\Feature\Http\Authentication
  */
 final class LogoutTest extends TestCase
 {

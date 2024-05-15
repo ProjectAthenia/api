@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\ThreadSecurity;
+namespace Tests\Athenia\Unit\ThreadSecurity;
 
 use App\Athenia\ThreadSecurity\GeneralThreadGate;
 use App\Models\Messaging\Thread;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class GeneralThreadGateTest
- * @package Tests\Unit\ThreadSecurity
+ * @package Tests\Athenia\Unit\ThreadSecurity
  */
 final class GeneralThreadGateTest extends TestCase
 {

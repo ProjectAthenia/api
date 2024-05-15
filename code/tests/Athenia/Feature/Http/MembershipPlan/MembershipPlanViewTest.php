@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\MembershipPlan;
+namespace Tests\Athenia\Feature\Http\MembershipPlan;
 
 use App\Models\Role;
 use App\Models\Subscription\MembershipPlan;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class MembershipPlanViewTest
- * @package Tests\Feature\Http\MembershipPlan
+ * @package Tests\Athenia\Feature\Http\MembershipPlan
  */
 final class MembershipPlanViewTest extends TestCase
 {

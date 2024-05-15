@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\PaymentMethod;
+namespace Tests\Athenia\Feature\Http\User\PaymentMethod;
 
 use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Models\Payment\PaymentMethod;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserPaymentMethodCreateTest
- * @package Tests\Feature\Http\User\PaymentMethod
+ * @package Tests\Athenia\Feature\Http\User\PaymentMethod
  */
 final class UserPaymentMethodCreateTest extends TestCase
 {

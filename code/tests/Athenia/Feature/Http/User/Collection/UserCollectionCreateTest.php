@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\Collection;
+namespace Tests\Athenia\Feature\Http\User\Collection;
 
 use App\Models\User\User;
 use Tests\DatabaseSetupTrait;
@@ -10,7 +10,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserPaymentMethodCreateTest
- * @package Tests\Feature\Http\User\PaymentMethod
+ * @package Tests\Athenia\Feature\Http\User\PaymentMethod
  */
 final class UserCollectionCreateTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\Subscription;
+namespace Tests\Athenia\Feature\Http\User\Subscription;
 
 use App\Models\Payment\PaymentMethod;
 use App\Models\Role;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserSubscriptionUpdateTest
- * @package Tests\Feature\Http\User\Subscription
+ * @package Tests\Athenia\Feature\Http\User\Subscription
  */
 final class UserSubscriptionUpdateTest extends TestCase
 {

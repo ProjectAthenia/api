@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Article\Iteration;
+namespace Tests\Athenia\Feature\Http\Article\Iteration;
 
 use App\Models\Role;
 use App\Models\Wiki\Article;
@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class ArticleIterationIndexTest
- * @package Tests\Feature\Http\Article\Iteration
+ * @package Tests\Athenia\Feature\Http\Article\Iteration
  */
 final class ArticleIterationIndexTest extends TestCase
 {

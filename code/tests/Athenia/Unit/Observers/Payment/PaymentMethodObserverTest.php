@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Observers\Payment;
+namespace Tests\Athenia\Unit\Observers\Payment;
 
+use App\Athenia\Observer\Payment\PaymentMethodObserver;
 use App\Models\Payment\PaymentMethod;
-use App\Observers\Payment\PaymentMethodObserver;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\CustomMockInterface;
 use Tests\TestCase;
 
 /**
  * Class PaymentMethodObserverTest
- * @package Tests\Unit\Observers\Payment
+ * @package Tests\Athenia\Unit\Observers\Payment
  */
 final class PaymentMethodObserverTest extends TestCase
 {

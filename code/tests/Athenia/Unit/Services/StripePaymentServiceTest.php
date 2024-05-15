@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 
 /**
  * Class StripePaymentServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class StripePaymentServiceTest extends TestCase
 {

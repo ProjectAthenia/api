@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Wiki;
+namespace Tests\Athenia\Integration\Policies\Wiki;
 
 use App\Models\Role;
 use App\Models\Wiki\Article;
@@ -12,7 +12,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class ArticlePolicyTest
- * @package Tests\Integration\Policies\Wiki
+ * @package Tests\Athenia\Integration\Policies\Wiki
  */
 final class ArticlePolicyTest extends TestCase
 {

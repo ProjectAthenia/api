@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Organization;
+namespace Tests\Athenia\Integration\Policies\Organization;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * Class OrganizationManagerPolicyTest
- * @package Tests\Integration\Policies\Organization
+ * @package Tests\Athenia\Integration\Policies\Organization
  */
 final class OrganizationManagerPolicyTest extends TestCase
 {

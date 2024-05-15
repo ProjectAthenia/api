@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Messaging;
+namespace Tests\Athenia\Integration\Repositories\Messaging;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\Messaging\ThreadRepository;
@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ThreadRepositoryTest
- * @package Tests\Integration\Repositories\User
+ * @package Tests\Athenia\Integration\Repositories\User
  */
 final class ThreadRepositoryTest extends TestCase
 {

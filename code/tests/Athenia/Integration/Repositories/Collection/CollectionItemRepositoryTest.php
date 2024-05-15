@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Collection;
+namespace Tests\Athenia\Integration\Repositories\Collection;
 
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
 use App\Models\Collection\Collection;

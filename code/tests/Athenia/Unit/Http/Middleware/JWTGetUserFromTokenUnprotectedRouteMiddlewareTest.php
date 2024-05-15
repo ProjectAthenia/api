@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Http\Middleware;
+namespace Tests\Athenia\Unit\Http\Middleware;
 
 use App\Athenia\Http\Middleware\JWTGetUserFromTokenUnprotectedRouteMiddleware;
 use Illuminate\Foundation\Application;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class JWTGetUserFromTokenUnprotectedRouteMiddlewareTest
- * @package Tests\Unit\Http\Middleware
+ * @package Tests\Athenia\Unit\Http\Middleware
  */
 final class JWTGetUserFromTokenUnprotectedRouteMiddlewareTest extends TestCase
 {

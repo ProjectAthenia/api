@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Organization;
+namespace Tests\Athenia\Unit\Events\Organization;
 
 use App\Athenia\Events\Organization\OrganizationManagerCreatedEvent;
 use App\Models\Organization\OrganizationManager;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class OrganizationManagerCreatedEventTest
- * @package Tests\Unit\Events\Organization
+ * @package Tests\Athenia\Unit\Events\Organization
  */
 final class OrganizationManagerCreatedEventTest extends TestCase
 {

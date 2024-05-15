@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators\Subscription;
+namespace Tests\Athenia\Unit\Validators\Subscription;
 
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRateRepositoryContract;
 use App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class MembershipPlanRateIsActiveValidatorTest
- * @package Tests\Unit\Validators\Subscription
+ * @package Tests\Athenia\Unit\Validators\Subscription
  */
 final class MembershipPlanRateIsActiveValidatorTest extends TestCase
 {

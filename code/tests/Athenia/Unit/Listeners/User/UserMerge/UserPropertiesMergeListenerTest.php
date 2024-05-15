@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\User\UserMerge;
+namespace Tests\Athenia\Unit\Listeners\User\UserMerge;
 
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
 use App\Athenia\Events\User\UserMergeEvent;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * Class UserPropertiesMergeListenerTest
- * @package Tests\Unit\Listeners\User\UserMerge
+ * @package Tests\Athenia\Unit\Listeners\User\UserMerge
  */
 final class UserPropertiesMergeListenerTest extends TestCase
 {

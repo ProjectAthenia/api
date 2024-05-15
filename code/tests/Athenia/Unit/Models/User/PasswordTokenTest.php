@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\User;
+namespace Tests\Athenia\Unit\Models\User;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User\PasswordToken;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class PasswordTokenTest
- * @package Tests\Unit\Models\User
+ * @package Tests\Athenia\Unit\Models\User
  */
 final class PasswordTokenTest extends TestCase
 {

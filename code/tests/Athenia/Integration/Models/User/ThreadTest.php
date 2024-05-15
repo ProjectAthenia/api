@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Models\User;
+namespace Tests\Athenia\Integration\Models\User;
 
 use App\Models\Messaging\Message;
 use App\Models\Messaging\Thread;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class ThreadTest
- * @package Tests\Integration\Models\User
+ * @package Tests\Athenia\Integration\Models\User
  */
 final class ThreadTest extends TestCase
 {

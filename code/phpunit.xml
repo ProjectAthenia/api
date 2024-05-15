@@ -13,6 +13,15 @@
         backupStaticProperties="false"
 >
   <testsuites>
+    <testsuite name="Athenia Feature">
+      <directory suffix="Test.php">./tests/Athenia/Feature</directory>
+    </testsuite>
+    <testsuite name="Athenia Integration Tests">
+      <directory suffix="Test.php">./tests/Athenia/Integration</directory>
+    </testsuite>
+    <testsuite name="Athenia Unit">
+      <directory suffix="Test.php">./tests/Athenia/Unit</directory>
+    </testsuite>
     <testsuite name="Feature">
       <directory suffix="Test.php">./tests/Feature</directory>
     </testsuite>

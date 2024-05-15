@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Mail;
+namespace Tests\Athenia\Unit\Mail;
 
 use App\Athenia\Mail\MessageMailer;
 use App\Models\Messaging\Message;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class MessageMailerTest
- * @package Tests\Unit\Mail
+ * @package Tests\Athenia\Unit\Mail
  */
 final class MessageMailerTest extends TestCase
 {

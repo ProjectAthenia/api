@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Vote;
+namespace Tests\Athenia\Integration\Policies\Vote;
 
 use App\Models\User\User;
 use App\Models\Vote\Ballot;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class BallotCompletionPolicyTest
- * @package Tests\Integration\Policies\Vote
+ * @package Tests\Athenia\Integration\Policies\Vote
  */
 final class BallotCompletionPolicyTest extends TestCase
 {

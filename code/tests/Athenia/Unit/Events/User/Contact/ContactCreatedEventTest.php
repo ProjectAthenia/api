@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\User\Contact;
+namespace Tests\Athenia\Unit\Events\User\Contact;
 
 use App\Athenia\Events\User\Contact\ContactCreatedEvent;
 use App\Models\User\Contact;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class ContactCreatedEventTest
- * @package Tests\Unit\Events\User\Contact
+ * @package Tests\Athenia\Unit\Events\User\Contact
  */
 final class ContactCreatedEventTest extends TestCase
 {

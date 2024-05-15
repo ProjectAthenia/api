@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Providers;
+namespace Tests\Athenia\Unit\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Foundation\Application;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class AppServiceProviderTest
- * @package Tests\Unit\Providers
+ * @package Tests\Athenia\Unit\Providers
  */
 final class AppServiceProviderTest extends TestCase
 {
@@ -54,7 +54,7 @@ final class AppServiceProviderTest extends TestCase
         $repositoryContracts = [];
 
         foreach (array_keys($app->getBindings()) as $contract) {
-            if (Str::startsWith($contract, 'App\Contracts\Services')) {
+            if (Str::startsWith($contract, 'Contracts\Services')) {
                 $repositoryContracts[] = [$contract];
             }
         }

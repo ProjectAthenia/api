@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User;
+namespace Tests\Athenia\Feature\Http\User;
 
 use App\Models\User\User;
 use Tests\DatabaseSetupTrait;
@@ -10,7 +10,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserMeTest
- * @package Tests\Feature\Http\User
+ * @package Tests\Athenia\Feature\Http\User
  */
 final class UserMeTest extends TestCase
 {

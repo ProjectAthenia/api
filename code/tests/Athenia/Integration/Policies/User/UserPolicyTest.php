@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\User;
+namespace Tests\Athenia\Integration\Policies\User;
 
 use App\Models\User\User;
 use App\Policies\User\UserPolicy;
@@ -11,7 +11,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class UserPolicyTest
- * @package Tests\Integration\Policies\User
+ * @package Tests\Athenia\Integration\Policies\User
  */
 final class UserPolicyTest extends TestCase
 {

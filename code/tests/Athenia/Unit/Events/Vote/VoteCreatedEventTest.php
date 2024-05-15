@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Vote;
+namespace Tests\Athenia\Unit\Events\Vote;
 
 use App\Athenia\Events\Vote\VoteCreatedEvent;
 use App\Models\Vote\Vote;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class VoteCreatedEventTest
- * @package Tests\Unit\Events\Vote
+ * @package Tests\Athenia\Unit\Events\Vote
  */
 final class VoteCreatedEventTest extends TestCase
 {

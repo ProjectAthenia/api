@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Category;
+namespace Tests\Athenia\Feature\Http\Category;
 
 use App\Models\Category;
 use App\Models\Role;
@@ -12,7 +12,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class MembershipPlanUpdateTest
- * @package Tests\Feature\Http\Category
+ * @package Tests\Athenia\Feature\Http\Category
  */
 final class CategoryUpdateTest extends TestCase
 {

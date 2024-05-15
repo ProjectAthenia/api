@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Wiki;
+namespace Tests\Athenia\Unit\Models\Wiki;
 
 use App\Models\Wiki\Article;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class ArticleTest
- * @package Tests\Unit\Models\Wiki
+ * @package Tests\Athenia\Unit\Models\Wiki
  */
 final class ArticleTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Providers;
+namespace Tests\Athenia\Unit\Providers;
 
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
 use App\Athenia\Providers\BaseAuthServiceProvider;
@@ -18,7 +18,7 @@ use Tests\Traits\ReflectionHelpers;
 
 /**
  * Class AuthServiceProviderTest
- * @package Tests\Unit\Providers
+ * @package Tests\Athenia\Unit\Providers
  */
 final class AuthServiceProviderTest extends TestCase
 {

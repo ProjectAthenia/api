@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\MembershipPlan\MembershipPlanRate;
+namespace Tests\Athenia\Feature\Http\MembershipPlan\MembershipPlanRate;
 
 use App\Models\Role;
 use App\Models\Subscription\MembershipPlan;
@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class MembershipPlanMembershipPlanRateIndexTest
- * @package Tests\Feature\Http\MembershipPlan\MembershipPlanRate
+ * @package Tests\Athenia\Feature\Http\MembershipPlan\MembershipPlanRate
  */
 final class MembershipPlanMembershipPlanRateIndexTest extends TestCase
 {

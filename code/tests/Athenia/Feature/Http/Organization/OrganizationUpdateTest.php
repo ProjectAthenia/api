@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Organization;
+namespace Tests\Athenia\Feature\Http\Organization;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class OrganizationUpdateTest
- * @package Tests\Feature\Http\Organization
+ * @package Tests\Athenia\Feature\Http\Organization
  */
 final class OrganizationUpdateTest extends TestCase
 {

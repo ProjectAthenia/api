@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Payment;
+namespace Tests\Athenia\Unit\Models\Payment;
 
 use App\Models\Payment\Payment;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class PaymentTest
- * @package Tests\Unit\Models\Payment
+ * @package Tests\Athenia\Unit\Models\Payment
  */
 final class PaymentTest extends TestCase
 {

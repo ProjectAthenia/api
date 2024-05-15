@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\Vote;
+namespace Tests\Athenia\Unit\Listeners\Vote;
 
 use App\Athenia\Contracts\Repositories\Vote\BallotItemOptionRepositoryContract;
 use App\Athenia\Contracts\Repositories\Vote\BallotItemRepositoryContract;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * Class VoteCreatedListenerTest
- * @package Tests\Unit\Listeners\Vote
+ * @package Tests\Athenia\Unit\Listeners\Vote
  */
 final class VoteCreatedListenerTest extends TestCase
 {

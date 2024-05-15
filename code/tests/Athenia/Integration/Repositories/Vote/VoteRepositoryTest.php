@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Vote;
+namespace Tests\Athenia\Integration\Repositories\Vote;
 
 use App\Athenia\Repositories\Vote\VoteRepository;
 use App\Models\Vote\BallotCompletion;
@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class VoteRepositoryTest
- * @package Tests\Integration\Repositories\Vote
+ * @package Tests\Athenia\Integration\Repositories\Vote
  */
 final class VoteRepositoryTest extends TestCase
 {

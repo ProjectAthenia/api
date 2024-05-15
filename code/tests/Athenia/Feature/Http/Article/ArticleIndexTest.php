@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Article;
+namespace Tests\Athenia\Feature\Http\Article;
 
 use App\Models\Role;
 use App\Models\Wiki\Article;
@@ -12,7 +12,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class ArticleIndexTest
- * @package Tests\Feature\Http\Article
+ * @package Tests\Athenia\Feature\Http\Article
  */
 final class ArticleIndexTest extends TestCase
 {

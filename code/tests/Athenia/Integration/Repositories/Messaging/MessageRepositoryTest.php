@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Messaging;
+namespace Tests\Athenia\Integration\Repositories\Messaging;
 
 use App\Athenia\Contracts\Models\CanReceiveTextMessagesContract;
 use App\Athenia\Events\Messaging\MessageCreatedEvent;
@@ -20,7 +20,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class MessageRepositoryTest
- * @package Tests\Integration\Repositories\User
+ * @package Tests\Athenia\Integration\Repositories\User
  */
 class MessageRepositoryTest extends TestCase
 {

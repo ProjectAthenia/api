@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\Collection;
+namespace Tests\Athenia\Unit\Services\Collection;
 
 use App\Athenia\Services\Collection\ItemInEntityCollectionService;
 use App\Models\Collection\Collection;

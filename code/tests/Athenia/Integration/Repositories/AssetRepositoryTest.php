@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories;
+namespace Tests\Athenia\Integration\Repositories;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\AssetRepository;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class AssetRepositoryTest
- * @package Tests\Integration\Repositories
+ * @package Tests\Athenia\Integration\Repositories
  */
 final class AssetRepositoryTest extends TestCase
 {

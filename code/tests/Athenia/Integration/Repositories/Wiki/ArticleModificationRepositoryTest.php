@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Wiki;
+namespace Tests\Athenia\Integration\Repositories\Wiki;
 
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Models\Wiki\Article;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ArticleModificationRepositoryTest
- * @package Tests\Integration\Repositories\Wiki
+ * @package Tests\Athenia\Integration\Repositories\Wiki
  */
 final class ArticleModificationRepositoryTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Payment;
+namespace Tests\Athenia\Integration\Repositories\Payment;
 
 use App\Athenia\Repositories\Payment\PaymentMethodRepository;
 use App\Models\Payment\PaymentMethod;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class PaymentMethodRepositoryTest
- * @package Tests\Integration\Repositories\Payment
+ * @package Tests\Athenia\Integration\Repositories\Payment
  */
 final class PaymentMethodRepositoryTest extends TestCase
 {

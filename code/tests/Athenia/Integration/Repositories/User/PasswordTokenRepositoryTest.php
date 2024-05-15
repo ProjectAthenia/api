@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\User;
+namespace Tests\Athenia\Integration\Repositories\User;
 
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Events\User\ForgotPasswordEvent;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * Class PasswordTokenRepositoryTest
- * @package Tests\Integration\Repositories\User
+ * @package Tests\Athenia\Integration\Repositories\User
  */
 final class PasswordTokenRepositoryTest extends TestCase
 {

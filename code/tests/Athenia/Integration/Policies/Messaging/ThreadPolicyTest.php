@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Messaging;
+namespace Tests\Athenia\Integration\Policies\Messaging;
 
 use App\Athenia\Contracts\ThreadSecurity\ThreadSubjectGateContract;
 use App\Athenia\Contracts\ThreadSecurity\ThreadSubjectGateProviderContract;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * Class ThreadPolicyTest
- * @package Tests\Integration\Policies\User
+ * @package Tests\Athenia\Integration\Policies\User
  */
 final class ThreadPolicyTest extends TestCase
 {

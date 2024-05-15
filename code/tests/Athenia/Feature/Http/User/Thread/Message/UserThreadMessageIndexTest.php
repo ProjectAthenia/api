@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\Thread\Message;
+namespace Tests\Athenia\Feature\User\Thread\Message;
 
 use App\Models\Messaging\Message;
 use App\Models\Messaging\Thread;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserThreadMessageIndexTest
- * @package Tests\Feature\User\Thread\Message
+ * @package Tests\Athenia\Feature\User\Thread\Message
  */
 final class UserThreadMessageIndexTest extends TestCase
 {

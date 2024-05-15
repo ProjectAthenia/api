@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\User;
+namespace Tests\Athenia\Unit\Models\User;
 
 use App\Models\User\ProfileImage;
 use Tests\TestCase;
 
 /**
  * Class ProfileImageTest
- * @package Tests\Unit\Models\User
+ * @package Tests\Athenia\Unit\Models\User
  */
 final class ProfileImageTest extends TestCase
 {

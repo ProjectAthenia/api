@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators;
+namespace Tests\Athenia\Unit\Validators;
 
 use App\Athenia\Validators\OwnedByValidator;
 use App\Models\Organization\Organization;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class OwnedByTest
- * @package Tests\Unit\Validators
+ * @package Tests\Athenia\Unit\Validators
  */
 final class OwnedByValidatorTest extends TestCase
 {

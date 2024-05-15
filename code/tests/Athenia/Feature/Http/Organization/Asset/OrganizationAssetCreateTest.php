@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Organization\Asset;
+namespace Tests\Athenia\Feature\Http\Organization\Asset;
 
 use App\Models\Asset;
 use App\Models\Organization\Organization;
@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserAssetCreateTest
- * @package Tests\Feature\Organization\Asset
+ * @package Tests\Athenia\Feature\Organization\Asset
  */
 final class OrganizationAssetCreateTest extends TestCase
 {

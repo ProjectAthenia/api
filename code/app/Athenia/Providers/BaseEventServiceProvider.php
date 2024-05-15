@@ -25,6 +25,7 @@ use App\Athenia\Listeners\User\UserMerge\UserMessagesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserPropertiesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserSubscriptionsMergeListener;
 use App\Athenia\Observer\IndexableModelObserver;
+use App\Athenia\Observer\Payment\PaymentMethodObserver;
 use App\Listeners\Messaging\MessageCreatedListener;
 use App\Listeners\Organization\OrganizationManagerCreatedListener;
 use App\Listeners\User\Contact\ContactCreatedListener;
@@ -33,7 +34,6 @@ use App\Listeners\Vote\VoteCreatedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Observers\Payment\PaymentMethodObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 /**

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Feature;
+namespace Tests\Athenia\Feature\Http\Feature;
 
 use App\Models\Feature;
 use App\Models\Role;
@@ -12,7 +12,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class FeatureViewTest
- * @package Tests\Feature\Http\Feature
+ * @package Tests\Athenia\Feature\Http\Feature
  */
 final class FeatureViewTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Collection;
+namespace Tests\Athenia\Unit\Models\Collection;
 
 use App\Models\Collection\CollectionItem;
 use Tests\TestCase;

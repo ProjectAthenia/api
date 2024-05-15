@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Messaging;
+namespace Tests\Athenia\Unit\Models\Messaging;
 
 use App\Models\Messaging\Message;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class MessageTest
- * @package Tests\Unit\Models\User
+ * @package Tests\Athenia\Unit\Models\User
  */
 final class MessageTest extends TestCase
 {

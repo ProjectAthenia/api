@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\PaymentMethod;
+namespace Tests\Athenia\Feature\Http\User\PaymentMethod;
 
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserPaymentMethodUpdateTest
- * @package Tests\Feature\Http\User\PaymentMethod
+ * @package Tests\Athenia\Feature\Http\User\PaymentMethod
  */
 final class UserPaymentMethodUpdateTest extends TestCase
 {

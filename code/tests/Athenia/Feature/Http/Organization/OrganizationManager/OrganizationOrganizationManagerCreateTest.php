@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Organization\OrganizationManager;
+namespace Tests\Athenia\Feature\Http\Organization\OrganizationManager;
 
 use App\Athenia\Events\Organization\OrganizationManagerCreatedEvent;
 use App\Models\Organization\Organization;
@@ -16,7 +16,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class OrganizationOrganizationManagerCreateTest
- * @package Tests\Feature\Http\Organization\OrganizationManager
+ * @package Tests\Athenia\Feature\Http\Organization\OrganizationManager
  */
 final class OrganizationOrganizationManagerCreateTest extends TestCase
 {

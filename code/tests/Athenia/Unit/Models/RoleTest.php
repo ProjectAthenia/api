@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models;
+namespace Tests\Athenia\Unit\Models;
 
 use App\Models\Role;
 use Tests\TestCase;
 
 /**
  * Class RoleTest
- * @package Tests\Unit
+ * @package Tests\Athenia\Unit
  */
 final class RoleTest extends TestCase
 {

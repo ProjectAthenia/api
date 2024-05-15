@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\User;
+namespace Tests\Athenia\Unit\Events\User;
 
 use App\Athenia\Events\User\UserMergeEvent;
 use App\Models\User\User;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class UserMergeEventTest
- * @package Tests\Unit\Events\User
+ * @package Tests\Athenia\Unit\Events\User
  */
 final class UserMergeEventTest extends TestCase
 {

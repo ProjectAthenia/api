@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Subscription;
+namespace Tests\Athenia\Integration\Policies\Subscription;
 
 use App\Models\Subscription\Subscription;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class SubscriptionPolicyTest
- * @package Tests\Integration\Policies\Subscription
+ * @package Tests\Athenia\Integration\Policies\Subscription
  */
 final class SubscriptionPolicyTest extends TestCase
 {

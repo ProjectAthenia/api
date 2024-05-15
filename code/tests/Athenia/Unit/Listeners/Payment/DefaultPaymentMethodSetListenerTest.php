@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\Payment;
+namespace Tests\Athenia\Unit\Listeners\Payment;
 
 use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Events\Payment\DefaultPaymentMethodSetEvent;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class DefaultPaymentMethodSetListenerTest
- * @package Tests\Unit\Listeners\Payment
+ * @package Tests\Athenia\Unit\Listeners\Payment
  */
 final class DefaultPaymentMethodSetListenerTest extends TestCase
 {

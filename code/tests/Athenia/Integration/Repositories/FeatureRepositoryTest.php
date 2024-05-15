@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories;
+namespace Tests\Athenia\Integration\Repositories;
 
 use App\Athenia\Repositories\FeatureRepository;
 use App\Models\Feature;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ResourceRepositoryTest
- * @package Tests\Integration\Repositories
+ * @package Tests\Athenia\Integration\Repositories
  */
 final class FeatureRepositoryTest extends TestCase
 {

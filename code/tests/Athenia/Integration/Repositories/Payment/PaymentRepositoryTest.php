@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Payment;
+namespace Tests\Athenia\Integration\Repositories\Payment;
 
 use App\Athenia\Repositories\Payment\LineItemRepository;
 use App\Athenia\Repositories\Payment\PaymentRepository;
@@ -16,7 +16,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class PaymentRepositoryTest
- * @package Tests\Integration\Repositories\Payment
+ * @package Tests\Athenia\Integration\Repositories\Payment
  */
 final class PaymentRepositoryTest extends TestCase
 {

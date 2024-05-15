@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Article;
+namespace Tests\Athenia\Unit\Article;
 
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * Class ArticleVersionCreatedListenerTest
- * @package Tests\Unit\Article
+ * @package Tests\Athenia\Unit\Article
  */
 final class ArticleVersionCreatedListenerTest extends TestCase
 {

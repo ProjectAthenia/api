@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Services\StringHelperService;
 use Tests\TestCase;
 
 /**
  * Class StringHelperServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class StringHelperServiceTest extends TestCase
 {

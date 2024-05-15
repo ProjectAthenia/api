@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators\Subscription;
+namespace Tests\Athenia\Unit\Validators\Subscription;
 
 use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * Class PaymentMethodIsOwnedByEntityValidatorTest
- * @package Tests\Unit\Validators\Subscription
+ * @package Tests\Athenia\Unit\Validators\Subscription
  */
 final class PaymentMethodIsOwnedByEntityValidatorTest extends TestCase
 {

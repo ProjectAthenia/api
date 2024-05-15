@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Authentication;
+namespace Tests\Athenia\Feature\Http\Authentication;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class RefreshTest
- * @package Tests\Feature\Http\Authentication
+ * @package Tests\Athenia\Feature\Http\Authentication
  */
 final class RefreshTest extends TestCase
 {

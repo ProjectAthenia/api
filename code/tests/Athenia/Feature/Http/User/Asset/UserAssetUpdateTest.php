@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\Asset;
+namespace Tests\Athenia\Feature\Http\User\Asset;
 
 use App\Models\Asset;
 use App\Models\Role;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserAssetUpdateTest
- * @package Tests\Feature\Http\User\Asset
+ * @package Tests\Athenia\Feature\Http\User\Asset
  */
 final class UserAssetUpdateTest extends TestCase
 {

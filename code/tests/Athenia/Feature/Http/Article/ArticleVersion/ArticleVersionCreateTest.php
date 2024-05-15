@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Article\ArticleVersion;
+namespace Tests\Athenia\Feature\Http\Article\ArticleVersion;
 
 use App\Models\Role;
 use App\Models\Wiki\Article;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ArticleVersionCreateTest
- * @package Tests\Feature\Http\Article\ArticleVersion
+ * @package Tests\Athenia\Feature\Http\Article\ArticleVersion
  */
 final class ArticleVersionCreateTest extends TestCase
 {

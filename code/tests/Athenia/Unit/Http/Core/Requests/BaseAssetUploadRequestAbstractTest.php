@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Http\Core\Requests;
+namespace Tests\Athenia\Unit\Http\Core\Requests;
 
 use App\Athenia\Http\Core\Requests\BaseAssetUploadRequestAbstract;
 use RuntimeException;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class BaseAssetUploadRequestAbstractTest
- * @package Tests\Unit\Http\V1\Requests
+ * @package Tests\Athenia\Unit\Http\V1\Requests
  */
 final class BaseAssetUploadRequestAbstractTest extends TestCase
 {

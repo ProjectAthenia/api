@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Authentication;
+namespace Tests\Athenia\Feature\Http\Authentication;
 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class LoginTest
- * @package Tests\Feature\Http\Authentication
+ * @package Tests\Athenia\Feature\Http\Authentication
  */
 final class LoginTest extends TestCase
 {

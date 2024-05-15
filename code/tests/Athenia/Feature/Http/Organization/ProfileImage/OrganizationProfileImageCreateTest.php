@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Organization\ProfileImage;
+namespace Tests\Athenia\Feature\Organization\ProfileImage;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserProfileImageCreateTest
- * @package Tests\Feature\Organization\ProfileImage
+ * @package Tests\Athenia\Feature\Organization\ProfileImage
  */
 final class OrganizationProfileImageCreateTest extends TestCase
 {

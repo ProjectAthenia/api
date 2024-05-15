@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\User;
+namespace Tests\Athenia\Unit\Listeners\User;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Events\User\ForgotPasswordEvent;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * Class ForgotPasswordListenerTest
- * @package Tests\Unit\Listeners\User
+ * @package Tests\Athenia\Unit\Listeners\User
  */
 final class ForgotPasswordListenerTest extends TestCase
 {

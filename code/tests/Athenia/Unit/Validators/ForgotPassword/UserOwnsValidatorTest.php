@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators\ForgotPassword;
+namespace Tests\Athenia\Unit\Validators\ForgotPassword;
 
 use App\Athenia\Contracts\Repositories\User\PasswordTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * Class UserOwnsValidatorTest
- * @package Tests\Unit\Validators\ForgotPassword
+ * @package Tests\Athenia\Unit\Validators\ForgotPassword
  */
 final class UserOwnsValidatorTest extends TestCase
 {

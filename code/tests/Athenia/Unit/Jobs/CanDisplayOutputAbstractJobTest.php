@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Jobs;
+namespace Tests\Athenia\Unit\Jobs;
 
 use App\Athenia\Jobs\CanDisplayOutputAbstractJob;
 use Illuminate\Console\OutputStyle;

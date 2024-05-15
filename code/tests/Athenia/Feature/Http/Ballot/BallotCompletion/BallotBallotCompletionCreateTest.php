@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Ballot\BallotCompletion;
+namespace Tests\Athenia\Feature\Http\Ballot\BallotCompletion;
 
 use App\Models\Vote\Ballot;
 use App\Models\Vote\BallotItem;
@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class OrganizationOrganizationManagerCreateTest
- * @package Tests\Feature\Http\Organization\OrganizationManager
+ * @package Tests\Athenia\Feature\Http\Organization\OrganizationManager
  */
 final class BallotBallotCompletionCreateTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\Asset;
+namespace Tests\Athenia\Feature\User\Asset;
 
 use App\Models\Asset;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserContactIndexTest
- * @package Tests\Feature\User\Asset
+ * @package Tests\Athenia\Feature\User\Asset
  */
 final class UserAssetIndexTest extends TestCase
 {

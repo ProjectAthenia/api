@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Listeners\Organization;
+namespace Tests\Athenia\Unit\Listeners\Organization;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Events\Organization\OrganizationManagerCreatedEvent;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * Class OrganizationManagerCreatedListenerTest
- * @package Tests\Unit\Listeners\Organization
+ * @package Tests\Athenia\Unit\Listeners\Organization
  */
 final class OrganizationManagerCreatedListenerTest extends TestCase
 {

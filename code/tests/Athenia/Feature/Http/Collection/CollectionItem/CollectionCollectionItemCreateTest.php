@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Collection\CollectionItem;
+namespace Tests\Athenia\Feature\Http\Collection\CollectionItem;
 
 use App\Models\Collection\Collection;
 use App\Models\Wiki\Article;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserPaymentMethodCreateTest
- * @package Tests\Feature\Http\User\PaymentMethod
+ * @package Tests\Athenia\Feature\Http\User\PaymentMethod
  */
 final class CollectionCollectionItemCreateTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\V1\CollectionItem;
+namespace Tests\Athenia\Feature\V1\CollectionItem;
 
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class categoriesViewTest
- * @package Tests\Feature\V4\categories
+ * @package Tests\Athenia\Feature\V4\categories
  */
 final class CollectionItemViewTest extends TestCase
 {

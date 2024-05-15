@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Http\Middleware;
+namespace Tests\Athenia\Unit\Http\Middleware;
 
 use App\Athenia\Exceptions\JWT\TokenMissingException;
 use App\Athenia\Exceptions\JWT\TokenUserNotFoundException;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * Class JWTGetUserFromTokenProtectedRouteMiddlewareTest
- * @package Tests\Unit\Http\Middleware
+ * @package Tests\Athenia\Unit\Http\Middleware
  */
 final class JWTGetUserFromTokenProtectedRouteMiddlewareTest extends TestCase
 {

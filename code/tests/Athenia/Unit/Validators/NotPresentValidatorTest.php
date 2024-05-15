@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators;
+namespace Tests\Athenia\Unit\Validators;
 
 use App\Athenia\Validators\NotPresentValidator;
 use Illuminate\Contracts\Translation\Translator;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class NotPresentValidatorTest
- * @package Tests\Unit\Validators
+ * @package Tests\Athenia\Unit\Validators
  */
 final class NotPresentValidatorTest extends TestCase 
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\V1\CollectionItem;
+namespace Tests\Athenia\Feature\V1\CollectionItem;
 
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
@@ -13,7 +13,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class MembershipPlanDeleteTest
- * @package Tests\Feature\Http\Category
+ * @package Tests\Athenia\Feature\Http\Category
  */
 final class CollectionItemDeleteTest extends TestCase
 {

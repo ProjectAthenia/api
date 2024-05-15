@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Authentication;
+namespace Tests\Athenia\Feature\Http\Authentication;
 
 use App\Athenia\Events\User\SignUpEvent;
 use App\Models\User\User;
@@ -13,7 +13,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserSignUpTest
- * @package Tests\Feature\Http\V2\Authentication
+ * @package Tests\Athenia\Feature\Http\V2\Authentication
  */
 final class SignUpTest extends TestCase
 {

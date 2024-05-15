@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Organization;
+namespace Tests\Athenia\Unit\Models\Organization;
 
 use App\Models\Organization\Organization;
 use Tests\TestCase;
 
 /**
  * Class OrganizationTest
- * @package Tests\Unit\Models\Organization
+ * @package Tests\Athenia\Unit\Models\Organization
  */
 final class OrganizationTest extends TestCase
 {

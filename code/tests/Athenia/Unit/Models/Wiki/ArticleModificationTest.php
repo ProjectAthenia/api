@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Wiki;
+namespace Tests\Athenia\Unit\Models\Wiki;
 
 use App\Models\Wiki\ArticleModification;
 use Tests\TestCase;
 
 /**
  * Class ArticleModificationTest
- * @package Tests\Unit\Models\Wiki
+ * @package Tests\Athenia\Unit\Models\Wiki
  */
 final class ArticleModificationTest extends TestCase
 {

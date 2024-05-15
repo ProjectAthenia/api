@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\Wiki;
+namespace Tests\Athenia\Unit\Services\Wiki;
 
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
 use Tests\TestCase;
 
 /**
  * Class ArticleVersionCalculationServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class ArticleVersionCalculationServiceTest extends TestCase
 {

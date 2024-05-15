@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\User;
+namespace Tests\Athenia\Unit\Models\User;
 
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\MembershipPlanRate;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * Class UserTest
- * @package Tests\Unit\Models\User
+ * @package Tests\Athenia\Unit\Models\User
  */
 final class UserTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Organization\Asset;
+namespace Tests\Athenia\Feature\Organization\Asset;
 
 use App\Models\Asset;
 use App\Models\Organization\Organization;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class OrganizationContactIndexTest
- * @package Tests\Feature\Organization\Asset
+ * @package Tests\Athenia\Feature\Organization\Asset
  */
 final class OrganizationAssetIndexTest extends TestCase
 {

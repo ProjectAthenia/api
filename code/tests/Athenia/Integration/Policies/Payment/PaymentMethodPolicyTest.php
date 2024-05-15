@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Payment;
+namespace Tests\Athenia\Integration\Policies\Payment;
 
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class PaymentMethodPolicyTest
- * @package Tests\Integration\Policies\Payment
+ * @package Tests\Athenia\Integration\Policies\Payment
  */
 final class PaymentMethodPolicyTest extends TestCase
 {

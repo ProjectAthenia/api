@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Messaging;
+namespace Tests\Athenia\Unit\Models\Messaging;
 
 use App\Models\Messaging\Thread;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class ThreadTest
- * @package Tests\Unit\Models\User
+ * @package Tests\Athenia\Unit\Models\User
  */
 final class ThreadTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Roles;
+namespace Tests\Athenia\Feature\Http\Roles;
 
 use App\Models\Role;
 use Tests\DatabaseSetupTrait;
@@ -11,7 +11,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class RolesIndexTest
- * @package Tests\Feature\Http\Roles
+ * @package Tests\Athenia\Feature\Http\Roles
  */
 final class RolesIndexTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Providers;
+namespace Tests\Athenia\Unit\Providers;
 
 use App\Providers\AppRepositoryProvider;
 use Illuminate\Foundation\Application;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class AppRepositoryProviderTest
- * @package Tests\Unit\Providers
+ * @package Tests\Athenia\Unit\Providers
  */
 final class AppRepositoryProviderTest extends TestCase
 {

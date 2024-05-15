@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Models;
+namespace Tests\Athenia\Integration\Models;
 
 use App\Models\Resource;
 use App\Models\User\User;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class ResourceTest
- * @package Tests\Integration\Models
+ * @package Tests\Athenia\Integration\Models
  */
 final class ResourceTest extends TestCase
 {

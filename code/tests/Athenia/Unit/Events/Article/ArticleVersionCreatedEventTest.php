@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Article;
+namespace Tests\Athenia\Unit\Events\Article;
 
 use App\Athenia\Events\Article\ArticleVersionCreatedEvent;
 use App\Models\Wiki\ArticleVersion;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class ArticleVersionCreatedEventTest
- * @package Tests\Unit\Events\Article
+ * @package Tests\Athenia\Unit\Events\Article
  */
 final class ArticleVersionCreatedEventTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Wiki;
+namespace Tests\Athenia\Integration\Repositories\Wiki;
 
 use App\Athenia\Events\Article\ArticleVersionCreatedEvent;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
@@ -17,7 +17,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ArticleVersionRepositoryTest
- * @package Tests\Integration\Repositories\Wiki
+ * @package Tests\Athenia\Integration\Repositories\Wiki
  */
 final class ArticleVersionRepositoryTest extends TestCase
 {

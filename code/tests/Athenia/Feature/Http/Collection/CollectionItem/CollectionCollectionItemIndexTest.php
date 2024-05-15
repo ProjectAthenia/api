@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Collection\CollectionItem;
+namespace Tests\Athenia\Feature\Http\Collection\CollectionItem;
 
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserSubscriptionIndexTest
- * @package Tests\Feature\User\Payment
+ * @package Tests\Athenia\Feature\User\Payment
  */
 final class CollectionCollectionItemIndexTest extends TestCase
 {

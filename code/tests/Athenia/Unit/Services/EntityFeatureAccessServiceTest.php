@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services;
+namespace Tests\Athenia\Unit\Services;
 
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRepositoryContract;
 use App\Athenia\Services\EntityFeatureAccessService;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * Class EntityFeatureAccessServiceTest
- * @package Tests\Unit\Services
+ * @package Tests\Athenia\Unit\Services
  */
 final class EntityFeatureAccessServiceTest extends TestCase
 {

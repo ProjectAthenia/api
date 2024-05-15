@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Providers;
+namespace Tests\Athenia\Unit\Providers;
 
 use App\Providers\EventServiceProvider;
 use ReflectionClass;
@@ -10,7 +10,7 @@ use Tests\Traits\ReflectionHelpers;
 
 /**
  * Class EventServiceProviderTest
- * @package Tests\Unit\Providers
+ * @package Tests\Athenia\Unit\Providers
  */
 final class EventServiceProviderTest extends TestCase
 {

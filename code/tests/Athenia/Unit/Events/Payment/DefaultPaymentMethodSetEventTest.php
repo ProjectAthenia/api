@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Payment;
+namespace Tests\Athenia\Unit\Events\Payment;
 
 use App\Athenia\Events\Payment\DefaultPaymentMethodSetEvent;
 use App\Models\Payment\PaymentMethod;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class DefaultPaymentMethodSetEventTest
- * @package Tests\Unit\Events\Payment
+ * @package Tests\Athenia\Unit\Events\Payment
  */
 final class DefaultPaymentMethodSetEventTest extends TestCase
 {

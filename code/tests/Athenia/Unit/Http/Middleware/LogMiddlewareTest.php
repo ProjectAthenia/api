@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Http\Middleware;
+namespace Tests\Athenia\Unit\Http\Middleware;
 
 use App\Athenia\Http\Middleware\LogMiddleware;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * Class LogMiddlewareTest
- * @package Tests\Unit\Http\Middleware
+ * @package Tests\Athenia\Unit\Http\Middleware
  */
 final class LogMiddlewareTest extends TestCase
 {

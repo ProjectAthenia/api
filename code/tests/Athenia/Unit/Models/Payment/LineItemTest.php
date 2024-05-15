@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Payment;
+namespace Tests\Athenia\Unit\Models\Payment;
 
 use App\Models\Payment\LineItem;
 use Tests\TestCase;
 
 /**
  * Class LineItemTest
- * @package Tests\Unit\Models\Payment
+ * @package Tests\Athenia\Unit\Models\Payment
  */
 final class LineItemTest extends TestCase
 {

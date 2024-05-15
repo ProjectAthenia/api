@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Policies\Wiki;
+namespace Tests\Athenia\Integration\Policies\Wiki;
 
 use App\Models\Role;
 use App\Policies\Wiki\ArticleIterationPolicy;
@@ -11,7 +11,7 @@ use Tests\Traits\RolesTesting;
 
 /**
  * Class IterationPolicyTest
- * @package Tests\Integration\Policies
+ * @package Tests\Athenia\Integration\Policies
  */
 final class IterationPolicyTest extends TestCase
 {

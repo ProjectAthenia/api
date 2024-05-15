@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Console\Commands;
+namespace Tests\Athenia\Integration\Console\Commands;
 
 use App\Athenia\Console\Commands\ReindexResources;
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
@@ -19,7 +19,7 @@ use Tests\Traits\MocksConsoleOutput;
 
 /**
  * Class ReindexResourcesTest
- * @package Tests\Integration\Console\Commands
+ * @package Tests\Athenia\Integration\Console\Commands
  */
 final class ReindexResourcesTest extends TestCase
 {

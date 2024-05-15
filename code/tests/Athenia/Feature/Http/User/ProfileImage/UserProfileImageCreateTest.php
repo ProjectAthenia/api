@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\User\ProfileImage;
+namespace Tests\Athenia\Feature\User\ProfileImage;
 
 use App\Models\User\ProfileImage;
 use App\Models\User\User;
@@ -12,7 +12,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserProfileImageCreateTest
- * @package Tests\Feature\User\ProfileImage
+ * @package Tests\Athenia\Feature\User\ProfileImage
  */
 final class UserProfileImageCreateTest extends TestCase
 {

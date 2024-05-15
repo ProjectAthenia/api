@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Models\Subscription;
+namespace Tests\Athenia\Integration\Models\Subscription;
 
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\MembershipPlanRate;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * Class MembershipPlanTest
- * @package Tests\Integration\Models\Subscription
+ * @package Tests\Athenia\Integration\Models\Subscription
  */
 final class MembershipPlanTest extends TestCase
 {

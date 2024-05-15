@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Repositories;
+namespace Tests\Athenia\Unit\Repositories;
 
 use AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class BaseRepositoryAbstractTest
- * @package Tests\Unit\Repositories
+ * @package Tests\Athenia\Unit\Repositories
  */
 final class BaseRepositoryAbstractTest extends TestCase
 {

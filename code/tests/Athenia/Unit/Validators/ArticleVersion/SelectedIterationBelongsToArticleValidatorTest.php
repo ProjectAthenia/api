@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Validators\Test;
+namespace Tests\Athenia\Unit\Validators\Test;
 
 use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * Class SelectedIterationBelongsToArticleValidatorTest
- * @package Tests\Unit\Validators\Test
+ * @package Tests\Athenia\Unit\Validators\Test
  */
 final class SelectedIterationBelongsToArticleValidatorTest extends TestCase
 {

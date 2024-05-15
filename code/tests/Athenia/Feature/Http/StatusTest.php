@@ -4,14 +4,14 @@
  */
 declare(strict_types=1);
 
-namespace Tests\Feature\Http;
+namespace Tests\Athenia\Feature\Http;
 
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class StatusTest
- * @package Tests\Feature\Http
+ * @package Tests\Athenia\Feature\Http
  */
 final class StatusTest extends TestCase
 {

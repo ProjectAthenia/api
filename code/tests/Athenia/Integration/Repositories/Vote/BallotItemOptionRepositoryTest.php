@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\BallotItemOption;
+namespace Tests\Athenia\Integration\Repositories\BallotItemOption;
 
 use App\Athenia\Repositories\Vote\BallotItemOptionRepository;
 use App\Models\User\User;
@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class BallotItemOptionRepositoryTest
- * @package Tests\Integration\Repositories\BallotItemOption
+ * @package Tests\Athenia\Integration\Repositories\BallotItemOption
  */
 final class BallotItemOptionRepositoryTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Wiki;
+namespace Tests\Athenia\Integration\Repositories\Wiki;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
@@ -14,7 +14,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class ArticleRepositoryTest
- * @package Tests\Integration\Repositories\Wiki
+ * @package Tests\Athenia\Integration\Repositories\Wiki
  */
 final class ArticleRepositoryTest extends TestCase
 {

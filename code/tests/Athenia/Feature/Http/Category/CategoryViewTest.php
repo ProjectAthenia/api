@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\Category;
+namespace Tests\Athenia\Feature\Http\Category;
 
 use App\Models\Category;
 use Tests\DatabaseSetupTrait;
@@ -10,7 +10,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class categoriesViewTest
- * @package Tests\Feature\V4\categories
+ * @package Tests\Athenia\Feature\V4\categories
  */
 final class CategoryViewTest extends TestCase
 {

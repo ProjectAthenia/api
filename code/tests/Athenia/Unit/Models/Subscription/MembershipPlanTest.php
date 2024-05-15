@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Subscription;
+namespace Tests\Athenia\Unit\Models\Subscription;
 
 use App\Models\Subscription\MembershipPlan;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * Class MembershipPlanTest
- * @package Tests\Unit\Models\Subscription
+ * @package Tests\Athenia\Unit\Models\Subscription
  */
 final class MembershipPlanTest extends TestCase
 {

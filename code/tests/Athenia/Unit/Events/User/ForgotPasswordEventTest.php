@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\User;
+namespace Tests\Athenia\Unit\Events\User;
 
 use App\Athenia\Events\User\ForgotPasswordEvent;
 use App\Models\User\PasswordToken;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class ForgotPasswordEventTest
- * @package Tests\Unit\Events\User
+ * @package Tests\Athenia\Unit\Events\User
  */
 final class ForgotPasswordEventTest extends TestCase
 {

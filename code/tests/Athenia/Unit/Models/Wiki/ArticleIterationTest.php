@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Models\Wiki;
+namespace Tests\Athenia\Unit\Models\Wiki;
 
 use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class IterationTest
- * @package Tests\Unit\Models\Wiki
+ * @package Tests\Athenia\Unit\Models\Wiki
  */
 final class ArticleIterationTest extends TestCase
 {

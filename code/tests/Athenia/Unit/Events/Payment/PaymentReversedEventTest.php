@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Events\Payment;
+namespace Tests\Athenia\Unit\Events\Payment;
 
 use App\Athenia\Events\Payment\PaymentReversedEvent;
 use App\Models\Payment\Payment;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Class PaymentReversedEventTest
- * @package Tests\Unit\Events\Payment
+ * @package Tests\Athenia\Unit\Events\Payment
  */
 final class PaymentReversedEventTest extends TestCase
 {

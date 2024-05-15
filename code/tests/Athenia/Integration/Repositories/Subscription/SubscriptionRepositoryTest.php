@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Integration\Repositories\Subscription;
+namespace Tests\Athenia\Integration\Repositories\Subscription;
 
 use App\Athenia\Repositories\Subscription\MembershipPlanRateRepository;
 use App\Athenia\Repositories\Subscription\SubscriptionRepository;
@@ -18,7 +18,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class SubscriptionRepositoryTest
- * @package Tests\Integration\Repositories\Subscription
+ * @package Tests\Athenia\Integration\Repositories\Subscription
  */
 final class SubscriptionRepositoryTest extends TestCase
 {

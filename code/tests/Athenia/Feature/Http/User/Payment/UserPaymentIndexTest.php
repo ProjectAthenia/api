@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Feature\Http\User\Payment;
+namespace Tests\Athenia\Feature\Http\User\Payment;
 
 use App\Models\Payment\Payment;
 use App\Models\User\User;
@@ -11,7 +11,7 @@ use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class UserSubscriptionIndexTest
- * @package Tests\Feature\User\Payment
+ * @package Tests\Athenia\Feature\User\Payment
  */
 final class UserPaymentIndexTest extends TestCase
 {
