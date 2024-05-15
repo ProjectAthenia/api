@@ -54,7 +54,7 @@ final class AppServiceProviderTest extends TestCase
         $repositoryContracts = [];
 
         foreach (array_keys($app->getBindings()) as $contract) {
-            if (Str::startsWith($contract, 'Contracts\Services')) {
+            if (Str::contains($contract, 'Contracts\Services')) {
                 $repositoryContracts[] = [$contract];
             }
         }

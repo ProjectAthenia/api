@@ -110,7 +110,7 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(StripePaymentServiceContract::class, function () {
             $stripe = $this->app->make('stripe');
-            new StripePaymentService(
+            return new StripePaymentService(
                 $this->app->make(PaymentRepositoryContract::class),
                 $this->app->make(LineItemRepositoryContract::class),
                 $this->app->make(Dispatcher::class),
