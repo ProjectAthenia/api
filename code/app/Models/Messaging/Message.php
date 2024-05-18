@@ -65,6 +65,7 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
     use HasValidationRules;
 
     const VIA_EMAIL = 'email';
+    const VIA_SLACK = 'slack';
     const VIA_SMS = 'sms';
     const VIA_PUSH_NOTIFICATION = 'push';
 

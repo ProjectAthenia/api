@@ -6,6 +6,9 @@ namespace App\Athenia\Contracts\Models\Messaging;
 use App\Models\Messaging\Message;
 use Illuminate\Support\Collection;
 
+/**
+ * @property CanReceiveMessageContract[]|Collection $messageReceivers
+ */
 interface HasMessageReceiversContract
 {
     /**

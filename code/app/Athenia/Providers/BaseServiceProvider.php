@@ -14,6 +14,11 @@ use App\Athenia\Contracts\Services\AssetImportServiceContract;
 use App\Athenia\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
 use App\Athenia\Contracts\Services\DirectoryCopyServiceContract;
 use App\Athenia\Contracts\Services\EntitySubscriptionCreationServiceContract;
+use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
+use App\Athenia\Contracts\Services\Messaging\SendEmailServiceContract;
+use App\Athenia\Contracts\Services\Messaging\SendPushNotificationServiceContract;
+use App\Athenia\Contracts\Services\Messaging\SendSlackNotificationServiceContract;
+use App\Athenia\Contracts\Services\Messaging\SendSMSServiceContract;
 use App\Athenia\Contracts\Services\ProratingCalculationServiceContract;
 use App\Athenia\Contracts\Services\StringHelperServiceContract;
 use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
@@ -24,12 +29,14 @@ use App\Athenia\Services\AssetImportService;
 use App\Athenia\Services\Collection\ItemInEntityCollectionService;
 use App\Athenia\Services\DirectoryCopyService;
 use App\Athenia\Services\EntitySubscriptionCreationService;
+use App\Athenia\Services\Messaging\MessageSendingSelectionService;
 use App\Athenia\Services\ProratingCalculationService;
 use App\Athenia\Services\StringHelperService;
 use App\Athenia\Services\StripeCustomerService;
 use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
+use App\Models\Messaging\Message;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +55,7 @@ abstract class BaseServiceProvider extends ServiceProvider
             DirectoryCopyServiceContract::class,
             EntitySubscriptionCreationServiceContract::class,
             ItemInEntityCollectionServiceContract::class,
+            MessageSendingSelectionServiceContract::class,
             ProratingCalculationServiceContract::class,
             StringHelperServiceContract::class,
             StripeCustomerServiceContract::class,
@@ -92,6 +100,14 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(ItemInEntityCollectionServiceContract::class, fn () =>
             new ItemInEntityCollectionService()
+        );
+        $this->app->bind(MessageSendingSelectionServiceContract::class, fn () =>
+            new MessageSendingSelectionService([
+                Message::VIA_EMAIL => $this->app->make(SendEmailServiceContract::class),
+                Message::VIA_SMS => $this->app->make(SendSMSServiceContract::class),
+                Message::VIA_PUSH_NOTIFICATION => $this->app->make(SendPushNotificationServiceContract::class),
+                Message::VIA_SLACK => $this->app->make(SendSlackNotificationServiceContract::class),
+            ])
         );
         $this->app->bind(ProratingCalculationServiceContract::class, fn () =>
             new ProratingCalculationService()

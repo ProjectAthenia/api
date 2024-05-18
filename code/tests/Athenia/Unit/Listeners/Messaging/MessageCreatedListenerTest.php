@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Listeners\Messaging;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
 use App\Athenia\Events\Messaging\MessageCreatedEvent;
 use App\Athenia\Events\Messaging\MessageSentEvent;
+use App\Athenia\Listeners\Messaging\MessageCreatedListener;
 use App\Athenia\Mail\MessageMailer;
-use App\Listeners\Messaging\MessageCreatedListener;
 use App\Models\Messaging\Message;
 use App\Models\Messaging\Thread;
 use App\Models\User\User;
@@ -17,6 +18,10 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Collection;
+use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use Tests\CustomMockInterface;
 use Tests\TestCase;
 
 /**
@@ -25,6 +30,60 @@ use Tests\TestCase;
  */
 final class MessageCreatedListenerTest extends TestCase
 {
+    /**
+     * @var MessageSendingSelectionServiceContract|(MessageSendingSelectionServiceContract&MockInterface&LegacyMockInterface)|(MessageSendingSelectionServiceContract&CustomMockInterface)|array|(MockInterface&LegacyMockInterface)|CustomMockInterface
+     */
+    private $messageSendingSelectionService;
+
+    /**
+     * @var MessageRepositoryContract|(MessageRepositoryContract&MockInterface&LegacyMockInterface)|(MessageRepositoryContract&CustomMockInterface)|array|(MockInterface&LegacyMockInterface)|CustomMockInterface
+     */
+    private $messageRepository;
+
+    /**
+     * @var array|Dispatcher|(Dispatcher&MockInterface&LegacyMockInterface)|(Dispatcher&CustomMockInterface)|(MockInterface&LegacyMockInterface)|CustomMockInterface
+     */
+    private $events;
+
+    /**
+     * @var MessageCreatedListener
+     */
+    private MessageCreatedListener $listener;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->messageSendingSelectionService = mock(MessageSendingSelectionServiceContract::class);
+        $this->messageRepository = mock(MessageRepositoryContract::class);
+        $this->events = mock(Dispatcher::class);
+        $this->listener = new MessageCreatedListener(
+            $this->messageSendingSelectionService,
+            $this->messageRepository,
+            $this->events,
+        );
+    }
+
+    public function testHandleDoesNothingWithNoValidSenders()
+    {
+
+    }
+
+    public function testHandleDoesNothingWhenSendingServiceIsNotConfigured()
+    {
+
+    }
+
+    public function testHandleSendsToSingleReceiver()
+    {
+
+    }
+
+    public function testHandleSendsToChildReceivers()
+    {
+
+    }
+
     public function testHandleViaEmail(): void
     {
         $mailer = mock(Mailer::class);
@@ -50,7 +109,7 @@ final class MessageCreatedListenerTest extends TestCase
         Carbon::setTestNow($carbon);
 
         $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
-        $mailer->shouldReceive('send')->once()->with(\Mockery::on(function (MessageMailer $mailer) {
+        $mailer->shouldReceive('send')->once()->with(Mockery::on(function (MessageMailer $mailer) {
 
             return true;
         }));
@@ -94,7 +153,7 @@ final class MessageCreatedListenerTest extends TestCase
 
         $config->shouldReceive('get')->once()->with('services.fcm.key')->andReturn('');
 
-        $events->shouldReceive('dispatch')->once()->with(\Mockery::on(function(MessageSentEvent $event) {
+        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
             return true;
         }));
 
@@ -142,7 +201,7 @@ final class MessageCreatedListenerTest extends TestCase
 
         $config->shouldReceive('get')->once()->with('services.fcm.key')->andReturn('');
 
-        $events->shouldReceive('dispatch')->once()->with(\Mockery::on(function(MessageSentEvent $event) {
+        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
             return true;
         }));
 
@@ -178,7 +237,7 @@ final class MessageCreatedListenerTest extends TestCase
 
         $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
 
-        $events->shouldReceive('dispatch')->once()->with(\Mockery::on(function(MessageSentEvent $event) {
+        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
             return true;
         }));
 
