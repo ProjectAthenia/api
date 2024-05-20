@@ -17,5 +17,5 @@ interface CanReceiveMessageContract extends CanBeMorphedToContract
      * @param Message $message
      * @return bool
      */
-    public function canReceive(Message $message): bool;
+    public function canReceiveMessage(Message $message): bool;
 }

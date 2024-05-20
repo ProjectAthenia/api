@@ -20,7 +20,7 @@ class SendSlackNotificationService implements SendSlackNotificationServiceContra
      */
     public function sendMessage(CanReceiveMessageContract $receiver, Message $message): bool
     {
-        if ($receiver instanceof CanReceiveSlackNotificationsContract && $receiver->canReceive($message)) {
+        if ($receiver instanceof CanReceiveSlackNotificationsContract && $receiver->canReceiveMessage($message)) {
 
             $slackClient = ClientFactory::create($receiver->getSlackKey($message));
 

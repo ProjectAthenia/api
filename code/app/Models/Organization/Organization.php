@@ -5,16 +5,21 @@ namespace App\Models\Organization;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceiveMessageContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceiveSlackNotificationsContract;
+use App\Athenia\Contracts\Models\Messaging\HasMessageReceiversContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Models\Traits\IsEntity;
 use App\Models\Asset;
+use App\Models\Messaging\Message;
 use App\Models\Role;
 use App\Models\User\ProfileImage;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class Organization
@@ -51,7 +56,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @mixin \Eloquent
  */
 class Organization extends BaseModelAbstract
-    implements HasValidationRulesContract, IsAnEntityContract
+    implements HasValidationRulesContract, IsAnEntityContract,
+        HasMessageReceiversContract, CanReceiveMessageContract, CanReceiveSlackNotificationsContract
 {
     use HasValidationRules, IsEntity;
 
@@ -130,5 +136,56 @@ class Organization extends BaseModelAbstract
                 ],
             ],
         ];
+    }
+
+    /**
+     * This will return if the message can be received by the specific model
+     *
+     * @param Message $message
+     * @return bool
+     */
+    public function canReceiveMessage(Message $message): bool
+    {
+        if (in_array(Message::VIA_SLACK, $message->via ?? [])) {
+            return $this->getSlackChannel($message) && $this->getSlackKey($message);
+        }
+
+        return false;
+    }
+
+    /**
+     * All message receivers contained within this model
+     * These related models will be used to send messages when the parent does not
+     *
+     * @param Message $message The message being sent in case there is only
+     *              logic connected to returning receivers
+     * @return Collection<CanReceiveMessageContract>
+     */
+    public function messageReceivers(Message $message): Collection
+    {
+        return $this->organizationManagers
+            ->map(fn (OrganizationManager $i) => $i->user);
+    }
+
+    /**
+     * Gets the key used to validate access to the related slack workspace
+     *
+     * @param Message $message
+     * @return string|null
+     */
+    public function getSlackKey(Message $message): ?string
+    {
+        return $this->slack_key ?? null;
+    }
+
+    /**
+     * Gets the slack channel name based on the message passed in
+     *
+     * @param Message $message
+     * @return string|null
+     */
+    public function getSlackChannel(Message $message): ?string
+    {
+        return $this->slack_channel ?? null;
     }
 }

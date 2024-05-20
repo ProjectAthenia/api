@@ -29,7 +29,7 @@ class SendSMSNotificationService implements SendSMSServiceContract
      */
     public function sendMessage(CanReceiveMessageContract $receiver, Message $message): bool
     {
-        if ($receiver instanceof CanReceiveSMSContract && $receiver->canReceive($message)) {
+        if ($receiver instanceof CanReceiveSMSContract && $receiver->canReceiveMessage($message)) {
 
             $sms = new TwilioSmsMessage($message->data['message']);
             try {

@@ -36,7 +36,7 @@ class SendPushNotificationService implements SendPushNotificationServiceContract
      */
     public function sendMessage(CanReceiveMessageContract $receiver, Message $message): bool
     {
-        if ($receiver instanceof CanReceivePushNotificationContract && $receiver->canReceive($message)) {
+        if ($receiver instanceof CanReceivePushNotificationContract && $receiver->canReceiveMessage($message)) {
 
             $pushNotification = $this->formatPushNotification($message);
 

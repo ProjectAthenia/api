@@ -7,12 +7,17 @@ use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Models\HasPolicyContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Contracts\Models\IsAnEntityContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceiveEmailsContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceiveMessageContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceivePushNotificationContract;
+use App\Athenia\Contracts\Models\Messaging\CanReceiveSMSContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\CanBeIndexed;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Models\Traits\IsEntity;
 use App\Models\Asset;
 use App\Models\Messaging\Message;
+use App\Models\Messaging\PushNotificationKey;
 use App\Models\Messaging\Thread;
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
@@ -97,7 +102,8 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 class User extends BaseModelAbstract
     implements AuthenticatableContract, JWTSubject,
             HasPolicyContract, HasValidationRulesContract,
-            CanBeIndexedContract, IsAnEntityContract
+            CanBeIndexedContract, IsAnEntityContract, CanReceiveMessageContract,
+            CanReceiveEmailsContract, CanReceivePushNotificationContract, CanReceiveSMSContract
 {
     use Authenticatable, HasValidationRules, IsEntity, CanBeIndexed;
 
@@ -178,6 +184,16 @@ class User extends BaseModelAbstract
     public function organizationManagers(): HasMany
     {
         return $this->hasMany(OrganizationManager::class);
+    }
+
+    /**
+     * The push notification keys that the push notification should be sent to
+     *
+     * @return HasMany
+     */
+    public function pushNotificationKeys(): HasMany
+    {
+        return $this->hasMany(PushNotificationKey::class);
     }
 
     /**
@@ -292,6 +308,58 @@ class User extends BaseModelAbstract
     public function canUserManageEntity(User $user, int $role = null): bool
     {
         return $this->id == $user->id;
+    }
+
+    /**
+     * This will return if the message can be received by the specific model
+     *
+     * @param Message $message
+     * @return bool
+     */
+    public function canReceiveMessage(Message $message): bool
+    {
+        foreach ($message->via ?? [] as $via) {
+            switch ($via) {
+                case Message::VIA_EMAIL:
+                    return true;
+                case Message::VIA_PUSH_NOTIFICATION:
+                    return !!$this->pushNotificationKeys->count();
+                case Message::VIA_SMS:
+                    return !!$this->getPhoneNumber();
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * The email address to send the email to
+     *
+     * @return string
+     */
+    public function getEmailAddress(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * The name of the person to be added as the to field
+     *
+     * @return string
+     */
+    public function getEmailToName(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Gets the phone number for routing SMS messages
+     *
+     * @return string|null
+     */
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phone ?? null;
     }
 
     /**

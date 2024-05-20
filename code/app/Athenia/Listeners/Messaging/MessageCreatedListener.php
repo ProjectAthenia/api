@@ -6,6 +6,7 @@ namespace App\Athenia\Listeners\Messaging;
 use App\Athenia\Contracts\Models\Messaging\CanReceiveMessageContract;
 use App\Athenia\Contracts\Models\Messaging\HasMessageReceiversContract;
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
+use App\Athenia\Contracts\Services\Messaging\BaseMessageSendingServiceContract;
 use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
 use App\Athenia\Events\Messaging\MessageCreatedEvent;
 use App\Athenia\Events\Messaging\MessageSentEvent;
@@ -46,12 +47,14 @@ class MessageCreatedListener implements ShouldQueue
             'scheduled_at' => Carbon::now(),
         ]);
 
-        $channels = $message->via ?? [Message::VIA_EMAIL];
+        $channels =collect($message->via ?? [Message::VIA_EMAIL]);
 
         $sent = false;
 
-        foreach ($channels as $channel) {
-            $service = $this->messageSendingSelectionService->getSendingService($channel);
+        $availableServices =
+            $channels->map(fn (string $via) => $this->messageSendingSelectionService->getSendingService($via))
+                ->filter(fn (?BaseMessageSendingServiceContract $maybeService) => $maybeService);
+        foreach ($availableServices as $service) {
 
             $to = $message->to;
             if ($to instanceof CanReceiveMessageContract) {
@@ -59,7 +62,7 @@ class MessageCreatedListener implements ShouldQueue
                 $sent = true;
             }
             if ($to instanceof HasMessageReceiversContract) {
-                foreach ($to->messageReceivers as $messageReceiver) {
+                foreach ($to->messageReceivers($message) as $messageReceiver) {
                     $service->sendMessage($messageReceiver, $message);
                     $sent = true;
                 }

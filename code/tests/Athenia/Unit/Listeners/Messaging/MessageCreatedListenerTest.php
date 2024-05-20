@@ -5,12 +5,15 @@ namespace Tests\Athenia\Unit\Listeners\Messaging;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
+use App\Athenia\Contracts\Services\Messaging\SendSlackNotificationServiceContract;
 use App\Athenia\Events\Messaging\MessageCreatedEvent;
 use App\Athenia\Events\Messaging\MessageSentEvent;
 use App\Athenia\Listeners\Messaging\MessageCreatedListener;
 use App\Athenia\Mail\MessageMailer;
 use App\Models\Messaging\Message;
 use App\Models\Messaging\Thread;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationManager;
 use App\Models\User\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -64,183 +67,117 @@ final class MessageCreatedListenerTest extends TestCase
         );
     }
 
-    public function testHandleDoesNothingWithNoValidSenders()
-    {
-
-    }
-
     public function testHandleDoesNothingWhenSendingServiceIsNotConfigured()
     {
+        $message = new Message([
+            'via' => Message::VIA_SLACK,
+        ]);
+        $event = new MessageCreatedEvent($message);
 
+        $now = Carbon::now();
+        Carbon::setTestNow($now);
+
+        $this->messageRepository->shouldReceive('update')->with($message, [
+            'scheduled_at' => $now,
+        ]);
+        $this->messageSendingSelectionService
+            ->shouldReceive('getSendingService')
+            ->with(Message::VIA_SLACK)
+            ->andReturn(null);
+
+        $this->listener->handle($event);
+    }
+
+    public function testHandleDoesNothingWithNoValidSenders()
+    {
+        $message = new Message([
+            'via' => Message::VIA_SLACK,
+        ]);
+        $event = new MessageCreatedEvent($message);
+
+        $now = Carbon::now();
+        Carbon::setTestNow($now);
+
+        $slackService = mock(SendSlackNotificationServiceContract::class);
+
+        $this->messageRepository->shouldReceive('update')->with($message, [
+            'scheduled_at' => $now,
+        ]);
+        $this->messageSendingSelectionService
+            ->shouldReceive('getSendingService')
+            ->with(Message::VIA_SLACK)
+            ->andReturn($slackService);
+
+        $this->listener->handle($event);
     }
 
     public function testHandleSendsToSingleReceiver()
     {
+        $message = new Message([
+            'via' => Message::VIA_SLACK,
+            'to' => new User()
+        ]);
+        $event = new MessageCreatedEvent($message);
 
+        $now = Carbon::now();
+        Carbon::setTestNow($now);
+
+        $slackService = mock(SendSlackNotificationServiceContract::class);
+        $slackService->shouldReceive('sendMessage')->with($message->to, $message);
+
+        $this->messageRepository->shouldReceive('update')->with($message, [
+            'scheduled_at' => $now,
+        ]);
+        $this->messageSendingSelectionService
+            ->shouldReceive('getSendingService')
+            ->with(Message::VIA_SLACK)
+            ->andReturn($slackService);
+        $this->events->shouldReceive('dispatch');
+
+        $this->listener->handle($event);
     }
 
     public function testHandleSendsToChildReceivers()
     {
-
-    }
-
-    public function testHandleViaEmail(): void
-    {
-        $mailer = mock(Mailer::class);
-        $messageRepository = mock(MessageRepositoryContract::class);
-        $events = mock(Dispatcher::class);
-        $listener = new MessageCreatedListener(
-            $mailer,
-            mock(Client::class),
-            $messageRepository,
-            $events,
-            mock(Repository::class)
-        );
-
         $message = new Message([
-            'via' => [
-                Message::VIA_EMAIL,
-            ],
-            'to' => new User(),
-        ]);
-        $event = new MessageCreatedEvent($message);
-
-        $carbon = new Carbon();
-        Carbon::setTestNow($carbon);
-
-        $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
-        $mailer->shouldReceive('send')->once()->with(Mockery::on(function (MessageMailer $mailer) {
-
-            return true;
-        }));
-
-        $listener->handle($event);
-    }
-
-    public function testHandleViaPushToUser(): void
-    {
-        $client = mock(Client::class)->shouldAllowMockingMethod('post');
-        $messageRepository = mock(MessageRepositoryContract::class);
-        $events = mock(Dispatcher::class);
-        $config = mock(Repository::class);
-        $listener = new MessageCreatedListener(
-            mock(Mailer::class),
-            $client,
-            $messageRepository,
-            $events,
-            $config
-        );
-
-        $message = new Message([
-            'via' => [
-                Message::VIA_PUSH_NOTIFICATION,
-            ],
-            'to' => new User([
-                'push_notification_key' => 'a key',
-                'allow_users_to_add_me' => true,
-                'receive_push_notifications' => true,
-            ]),
-            'data' => [
-            ],
-        ]);
-        $event = new MessageCreatedEvent($message);
-
-        $carbon = new Carbon();
-        Carbon::setTestNow($carbon);
-
-        $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
-        $client->shouldReceive('post')->once();
-
-        $config->shouldReceive('get')->once()->with('services.fcm.key')->andReturn('');
-
-        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
-            return true;
-        }));
-
-        $listener->handle($event);
-    }
-
-    public function testHandleViaPushToThread(): void
-    {
-        $client = mock(Client::class)->shouldAllowMockingMethod('post');
-        $messageRepository = mock(MessageRepositoryContract::class);
-        $events = mock(Dispatcher::class);
-        $config = mock(Repository::class);
-        $listener = new MessageCreatedListener(
-            mock(Mailer::class),
-            $client,
-            $messageRepository,
-            $events,
-            $config
-        );
-
-        $message = new Message([
-            'via' => [
-                Message::VIA_PUSH_NOTIFICATION,
-            ],
-            'from_id' => 3453,
-            'thread' => new Thread([
-                'users' => new Collection([
-                    new User([
-                        'push_notification_key' => 'a key',
-                        'allow_users_to_add_me' => true,
-                        'receive_push_notifications' => true,
+            'via' => Message::VIA_SLACK,
+            'to' => new Organization([
+                'organizationManagers' => collect([
+                    new OrganizationManager([
+                        'user' => new User([
+                            'id' => 43,
+                        ]),
                     ]),
-                ]),
-            ]),
-            'data' => [
-            ],
-        ]);
-        $event = new MessageCreatedEvent($message);
-
-        $carbon = new Carbon();
-        Carbon::setTestNow($carbon);
-
-        $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
-        $client->shouldReceive('post')->once();
-
-        $config->shouldReceive('get')->once()->with('services.fcm.key')->andReturn('');
-
-        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
-            return true;
-        }));
-
-        $listener->handle($event);
-    }
-
-    public function testHandleViaPushDoesNotSendDueToSettings(): void
-    {
-        $messageRepository = mock(MessageRepositoryContract::class);
-        $events = mock(Dispatcher::class);
-        $config = mock(Repository::class);
-        $listener = new MessageCreatedListener(
-            mock(Mailer::class),
-            mock(Client::class),
-            $messageRepository,
-            $events,
-            $config
-        );
-
-        $message = new Message([
-            'via' => [
-                Message::VIA_PUSH_NOTIFICATION,
-            ],
-            'to' => new User([
-                'push_notification_key' => 'a key',
-                'receive_push_notifications' => false,
+                    new OrganizationManager([
+                        'user' => new User([
+                            'id' => 7,
+                        ]),
+                    ]),
+                ])
             ])
         ]);
         $event = new MessageCreatedEvent($message);
 
-        $carbon = new Carbon();
-        Carbon::setTestNow($carbon);
+        $now = Carbon::now();
+        Carbon::setTestNow($now);
 
-        $messageRepository->shouldReceive('update')->once()->with($message, ['scheduled_at' => $carbon]);
+        $slackService = mock(SendSlackNotificationServiceContract::class);
+        $slackService->shouldReceive('sendMessage')
+            ->with($message->to, $message);
+        $slackService->shouldReceive('sendMessage')
+            ->with($message->to->organizationManagers[0]->user, $message);
+        $slackService->shouldReceive('sendMessage')
+            ->with($message->to->organizationManagers[1]->user, $message);
 
-        $events->shouldReceive('dispatch')->once()->with(Mockery::on(function(MessageSentEvent $event) {
-            return true;
-        }));
+        $this->messageRepository->shouldReceive('update')->with($message, [
+            'scheduled_at' => $now,
+        ]);
+        $this->messageSendingSelectionService
+            ->shouldReceive('getSendingService')
+            ->with(Message::VIA_SLACK)
+            ->andReturn($slackService);
+        $this->events->shouldReceive('dispatch');
 
-        $listener->handle($event);
+        $this->listener->handle($event);
     }
 }

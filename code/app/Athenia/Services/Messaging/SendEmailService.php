@@ -26,7 +26,7 @@ class SendEmailService implements SendEmailServiceContract
      */
     public function sendMessage(CanReceiveMessageContract $receiver, Message $message): bool
     {
-        if ($receiver instanceof CanReceiveEmailsContract && $receiver->canReceive($message)) {
+        if ($receiver instanceof CanReceiveEmailsContract && $receiver->canReceiveMessage($message)) {
             $this->mailer->send(new MessageMailer($receiver, $message));
 
             return true;
