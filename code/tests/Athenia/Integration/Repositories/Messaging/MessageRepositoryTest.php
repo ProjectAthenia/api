@@ -251,7 +251,7 @@ class MessageRepositoryTest extends TestCase
     {
         $textMessageReceiver = mock(CanReceiveTextMessagesContract::class);
         $textMessageReceiver->id = 234;
-        $textMessageReceiver->shouldReceive('morphRelationName')->andReturn('text_message');
+        $textMessageReceiver->shouldReceive('morphRelationName')->andReturn('user');
         $result = $this->repository->sendTextMessage($textMessageReceiver, 'hello');
 
         $this->assertEquals(['message' => 'hello'], $result->data);
