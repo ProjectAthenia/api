@@ -17,9 +17,8 @@ abstract class BaseKernel extends ConsoleKernel
     {
         $this->load([
             $this->getAppCommandsPath(),
-            __DIR__.'./Commands',
+            __DIR__.'/Commands',
         ]);
-        $this->load(__DIR__.'/Commands');
     }
 
     /**

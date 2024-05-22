@@ -19,7 +19,7 @@ class Kernel extends BaseKernel
      */
     public function getAppCommandsPath(): string
     {
-        return __DIR__.'./Commands';
+        return __DIR__.'/Commands';
     }
 
     /**
