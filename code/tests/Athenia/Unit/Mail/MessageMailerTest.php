@@ -17,7 +17,8 @@ final class MessageMailerTest extends TestCase
     public function testBuild(): void
     {
         $user = new User([
-            'first_name' => 'Darlene Dora',
+            'first_name' => 'Darlene',
+            'last_name' => 'Dora'
         ]);
         $message = new Message([
             'to' => $user,
@@ -30,7 +31,7 @@ final class MessageMailerTest extends TestCase
             ],
         ]);
 
-        $messageMailer = new MessageMailer($message);
+        $messageMailer = new MessageMailer($user, $message);
 
         $builtMailer = $messageMailer->build();
 

@@ -170,6 +170,7 @@ class MessageRepository extends BaseRepositoryAbstract implements MessageReposit
     {
         return $this->create([
             'to_id' => $model->id,
+            'to_type' => $model->morphRelationName(),
             'via' => [Message::VIA_SMS],
             'data' => [
                 'message' => $message,

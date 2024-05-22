@@ -96,7 +96,7 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function from() : MorphTo
     {
-        return $this->morphTo(User::class);
+        return $this->morphTo();
     }
 
     /**
@@ -116,7 +116,7 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
      */
     public function to() : MorphTo
     {
-        return $this->morphTo(User::class);
+        return $this->morphTo();
     }
 
     /**

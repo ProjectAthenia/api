@@ -8,6 +8,7 @@ use App\Athenia\Providers\BaseAuthServiceProvider;
 use App\Athenia\Services\UserAuthenticationService;
 use App\Models\User\User;
 use App\Policies\User\UserPolicy;
+use App\Providers\AuthServiceProvider;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Foundation\Application;
@@ -54,14 +55,14 @@ final class AuthServiceProviderTest extends TestCase
         $app->shouldReceive('make')->once()->with('auth')->andReturn($auth);
         $app->shouldReceive('bind')->once();
 
-        $provider = new BaseAuthServiceProvider($app);
+        $provider = new AuthServiceProvider($app);
 
         $provider->boot();
     }
 
     public function testGuessPolicyName(): void
     {
-        $provider = new BaseAuthServiceProvider(mock(Application::class));
+        $provider = new AuthServiceProvider(mock(Application::class));
 
         $this->assertEquals(UserPolicy::class, $provider->guessPolicyName(User::class));
     }

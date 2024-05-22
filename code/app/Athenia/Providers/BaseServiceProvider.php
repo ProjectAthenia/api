@@ -30,6 +30,11 @@ use App\Athenia\Services\Collection\ItemInEntityCollectionService;
 use App\Athenia\Services\DirectoryCopyService;
 use App\Athenia\Services\EntitySubscriptionCreationService;
 use App\Athenia\Services\Messaging\MessageSendingSelectionService;
+use App\Athenia\Services\Messaging\MessageSendingServiceNotImplemented;
+use App\Athenia\Services\Messaging\SendEmailService;
+use App\Athenia\Services\Messaging\SendPushNotificationService;
+use App\Athenia\Services\Messaging\SendSlackNotificationService;
+use App\Athenia\Services\Messaging\SendSMSNotificationService;
 use App\Athenia\Services\ProratingCalculationService;
 use App\Athenia\Services\StringHelperService;
 use App\Athenia\Services\StripeCustomerService;
@@ -38,9 +43,12 @@ use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
 use App\Models\Messaging\Message;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
 use Laracasts\Generators\GeneratorsServiceProvider;
+use NotificationChannels\Twilio\Twilio;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -57,6 +65,10 @@ abstract class BaseServiceProvider extends ServiceProvider
             ItemInEntityCollectionServiceContract::class,
             MessageSendingSelectionServiceContract::class,
             ProratingCalculationServiceContract::class,
+            SendEmailServiceContract::class,
+            SendPushNotificationServiceContract::class,
+            SendSlackNotificationServiceContract::class,
+            SendSMSServiceContract::class,
             StringHelperServiceContract::class,
             StripeCustomerServiceContract::class,
             StripePaymentServiceContract::class,
@@ -112,6 +124,40 @@ abstract class BaseServiceProvider extends ServiceProvider
         $this->app->bind(ProratingCalculationServiceContract::class, fn () =>
             new ProratingCalculationService()
         );
+        $this->app->bind(SendEmailServiceContract::class, fn () =>
+            new SendEmailService($this->app->make(Mailer::class))
+        );
+        $this->app->bind(SendPushNotificationServiceContract::class, function () {
+            if (config('athenia.messaging_services.push_enabled', false)) {
+                return new SendPushNotificationService(
+                    config('app.services.fcm,key', ''),
+                    new Client(),
+                    $this->app->make('log'),
+                );
+            } else {
+                return new class extends MessageSendingServiceNotImplemented
+                    implements SendPushNotificationServiceContract {};
+            }
+        });
+        $this->app->bind(SendSlackNotificationServiceContract::class, function () {
+            if (config('athenia.messaging_services.slack_enabled', false)) {
+                return new SendSlackNotificationService();
+            } else {
+                return new class extends MessageSendingServiceNotImplemented
+                    implements SendSlackNotificationServiceContract {};
+            }
+        });
+        $this->app->bind(SendSMSServiceContract::class, function () {
+            if (config('athenia.messaging_services.sms_enabled', false)) {
+                return new SendSMSNotificationService(
+                    $this->app->make(Twilio::class),
+                    $this->app->make('log'),
+                );
+            } else {
+                return new class extends MessageSendingServiceNotImplemented
+                    implements SendSMSServiceContract {};
+            }
+        });
         $this->app->bind(StringHelperServiceContract::class, fn () =>
             new StringHelperService()
         );

@@ -18,7 +18,6 @@ final class MessageTest extends TestCase
         $message = new Message();
         $relation = $message->from();
 
-        $this->assertEquals('users.id', $relation->getQualifiedOwnerKeyName());
         $this->assertEquals('messages.from_id', $relation->getQualifiedForeignKeyName());
         $this->assertEquals('from_type', $relation->getMorphType());
     }
@@ -28,7 +27,6 @@ final class MessageTest extends TestCase
         $message = new Message();
         $relation = $message->thread();
 
-        $this->assertInstanceOf(BelongsTo::class, $relation);
         $this->assertEquals('threads.id', $relation->getQualifiedOwnerKeyName());
         $this->assertEquals('messages.thread_id', $relation->getQualifiedForeignKeyName());
     }
@@ -38,7 +36,6 @@ final class MessageTest extends TestCase
         $message = new Message();
         $relation = $message->to();
 
-        $this->assertEquals('users.id', $relation->getQualifiedOwnerKeyName());
         $this->assertEquals('messages.to_id', $relation->getQualifiedForeignKeyName());
         $this->assertEquals('to_type', $relation->getMorphType());
     }

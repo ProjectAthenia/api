@@ -36,7 +36,7 @@ class MessageMailer extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $email = $this->receiver->getEmailAddress();
+        $email = $this->message->email ?? $this->receiver->getEmailAddress();
         $name = $this->receiver->getEmailToName();
         $message = $this->subject($this->message->subject)
             ->to($email, $name)
