@@ -48,7 +48,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
 use Laracasts\Generators\GeneratorsServiceProvider;
-use NotificationChannels\Twilio\Twilio;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -150,7 +149,7 @@ abstract class BaseServiceProvider extends ServiceProvider
         $this->app->bind(SendSMSServiceContract::class, function () {
             if (config('athenia.messaging_services.sms_enabled', false)) {
                 return new SendSMSNotificationService(
-                    $this->app->make(Twilio::class),
+                    $this->app->make(\NotificationChannels\Twilio\Twilio::class),
                     $this->app->make('log'),
                 );
             } else {

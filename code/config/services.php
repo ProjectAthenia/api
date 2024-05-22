@@ -33,8 +33,13 @@ return [
         'secret' => env('STRIPE_SECRET', 'sk_test'),
     ],
 
-
     'fcm' => [
         'key' => env('FCM_KEY', ''),
+    ],
+
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'from' => env('TWILIO_FROM'), // optional
     ],
 ];

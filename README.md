@@ -14,6 +14,31 @@ The final bit of setup has to do with setting up the remaining environment varia
 
 Within the api-php container you then want to run `php artisan key:generate && php artisan jwt:secret` from the root of the shared mount. Finally run `php artisan migrate` in order to get the database setup, and finish the setup. You can then run `./vendor/bin/phpunit` to verify the tests are running, and passing. Finally, on your host, you can attempt to access the web server from http://localhost:{EXPOSED_HTTP_PORT}/v1/status where you should see a simple JSON with status OK.
 
+## Optional Message Delivery
+
+By default, the template is designed to deliver messages via email. Capabilities to deliver via SMS, push, and Slack are all available, but they need to be enabled manually. To enable those channel, complete the following steps.
+
+### SMS
+
+SMS is delivered via Twilio. To get started with this channel, you must first install the dependency `laravel-notification-channels/twilio`. Once that is installed you then need to symlink the file `extras/SendSMSNotificationServiceTest.php` to `code/tests/Athenia/Unit/Services/Messaging/SendSMSNotificationServiceTest.php`. Finally, set the following config variables in your .env.
+
+* SMS_NOTIFICATOINS_ENABLED - needs to now be set to true
+* TWILIO_ACCOUNT_SID - Generated from twilio
+* TWILIO_AUTH_TOKEN - Generated from twilio
+
+### Push Notifications
+
+Push Notifications are delivered via Firebase. To get started with this channel, install the dependency `davidvrsantos/laravel-fcm-notification`. Once that is installed you then need to symlink the file `extras/SendPushNotificationServiceTest.php` to `code/tests/Athenia/Unit/Services/Messaging/SendPushNotificationServiceTest.php`. Finally, set the following config variables in your .env.
+
+* FIREBASE_NOTIFICATIONS_ENABLED - needs to now be set to true
+* FCM_KEY - Generated from Firebase
+
+### Slack
+
+To get started with this channel, install the dependency `jolicode/slack-php-api`. Once that is installed you then need to symlink the file `extras/SendSlackNotificationServiceTest.php` to `code/tests/Athenia/Unit/Services/Messaging/SendSlackNotificationServiceTest.php`. Finally, set the following config variables in your .env.
+
+* SLACK_NOTIFICATIONS_ENABLED = needs to now be set to true
+
 ## Development
 
 This app is a slightly customized laravel app. Most of the docs for Laravel will explain how to do everything you may want to do within this app.
