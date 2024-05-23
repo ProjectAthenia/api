@@ -22,9 +22,20 @@ jobs:
         with:
           php-version: '8.3'
       - uses: actions/checkout@v4
-      - name: Copy .env
+      - name: Copy root .env
+        working-directory: ./
+        run: cp .env.example .env
+      - name: Load Environment Config
+        uses: falti/dotenv-action@v1.1.2
+      - name: Copy code .env
         working-directory: ./code
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: cp .env.example .env
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: ${{TEST_DATABASE}}
+          mysql root password: ${{ MYSQL_ROOT_PASSWORD }}
+          mysql user:  ${{TEST_DATABASE}}
+          mysql password: ${{ TEST_DATABASE_PASSWORD }}
       - name: Install Dependencies
         working-directory: ./code
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -34,14 +45,8 @@ jobs:
       - name: Directory Permissions
         working-directory: ./code
         run: chmod -R 777 storage bootstrap/cache
-      - name: Create Database
-        working-directory: ./code
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+      - name: Run tests
         working-directory: ./code
         env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+          TEST_DB_HOST: "localhost"
         run: php artisan test

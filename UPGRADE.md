@@ -4,359 +4,752 @@ To upgrade from previous version of Athenia please check each version number lis
 
 The fastest way to upgrade is to run the following commands from your repos root
 
-* rsync -arv $ATHENIA_REPO/ansible ./
-* rsync -arv $ATHENIA_REPO/code ./ --exclude vendor  --exclude storage  --exclude '.env*'
+* cp  $ATHENIA_REPO/docker-compose.yml ./
+* cp  $ATHENIA_REPO/.env.example ./
+* rsync -arv $ATHENIA_REPO/dockerfiles ./
+* rsync -arv $ATHENIA_REPO/extras ./
+* rsync -arv $ATHENIA_REPO/code ./ --exclude vendor  --exclude storage  --exclude '.env'
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
-# 2.11.0
-
-Quick little one. This one adds a new Asset Import Service that will grab an asset from any url into our app.
-
-* code/app/Contracts/Services/AssetImportServiceContract.php - New Path
-* code/app/Providers/AppServiceProvider.php - Registered service
-* code/app/Services/AssetImportService.php - New Path
-* code/database/migrations/2024_05_13_203925_add_source_to_assets.php - New Path
-
-# 2.10.0
-
-* code/app/Contracts/Repositories/User/MessageRepositoryContract.php - Added $via param to helper functions
-* code/app/Contracts/Services/StringHelperServiceContract.php - Added new function to identify domains
-* code/app/Repositories/User/MessageRepository.php - Added $via param to helper functions
-* code/app/Services/StringHelperService.php - Added new function to identify domains
-* code/tests/Feature/Http/Category/CategoryViewTest.php - Removed extra test
-* code/tests/Unit/Services/StringHelperServiceTest.php - Tested new function
-
-# 2.9.1
-
-Minor little bug fix
-
-* code/app/Providers/AtheniaRepositoryProvider.php - Registered morph name for Article
-
-# 2.9.0
-
-Nice little feature one. This update makes the article model indexable. It also expands the validation rules mapping to allow for rule groups to stay on their related model and the then easily be prepended into their parent model if need be. Finally, this also adds the find or fail function to the message repository, fixing a previous bug.
-
-## Article Indexing
-
-* code/app/Models/Wiki/Article.php - Added index functions and removed swagger definition
-* code/app/Providers/EventServiceProvider.php - Added IndexableModelObserver to Article
-* code/tests/Feature/Http/Article/ArticleViewTest.php - Made sure to unset resource variable
-* code/tests/Unit/Models/Wiki/ArticleTest.php - tested resource relation
-
-## Expanded Rule Groups
-
-* code/app/Contracts/Models/HasValidationRulesContract.php - Added prependValidationRules function for prepending rules
-* code/app/Models/Traits/HasValidationRules.php - Implemented prependValidationRules
-
-# Message Repository Update
-
-* code/app/Repositories/User/MessageRepository.php - Removed not implemented function
-* code/tests/Integration/Repositories/User/MessageRepositoryTest.php - Tested function
-
-# 2.8.1
-
-This one is just a little bit of clean up. The following paths have been changed.
-
-* code/app/Models/User/User.php - Set return type for getProfileImageUrlAttribute
-* code/app/Providers/AppRepositoryProvider.php - Set return type for registerApp
-* code/app/Providers/AtheniaRepositoryProvider.php - Set return type for provides, register, and registerApp
-* code/tests/Unit/Console/{Command => Commands}/ResendMessageCommandTest.php - Fixed naming
-
-# 2.8.0
-
-## Laravel 10 Upgrade
-
-This is a bigger one than normal, but it should be relatively easy to implement. To start run a find and replace on the whole project for Fico7489 and replace it with AdminUI. After that, make the following changes.
-
-### Composer
-
-* php - min changed to ">=8.1.0"
-* "fico7489/laravel-eloquent-join": "^4.0" changed to "adminui/laravel-eloquent-joins": "^10.0" 
-* "benwilkins/laravel-fcm-notification" changed to "davidvrsantos/laravel-fcm-notification"
-* cartalyst/stripe-laravel - min changed to "^15.0"
-* "fideloper/proxy" - removed
-* "laravel/framework" - min changed to "^10.0"
-* "sebastian/diff" - min changed to "^5.0"
-* "phpunit/phpunit" - min changed to "^10.0"
-* "spatie/laravel-ignition" - min changed to "^2.0"
-
-### Files Changed
-
-* ansible/roles/mysql/tasks/main.yml - Added root password stuff again
-* code/app/Http/Kernel.php - Variable routeMiddleware was renamed to middlewareAliases
-* code/app/Models/BaseModelAbstract.php - Dates array was removed and the deleted at timestamp was added to the casts array
-* code/app/Models/Payment/Payment.php - Dates array changed to casts array
-* code/app/Models/Subscription/Subscription.php - Dates array simply removed
-* code/app/Models/User/Contact.php - Dates array changed to casts array
-* code/app/Models/User/Message.php - Dates array merged into casts array
-* code/app/Services/Wiki/ArticleVersionCalculationService.php - The diff package was changed quite a bit, so most of this file was changed
-* code/phpunit.xml - General clean up and some renames of props for PHP unit update
-* code/tests/Unit/Providers/AppServiceProviderTest.php - allProviders function changed to static
-
-# 2.7.0
-
-## Laravel 9 Upgrade
-
-This turned out to be a really easy upgrade. First off, inspect your composer.json for differences with the main project, and check anything not listed. The following packages have been completly removed from the core.
-
-* fruitcake/laravel-cors
-* facade/ignition
-* phploc/phploc
-
-### CORS change
-
-Laravel now has built in CORS middlewares. In code/app/Http/Kernel.php you need to change the import `Fruitcake\Cors\HandleCors;` to `Illuminate\Http\Middleware\HandleCors;`.
-
-### Testing changes
-
-All testing files have been updated with type signatures. This can be handled easily by running phpunit shift https://laravelshift.com/shifts. The phpunit version should remain the same though. In addition, update the following files.
-
-* code/tests/Traits/MocksConsoleOutput.php - Changed references to Progress mock due to changes in Laravel
-* code/tests/bootstrap.php - Added a new package that allows mocking final classes
-
-### General changes
-
-The file `code/app/Jobs/CanDisplayOutputAbstractJob.php` now has type signatures to prepare for the eventual php 9 upgrade. The lang directory in `code/resources`, should be moved to `code`
-
-# 2.6.0
-
-## New Module
-
-This update adds a new collection module! The core has also been updated to use php8.3.
-
-### General Changes
-
-* code/tests/Feature/Http/Organization/Asset/OrganizationAssetCreateTest.php - Namespace fixed
-* code/tests/Traits/ReflectionHelpers.php - Fixed directory bug
-
-### php8.3
-
-* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Updated php fpm reference
-* ansible/roles/mysql/tasks/main.yml - Removed root password
-* ansible/roles/php/tasks/main.yml - Updated php install packages
-* code/composer.lock - Updated dependencies for php 8.3
-
-### Collection Module
-
-* code/app/Contracts/Models/IsAnEntity.php - Added Collection relation
-* code/app/Contracts/Repositories/Collection/ - New Path
-* code/app/Contracts/Services/Collection/ - New Path
-* code/app/Http/Core/Controllers/Collection/ - New Path
-* code/app/Http/Core/Controllers/CollectionControllerAbstract.php - New Path
-* code/app/Http/Core/Controllers/CollectionItemControllerAbstract.php - New Path
-* code/app/Http/Core/Controllers/Entity/CollectionControllerAbstract.php - New Path
-* code/app/Http/Core/Requests/Collection/ - New Path
-* code/app/Http/Core/Requests/CollectionItem/ - New Path
-* code/app/Http/Core/Requests/Entity/Collection/ - New Path
-* code/app/Http/V1/Controllers/Collection/ - New Path
-* code/app/Http/V1/Controllers/CollectionController.php - New Path
-* code/app/Http/V1/Controllers/CollectionItemController.php - New Path
-* code/app/Http/V1/Controllers/Entity/CollectionController.php - New Path
-* code/app/Models/Collection/ - New Path
-* code/app/Models/Traits/IsEntity.php - Added Collection relation
-* code/app/Policies/Collection/ - New Path
-* code/app/Providers/AppServiceProvider.php - Registered new service
-* code/app/Providers/AtheniaRepositoryProvider.php - Registered collection repos
-* code/app/Providers/RouteServiceProvider.php - Registered collection route params
-* code/app/Repositories/Collection/ - New Path
-* code/app/Services/Collection/ - New Path
-* code/database/factories/Collection/ - New Path
-* code/database/migrations/2024_02_01_150536_add_user_collections_module.php - New Path
-* code/routes/core.php - Registered new routes
-* code/routes/entity-routes.php - Registered new routes
-* code/tests/Feature/Http/Collection/ - New Path
-* code/tests/Feature/Http/CollectionItem/ - New Path
-* code/tests/Feature/Http/Organization/Collection/ - New Path
-* code/tests/Feature/Http/User/Collection/ - New Path
-* code/tests/Integration/Policies/Collection/ - New Path
-* code/tests/Integration/Repositories/Collection/ - New Path
-* code/tests/Unit/Models/Collection/ - New Path
-* code/tests/Unit/Services/Collection/ - New Path
-
-# 2.5.0
-
-## New validator!
-
-* code/app/Providers/AppValidatorProvider.php - Registered the new validator
-* code/app/Validators/OwnedByValidator.php - The new validator
-* code/resources/lang/en/validation.php - Registered the validator message
-* code/tests/Unit/Validators/OwnedByValidatorTest.php - The test for the validator
-
-## Minor clean up.
-
-* code/routes/entity-routes.php - Added instructional comment block
-* code/tests/Feature/Http/Organization/Payment/OrganizationPaymentIndexTest.php - Fixed Namespace
-* code/tests/Feature/Http/User/Payment/UserPaymentIndexTest.php - Fixed Namespace
-
-# 2.4.0
-
-This update adds a new category model and set of endpoints. To complete this update, copy over the following new paths.
-
-* code/app/Contracts/Repositories/CategoryRepositoryContract.php 
-* code/app/Http/Core/Controllers/CategoryControllerAbstract.php
-* code/app/Http/Core/Requests/Category/ 
-* code/app/Http/V1/Controllers/CategoryController.php 
-* code/app/Models/Category.php 
-* code/app/Policies/CategoryPolicy.php 
-* code/app/Repositories/CategoryRepository.php 
-* code/database/factories/CategoryFactory.php 
-* code/database/migrations/2023_10_14_184520_add_categories_table.php 
-* code/tests/Feature/Http/Category/
-* code/tests/Integration/Policies/CategoryPolicyTest.php 
-* code/tests/Integration/Repositories/CategoryRepositoryTest.php 
-* code/tests/Unit/Models/CategoryTest.php
-
-Then the following existing files need to be updated
-
-* code/app/Providers/AtheniaRepositoryProvider.php - New repo registered
-* code/app/Providers/RouteServiceProvider.php - New route mapping registered
-* code/routes/core.php - New Route registered
-
-# 2.3.0
-
-This updates adds a new service that will help with copying directories between file systems. To complete this update copy over the following files.
-
-* code/app/Console/Kernel.php - Unrelated, added default schedule function, probably dont need if you are using the command kernel
-* code/app/Contracts/Services/DirectoryCopyServiceContract.php - New Service Contract
-* code/app/Services/DirectoryCopyService.php - New Service
-* code/tests/Unit/Services/DirectoryCopyServiceTest.php - New Test
-* code/app/Providers/AppServiceProvider.php - Registered new service
-
-# 2.2.0
-
-This is another simple one. This adds a large amount of functionality to the search api. To run this update simply copy over `code/app/Repositories/BaseRepositoryAbstract.php`.
-
-## 2.1.0
-
-This is a simple one. This adds a new abstract job that is designed to be used both by commands, and any other entry points in the app to allow for this sort of functionality to be more easily reused regardless of whether or not someone is sitting at a console. To complete this update copy over the following new files.
-
-* code/app/Jobs/CanDisplayOutputAbstractJob.php
-* code/tests/Unit/Jobs/CanDisplayOutputAbstractJobTest.php
-
-## 2.0.0
-
-Another big one! This one brings the app up to PHP 8, which involves quite a few pieces of the app changing. Each section that needs to be updated is separated below.
-
-### Dependencies
-
-The following packages have been completely removed...
-
-* nochso/diff
-* orchid/socket
-* ralouphie/mimey
-* tymon/jwt-auth
-* fzaninotto/faker - dev
-
-The follonw packages have been added...
-
-* php-open-source-saver/jwt-auth
-* pusher/pusher-php-server
-* sebastian/diff
-* xantios/mimey
-* fakerphp/faker - dev
-
-Then the package phploc/phploc needs to be upgraded from ^6.0 to ^7.0
-
-The config `code/config/app.php` also needs to be updated for the change in JWT auth
-
-### Environment changes
-
-The application level ansible stuff was renamed from `athenia` to `app`, php has been updated to 8.2, the environment has been updated to ubuntu 22, and postgress has been changed to favor mysql. All changes after that are listed below.
-
-* Vagrantfile - Changed box settings, and updated for Parallels and Arm
-* ansible/playbook.yml - Updated athenia reference to app
-* ansible/roles/app/templates/api.projectathenia.com.conf.j2 - Changed PHP version to 8.2
-* ansible/roles/common/tasks/main.yml - Added pip install and removed unattended upgrades
-* ansible/roles/mysql/ - Added module
-* ansible/roles/php/tasks/main.yml - Changed all package installs to related 8.2 versions
-* ansible/playbook.yml - Changed postgres to mysql and changed athenia to app
-* ansible/roles/postgres/tasks/main.yml - Updated python bindings install
-* code/.env.example - Changed default db driver to mysql
-* vagrant-do-provision.sh - Updated script to run on ubuntu 22
-
-### Socket Changes
-
-The socket article functionality has entirely been reworked. With this, a number of cleanup tasks have also been completed including renaming the Iteration model to ArticleIteration.
-
-* code/app/Contracts/Repositories/Wiki/{IterationRepositoryContract.php => ArticleIterationRepositoryContract.php}
-* code/app/Contracts/Repositories/Wiki/ArticleModificationRepositoryContract.php
-* code/app/Contracts/Services/Wiki/ArticleModificationApplicationServiceContract.php
-* code/app/Contracts/Services/{ => Wiki}/ArticleVersionCalculationServiceContract.php
-* code/app/Http/Core/Controllers/Article/IterationControllerAbstract.php
-* code/app/Http/Core/Requests/Article/Iteration/IndexRequest.php - Updated policy name
-* code/app/Http/Sockets/ArticleIterations.php - Removed
-* code/app/Listeners/Article/ArticleVersionCreatedListener.php - References to Iteration changed to ArticleIteration
-* code/app/Listeners/User/UserMerge/UserCreatedIterationsMergeListener.php - References to Iteration changed to ArticleIteration
-* code/app/Models/User/User.php - References to Iteration changed to ArticleIteration
-* code/app/Models/Wiki/Article.php - Massive changes for the iteration name change
-* code/app/Models/Wiki/{Iteration.php => ArticleIteration.php}
+# 3.0.0
+
+This is a massive update. The vast majority of the code for both the main app and the tests have been moved into new namespaces in preparation to move all the templated code into its own package. Along with that, vagrant has been replaced with docker. The entire messaging apparatus has also been reworked.
+
+## Docker Vagrant Replacement
+
+To start remove the following paths
+
+* Vagrantfile
+
+* .env.example
+* .github/workflows/code-checks.yaml
+* .gitignore
+* README.md
+* UPGRADE-0.x.md
+* UPGRADE-1.x.md
+* UPGRADE-2x.md
+* UPGRADE.md
+
+* ansible/playbook.retry
+* ansible/playbook.yml
+* ansible/roles/app/files/socket-worker.conf
+* ansible/roles/app/meta/main.yml
+* ansible/roles/app/tasks/main.yml
+* ansible/roles/app/templates/api.projectathenia.com.conf.j2
+* ansible/roles/app/templates/socket.projectathenia.com.conf.j2
+* ansible/roles/app/vars/main.yml
+* ansible/roles/beanstalk/files/laravel-worker.conf
+* ansible/roles/beanstalk/handlers/main.yml
+* ansible/roles/beanstalk/tasks/main.yml
+* ansible/roles/common/files/fail2ban-jail.conf
+* ansible/roles/common/handlers/main.yml
+* ansible/roles/common/tasks/main.yml
+* ansible/roles/mysql/meta/main.yml
+* ansible/roles/mysql/tasks/main.yml
+* ansible/roles/mysql/vars/main.yml
+* ansible/roles/mysql/vars/production_mysql.yml
+* ansible/roles/nginx/handlers/main.yml
+* ansible/roles/nginx/meta/main.yml
+* ansible/roles/nginx/tasks/main.yml
+* ansible/roles/php/files/xdebug.ini
+* ansible/roles/php/meta/main.yml
+* ansible/roles/php/tasks/composer.yml
+* ansible/roles/php/tasks/main.yml
+* ansible/roles/postgres/meta/main.yml
+* ansible/roles/postgres/tasks/main.yml
+* code/.env.example
+* code/app/Athenia/Console/BaseKernel.php
+* code/app/Athenia/Console/Commands/ReindexResources.php
+* code/app/Athenia/Console/Commands/ResendMessageCommand.php
+* code/app/Athenia/Contracts/BasePolicyContract.php
+* code/app/Athenia/Contracts/Http/HasEntityInRequestContract.php
+* code/app/Athenia/Contracts/Models/BelongsToOrganizationContract.php
+* code/app/Athenia/Contracts/Models/CanBeIndexedContract.php
+* code/app/Athenia/Contracts/Models/CanBeManagedByEntityContract.php
+* code/app/Athenia/Contracts/Models/CanBeMorphedToContract.php
+* code/app/Athenia/Contracts/Models/CanReceiveTextMessagesContract.php
+* code/app/Athenia/Contracts/Models/HasPaymentsContract.php
+* code/app/Athenia/Contracts/Models/HasPolicyContract.php
+* code/app/Athenia/Contracts/Models/HasValidationRulesContract.php
+* code/app/Athenia/Contracts/Models/IsAnEntityContract.php
+* code/app/Athenia/Contracts/Models/Messaging/CanReceiveEmailsContract.php
+* code/app/Athenia/Contracts/Models/Messaging/CanReceiveMessageContract.php
+* code/app/Athenia/Contracts/Models/Messaging/CanReceivePushNotificationContract.php
+* code/app/Athenia/Contracts/Models/Messaging/CanReceiveSMSContract.php
+* code/app/Athenia/Contracts/Models/Messaging/CanReceiveSlackNotificationsContract.php
+* code/app/Athenia/Contracts/Models/Messaging/HasMessageReceiversContract.php
+* code/app/Athenia/Contracts/Repositories/AssetRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/BaseRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/CategoryRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Collection/CollectionItemRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Collection/CollectionRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/FeatureRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/HasLocationRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Messaging/MessageRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Messaging/PushNotificationKeyRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Messaging/ThreadRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Organization/OrganizationManagerRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Organization/OrganizationRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Payment/LineItemRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Payment/PaymentMethodRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Payment/PaymentRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/ResourceRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/RoleRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Subscription/MembershipPlanRateRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Subscription/MembershipPlanRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Subscription/SubscriptionRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/User/ContactRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/User/PasswordTokenRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/User/ProfileImageRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/User/UserRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Vote/BallotCompletionRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Vote/BallotItemOptionRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Vote/BallotItemRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Vote/BallotRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Vote/VoteRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Wiki/ArticleIterationRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Wiki/ArticleModificationRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Wiki/ArticleRepositoryContract.php
+* code/app/Athenia/Contracts/Repositories/Wiki/ArticleVersionRepositoryContract.php
+* code/app/Athenia/Contracts/Services/AssetImportServiceContract.php
+* code/app/Athenia/Contracts/Services/Collection/ItemInEntityCollectionServiceContract.php
+* code/app/Athenia/Contracts/Services/DirectoryCopyServiceContract.php
+* code/app/Athenia/Contracts/Services/EntityFeatureAccessServiceContract.php
+* code/app/Athenia/Contracts/Services/EntitySubscriptionCreationServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/BaseMessageSendingServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/MessageSendingSelectionServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/SendEmailServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/SendPushNotificationServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/SendSMSServiceContract.php
+* code/app/Athenia/Contracts/Services/Messaging/SendSlackNotificationServiceContract.php
+* code/app/Athenia/Contracts/Services/ProratingCalculationServiceContract.php
+* code/app/Athenia/Contracts/Services/StringHelperServiceContract.php
+* code/app/Athenia/Contracts/Services/StripeCustomerServiceContract.php
+* code/app/Athenia/Contracts/Services/StripePaymentServiceContract.php
+* code/app/Athenia/Contracts/Services/TokenGenerationServiceContract.php
+* code/app/Athenia/Contracts/Services/Wiki/ArticleModificationApplicationServiceContract.php
+* code/app/Athenia/Contracts/Services/Wiki/ArticleVersionCalculationServiceContract.php
+* code/app/Athenia/Contracts/ThreadSecurity/ThreadSubjectGateContract.php
+* code/app/Athenia/Contracts/ThreadSecurity/ThreadSubjectGateProviderContract.php
+* code/app/Athenia/Events/Article/ArticleVersionCreatedEvent.php
+* code/app/Athenia/Events/Messaging/MessageCreatedEvent.php
+* code/app/Athenia/Events/Messaging/MessageSentEvent.php
+* code/app/Athenia/Events/Organization/OrganizationManagerCreatedEvent.php
+* code/app/Athenia/Events/Payment/DefaultPaymentMethodSetEvent.php
+* code/app/Athenia/Events/Payment/PaymentReversedEvent.php
+* code/app/Athenia/Events/User/Contact/ContactCreatedEvent.php
+* code/app/Athenia/Events/User/ForgotPasswordEvent.php
+* code/app/Athenia/Events/User/SignUpEvent.php
+* code/app/Athenia/Events/User/UserMergeEvent.php
+* code/app/Athenia/Events/Vote/VoteCreatedEvent.php
+* code/app/Athenia/Exceptions/AuthenticationException.php
+* code/app/Athenia/Exceptions/Handler.php
+* code/app/Athenia/Exceptions/JWT/TokenMissingException.php
+* code/app/Athenia/Exceptions/JWT/TokenUserNotFoundException.php
+* code/app/Athenia/Exceptions/NotImplementedException.php
+* code/app/Athenia/Exceptions/ValidationException.php
+* code/app/Athenia/Http/Core/Controllers/Article/ArticleVersionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Article/IterationControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/ArticleControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/AuthenticationControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Ballot/BallotCompletionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/BallotControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/BaseControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/CategoryControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Collection/CollectionItemControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/CollectionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/CollectionItemControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/AssetControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/CollectionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/PaymentControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/PaymentMethodControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/ProfileImageControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Entity/SubscriptionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/FeatureControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/ForgotPasswordControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/MembershipPlan/MembershipPlanRateControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/MembershipPlanControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Organization/OrganizationManagerControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/OrganizationControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/ResourceControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/RoleControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/StatusControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/Traits/HasIndexRequests.php
+* code/app/Athenia/Http/Core/Controllers/Traits/HasViewRequests.php
+* code/app/Athenia/Http/Core/Controllers/User/BallotCompletionControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/User/ContactControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/User/ThreadControllerAbstract.php
+* code/app/Athenia/Http/Core/Controllers/UserControllerAbstract.php
+* code/app/Athenia/Http/Core/Requests/Article/ArticleVersion/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/ArticleVersion/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/Iteration/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Article/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/Authentication/LoginRequest.php
+* code/app/Athenia/Http/Core/Requests/Authentication/SignUpRequest.php
+* code/app/Athenia/Http/Core/Requests/Ballot/BallotCompletion/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Ballot/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/BaseAssetUploadRequestAbstract.php
+* code/app/Athenia/Http/Core/Requests/BaseAuthenticatedRequestAbstract.php
+* code/app/Athenia/Http/Core/Requests/BaseRequestAbstract.php
+* code/app/Athenia/Http/Core/Requests/BaseUnauthenticatedRequest.php
+* code/app/Athenia/Http/Core/Requests/Category/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Category/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Category/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Category/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Category/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/Collection/CollectionItem/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Collection/CollectionItem/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Collection/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Collection/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Collection/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/CollectionItem/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/CollectionItem/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Asset/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Asset/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Asset/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Asset/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Collection/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Collection/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Payment/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/PaymentMethod/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/PaymentMethod/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/PaymentMethod/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/ProfileImage/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Subscription/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Subscription/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Subscription/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Entity/Traits/IsEntityRequestTrait.php
+* code/app/Athenia/Http/Core/Requests/Feature/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Feature/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/ForgotPassword/ForgotPasswordRequest.php
+* code/app/Athenia/Http/Core/Requests/ForgotPassword/ResetPasswordRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/MembershipPlanRate/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/RetrieveRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/MembershipPlan/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/OrganizationManager/DeleteRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/OrganizationManager/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/OrganizationManager/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/OrganizationManager/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/RetrieveRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/Organization/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/Resource/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Role/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Traits/HasNoExpands.php
+* code/app/Athenia/Http/Core/Requests/Traits/HasNoPolicyParameters.php
+* code/app/Athenia/Http/Core/Requests/Traits/HasNoRules.php
+* code/app/Athenia/Http/Core/Requests/User/BallotCompletion/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Contact/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Contact/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Contact/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/User/MeRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Thread/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Thread/Message/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Thread/Message/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Thread/Message/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/User/Thread/StoreRequest.php
+* code/app/Athenia/Http/Core/Requests/User/UpdateRequest.php
+* code/app/Athenia/Http/Core/Requests/User/ViewRequest.php
+* code/app/Athenia/Http/Middleware/ExpandParsingMiddleware.php
+* code/app/Athenia/Http/Middleware/Issue404IfPageAfterPaginationMiddleware.php
+* code/app/Athenia/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddleware.php
+* code/app/Athenia/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddleware.php
+* code/app/Athenia/Http/Middleware/LogMiddleware.php
+* code/app/Athenia/Http/Middleware/SearchFilterParsingMiddleware.php
+* code/app/Athenia/Http/Middleware/TrimStrings.php
+* code/app/Athenia/Jobs/CanDisplayOutputAbstractJob.php
+* code/app/Athenia/Listeners/Article/ArticleVersionCreatedListener.php
+* code/app/Athenia/Listeners/Messaging/MessageCreatedListener.php
+* code/app/Athenia/Listeners/Messaging/MessageSentListener.php
+* code/app/Athenia/Listeners/Payment/DefaultPaymentMethodSetListener.php
+* code/app/Athenia/Listeners/User/ForgotPasswordListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserBallotCompletionsMergeListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserCreatedArticlesMergeListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserCreatedIterationsMergeListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserMessagesMergeListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserPropertiesMergeListener.php
+* code/app/Athenia/Listeners/User/UserMerge/UserSubscriptionsMergeListener.php
+* code/app/Athenia/Mail/MessageMailer.php
+* code/app/Athenia/Models/BaseModelAbstract.php
+* code/app/Athenia/Models/Traits/BelongsToOrganization.php
+* code/app/Athenia/Models/Traits/CanBeIndexed.php
+* code/app/Athenia/Models/Traits/HasPayments.php
+* code/app/Athenia/Models/Traits/HasValidationRules.php
+* code/app/Athenia/Models/Traits/IsEntity.php
+* code/app/Athenia/Observer/IndexableModelObserver.php
+* code/app/Athenia/Observer/Payment/PaymentMethodObserver.php
+* code/app/Athenia/Policies/BaseBelongsToOrganizationPolicyAbstract.php
+* code/app/Athenia/Policies/BasePolicyAbstract.php
+* code/app/Athenia/Providers/BaseAuthServiceProvider.php
+* code/app/Athenia/Providers/BaseEventServiceProvider.php
+* code/app/Athenia/Providers/BaseRepositoryProvider.php
+* code/app/Athenia/Providers/BaseRouteServiceProvider.php
+* code/app/Athenia/Providers/BaseServiceProvider.php
+* code/app/Athenia/Providers/BaseValidatorProvider.php
+* code/app/Athenia/Repositories/AssetRepository.php
+* code/app/Athenia/Repositories/BaseRepositoryAbstract.php
+* code/app/Athenia/Repositories/CategoryRepository.php
+* code/app/Athenia/Repositories/Collection/CollectionItemRepository.php
+* code/app/Athenia/Repositories/Collection/CollectionRepository.php
+* code/app/Athenia/Repositories/FeatureRepository.php
+* code/app/Athenia/Repositories/Messaging/MessageRepository.php
+* code/app/Athenia/Repositories/Messaging/PushNotificationKeyRepository.php
+* code/app/Athenia/Repositories/Messaging/ThreadRepository.php
+* code/app/Athenia/Repositories/Organization/OrganizationManagerRepository.php
+* code/app/Athenia/Repositories/Organization/OrganizationRepository.php
+* code/app/Athenia/Repositories/Payment/LineItemRepository.php
+* code/app/Athenia/Repositories/Payment/PaymentMethodRepository.php
+* code/app/Athenia/Repositories/Payment/PaymentRepository.php
+* code/app/Athenia/Repositories/ResourceRepository.php
+* code/app/Athenia/Repositories/RoleRepository.php
+* code/app/Athenia/Repositories/Subscription/MembershipPlanRateRepository.php
+* code/app/Athenia/Repositories/Subscription/MembershipPlanRepository.php
+* code/app/Athenia/Repositories/Subscription/SubscriptionRepository.php
+* code/app/Athenia/Repositories/Traits/HasLocationTrait.php
+* code/app/Athenia/Repositories/Traits/NotImplemented/Create.php
+* code/app/Athenia/Repositories/Traits/NotImplemented/Delete.php
+* code/app/Athenia/Repositories/Traits/NotImplemented/FindAll.php
+* code/app/Athenia/Repositories/Traits/NotImplemented/FindOrFail.php
+* code/app/Athenia/Repositories/Traits/NotImplemented/Update.php
+* code/app/Athenia/Repositories/User/ContactRepository.php
+* code/app/Athenia/Repositories/User/PasswordTokenRepository.php
+* code/app/Athenia/Repositories/User/ProfileImageRepository.php
+* code/app/Athenia/Repositories/User/UserRepository.php
+* code/app/Athenia/Repositories/Vote/BallotCompletionRepository.php
+* code/app/Athenia/Repositories/Vote/BallotItemOptionRepository.php
+* code/app/Athenia/Repositories/Vote/BallotItemRepository.php
+* code/app/Athenia/Repositories/Vote/BallotRepository.php
+* code/app/Athenia/Repositories/Vote/VoteRepository.php
+* code/app/Athenia/Repositories/Wiki/ArticleIterationRepository.php
+* code/app/Athenia/Repositories/Wiki/ArticleModificationRepository.php
+* code/app/Athenia/Repositories/Wiki/ArticleRepository.php
+* code/app/Athenia/Repositories/Wiki/ArticleVersionRepository.php
+* code/app/Athenia/Services/AssetImportService.php
+* code/app/Athenia/Services/Collection/ItemInEntityCollectionService.php
+* code/app/Athenia/Services/DirectoryCopyService.php
+* code/app/Athenia/Services/EntityFeatureAccessService.php
+* code/app/Athenia/Services/EntitySubscriptionCreationService.php
+* code/app/Athenia/Services/Messaging/MessageSendingSelectionService.php
+* code/app/Athenia/Services/Messaging/MessageSendingServiceNotImplemented.php
+* code/app/Athenia/Services/Messaging/SendEmailService.php
+* code/app/Athenia/Services/Messaging/SendPushNotificationService.php
+* code/app/Athenia/Services/Messaging/SendSMSNotificationService.php
+* code/app/Athenia/Services/Messaging/SendSlackNotificationService.php
+* code/app/Athenia/Services/ProratingCalculationService.php
+* code/app/Athenia/Services/StringHelperService.php
+* code/app/Athenia/Services/StripeCustomerService.php
+* code/app/Athenia/Services/StripePaymentService.php
+* code/app/Athenia/Services/TokenGenerationService.php
+* code/app/Athenia/Services/UserAuthenticationService.php
+* code/app/Athenia/Services/Wiki/ArticleModificationApplicationService.php
+* code/app/Athenia/Services/Wiki/ArticleVersionCalculationService.php
+* code/app/Athenia/ThreadSecurity/GeneralThreadGate.php
+* code/app/Athenia/ThreadSecurity/PrivateThreadGate.php
+* code/app/Athenia/ThreadSecurity/ThreadSubjectGateProvider.php
+* code/app/Athenia/Traits/CanGetAndUnset.php
+* code/app/Athenia/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidator.php
+* code/app/Athenia/Validators/BaseValidatorAbstract.php
+* code/app/Athenia/Validators/ForgotPassword/TokenIsNotExpiredValidator.php
+* code/app/Athenia/Validators/ForgotPassword/UserOwnsTokenValidator.php
+* code/app/Athenia/Validators/NotPresentValidator.php
+* code/app/Athenia/Validators/OwnedByValidator.php
+* code/app/Athenia/Validators/Subscription/MembershipPlanRateIsActiveValidator.php
+* code/app/Athenia/Validators/Subscription/PaymentMethodIsOwnedByEntityValidator.php
+* code/app/Athenia/Validators/Traits/HasEntityInRequestTrait.php
+* code/app/Console/Commands/ChargeRenewal.php
+* code/app/Console/Commands/SendRenewalReminders.php
+* code/app/Console/Kernel.php
+* code/app/Contracts/.gitkeep
+* code/app/Contracts/Repositories/.gitkeep
+* code/app/Contracts/Repositories/Collection/CollectionItemRepositoryContract.php
+* code/app/Contracts/Repositories/Collection/CollectionRepositoryContract.php
+* code/app/Contracts/Services/.gitkeep
+* code/app/Contracts/Services/Collection/ItemInEntityCollectionServiceContract.php
+* code/app/Events/.gitkeep
+* code/app/Http/Core/Controllers/.gitkeep
+* code/app/Http/Core/Requests/.gitkeep
+* code/app/Http/Core/Requests/Category/IndexRequest.php
+* code/app/Http/Core/Requests/Category/ViewRequest.php
+* code/app/Http/Kernel.php
+* code/app/Http/V1/Controllers/Article/ArticleVersionController.php
+* code/app/Http/V1/Controllers/Article/IterationController.php
+* code/app/Http/V1/Controllers/ArticleController.php
+* code/app/Http/V1/Controllers/AuthenticationController.php
+* code/app/Http/V1/Controllers/Ballot/BallotCompletionController.php
+* code/app/Http/V1/Controllers/BallotController.php
+* code/app/Http/V1/Controllers/CategoryController.php
+* code/app/Http/V1/Controllers/Collection/CollectionItemController.php
+* code/app/Http/V1/Controllers/CollectionController.php
+* code/app/Http/V1/Controllers/CollectionItemController.php
+* code/app/Http/V1/Controllers/Entity/AssetController.php
+* code/app/Http/V1/Controllers/Entity/CollectionController.php
+* code/app/Http/V1/Controllers/Entity/PaymentController.php
+* code/app/Http/V1/Controllers/Entity/PaymentMethodController.php
+* code/app/Http/V1/Controllers/Entity/ProfileImageController.php
+* code/app/Http/V1/Controllers/Entity/SubscriptionController.php
+* code/app/Http/V1/Controllers/FeatureController.php
+* code/app/Http/V1/Controllers/ForgotPasswordController.php
+* code/app/Http/V1/Controllers/MembershipPlan/MembershipPlanRateController.php
+* code/app/Http/V1/Controllers/MembershipPlanController.php
+* code/app/Http/V1/Controllers/Organization/OrganizationManagerController.php
+* code/app/Http/V1/Controllers/OrganizationController.php
+* code/app/Http/V1/Controllers/ResourceController.php
+* code/app/Http/V1/Controllers/RoleController.php
+* code/app/Http/V1/Controllers/StatusController.php
+* code/app/Http/V1/Controllers/User/BallotCompletionController.php
+* code/app/Http/V1/Controllers/User/ContactController.php
+* code/app/Http/V1/Controllers/User/Thread/MessageController.php
+* code/app/Http/V1/Controllers/User/ThreadController.php
+* code/app/Http/V1/Controllers/UserController.php
+* code/app/Listeners/Message/MessageCreatedListener.php
+* code/app/Listeners/Organization/OrganizationManagerCreatedListener.php
+* code/app/Listeners/User/Contact/ContactCreatedListener.php
+* code/app/Listeners/User/SignUpListener.php
+* code/app/Listeners/Vote/VoteCreatedListener.php
+* code/app/Models/Asset.php
+* code/app/Models/Category.php
+* code/app/Models/Collection/Collection.php
+* code/app/Models/Collection/CollectionItem.php
+* code/app/Models/Feature.php
+* code/app/Models/Messaging/Message.php
+* code/app/Models/Messaging/PushNotificationKey.php
+* code/app/Models/Messaging/Thread.php
+* code/app/Models/Organization/Organization.php
+* code/app/Models/Organization/OrganizationManager.php
+* code/app/Models/Payment/LineItem.php
+* code/app/Models/Payment/Payment.php
+* code/app/Models/Payment/PaymentMethod.php
+* code/app/Models/Resource.php
+* code/app/Models/Role.php
+* code/app/Models/Subscription/MembershipPlan.php
+* code/app/Models/Subscription/MembershipPlanRate.php
+* code/app/Models/Subscription/Subscription.php
+* code/app/Models/User/Contact.php
+* code/app/Models/User/PasswordToken.php
+* code/app/Models/User/ProfileImage.php
+* code/app/Models/User/User.php
+* code/app/Models/Vote/Ballot.php
+* code/app/Models/Vote/BallotCompletion.php
+* code/app/Models/Vote/BallotItem.php
+* code/app/Models/Vote/BallotItemOption.php
+* code/app/Models/Vote/Vote.php
+* code/app/Models/Wiki/Article.php
+* code/app/Models/Wiki/ArticleIteration.php
 * code/app/Models/Wiki/ArticleModification.php
 * code/app/Models/Wiki/ArticleVersion.php
-* code/app/Policies/Wiki/{IterationPolicy.php => ArticleIterationPolicy.php}
-* code/app/Providers/AppServiceProvider.php - Namespace for ArticleVersionCalculationServiceContract was renamed
-* code/app/Providers/AtheniaRepositoryProvider.php
-* code/app/Providers/RouteServiceProvider.php - Updated article iteration mapping
-* code/app/Repositories/Wiki/{IterationRepository.php => ArticleIterationRepository.php}
-* code/app/Repositories/Wiki/ArticleModificationRepository.php
-* code/app/Services/Wiki/ArticleModificationApplicationService.php
-* code/app/Services/{ => Wiki}/ArticleVersionCalculationService.php
-* code/app/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidator.php
-* code/config/websockets.php
-* code/database/factories/Vote/BallotItemFactory.php
-* code/database/factories/Vote/BallotItemOptionFactory.php
-* code/database/factories/Wiki/{IterationFactory.php => ArticleIterationFactory.php}
-* code/database/factories/Wiki/ArticleModificationFactory.php
-* code/database/factories/Wiki/ArticleVersionFactory.php
-* code/database/migrations/0000_00_00_000000_create_websockets_statistics_entries_table.php
-* code/database/migrations/2019_10_29_154335_cusco.php
-* code/database/migrations/2021_08_08_161807_create_article_modifications_table.php
-* code/resources/lang/en/validation.php
-* code/routes/core.php
-* code/tests/Feature/Http/Article/ArticleVersion/ArticleVersionCreateTest.php
-* code/tests/Feature/Http/Article/ArticleViewTest.php
-* code/tests/Feature/Http/Article/Iteration/ArticleIterationIndexTest.php
-* code/tests/Feature/Socket/ArticleIterationTest.php
-* code/tests/Integration/Http/Sockets/ArticleIterationTest.php
-* code/tests/Integration/Models/Wiki/ArticleTest.php
-* code/tests/Integration/Policies/Wiki/IterationPolicyTest.php
-* code/tests/Integration/Repositories/Vote/BallotItemRepositoryTest.php
-* code/tests/Integration/Repositories/Vote/BallotRepositoryTest.php
-* code/tests/Integration/Repositories/Wiki/{IterationRepositoryTest.php => ArticleIterationRepositoryTest.php}
-* code/tests/Integration/Repositories/Wiki/ArticleModificationRepositoryTest.php
-* code/tests/Integration/Repositories/Wiki/ArticleVersionRepositoryTest.php
-* code/tests/Unit/Http/Sockets/ArticleIterationsTest.php
-* code/tests/Unit/Listeners/Article/ArticleVersionCreatedListenerTest.php
-* code/tests/Unit/Listeners/User/UserMerge/UserCreatedIterationsMergeListenerTest.php
-* code/tests/Unit/Models/User/UserTest.php
-* code/tests/Unit/Models/Wiki/{IterationTest.php => ArticleIterationTest.php}
-* code/tests/Unit/Models/Wiki/ArticleModificationTest.php
-* code/tests/Unit/Models/Wiki/ArticleTest.php
-* code/tests/Unit/Models/Wiki/ArticleVersionTest.php
-* code/tests/Unit/Services/Wiki/ArticleModificationApplicationServiceTest.php
-* code/tests/Unit/Services/{ => Wiki}/ArticleVersionCalculationServiceTest.php
-* code/tests/Unit/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidatorTest.php
-
-### JWT Package Change
-
-The old JWT package is no longer being maintained, so that has been replaced. By simply running a find and replace for Tymon -> PHPOpenSourceSaver most of the file changes should be addressed. The below files will automatically be updated when that happens.
-
-* code/app/Exceptions/Handler.php
-* code/app/Http/Core/Controllers/AuthenticationControllerAbstract.php
-* code/app/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddleware.php
-* code/app/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddleware.php
-* code/config/jwt.php
-* code/tests/Feature/Http/Authentication/LogoutTest.php
-* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddlewareTest.php
-* code/tests/Unit/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddlewareTest.php
-
-### Default message order
-
-The default order for the message endpoint has been updated to be explicit if an order is not passed in. To complete this update update this `code/app/Http/Core/Controllers/User/Thread/MessageControllerAbstract.php` controller and this ` code/app/Repositories/User/MessageRepository.php` repository file.
-
-### Miscellaneous
-
-* code/config/broadcasting.php - Updated for recent version of laravel
-* code/app/Providers/BroadcastServiceProvider.php - Created
-* code/routes/channels.php - Created
-* code/tests/Unit/Http/Core/Requests/BaseAssetUploadRequestAbstractTest.php - mime type change for SVG
+* code/app/Observers/.gitkeep
+* code/app/Policies/AssetPolicy.php
+* code/app/Policies/CategoryPolicy.php
+* code/app/Policies/Collection/CollectionItemPolicy.php
+* code/app/Policies/Collection/CollectionPolicy.php
+* code/app/Policies/FeaturePolicy.php
+* code/app/Policies/Messaging/MessagePolicy.php
+* code/app/Policies/Messaging/ThreadPolicy.php
+* code/app/Policies/Organization/OrganizationManagerPolicy.php
+* code/app/Policies/Organization/OrganizationPolicy.php
+* code/app/Policies/Payment/PaymentMethodPolicy.php
+* code/app/Policies/Payment/PaymentPolicy.php
+* code/app/Policies/ResourcePolicy.php
+* code/app/Policies/RolePolicy.php
+* code/app/Policies/Subscription/MembershipPlanPolicy.php
+* code/app/Policies/Subscription/MembershipPlanRatePolicy.php
+* code/app/Policies/Subscription/SubscriptionPolicy.php
+* code/app/Policies/User/ContactPolicy.php
+* code/app/Policies/User/ProfileImagePolicy.php
+* code/app/Policies/User/UserPolicy.php
+* code/app/Policies/Vote/BallotCompletionPolicy.php
+* code/app/Policies/Vote/BallotPolicy.php
+* code/app/Policies/Wiki/ArticleIterationPolicy.php
+* code/app/Policies/Wiki/ArticlePolicy.php
+* code/app/Policies/Wiki/ArticleVersionPolicy.php
+* code/app/Providers/AppRepositoryProvider.php
+* code/app/Providers/AppServiceProvider.php
+* code/app/Providers/AppValidatorProvider.php
+* code/app/Providers/AuthServiceProvider.php
+* code/app/Providers/EventServiceProvider.php
+* code/app/Providers/RouteServiceProvider.php
+* code/app/Repositories/.gitkeep
+* code/app/Services/.gitkeep
+* code/bootstrap/app.php
+* code/composer.json
+* code/composer.lock
+* code/config/athenia.php
+* code/config/database.php
+* code/config/services.php
+* code/database/factories/Messaging/MessageFactory.php
+* code/database/factories/Messaging/PushNotificationKeyFactory.php
+* code/database/factories/Messaging/ThreadFactory.php
+* code/database/migrations/2024_04_16_142402_expand_messages_relations.php
+* code/lang/en/validation.php
+* code/phpunit.xml
+* code/tests/Athenia/Feature/Http/Article/ArticleCreateTest.php
+* code/tests/Athenia/Feature/Http/Article/ArticleIndexTest.php
+* code/tests/Athenia/Feature/Http/Article/ArticleUpdateTest.php
+* code/tests/Athenia/Feature/Http/Article/ArticleVersion/ArticleVersionCreateTest.php
+* code/tests/Athenia/Feature/Http/Article/ArticleVersion/ArticleVersionIndexTest.php
+* code/tests/Athenia/Feature/Http/Article/ArticleViewTest.php
+* code/tests/Athenia/Feature/Http/Article/Iteration/ArticleIterationIndexTest.php
+* code/tests/Athenia/Feature/Http/Authentication/LoginTest.php
+* code/tests/Athenia/Feature/Http/Authentication/LogoutTest.php
+* code/tests/Athenia/Feature/Http/Authentication/RefreshTest.php
+* code/tests/Athenia/Feature/Http/Authentication/SignUpTest.php
+* code/tests/Athenia/Feature/Http/Ballot/BallotCompletion/BallotBallotCompletionCreateTest.php
+* code/tests/Athenia/Feature/Http/Ballot/BallotViewTest.php
+* code/tests/Athenia/Feature/Http/Category/CategoryCreateTest.php
+* code/tests/Athenia/Feature/Http/Category/CategoryDeleteTest.php
+* code/tests/Athenia/Feature/Http/Category/CategoryIndexTest.php
+* code/tests/Athenia/Feature/Http/Category/CategoryUpdateTest.php
+* code/tests/Athenia/Feature/Http/Category/CategoryViewTest.php
+* code/tests/Athenia/Feature/Http/Collection/CollectionDeleteTest.php
+* code/tests/Athenia/Feature/Http/Collection/CollectionItem/CollectionCollectionItemCreateTest.php
+* code/tests/Athenia/Feature/Http/Collection/CollectionItem/CollectionCollectionItemIndexTest.php
+* code/tests/Athenia/Feature/Http/Collection/CollectionUpdateTest.php
+* code/tests/Athenia/Feature/Http/Collection/CollectionViewTest.php
+* code/tests/Athenia/Feature/Http/CollectionItem/CollectionItemDeleteTest.php
+* code/tests/Athenia/Feature/Http/CollectionItem/CollectionItemViewTest.php
+* code/tests/Athenia/Feature/Http/Feature/FeatureIndexTest.php
+* code/tests/Athenia/Feature/Http/Feature/FeatureViewTest.php
+* code/tests/Athenia/Feature/Http/ForgotPassword/ForgotPasswordTest.php
+* code/tests/Athenia/Feature/Http/ForgotPassword/ResetPasswordTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanCreateTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanDeleteTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanIndexTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanRate/MembershipPlanMembershipPlanRateIndexTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanUpdateTest.php
+* code/tests/Athenia/Feature/Http/MembershipPlan/MembershipPlanViewTest.php
+* code/tests/Athenia/Feature/Http/Organization/Asset/OrganizationAssetCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Asset/OrganizationAssetDeleteTest.php
+* code/tests/Athenia/Feature/Http/Organization/Asset/OrganizationAssetIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/Asset/OrganizationAssetUpdateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Collection/OrganizationCollectionCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Collection/OrganizationCollectionIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationDeleteTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationManager/OrganizationOrganizationManagerCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationManager/OrganizationOrganizationManagerDeleteTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationManager/OrganizationOrganizationManagerIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationManager/OrganizationOrganizationManagerUpdateTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationUpdateTest.php
+* code/tests/Athenia/Feature/Http/Organization/OrganizationViewTest.php
+* code/tests/Athenia/Feature/Http/Organization/Payment/OrganizationPaymentIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/PaymentMethod/OrganizationPaymentMethodCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/PaymentMethod/OrganizationPaymentMethodDeleteTest.php
+* code/tests/Athenia/Feature/Http/Organization/PaymentMethod/OrganizationPaymentMethodUpdateTest.php
+* code/tests/Athenia/Feature/Http/Organization/ProfileImage/OrganizationProfileImageCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Subscription/OrganizationSubscriptionCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Subscription/OrganizationSubscriptionIndexTest.php
+* code/tests/Athenia/Feature/Http/Organization/Subscription/OrganizationSubscriptionUpdateTest.php
+* code/tests/Athenia/Feature/Http/Resource/ResourceIndexTest.php
+* code/tests/Athenia/Feature/Http/Roles/RolesIndexTest.php
+* code/tests/Athenia/Feature/Http/StatusTest.php
+* code/tests/Athenia/Feature/Http/User/Asset/UserAssetCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Asset/UserAssetDeleteTest.php
+* code/tests/Athenia/Feature/Http/User/Asset/UserAssetIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Asset/UserAssetUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/BallotCompletion/UserBallotCompletionIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Collection/UserCollectionCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Collection/UserCollectionIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Contact/UserContactCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Contact/UserContactIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Contact/UserContactUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/Payment/UserPaymentIndexTest.php
+* code/tests/Athenia/Feature/Http/User/PaymentMethod/UserPaymentMethodCreateTest.php
+* code/tests/Athenia/Feature/Http/User/PaymentMethod/UserPaymentMethodDeleteTest.php
+* code/tests/Athenia/Feature/Http/User/PaymentMethod/UserPaymentMethodUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/ProfileImage/UserProfileImageCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Subscription/UserSubscriptionCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Subscription/UserSubscriptionIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Subscription/UserSubscriptionUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/Message/UserThreadMessageCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/Message/UserThreadMessageIndexTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/Message/UserThreadMessageUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/UserThreadCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/UserThreadIndexTest.php
+* code/tests/Athenia/Feature/Http/User/UserMeTest.php
+* code/tests/Athenia/Feature/Http/User/UserUpdateTest.php
+* code/tests/Athenia/Feature/Http/User/UserViewTest.php
+* code/tests/Athenia/Integration/Console/Commands/ChargeRenewalTest.php
+* code/tests/Athenia/Integration/Console/Commands/ReindexResourcesTest.php
+* code/tests/Athenia/Integration/Console/Commands/SendRenewalRemindersTest.php
+* code/tests/Athenia/Integration/Http/Middleware/Issue404IfPageAfterPaginationTest.php
+* code/tests/Athenia/Integration/Http/Middleware/SearchFilteringMiddlewareTest.php
+* code/tests/Athenia/Integration/Models/ResourceTest.php
+* code/tests/Athenia/Integration/Models/Subscription/MembershipPlanTest.php
+* code/tests/Athenia/Integration/Models/User/ThreadTest.php
+* code/tests/Athenia/Integration/Models/User/UserTest.php
+* code/tests/Athenia/Integration/Models/Wiki/ArticleTest.php
+* code/tests/Athenia/Integration/Policies/AssetPolicyTest.php
+* code/tests/Athenia/Integration/Policies/BasePolicyAbstractTest.php
+* code/tests/Athenia/Integration/Policies/CategoryPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Collection/CollectionItemPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Collection/CollectionPolicyTest.php
+* code/tests/Athenia/Integration/Policies/FeaturePolicyTest.php
+* code/tests/Athenia/Integration/Policies/Messaging/MessagePolicyTest.php
+* code/tests/Athenia/Integration/Policies/Messaging/ThreadPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Organization/OrganizationManagerPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Organization/OrganizationPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Payment/PaymentMethodPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Payment/PaymentPolicyTest.php
+* code/tests/Athenia/Integration/Policies/ResourcePolicyTest.php
+* code/tests/Athenia/Integration/Policies/RolePolicyTest.php
+* code/tests/Athenia/Integration/Policies/Subscription/MembershipPlanPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Subscription/MembershipPlanRatePolicyTest.php
+* code/tests/Athenia/Integration/Policies/Subscription/SubscriptionPolicyTest.php
+* code/tests/Athenia/Integration/Policies/User/ContactPolicyTest.php
+* code/tests/Athenia/Integration/Policies/User/UserPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Vote/BallotCompletionPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Vote/BallotPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Wiki/ArticlePolicyTest.php
+* code/tests/Athenia/Integration/Policies/Wiki/ArticleVersionPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Wiki/IterationPolicyTest.php
+* code/tests/Athenia/Integration/Repositories/AssetRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/CategoryRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Collection/CollectionItemRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Collection/CollectionRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/FeatureRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Messaging/MessageRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Messaging/ThreadRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Organization/OrganizationManagerRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Organization/OrganizationRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Payment/LineItemRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Payment/PaymentMethodRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Payment/PaymentRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/ResourceRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/RoleRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Subscription/MembershipPlanRateRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Subscription/MembershipPlanRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Subscription/SubscriptionRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/User/ContactRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/User/PasswordTokenRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/User/ProfileImageRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/User/UserRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Vote/BallotCompletionRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Vote/BallotItemOptionRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Vote/BallotItemRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Vote/BallotRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Vote/VoteRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Wiki/ArticleIterationRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Wiki/ArticleModificationRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Wiki/ArticleRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Wiki/ArticleVersionRepositoryTest.php
+* code/tests/Athenia/Unit/Console/Commands/ResendMessageCommandTest.php
+* code/tests/Athenia/Unit/Events/Article/ArticleVersionCreatedEventTest.php
+* code/tests/Athenia/Unit/Events/Messaging/MessageCreatedEventTest.php
+* code/tests/Athenia/Unit/Events/Messaging/MessageSentEventTest.php
+* code/tests/Athenia/Unit/Events/Organization/OrganizationManagerCreatedEventTest.php
+* code/tests/Athenia/Unit/Events/Payment/DefaultPaymentMethodSetEventTest.php
+* code/tests/Athenia/Unit/Events/Payment/PaymentReversedEventTest.php
+* code/tests/Athenia/Unit/Events/User/Contact/ContactCreatedEventTest.php
+* code/tests/Athenia/Unit/Events/User/ForgotPasswordEventTest.php
+* code/tests/Athenia/Unit/Events/User/SignUpEventTest.php
+* code/tests/Athenia/Unit/Events/User/UserMergeEventTest.php
+* code/tests/Athenia/Unit/Events/Vote/VoteCreatedEventTest.php
+* code/tests/Athenia/Unit/Exceptions/HandlerTest.php
+* code/tests/Athenia/Unit/Http/Core/Requests/BaseAssetUploadRequestAbstractTest.php
+* code/tests/Athenia/Unit/Http/Middleware/JWTGetUserFromTokenProtectedRouteMiddlewareTest.php
+* code/tests/Athenia/Unit/Http/Middleware/JWTGetUserFromTokenUnprotectedRouteMiddlewareTest.php
+* code/tests/Athenia/Unit/Http/Middleware/LogMiddlewareTest.php
+* code/tests/Athenia/Unit/Jobs/CanDisplayOutputAbstractJobTest.php
+* code/tests/Athenia/Unit/Listeners/Article/ArticleVersionCreatedListenerTest.php
+* code/tests/Athenia/Unit/Listeners/Messaging/MessageCreatedListenerTest.php
+* code/tests/Athenia/Unit/Listeners/Messaging/MessageSentListenerTest.php
+* code/tests/Athenia/Unit/Listeners/Organization/OrganizationManagerCreatedListenerTest.php
+* code/tests/Athenia/Unit/Listeners/Payment/DefaultPaymentMethodSetListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/Contact/ContactCreatedListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/ForgotPasswordListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/SignUpListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserBallotCompletionsMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserCreatedArticlesMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserCreatedIterationsMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserMessagesMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserPropertiesMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/User/UserMerge/UserSubscriptionsMergeListenerTest.php
+* code/tests/Athenia/Unit/Listeners/Vote/VoteCreatedListenerTest.php
+* code/tests/Athenia/Unit/Mail/MessageMailerTest.php
+* code/tests/Athenia/Unit/Models/AssetTest.php
+* code/tests/Athenia/Unit/Models/CategoryTest.php
+* code/tests/Athenia/Unit/Models/Collection/CollectionItemTest.php
+* code/tests/Athenia/Unit/Models/Collection/CollectionTest.php
+* code/tests/Athenia/Unit/Models/FeatureTest.php
+* code/tests/Athenia/Unit/Models/Messaging/MessageTest.php
+* code/tests/Athenia/Unit/Models/Messaging/ThreadTest.php
+* code/tests/Athenia/Unit/Models/Organization/OrganizationManagerTest.php
+* code/tests/Athenia/Unit/Models/Organization/OrganizationTest.php
+* code/tests/Athenia/Unit/Models/Payment/LineItemTest.php
+* code/tests/Athenia/Unit/Models/Payment/PaymentMethodTest.php
+* code/tests/Athenia/Unit/Models/Payment/PaymentTest.php
+* code/tests/Athenia/Unit/Models/RoleTest.php
+* code/tests/Athenia/Unit/Models/Subscription/MembershipPlanRateTest.php
+* code/tests/Athenia/Unit/Models/Subscription/MembershipPlanTest.php
+* code/tests/Athenia/Unit/Models/Subscription/SubscriptionTest.php
+* code/tests/Athenia/Unit/Models/User/ContactTest.php
+* code/tests/Athenia/Unit/Models/User/PasswordTokenTest.php
+* code/tests/Athenia/Unit/Models/User/ProfileImageTest.php
+* code/tests/Athenia/Unit/Models/User/UserTest.php
+* code/tests/Athenia/Unit/Models/Vote/BallotCompletionTest.php
+* code/tests/Athenia/Unit/Models/Vote/BallotItemOptionTest.php
+* code/tests/Athenia/Unit/Models/Vote/BallotItemTest.php
+* code/tests/Athenia/Unit/Models/Vote/BallotTest.php
+* code/tests/Athenia/Unit/Models/Vote/VoteTest.php
+* code/tests/Athenia/Unit/Models/Wiki/ArticleIterationTest.php
+* code/tests/Athenia/Unit/Models/Wiki/ArticleModificationTest.php
+* code/tests/Athenia/Unit/Models/Wiki/ArticleTest.php
+* code/tests/Athenia/Unit/Models/Wiki/ArticleVersionTest.php
+* code/tests/Athenia/Unit/Observers/IndexableModelObserverTest.php
+* code/tests/Athenia/Unit/Observers/Payment/PaymentMethodObserverTest.php
+* code/tests/Athenia/Unit/Providers/AppRepositoryProviderTest.php
+* code/tests/Athenia/Unit/Providers/AppServiceProviderTest.php
+* code/tests/Athenia/Unit/Providers/AuthServiceProviderTest.php
+* code/tests/Athenia/Unit/Providers/EventServiceProviderTest.php
+* code/tests/Athenia/Unit/Repositories/BaseRepositoryAbstractTest.php
+* code/tests/Athenia/Unit/Services/Collection/ItemInEntityCollectionServiceTest.php
+* code/tests/Athenia/Unit/Services/DirectoryCopyServiceTest.php
+* code/tests/Athenia/Unit/Services/EntityFeatureAccessServiceTest.php
+* code/tests/Athenia/Unit/Services/EntitySubscriptionCreationServiceTest.php
+* code/tests/Athenia/Unit/Services/Messaging/MessageSendingSelectionServiceTest.php
+* code/tests/Athenia/Unit/Services/Messaging/SendEmailServiceTest.php
+* code/tests/Athenia/Unit/Services/ProratingCalculationServiceTest.php
+* code/tests/Athenia/Unit/Services/StringHelperServiceTest.php
+* code/tests/Athenia/Unit/Services/StripeCustomerServiceTest.php
+* code/tests/Athenia/Unit/Services/StripePaymentServiceTest.php
+* code/tests/Athenia/Unit/Services/TokenGenerationServiceTest.php
+* code/tests/Athenia/Unit/Services/Wiki/ArticleModificationApplicationServiceTest.php
+* code/tests/Athenia/Unit/Services/Wiki/ArticleVersionCalculationServiceTest.php
+* code/tests/Athenia/Unit/ThreadSecurity/GeneralThreadGateTest.php
+* code/tests/Athenia/Unit/ThreadSecurity/PrivateThreadGateTest.php
+* code/tests/Athenia/Unit/ThreadSecurity/ThreadSubjectGateProviderTest.php
+* code/tests/Athenia/Unit/Validators/ArticleVersion/SelectedIterationBelongsToArticleValidatorTest.php
+* code/tests/Athenia/Unit/Validators/BaseValidatorAbstractTest.php
+* code/tests/Athenia/Unit/Validators/ForgotPassword/TokenIsNotExpiredValidatorTest.php
+* code/tests/Athenia/Unit/Validators/ForgotPassword/UserOwnsValidatorTest.php
+* code/tests/Athenia/Unit/Validators/NotPresentValidatorTest.php
+* code/tests/Athenia/Unit/Validators/OwnedByValidatorTest.php
+* code/tests/Athenia/Unit/Validators/Subscription/MembershipPlanRateIsActiveValidatorTest.php
+* code/tests/Athenia/Unit/Validators/Subscription/PaymentMethodIsOwnedByEntityValidatorTest.php
+* code/tests/Feature/.gitkeep
+* code/tests/Integration/.gitkeep
+* code/tests/Unit/.gitkeep
+* code/tests/Unit/Listeners/Message/MessageCreatedListenerTest.php
+* dev_login.sh
+* docker-compose.yml
+* dockerfiles/nginx.dockerfile
+* dockerfiles/nginx/default.conf
+* dockerfiles/php.dockerfile
+* dockerfiles/php/php.ini
+* extras/SendPushNotificationServiceTest.php
+* extras/SendSMSNotificationServiceTest.php
+* extras/SendSlackNotificationServiceTest.php
+* upgrade.json
+* vagrant-do-provision.sh
+* 
