@@ -32,10 +32,10 @@ jobs:
         run: cp .env.example .env
       - uses: mirromutth/mysql-action@v1.1
         with:
-          mysql database: ${{TEST_DATABASE}}
-          mysql root password: ${{ MYSQL_ROOT_PASSWORD }}
-          mysql user:  ${{TEST_DATABASE}}
-          mysql password: ${{ TEST_DATABASE_PASSWORD }}
+          mysql database: ${{ env.TEST_DATABASE }}
+          mysql root password: ${{ env.MYSQL_ROOT_PASSWORD }}
+          mysql user:  ${{ env.TEST_DATABASE }}
+          mysql password: ${{ env.TEST_DATABASE_PASSWORD }}
       - name: Install Dependencies
         working-directory: ./code
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
