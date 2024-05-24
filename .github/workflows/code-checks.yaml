@@ -26,6 +26,7 @@ jobs:
         working-directory: ./
         run: cp .env.example .env
       - name: Load Environment Config
+        id: dotenv
         uses: falti/dotenv-action@v1.1.2
       - name: Copy code .env
         working-directory: ./code
