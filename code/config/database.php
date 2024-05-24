@@ -56,7 +56,7 @@ return [
 
         'mysql-test' => [
             'driver' => 'mysql',
-            'host' => env('TEST_DB_HOST', 'mysql-test'),
+            'host' => env('TEST_DB_HOST', 'localhost'),
             'port' => env('TEST_DB_PORT', '3306'),
             'database' => env('TEST_DB_DATABASE', 'test_athenia'),
             'username' => env('TEST_DB_USERNAME', 'test_athenia'),

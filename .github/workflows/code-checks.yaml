@@ -48,6 +48,4 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
       - name: Run tests
         working-directory: ./code
-        env:
-          TEST_DB_HOST: "localhost"
         run: php artisan test
