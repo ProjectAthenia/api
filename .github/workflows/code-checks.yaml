@@ -46,6 +46,9 @@ jobs:
       - name: Directory Permissions
         working-directory: ./code
         run: chmod -R 777 storage bootstrap/cache
+      - name: Debug Config
+        working-directory: ./code
+        run: php artisan config:show
       - name: Run tests
         working-directory: ./code
         run: php artisan test
