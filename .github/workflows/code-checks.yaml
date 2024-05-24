@@ -46,7 +46,7 @@ jobs:
         run: php artisan key:generate
       - name: Generate jwt key
         working-directory: ./code
-        run: php artisan jwt:secret
+        run: php artisan jwt:secret -f
       - name: Directory Permissions
         working-directory: ./code
         run: chmod -R 777 storage bootstrap/cache
