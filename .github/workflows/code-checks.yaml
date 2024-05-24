@@ -16,27 +16,28 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          # The MySQL docker container requires these environment variables to be set
+          # so we can create and migrate the test database.
+          # See: https://hub.docker.com/_/mysql
+          MYSQL_DATABASE: testdb
+          MYSQL_ROOT_PASSWORD: testrootpass
+        ports:
+          # Opens port 3306 on service container and host
+          # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+          - 3306:3306
 
     steps:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '8.3'
       - uses: actions/checkout@v4
-      - name: Copy root .env
-        working-directory: ./
-        run: cp .env.example .env
-      - name: Load Environment Config
-        id: dotenv
-        uses: falti/dotenv-action@v1.1.2
       - name: Copy code .env
         working-directory: ./code
         run: cp .env.example .env
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: ${{ steps.dotenv.outputs.TEST_DATABASE }}
-          mysql root password: ${{ steps.dotenv.outputs.MYSQL_ROOT_PASSWORD }}
-          mysql user:  ${{ steps.dotenv.outputs.TEST_DATABASE }}
-          mysql password: ${{ steps.dotenv.outputs.TEST_DATABASE_PASSWORD }}
       - name: Install Dependencies
         working-directory: ./code
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -49,6 +50,14 @@ jobs:
       - name: Debug Config
         working-directory: ./code
         run: php artisan config:show database
+        env:
+          TEST_DB_DATABASE: "testdb"
+          TEST_DB_USERNAME: "root"
+          TEST_DB_PASSWORD: "testrootpass"
       - name: Run tests
         working-directory: ./code
         run: php artisan test
+        env:
+          TEST_DB_DATABASE: "testdb"
+          TEST_DB_USERNAME: "root"
+          TEST_DB_PASSWORD: "testrootpass"
