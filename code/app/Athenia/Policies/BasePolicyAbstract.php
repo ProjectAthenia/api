@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Policies;
 
-use App\Athenia\Contracts\BasePolicyContract;
+use App\Athenia\Contracts\Policies\BasePolicyContract;
 use App\Models\Role;
 use App\Models\User\User;
 

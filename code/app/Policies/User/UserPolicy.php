@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Policies\User;
 
-use App\Athenia\Contracts\BasePolicyContract;
 use App\Athenia\Contracts\Models\HasPolicyContract;
+use App\Athenia\Contracts\Policies\BasePolicyContract;
 use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\User\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

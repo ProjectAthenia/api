@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Contracts;
+namespace App\Athenia\Contracts\Policies;
 
 /**
  * Interface BasePolicyContract
