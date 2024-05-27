@@ -61,6 +61,7 @@ jobs:
         working-directory: ./code
         run: php artisan test
         env:
+          TEST_DB_HOST: "127.0.0.1"
           TEST_DB_DATABASE: "testdb"
           TEST_DB_USERNAME: "root"
           TEST_DB_PASSWORD: "testrootpass"
