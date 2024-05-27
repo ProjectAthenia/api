@@ -47,6 +47,11 @@ RUN apt update \
     && apt install -y libpng-dev \
     && docker-php-ext-install gd
 
+RUN apt-get -y update \
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
 RUN apt update \
     && apt install -y libzip-dev zip \
     && docker-php-ext-install zip
