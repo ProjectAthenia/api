@@ -28,18 +28,13 @@ To start remove the following paths
 Then copy over the following new paths
 
 * .env.example
-* .github/workflows/code-checks.yaml
+* .github/
 * .gitignore
 * dev_login.sh
 * docker-compose.yml
 * dockerfiles/
 
 You then need to finish the following tasks.
-
-## Laravel Update
-
-Along with this update, Laravel as been updated to 10.x...
-
 
 ## Athenia Restructure
 
@@ -79,6 +74,7 @@ After that, the following paths have changes. Anything that has not been specifi
 * code/app/Console/Kernel.php - This file has been completely reworked.
 * code/app/Listeners/User/Contact/ContactCreatedListener.php - Subject changed
 * code/app/Policies/ - Make sure to take special note while inspecting these files as the contact `IsAnEntity` was moved and then renamed to `IsAnEntityContract`
+* code/bootstrap/app.php - The namespace for the Exception Handler was updated
 
 Finally, the following directories now have a gitkeep to make sure the structure for the app stays in place
 
@@ -103,9 +99,15 @@ Once all of the changes have been applied, check all remaining paths in both tes
 * code/app/Models/Organization/Organization.php
 * code/app/Models/User/User.php
 * code/config/athenia.php
+* code/config/services.php
+* code/database/factories/Messaging/MessageFactory.php
+* code/database/factories/Messaging/PushNotificationKeyFactory.php
+* code/database/factories/Messaging/ThreadFactory.php
+* code/database/migrations/2024_04_16_142402_expand_messages_relations.php
+* code/tests/Unit/Listeners/Message/MessageCreatedListenerTest.php
+* extras/
 
 ## Providers Restructure
-
 
 * code/app/Providers/AppRepositoryProvider.php
 * code/app/Providers/AppServiceProvider.php
@@ -113,18 +115,13 @@ Once all of the changes have been applied, check all remaining paths in both tes
 * code/app/Providers/AuthServiceProvider.php
 * code/app/Providers/EventServiceProvider.php
 * code/app/Providers/RouteServiceProvider.php
-* code/bootstrap/app.php
-* code/composer.json
-* code/composer.lock
-* 
-* code/config/database.php
-* code/config/services.php
-* code/database/factories/Messaging/MessageFactory.php
-* code/database/factories/Messaging/PushNotificationKeyFactory.php
-* code/database/factories/Messaging/ThreadFactory.php
-* code/database/migrations/2024_04_16_142402_expand_messages_relations.php
-* code/lang/en/validation.php
-* code/tests/Unit/Listeners/Message/MessageCreatedListenerTest.php
-* extras/SendPushNotificationServiceTest.php
-* extras/SendSMSNotificationServiceTest.php
-* extras/SendSlackNotificationServiceTest.php
+
+## Laravel Update
+
+Along with this update, Laravel has been updated to 10.x. So much has been updated in the whole code base, that documenting the changes for composer is a bit difficult. To complete this update, check the changes to the composer.json within Athenia, then check any dependencies specific to your project, and finally inspect any custom code for your app to see if there are any differences. 
+
+After that, the validation strings at `code/resources/lang/en/validation.php` has been moved to `code/lang/en/`
+
+## Last Notes
+
+Now that all of this is done, it is best to check the .env.example to see any changes, and update your env for those changes.
