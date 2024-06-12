@@ -100,9 +100,9 @@ Once all of the changes have been applied, check all remaining paths in both tes
 * code/app/Models/User/User.php
 * code/config/athenia.php
 * code/config/services.php
-* code/database/factories/Messaging/MessageFactory.php
-* code/database/factories/Messaging/PushNotificationKeyFactory.php
-* code/database/factories/Messaging/ThreadFactory.php
+* code/database/factories/Messaging/ - New
+* code/database/factories/User/MessageFactory.php - Removed
+* code/database/factories/User/ThreadFactory.php - Removed
 * code/database/migrations/2024_04_16_142402_expand_messages_relations.php
 * code/tests/Unit/Listeners/Message/MessageCreatedListenerTest.php
 * extras/
