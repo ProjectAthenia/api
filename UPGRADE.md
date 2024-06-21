@@ -96,7 +96,7 @@ Once all of the changes have been applied, check all remaining paths in both tes
 ## Messaging Restructure
 
 * code/.env.example
-* code/app/Models/Organization/Organization.php
+* code/app/Models/Organization/Organization.php - Large rework, best to review
 * code/app/Models/User/User.php
 * code/config/athenia.php
 * code/config/services.php
