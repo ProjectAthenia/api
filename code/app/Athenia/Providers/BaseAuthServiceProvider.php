@@ -52,7 +52,7 @@ abstract class BaseAuthServiceProvider extends ServiceProvider
             $userRepository = $app->make(UserRepositoryContract::class);
             $hasher = $app->make(Hasher::class);
 
-            return new UserAuthenticationService($hasher, $userRepository);
+            return new UserAuthenticationService($userRepository, $hasher);
         });
 
         /** @var Gate $gate */
