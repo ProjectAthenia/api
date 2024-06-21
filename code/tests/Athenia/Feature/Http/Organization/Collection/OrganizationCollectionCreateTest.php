@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Feature\Http\Organization\Collection;
+namespace Tests\Athenia\Feature\Http\Organization\Collection;
 
 use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;

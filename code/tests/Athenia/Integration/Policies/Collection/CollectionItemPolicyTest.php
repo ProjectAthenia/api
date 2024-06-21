@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Integration\Policies\Collection;
+namespace Tests\Athenia\Integration\Policies\Collection;
 
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
