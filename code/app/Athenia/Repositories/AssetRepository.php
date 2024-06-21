@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace App\Athenia\Repositories;
 
 use App\Athenia\Contracts\Repositories\AssetRepositoryContract;
+use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Traits\CanGetAndUnset;
 use App\Models\Asset;
-use App\Repositories\Traits\NotImplemented;
+use App\Athenia\Repositories\Traits\NotImplemented;
 use DomainException;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -22,38 +23,40 @@ use Psr\Log\LoggerInterface as LogContract;
  */
 class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryContract
 {
-    use \App\Athenia\Repositories\Traits\NotImplemented\FindOrFail, CanGetAndUnset;
+    use NotImplemented\FindOrFail, CanGetAndUnset;
 
     /**
      * @var Filesystem
      */
-    protected $publicAssets;
+    private Filesystem $publicAssets;
 
     /**
      * @var string
      */
-    private $assetBaseURL;
+    private string $assetBaseURL;
 
     /**
      * @var string
      */
-    private $basePublicDirectory;
+    private string $basePublicDirectory;
 
     /**
      * AssetRepository constructor.
      * @param Asset $model
      * @param LogContract $log
      * @param Factory $fileSystem
-     * @param string $assetBaseURL
-     * @param string $basePublicDirectory
+     * @param AssetConfigurationServiceContract $assetConfigurationService
      */
-    public function __construct(Asset $model, LogContract $log, Factory $fileSystem,
-                                string $assetBaseURL, string $basePublicDirectory)
-    {
+    public function __construct(
+        Asset $model,
+        LogContract $log,
+        Factory $fileSystem,
+        AssetConfigurationServiceContract $assetConfigurationService,
+    ) {
         parent::__construct($model, $log);
         $this->publicAssets = $fileSystem->disk('public');
-        $this->assetBaseURL = $assetBaseURL;
-        $this->basePublicDirectory = $basePublicDirectory;
+        $this->assetBaseURL = $assetConfigurationService->getServerUrl();
+        $this->basePublicDirectory = $assetConfigurationService->getBaseAssetDirectory();
     }
 
     /**
@@ -80,7 +83,10 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
             $fileExtension = $this->getAndUnset($data, 'file_extension');
 
             if ($fileContents && $fileExtension) {
-                $data['url'] = $this->assetBaseURL . '/' . $this->storeImage($fileContents, $fileExtension);
+                $fileInfo = $this->storeImage($fileContents, $fileExtension);
+                $data['url'] = $this->assetBaseURL . '/' . $fileInfo['file_name'];
+                $data['width'] = $fileInfo['width'];
+                $data['height'] = $fileInfo['height'];
             }
         }
 
@@ -93,7 +99,7 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
      * @param $fileExtension
      * @return string
      */
-    protected function generatePublicFileName($fileExtension)
+    protected function generatePublicFileName($fileExtension): string
     {
         $attempts = 0;
 
@@ -114,10 +120,10 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
      *
      * @param $fileContents
      * @param $fileExtension
-     * @return string
+     * @return array
      * @throws \ImagickException
      */
-    protected function storeImage($fileContents, $fileExtension)
+    protected function storeImage($fileContents, $fileExtension): array
     {
         $image = new Imagick();
         $image->readImageBlob($fileContents);
@@ -156,6 +162,10 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
 
         $this->publicAssets->put($imageName, $image->__toString());
 
-        return $imageName;
+        return [
+            'file_name' => $imageName,
+            'width' => $image->getImageWidth(),
+            'height' => $image->getImageHeight(),
+        ];
     }
 }

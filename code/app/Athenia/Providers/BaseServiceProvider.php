@@ -10,7 +10,8 @@ use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
-use App\Athenia\Contracts\Services\AssetImportServiceContract;
+use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
+use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
 use App\Athenia\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
 use App\Athenia\Contracts\Services\DirectoryCopyServiceContract;
 use App\Athenia\Contracts\Services\EntitySubscriptionCreationServiceContract;
@@ -25,7 +26,8 @@ use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
-use App\Athenia\Services\AssetImportService;
+use App\Athenia\Services\Asset\AssetConfigurationService;
+use App\Athenia\Services\Asset\AssetImportService;
 use App\Athenia\Services\Collection\ItemInEntityCollectionService;
 use App\Athenia\Services\DirectoryCopyService;
 use App\Athenia\Services\EntitySubscriptionCreationService;
@@ -58,6 +60,7 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         return array_merge([
             ArticleVersionCalculationServiceContract::class,
+            AssetConfigurationServiceContract::class,
             AssetImportServiceContract::class,
             DirectoryCopyServiceContract::class,
             EntitySubscriptionCreationServiceContract::class,
@@ -93,6 +96,12 @@ abstract class BaseServiceProvider extends ServiceProvider
 
         $this->app->bind(ArticleVersionCalculationServiceContract::class, fn () =>
             new ArticleVersionCalculationService()
+        );
+        $this->app->bind(AssetConfigurationServiceContract::class, fn () =>
+            new AssetConfigurationService(
+                $this->app->make('config')->get('app.asset_url'),
+                "assets"
+            )
         );
         $this->app->bind(AssetImportServiceContract::class, fn () =>
             new AssetImportService(

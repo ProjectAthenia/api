@@ -5,6 +5,7 @@ namespace Tests\Athenia\Integration\Repositories;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\AssetRepository;
+use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Models\Asset;
 use App\Models\User\User;
 use Tests\DatabaseSetupTrait;
@@ -33,8 +34,10 @@ final class AssetRepositoryTest extends TestCase
             new Asset(),
             $this->getGenericLogMock(),
             $this->app->make('filesystem'),
-            'http://localhost',
-            '/storage',
+            new AssetConfigurationService(
+                'http://localhost',
+                '/storage',
+            ),
         );
     }
 

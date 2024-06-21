@@ -33,6 +33,7 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
+use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
@@ -196,8 +197,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 new Asset(),
                 $this->app->make('log'),
                 $this->app->make('filesystem'),
-                $this->app->make('config')->get('app.asset_url'),
-                "assets"
+                $this->app->make(AssetConfigurationServiceContract::class),
             );
         });
         $this->app->bind(BallotRepositoryContract::class, function () {

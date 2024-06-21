@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Services;
+namespace App\Athenia\Services\Asset;
 
 use App\Athenia\Contracts\Models\IsAnEntityContract;
 use App\Athenia\Contracts\Repositories\AssetRepositoryContract;
-use App\Athenia\Contracts\Services\AssetImportServiceContract;
+use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
 use App\Models\Asset;
 
 class AssetImportService implements AssetImportServiceContract

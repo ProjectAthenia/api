@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Contracts\Services;
+namespace App\Athenia\Contracts\Services\Asset;
 
 use App\Athenia\Contracts\Models\IsAnEntityContract;
 use App\Models\Asset;
