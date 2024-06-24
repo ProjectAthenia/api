@@ -12,6 +12,7 @@ use App\Models\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Validation\Rule;
 
 /**
  * Class Message
@@ -133,11 +134,14 @@ class Message extends BaseModelAbstract implements HasPolicyContract, HasValidat
                 ],
                 'seen' => [
                     'boolean',
-                ]
-            ],
-            static::VALIDATION_RULES_CREATE => [
-                static::VALIDATION_PREPEND_REQUIRED => [
-                    'message',
+                ],
+                'template' => [
+                    Rule::in([
+                        'contact',
+                    ]),
+                ],
+                'data' => [
+                    'array',
                 ],
             ],
             static::VALIDATION_RULES_UPDATE => [

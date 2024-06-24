@@ -65,6 +65,7 @@ use App\Athenia\Repositories\Wiki\ArticleIterationRepository;
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
+use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Collection\Collection;
@@ -313,8 +314,11 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 new ProfileImage(),
                 $this->app->make('log'),
                 $this->app->make('filesystem'),
-                $this->app->make('config')->get('app.asset_url'),
-                "profile_images"
+                new AssetConfigurationService(
+
+                    $this->app->make('config')->get('app.asset_url'),
+                    "profile_images",
+                ),
             );
         });
         $this->app->bind(ResourceRepositoryContract::class, function() {

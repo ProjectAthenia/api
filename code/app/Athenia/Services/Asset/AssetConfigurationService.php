@@ -22,6 +22,7 @@ class AssetConfigurationService implements AssetConfigurationServiceContract
     }
 
     /**
+     * @todo this probably needs to be moved to the model
      * @return string
      */
     public function getBaseAssetDirectory(): string

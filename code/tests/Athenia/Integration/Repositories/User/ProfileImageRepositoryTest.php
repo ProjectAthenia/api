@@ -5,6 +5,7 @@ namespace Tests\Athenia\Integration\Repositories\User;
 
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\User\ProfileImageRepository;
+use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Models\Asset;
 use App\Models\User\ProfileImage;
 use Tests\DatabaseSetupTrait;
@@ -33,8 +34,10 @@ final class ProfileImageRepositoryTest extends TestCase
             new ProfileImage(),
             $this->getGenericLogMock(),
             $this->app->make('filesystem'),
-            'http://localhost',
-            '/storage',
+            new AssetConfigurationService(
+                'http://localhost',
+                '/storage',
+            ),
         );
     }
 

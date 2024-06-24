@@ -74,23 +74,6 @@ final class UserThreadMessageCreateTest extends TestCase
         $this->assertEquals($this->user->id, $message->from_id);
     }
 
-    public function testCreateMissingRequiredFields(): void
-    {
-        $this->actingAs($this->user);
-
-        $this->thread->users()->sync([$this->user->id]);
-
-        $response = $this->json('POST', $this->path);
-
-        $response->assertStatus(400);
-
-        $response->assertJson([
-            'errors' => [
-                'message' => ['The message field is required.']
-            ],
-        ]);
-    }
-
     public function testCreateInvalidStringFields(): void
     {
         $this->actingAs($this->user);

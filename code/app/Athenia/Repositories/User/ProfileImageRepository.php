@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Athenia\Repositories\User;
 
 use App\Athenia\Contracts\Repositories\User\ProfileImageRepositoryContract;
+use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Models\User\ProfileImage;
 use App\Repositories\Traits\NotImplemented;
@@ -23,12 +24,14 @@ class ProfileImageRepository extends AssetRepository implements ProfileImageRepo
      * @param ProfileImage $model
      * @param LogContract $log
      * @param Factory $fileSystem
-     * @param string $assetBaseURL
-     * @param string $basePublicDirectory
+     * @param AssetConfigurationServiceContract $assetConfigurationService
      */
-    public function __construct(ProfileImage $model, LogContract $log, Factory $fileSystem,
-                                string $assetBaseURL, string $basePublicDirectory)
-    {
-        parent::__construct($model, $log, $fileSystem, $assetBaseURL, $basePublicDirectory);
+    public function __construct(
+        ProfileImage $model,
+        LogContract $log,
+        Factory $fileSystem,
+        AssetConfigurationServiceContract $assetConfigurationService,
+    ) {
+        parent::__construct($model, $log, $fileSystem, $assetConfigurationService);
     }
 }

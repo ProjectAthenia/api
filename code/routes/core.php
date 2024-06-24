@@ -15,6 +15,15 @@ Route::group(['middleware' => 'jwt.auth.unprotected'], function() {
             'index', 'show'
         ]
     ]);
+
+    /**
+     * Categories context
+     */
+    Route::resource('messages', 'MessageController', [
+        'only' => [
+            'store',
+        ]
+    ]);
 });
 
 /**
