@@ -12,6 +12,10 @@ The fastest way to upgrade is to run the following commands from your repos root
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
+# 3.1.0
+
+Little breather after the big boy this one re-adds the scaffolding needed to run the app via a web layer. The only file within the app that needs to be updated is `code/app/Http/Kernel.php`. The `code/app/Athenia` module should also be copied over.
+
 # 3.0.0
 
 This is a massive update. The vast majority of the code for both the main app and the tests have been moved into new namespaces in preparation to move all the templated code into its own package. Along with that, vagrant has been replaced with docker along with a new set of github actions. The entire messaging apparatus has also been reworked.
