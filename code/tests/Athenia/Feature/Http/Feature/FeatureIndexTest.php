@@ -23,27 +23,12 @@ final class FeatureIndexTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
         $this->mockApplicationLog();
-    }
 
-    public function testNotLoggedInUserBlocked(): void
-    {
-        $response = $this->json('GET', '/v1/features');
-        $response->assertStatus(403);
-    }
-
-    public function testNonAdminUsersBlocked(): void
-    {
-        foreach ($this->rolesWithoutAdmins() as $role) {
-            $this->actAs($role);
-            $response = $this->json('GET', '/v1/features');
-
-            $response->assertStatus(403);
-        }
+        Feature::all()->each(fn (Feature $i) => $i->delete());
     }
 
     public function testGetPaginationEmpty(): void
     {
-        $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/features');
 
         $response->assertStatus(200);
@@ -55,7 +40,6 @@ final class FeatureIndexTest extends TestCase
 
     public function testGetPaginationResult(): void
     {
-        $this->actAs(Role::SUPER_ADMIN);
         Feature::factory()->count(15)->create();
 
         // first page

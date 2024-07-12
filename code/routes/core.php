@@ -17,6 +17,15 @@ Route::group(['middleware' => 'jwt.auth.unprotected'], function() {
     ]);
 
     /**
+     * Features Context
+     */
+    Route::resource('features', 'FeatureController', [
+        'only' => [
+            'index', 'show',
+        ]
+    ]);
+
+    /**
      * Categories context
      */
     Route::resource('messages', 'MessageController', [
@@ -139,12 +148,6 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
         'only' => [
             'update', 'destroy',
         ],
-    ]);
-
-    Route::resource('features', 'FeatureController', [
-        'only' => [
-            'index', 'show',
-        ]
     ]);
 
     /**

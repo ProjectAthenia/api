@@ -10,6 +10,7 @@ use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
+use App\Athenia\Contracts\Services\ArchiveHelperServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
 use App\Athenia\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
@@ -26,6 +27,7 @@ use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Athenia\Services\Asset\AssetImportService;
 use App\Athenia\Services\Collection\ItemInEntityCollectionService;
@@ -59,6 +61,7 @@ abstract class BaseServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return array_merge([
+            ArchiveHelperServiceContract::class,
             ArticleVersionCalculationServiceContract::class,
             AssetConfigurationServiceContract::class,
             AssetImportServiceContract::class,
@@ -94,6 +97,11 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         $this->registerEnvironmentSpecificProviders();
 
+        $this->app->bind(ArchiveHelperServiceContract::class, fn () =>
+            new ArchiveHelperService(
+                new \ZipArchive(),
+            )
+        );
         $this->app->bind(ArticleVersionCalculationServiceContract::class, fn () =>
             new ArticleVersionCalculationService()
         );

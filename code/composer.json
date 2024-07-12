@@ -20,7 +20,8 @@
         "pusher/pusher-php-server": "~7.0",
         "roave/security-advisories": "dev-master",
         "sebastian/diff": "^5.0",
-        "xantios/mimey": "^2.1"
+        "xantios/mimey": "^2.1",
+      "ext-zip": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",

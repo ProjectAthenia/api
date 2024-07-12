@@ -5,7 +5,8 @@ namespace App\Athenia\Services;
 
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
 use App\Athenia\Exceptions\AuthenticationException;
-use App\Athenia\Exceptions\NotImplementedException;
+use App\Models\User\User;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -15,26 +16,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  * Class UserAuthenticationService
  * @package App\Services
  */
-class UserAuthenticationService implements UserProvider
+class UserAuthenticationService extends EloquentUserProvider implements UserProvider
 {
-    /**
-     * @var UserRepositoryContract
-     */
-    private $userRepository;
-
-    /**
-     * @var Hasher
-     */
-    private $hasher;
-
     /**
      * UserAuthenticationService constructor.
      * @param UserRepositoryContract $userRepository
      * @param Hasher $hasher
      */
-    public function __construct(UserRepositoryContract $userRepository, Hasher $hasher)
+    public function __construct(Hasher $hasher, private UserRepositoryContract $userRepository)
     {
-        $this->userRepository = $userRepository;
+        parent::__construct($hasher, new User());
         $this->hasher = $hasher;
     }
 
@@ -52,30 +43,6 @@ class UserAuthenticationService implements UserProvider
         catch (ModelNotFoundException $e) {
             return null;
         }
-    }
-
-    /**
-     * Retrieve a user by their unique identifier and "remember me" token.
-     *
-     * @param  mixed $identifier
-     * @param  string $token
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     */
-    public function retrieveByToken($identifier, $token)
-    {
-        throw new NotImplementedException();
-    }
-
-    /**
-     * Update the "remember me" token for the given user in storage.
-     *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string $token
-     * @return void
-     */
-    public function updateRememberToken(Authenticatable $user, $token)
-    {
-        throw new NotImplementedException();
     }
 
     /**

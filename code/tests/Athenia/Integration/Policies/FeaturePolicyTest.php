@@ -18,13 +18,13 @@ final class FeaturePolicyTest extends TestCase
     {
         $policy = new FeaturePolicy();
 
-        $this->assertFalse($policy->all(new User()));
+        $this->assertTrue($policy->all(new User()));
     }
 
     public function testView(): void
     {
         $policy = new FeaturePolicy();
 
-        $this->assertFalse($policy->view(new User(), new Feature()));
+        $this->assertTrue($policy->view(new User(), new Feature()));
     }
 }

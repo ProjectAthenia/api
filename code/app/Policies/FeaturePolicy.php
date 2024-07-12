@@ -21,7 +21,7 @@ class FeaturePolicy extends BasePolicyAbstract
      */
     public function all(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -33,6 +33,6 @@ class FeaturePolicy extends BasePolicyAbstract
      */
     public function view(User $user, Feature $feature)
     {
-        return false;
+        return true;
     }
 }

@@ -25,32 +25,12 @@ final class FeatureViewTest extends TestCase
         $this->mockApplicationLog();
     }
 
-    public function testNotLoggedInUserBlocked(): void
-    {
-        $model = Feature::factory()->create();
-        $response = $this->json('GET', '/v1/features/' . $model->id);
-        $response->assertStatus(403);
-    }
-
-    public function testNonAdminUsersBlocked(): void
-    {
-        foreach ($this->rolesWithoutAdmins() as $role) {
-            $this->actAs($role);
-            $model = Feature::factory()->create();
-            $response = $this->json('GET', '/v1/features/' . $model->id);
-            $response->assertStatus(403);
-        }
-    }
-
     public function testGetSingleSuccess(): void
     {
-        $this->actAs(Role::SUPER_ADMIN);
         /** @var Feature $model */
-        $model = Feature::factory()->create([
-            'id'    =>  1,
-        ]);
+        $model = Feature::factory()->create();
 
-        $response = $this->json('GET', '/v1/features/1');
+        $response = $this->json('GET', '/v1/features/' . $model->id);
 
         $response->assertStatus(200);
         $response->assertJson($model->toArray());
@@ -58,8 +38,7 @@ final class FeatureViewTest extends TestCase
 
     public function testGetSingleNotFoundFails(): void
     {
-        $this->actAs(Role::SUPER_ADMIN);
-        $response = $this->json('GET', '/v1/features/1')
+        $response = $this->json('GET', '/v1/features/13452')
             ->assertExactJson([
                 'message'   =>  'This item was not found.'
             ]);
@@ -68,7 +47,6 @@ final class FeatureViewTest extends TestCase
 
     public function testGetSingleInvalidIdFails(): void
     {
-        $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('GET', '/v1/features/a')
             ->assertExactJson([
                 'message'   => 'This path was not found.'

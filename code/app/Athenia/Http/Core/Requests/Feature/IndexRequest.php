@@ -3,38 +3,14 @@ declare(strict_types=1);
 
 namespace App\Athenia\Http\Core\Requests\Feature;
 
-use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
+use App\Athenia\Http\Core\Requests\BaseUnauthenticatedRequest;
 use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;
-use App\Athenia\Http\Core\Requests\Traits\HasNoPolicyParameters;
-use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
-use App\Models\Feature;
-use App\Policies\FeaturePolicy;
 
 /**
  * Class IndexRequest
  * @package App\Http\Core\Requests\Article
  */
-class IndexRequest extends BaseAuthenticatedRequestAbstract
+class IndexRequest extends BaseUnauthenticatedRequest
 {
-    use HasNoRules, HasNoPolicyParameters, HasNoExpands;
-
-    /**
-     * Get the policy action for the guard
-     *
-     * @return string
-     */
-    protected function getPolicyAction(): string
-    {
-        return FeaturePolicy::ACTION_LIST;
-    }
-
-    /**
-     * Get the class name of the policy that this request utilizes
-     *
-     * @return string
-     */
-    protected function getPolicyModel(): string
-    {
-        return Feature::class;
-    }
+    use HasNoExpands;
 }
