@@ -12,6 +12,54 @@ The fastest way to upgrade is to run the following commands from your repos root
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
+# 3.2.0
+
+This update includes a number of changes. It opens up the features endpoints to be available to all users, adds an endpoint for messages, adds some meta information to assets, and finally adds some new helpers for dealing with various files. 
+
+To start, copy over the Athena app and tests module. The files changed in those modules are as follows...
+
+* code/app/Athenia/Console/Commands/AuditAssetDimensionsCommand.php
+* code/app/Athenia/Contracts/Services/ArchiveHelperServiceContract.php
+* code/app/Athenia/Contracts/Services/Asset/AssetConfigurationServiceContract.php
+* code/app/Athenia/Contracts/Services/Asset/AssetImportServiceContract.php - Renamed from code/app/Athenia/Contracts/Services/AssetImportServiceContract.php
+* code/app/Athenia/Http/Core/Controllers/MessageControllerAbstract.php
+* code/app/Athenia/Http/Core/Requests/Feature/IndexRequest.php
+* code/app/Athenia/Http/Core/Requests/Feature/ViewRequest.php
+* code/app/Athenia/Http/Core/Requests/Message/StoreRequest.php
+* code/app/Athenia/Jobs/CalculateAssetDimensionsJob.php
+* code/app/Athenia/Providers/BaseRepositoryProvider.php
+* code/app/Athenia/Providers/BaseServiceProvider.php
+* code/app/Athenia/Repositories/AssetRepository.php
+* code/app/Athenia/Repositories/User/ProfileImageRepository.php
+* code/app/Athenia/Services/ArchiveHelperService.php
+* code/app/Athenia/Services/Asset/AssetConfigurationService.php
+* code/app/Athenia/Services/AssetImportService.php - Renamed from code/app/Athenia/Services/Asset/AssetImportService.php
+
+* code/tests/Athenia/Feature/Http/Feature/FeatureIndexTest.php
+* code/tests/Athenia/Feature/Http/Feature/FeatureViewTest.php
+* code/tests/Athenia/Feature/Http/Message/MessageCreateTest.php
+* code/tests/Athenia/Feature/Http/Organization/Collection/OrganizationCollectionCreateTest.php
+* code/tests/Athenia/Feature/Http/User/Thread/Message/UserThreadMessageCreateTest.php
+* code/tests/Athenia/Integration/Policies/Collection/CollectionItemPolicyTest.php
+* code/tests/Athenia/Integration/Policies/Collection/CollectionPolicyTest.php
+* code/tests/Athenia/Integration/Policies/FeaturePolicyTest.php
+* code/tests/Athenia/Integration/Repositories/AssetRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/Collection/CollectionRepositoryTest.php
+* code/tests/Athenia/Integration/Repositories/User/ProfileImageRepositoryTest.php
+* code/tests/Athenia/Unit/Services/ArchiveHelperServiceTest.php
+* code/tests/Athenia/Unit/Services/Asset/AssetConfigurationServiceTest.php
+
+Then update the following files that live outside of the main Athenia modules
+
+* code/app/Http/V1/Controllers/MessageController.php - New Controller
+* code/app/Models/Messaging/Message.php - Updated validation rules for general endpoint
+* code/app/Policies/FeaturePolicy.php - Relaxed Policy
+* code/composer.json - Added zip extension
+* code/config/services.php - Added Slack config
+* code/database/migrations/2024_06_20_005446_add_meta_to_assets.php - New migration for meta data
+* code/routes/core.php - Moved features endpoint and added messages endpoint
+* dev_login.sh - Made identification more accurate
+
 # 3.1.0
 
 Little breather after the big boy this one re-adds the scaffolding needed to run the app via a web layer. The only file within the app that needs to be updated is `code/app/Http/Kernel.php`. The `code/app/Athenia` module should also be copied over.
