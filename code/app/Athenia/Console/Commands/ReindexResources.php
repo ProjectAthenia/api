@@ -7,7 +7,11 @@ use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Repositories\BaseRepositoryContract;
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
+use App\Athenia\Contracts\Services\Indexing\ResourceRepositoryServiceContract;
+use App\Athenia\Repositories\BaseRepositoryAbstract;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use RuntimeException;
 
 /**
  * Class ReindexResources
@@ -37,26 +41,15 @@ class ReindexResources extends Command
     protected $description = 'Reindexes all resources in the system. May take sometime.';
 
     /**
-     * @var ResourceRepositoryContract
-     */
-    private $resourceRepository;
-
-    /**
-     * @var UserRepositoryContract
-     */
-    private $userRepository;
-
-    /**
      * ReindexResources constructor.
      * @param ResourceRepositoryContract $resourceRepository
-     * @param UserRepositoryContract $userRepository
+     * @param ResourceRepositoryServiceContract $resourceRepositoryService
      */
-    public function __construct(ResourceRepositoryContract $resourceRepository,
-                                UserRepositoryContract $userRepository)
-    {
+    public function __construct(
+        private ResourceRepositoryContract $resourceRepository,
+        private ResourceRepositoryServiceContract $resourceRepositoryService,
+    ) {
         parent::__construct();
-        $this->resourceRepository = $resourceRepository;
-        $this->userRepository = $userRepository;
     }
 
     /**
@@ -64,13 +57,25 @@ class ReindexResources extends Command
      */
     public function handle()
     {
-        $this->line('');
-        $this->info('Indexing Users');
+        /** @var BaseRepositoryAbstract $repository */
+        foreach ($this->resourceRepositoryService->getResourceRepositories() as $repository) {
+            $model = $repository->getModel();
 
-        $this->indexData($this->userRepository);
+            if (!$model instanceof CanBeIndexedContract) {
+                throw new RuntimeException("Please make sure your resource models implement CanBeIndexedContract.");
+            }
 
-        $this->line('');
-        $this->info('Done Indexing Users');
+            $tableName = $model->getTable();
+            $readableName = Str::title(str_replace('_', ' ', $tableName));
+
+            $this->line('');
+            $this->info('Indexing ' . $readableName);
+
+            $this->indexData($repository);
+
+            $this->line('');
+            $this->info('Done Indexing ' . $readableName);
+        }
     }
 
     /**
@@ -85,18 +90,25 @@ class ReindexResources extends Command
         /** @var CanBeIndexedContract $model */
         foreach ($models as $model) {
 
-            $progressBar->advance();
-            $data = [
-                'content' => $model->getContentString(),
-            ];
+            $indexedContent = $model->getContentString();
 
-            if ($model->resource) {
-                $this->resourceRepository->update($model->resource, $data);
-            } else {
-                $data['resource_id'] = $model->id;
-                $data['resource_type'] = $model->morphRelationName();
-                $this->resourceRepository->create($data);
+            if ($indexedContent) {
+                $data = [
+                    'content' => $model->getContentString(),
+                ];
+
+                if ($model->resource) {
+                    $this->resourceRepository->update($model->resource, $data);
+                } else {
+                    $data['resource_id'] = $model->id;
+                    $data['resource_type'] = $model->morphRelationName();
+                    $this->resourceRepository->create($data);
+                }
+
+            } else if ($model->resource) {
+                $this->resourceRepository->delete($model->resource);
             }
+            $progressBar->advance();
         }
     }
 }

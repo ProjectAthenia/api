@@ -16,6 +16,7 @@ use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
 use App\Athenia\Contracts\Services\Collection\ItemInEntityCollectionServiceContract;
 use App\Athenia\Contracts\Services\DirectoryCopyServiceContract;
 use App\Athenia\Contracts\Services\EntitySubscriptionCreationServiceContract;
+use App\Athenia\Contracts\Services\Indexing\ResourceRepositoryServiceContract;
 use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
 use App\Athenia\Contracts\Services\Messaging\SendEmailServiceContract;
 use App\Athenia\Contracts\Services\Messaging\SendPushNotificationServiceContract;
@@ -46,6 +47,7 @@ use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
 use App\Models\Messaging\Message;
+use App\Services\Indexing\ResourceRepositoryService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -70,6 +72,7 @@ abstract class BaseServiceProvider extends ServiceProvider
             ItemInEntityCollectionServiceContract::class,
             MessageSendingSelectionServiceContract::class,
             ProratingCalculationServiceContract::class,
+            ResourceRepositoryServiceContract::class,
             SendEmailServiceContract::class,
             SendPushNotificationServiceContract::class,
             SendSlackNotificationServiceContract::class,
@@ -114,6 +117,7 @@ abstract class BaseServiceProvider extends ServiceProvider
         $this->app->bind(AssetImportServiceContract::class, fn () =>
             new AssetImportService(
                 $this->app->make(AssetRepositoryContract::class),
+                new Client(),
             )
         );
         $this->app->bind(DirectoryCopyServiceContract::class, fn () => 
@@ -139,6 +143,9 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(ProratingCalculationServiceContract::class, fn () =>
             new ProratingCalculationService()
+        );
+        $this->app->bind(ResourceRepositoryServiceContract::class, fn () =>
+            new ResourceRepositoryService($this->app)
         );
         $this->app->bind(SendEmailServiceContract::class, fn () =>
             new SendEmailService($this->app->make(Mailer::class))

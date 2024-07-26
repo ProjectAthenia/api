@@ -44,6 +44,15 @@ abstract class BaseRepositoryAbstract implements BaseRepositoryContract
         $this->model = $model;
         $this->log = $log;
     }
+
+    /**
+     * @return BaseModelAbstract
+     */
+    public function getModel(): BaseModelAbstract
+    {
+        return $this->model;
+    }
+
     /**
      * Find a model by its primary key or throw an exception.
      *

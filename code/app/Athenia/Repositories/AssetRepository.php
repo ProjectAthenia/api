@@ -85,8 +85,8 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
             if ($fileContents && $fileExtension) {
                 $fileInfo = $this->storeImage($fileContents, $fileExtension);
                 $data['url'] = $this->assetBaseURL . '/' . $fileInfo['file_name'];
-                $data['width'] = $fileInfo['width'];
-                $data['height'] = $fileInfo['height'];
+                $data['width'] = $fileInfo['width'] ?? null;
+                $data['height'] = $fileInfo['height'] ?? null;
             }
         }
 
@@ -125,47 +125,54 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
      */
     protected function storeImage($fileContents, $fileExtension): array
     {
-        $image = new Imagick();
-        $image->readImageBlob($fileContents);
-        $image->setImageFormat($fileExtension);
-
-        $orientation = $image->getImageOrientation();
-
-        switch($orientation) {
-            case imagick::ORIENTATION_BOTTOMRIGHT:
-                $image->rotateimage("#000", 180); // rotate 180 degrees
-                break;
-
-            case imagick::ORIENTATION_RIGHTTOP:
-                $image->rotateimage("#000", 90); // rotate 90 degrees CW
-                break;
-
-            case imagick::ORIENTATION_LEFTBOTTOM:
-                $image->rotateimage("#000", -90); // rotate 90 degrees CCW
-                break;
-        }
-
-        $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
-
-        $image->commentImage('Uploaded to SGC');
-
         $attempts = 0;
+
+        $data = [];
 
         do {
             if ($attempts == 5) {
                 throw new DomainException('Unable to generate a proper file name for the public file.');
             }
-            $imageName = $this->generatePublicFileName($fileExtension);
+            $fileName = $this->generatePublicFileName($fileExtension);
             $attempts++;
 
-        } while ($this->publicAssets->exists($imageName));
+        } while ($this->publicAssets->exists($fileName));
 
-        $this->publicAssets->put($imageName, $image->__toString());
+        if (in_array(Str::lower($fileExtension), ["png", "jpg", "gif", "jpeg"] )) {
+            $image = new Imagick();
+            $image->readImageBlob($fileContents);
+            $image->setImageFormat($fileExtension);
 
-        return [
-            'file_name' => $imageName,
-            'width' => $image->getImageWidth(),
-            'height' => $image->getImageHeight(),
-        ];
+            $orientation = $image->getImageOrientation();
+
+            switch ($orientation) {
+                case imagick::ORIENTATION_BOTTOMRIGHT:
+                    $image->rotateimage("#000", 180); // rotate 180 degrees
+                    break;
+
+                case imagick::ORIENTATION_RIGHTTOP:
+                    $image->rotateimage("#000", 90); // rotate 90 degrees CW
+                    break;
+
+                case imagick::ORIENTATION_LEFTBOTTOM:
+                    $image->rotateimage("#000", -90); // rotate 90 degrees CCW
+                    break;
+            }
+
+            $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+
+            $image->commentImage('Uploaded to CNH');
+
+            $fileContents = $image->__toString();
+
+            $data['width'] = $image->getImageWidth();
+            $data['height'] = $image->getImageHeight();
+        }
+
+        $this->publicAssets->put($fileName, $fileContents);
+
+        $data['file_name'] = $fileName;
+
+        return $data;
     }
 }
