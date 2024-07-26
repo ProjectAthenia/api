@@ -8,9 +8,11 @@ use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
 use App\Athenia\Repositories\ResourceRepository;
 use App\Athenia\Repositories\User\UserRepository;
+use App\Athenia\Services\Indexing\BaseResourceRepositoryService;
 use App\Models\Resource;
 use App\Models\User\User;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Hashing\Hasher;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -33,12 +35,12 @@ final class ReindexResourcesTest extends TestCase
     /**
      * @var ResourceRepositoryContract
      */
-    private $resourceRepository;
+    private ResourceRepositoryContract $resourceRepository;
 
     /**
-     * @var UserRepositoryContract
+     * @var BaseResourceRepositoryService
      */
-    private $userRepository;
+    private BaseResourceRepositoryService $resourceRepositoryService;
 
     protected function setUp(): void
     {
@@ -46,21 +48,41 @@ final class ReindexResourcesTest extends TestCase
         $this->setupDatabase();
 
         $this->resourceRepository = new ResourceRepository(new Resource(), $this->getGenericLogMock());
-        $this->userRepository = new UserRepository(
-            new User(),
-            $this->getGenericLogMock(),
-            mock(Hasher::class),
-            mock(Repository::class),
+
+        $app = mock(Application::class);
+
+        $app->shouldReceive('make')->with(UserRepositoryContract::class)->andReturn(
+            new UserRepository(
+                new User(),
+                $this->getGenericLogMock(),
+                mock(Hasher::class),
+                mock(Repository::class),
+            )
         );
+
+        $this->resourceRepositoryService = new class($app) extends BaseResourceRepositoryService {
+
+            /**
+             * All repo interfaces for enabled resources in this app
+             *
+             * @return array<class-string>
+             */
+            public function availableResourceRepositories(): array
+            {
+                return [
+                    UserRepositoryContract::class
+                ];
+            }
+        };
 
         $this->command = new ReindexResources(
             $this->resourceRepository,
-            $this->userRepository,
+            $this->resourceRepositoryService,
         );
         $this->mockConsoleOutput($this->command);
     }
 
-    public function testIndexUsers(): void
+    public function testHandle(): void
     {
         User::unsetEventDispatcher();
 
@@ -71,7 +93,7 @@ final class ReindexResourcesTest extends TestCase
         $this->assertCount(3, Resource::all());
         $this->assertCount(4, User::all());
 
-        $this->command->indexData($this->userRepository);
+        $this->command->handle();
 
         $this->assertCount(4, Resource::all());
     }

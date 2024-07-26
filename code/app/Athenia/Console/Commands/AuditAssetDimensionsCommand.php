@@ -45,7 +45,7 @@ class AuditAssetDimensionsCommand extends Command
     /**
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->assetRepository->findAll([], [], [], [], null) as $asset) {
             $this->dispatcher->dispatch(new CalculateAssetDimensionsJob($asset));
