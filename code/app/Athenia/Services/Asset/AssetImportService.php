@@ -7,13 +7,17 @@ use App\Athenia\Contracts\Models\IsAnEntityContract;
 use App\Athenia\Contracts\Repositories\AssetRepositoryContract;
 use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
 use App\Models\Asset;
+use GuzzleHttp\Client;
 
 class AssetImportService implements AssetImportServiceContract
 {
     /**
      * @param AssetRepositoryContract $assetRepository
      */
-    public function __construct(private AssetRepositoryContract $assetRepository) {}
+    public function __construct(
+        private AssetRepositoryContract $assetRepository,
+        private Client $client,
+    ) {}
 
     /**
      * imports an asset from a url and returns the data model
@@ -26,16 +30,25 @@ class AssetImportService implements AssetImportServiceContract
     public function importAsset(IsAnEntityContract $owner, string $url): ?Asset
     {
         $path = parse_url($url, PHP_URL_PATH);
-        $fileInformation = pathinfo($path);
+        try {
+            if ($path) {
+                $fileInformation = pathinfo($path);
 
-        $assetContent = file_get_contents($url);
+                $response = $this->client->get($url);
+                $assetContent = $response->getStatusCode() == 200 ? $response->getBody()->getContents() : null;
 
-        return ($assetContent && isset($fileInformation['extension'])) ? $this->assetRepository->create([
-            'source' => $url,
-            'file_contents' => $assetContent,
-            'file_extension' => $fileInformation['extension'],
-            'owner_type' => $owner->morphRelationName(),
-            'owner_id' => $owner->id,
-        ]) : null;
+                if ($assetContent !== null) {
+                    return $this->assetRepository->create([
+                        'source' => $url,
+                        'file_contents' => $assetContent,
+                        'file_extension' => $fileInformation['extension'],
+                        'owner_type' => $owner->morphRelationName(),
+                        'owner_id' => $owner->id,
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {}
+
+        return null;
     }
 }
