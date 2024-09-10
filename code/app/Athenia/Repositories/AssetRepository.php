@@ -83,7 +83,7 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
             $fileExtension = $this->getAndUnset($data, 'file_extension');
 
             if ($fileContents && $fileExtension) {
-                $fileInfo = $this->storeImage($fileContents, $fileExtension);
+                $fileInfo = $this->storeFile($fileContents, $fileExtension);
                 $data['url'] = $this->assetBaseURL . '/' . $fileInfo['file_name'];
                 $data['width'] = $fileInfo['width'] ?? null;
                 $data['height'] = $fileInfo['height'] ?? null;
@@ -123,7 +123,7 @@ class AssetRepository extends BaseRepositoryAbstract implements AssetRepositoryC
      * @return array
      * @throws \ImagickException
      */
-    protected function storeImage($fileContents, $fileExtension): array
+    protected function storeFile($fileContents, $fileExtension): array
     {
         $attempts = 0;
 
