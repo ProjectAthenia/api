@@ -13,6 +13,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -49,17 +50,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        list($status, $response) = $this->parseException($exception);
+        // There is probably a better way to do this, but this is quick and dirty for now
+        if (Str::startsWith($request->getPathInfo(), "/v")) {
+            list($status, $response) = $this->parseException($exception);
 
-        // if we're in debug mode, add extra information for us
-        if (config('app.debug')) {
-            $response['exception_class'] = get_class($exception);
-            $response['exception_message'] = $exception->getMessage();
-            $response['exception_trace'] = $exception->getTrace();
+            // if we're in debug mode, add extra information for us
+            if (config('app.debug')) {
+                $response['exception_class'] = get_class($exception);
+                $response['exception_message'] = $exception->getMessage();
+                $response['exception_trace'] = $exception->getTrace();
+            }
+
+            // Return a JSON response with the response array and status code
+            return response()->json($response, $status);
         }
 
-        // Return a JSON response with the response array and status code
-        return response()->json($response, $status);
+        return parent::render($request, $exception);
     }
 
     /**
