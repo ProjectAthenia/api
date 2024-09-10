@@ -137,18 +137,6 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
             'show', 'destroy',
         ]
     ]);
-    Route::group(['prefix' => 'collection-items/{collection_item}', 'as' => 'collection-item.'], function () {
-        Route::resource('categories', 'CollectionItem\CollectionItemCategoryController', [
-            'only' => [
-                'store',
-            ],
-        ]);
-    });
-    Route::resource('collection-item-categories', 'CollectionItemCategoryController', [
-        'only' => [
-            'update', 'destroy',
-        ],
-    ]);
 
     /**
      * Resource Context
