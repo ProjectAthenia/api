@@ -53,20 +53,6 @@ class Category extends BaseModelAbstract implements HasValidationRulesContract
     use HasValidationRules;
 
     /**
-     * Makes sure everything is by default ordered by the name
-     *
-     * @return Builder
-     */
-    public function newQuery()
-    {
-        $query = parent::newQuery();
-
-        $query->orderBy('name');
-
-        return $query;
-    }
-
-    /**
      * @param mixed ...$params
      * @return array
      */

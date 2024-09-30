@@ -18,10 +18,12 @@ This update includes a number of changes. It opens up the features endpoints to 
 
 To start, copy over the Athena app and tests module. The files changed in those modules are as follows...
 
-* code/app/Athenia/Console/Commands/AuditAssetDimensionsCommand.php
+* code/app/Athenia/Console/Commands/ReindexResources.php
 * code/app/Athenia/Contracts/Services/ArchiveHelperServiceContract.php
 * code/app/Athenia/Contracts/Services/Asset/AssetConfigurationServiceContract.php
 * code/app/Athenia/Contracts/Services/Asset/AssetImportServiceContract.php - Renamed from code/app/Athenia/Contracts/Services/AssetImportServiceContract.php
+* code/app/Athenia/Contracts/Services/Indexing/ResourceRepositoryServiceContract.php
+* code/app/Athenia/Exceptions/Handler.php
 * code/app/Athenia/Http/Core/Controllers/MessageControllerAbstract.php
 * code/app/Athenia/Http/Core/Requests/Feature/IndexRequest.php
 * code/app/Athenia/Http/Core/Requests/Feature/ViewRequest.php
@@ -30,30 +32,39 @@ To start, copy over the Athena app and tests module. The files changed in those 
 * code/app/Athenia/Providers/BaseRepositoryProvider.php
 * code/app/Athenia/Providers/BaseServiceProvider.php
 * code/app/Athenia/Repositories/AssetRepository.php
+* code/app/Athenia/Repositories/BaseRepositoryAbstract.php
 * code/app/Athenia/Repositories/User/ProfileImageRepository.php
 * code/app/Athenia/Services/ArchiveHelperService.php
 * code/app/Athenia/Services/Asset/AssetConfigurationService.php
 * code/app/Athenia/Services/AssetImportService.php - Renamed from code/app/Athenia/Services/Asset/AssetImportService.php
+* code/app/Athenia/Services/Indexing/BaseResourceRepositoryService.php - Renamed from code/app/Services/Indexing/ResourceRepositoryService.php
 
 * code/tests/Athenia/Feature/Http/Feature/FeatureIndexTest.php
 * code/tests/Athenia/Feature/Http/Feature/FeatureViewTest.php
 * code/tests/Athenia/Feature/Http/Message/MessageCreateTest.php
 * code/tests/Athenia/Feature/Http/Organization/Collection/OrganizationCollectionCreateTest.php
 * code/tests/Athenia/Feature/Http/User/Thread/Message/UserThreadMessageCreateTest.php
+* code/tests/Athenia/Integration/Console/Commands/ReindexResourcesTest.php
 * code/tests/Athenia/Integration/Policies/Collection/CollectionItemPolicyTest.php
 * code/tests/Athenia/Integration/Policies/Collection/CollectionPolicyTest.php
 * code/tests/Athenia/Integration/Policies/FeaturePolicyTest.php
 * code/tests/Athenia/Integration/Repositories/AssetRepositoryTest.php
 * code/tests/Athenia/Integration/Repositories/Collection/CollectionRepositoryTest.php
 * code/tests/Athenia/Integration/Repositories/User/ProfileImageRepositoryTest.php
+* code/tests/Athenia/Unit/Console/Commands/AuditAssetDimensionsCommandTest.php
+* code/tests/Athenia/Unit/Models/CategoryTest.php
 * code/tests/Athenia/Unit/Services/ArchiveHelperServiceTest.php
 * code/tests/Athenia/Unit/Services/Asset/AssetConfigurationServiceTest.php
+* code/tests/Athenia/Unit/Services/Asset/AssetImportServiceTest.php
+* code/tests/Athenia/Unit/Services/Indexing/BaseResourceRepositoryServiceTest.php
 
 Then update the following files that live outside of the main Athenia modules
 
 * code/app/Http/V1/Controllers/MessageController.php - New Controller
+* code/app/Models/Category.php - Removed default order
 * code/app/Models/Messaging/Message.php - Updated validation rules for general endpoint
 * code/app/Policies/FeaturePolicy.php - Relaxed Policy
+* code/app/Services/.gitkeep - Added to make sure directory is kept
 * code/composer.json - Added zip extension
 * code/config/services.php - Added Slack config
 * code/database/migrations/2024_06_20_005446_add_meta_to_assets.php - New migration for meta data
