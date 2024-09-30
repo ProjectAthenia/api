@@ -44,7 +44,9 @@ final class HandlerTest extends TestCase
     {
         $handler = new Handler($this->app);
 
-        $request = new \Illuminate\Http\Request();
+        $request = new \Illuminate\Http\Request(server: [
+            "REQUEST_URI" => "/v1/status/hi"
+        ]);
         $request->headers->set('Accept', 'application/json');
         $exception = new NotFoundHttpException();
 
@@ -56,7 +58,9 @@ final class HandlerTest extends TestCase
     {
         $handler = new Handler($this->app);
 
-        $request = new \Illuminate\Http\Request();
+        $request = new \Illuminate\Http\Request(server: [
+            "REQUEST_URI" => "/v1/user/42534"
+        ]);
         $request->headers->set('Accept', 'application/json');
         $exception = new ModelNotFoundException();
 

@@ -52,6 +52,7 @@ To start, copy over the Athena app and tests module. The files changed in those 
 * code/tests/Athenia/Integration/Repositories/Collection/CollectionRepositoryTest.php
 * code/tests/Athenia/Integration/Repositories/User/ProfileImageRepositoryTest.php
 * code/tests/Athenia/Unit/Console/Commands/AuditAssetDimensionsCommandTest.php
+* code/tests/Athenia/Unit/Exceptions/HandlerTest.php
 * code/tests/Athenia/Unit/Models/CategoryTest.php
 * code/tests/Athenia/Unit/Services/ArchiveHelperServiceTest.php
 * code/tests/Athenia/Unit/Services/Asset/AssetConfigurationServiceTest.php
