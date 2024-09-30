@@ -74,7 +74,7 @@ Then update the following files that live outside of the main Athenia modules
 
 # 3.1.0
 
-Little breather after the big boy this one re-adds the scaffolding needed to run the app via a web layer. The only file within the app that needs to be updated is `code/app/Http/Kernel.php`. The `code/app/Athenia` module should also be copied over.
+Little breather after the big boy this one re-adds the scaffolding needed to run the app via a web layer. The only files within the app that needs to be updated is `code/app/Http/Kernel.php`, and `code/bootstrap/app.php`. The `code/app/Athenia` module should also be copied over.
 
 # 3.0.0
 
