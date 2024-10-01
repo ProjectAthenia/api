@@ -75,7 +75,7 @@ services:
     networks:
       - app-network
 
-  composer:
+  cron:
     build:
       context: ./dockerfiles
       dockerfile: php.dockerfile
@@ -83,14 +83,16 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./codes:/var/www/html
+      - ./code:/var/www/html:delegated
+    restart: unless-stopped
+    profiles: [ 'background' ]
     depends_on:
-      - php
-    entrypoint: [ 'composer', '--ignore-platform-reqs' ]
+      - app
+    entrypoint: [ 'php', '/var/www/html/artisan', 'schedule:work' ]
     networks:
       - app-network
 
-  artisan:
+  queue-worker:
     build:
       context: ./dockerfiles
       dockerfile: php.dockerfile
@@ -98,10 +100,11 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./code:/var/www/html:delegated
+    restart: unless-stopped
+    profiles: [ 'background' ]
     depends_on:
-      - mysql
-      - mysql-test
-    entrypoint: [ 'php', '/var/www/html/artisan' ]
+      - app
+    entrypoint: [ 'php', '/var/www/html/artisan', 'queue:work', '--timeout=0', '--tries=3' ]
     networks:
       - app-network
