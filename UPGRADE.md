@@ -37,7 +37,7 @@ To start, copy over the Athena app and tests module. The files changed in those 
 * code/app/Athenia/Services/ArchiveHelperService.php
 * code/app/Athenia/Services/Asset/AssetConfigurationService.php
 * code/app/Athenia/Services/AssetImportService.php - Renamed from code/app/Athenia/Services/Asset/AssetImportService.php
-* code/app/Athenia/Services/Indexing/BaseResourceRepositoryService.php - Renamed from code/app/Services/Indexing/ResourceRepositoryService.php
+* code/app/Athenia/Services/Indexing/BaseResourceRepositoryService.php
 
 * code/tests/Athenia/Feature/Http/Feature/FeatureIndexTest.php
 * code/tests/Athenia/Feature/Http/Feature/FeatureViewTest.php
@@ -66,6 +66,7 @@ Then update the following files that live outside of the main Athenia modules
 * code/app/Models/Messaging/Message.php - Updated validation rules for general endpoint
 * code/app/Policies/FeaturePolicy.php - Relaxed Policy
 * code/app/Services/.gitkeep - Added to make sure directory is kept
+* code/app/Services/Indexing/ResourceRepositoryService.php - Complete reworked
 * code/composer.json - Added zip extension
 * code/config/services.php - Added Slack config
 * code/database/migrations/2024_06_20_005446_add_meta_to_assets.php - New migration for meta data
