@@ -32,6 +32,8 @@ final class FeatureRepositoryTest extends TestCase
             new Feature(),
             $this->getGenericLogMock()
         );
+
+        Feature::all()->each(fn (Feature $i) => $i->delete());
     }
 
     public function testFindAllSuccess(): void
