@@ -102,6 +102,7 @@ final class LoginTest extends TestCase
             'email' => 'guy@smiley.com',
             'password' => '123'
         ]);
+        dd($response);
         $response->assertJson([
             'message' => 'Invalid login credentials.'
         ]);
