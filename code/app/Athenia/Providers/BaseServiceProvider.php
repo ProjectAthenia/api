@@ -53,7 +53,6 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
-use Laracasts\Generators\GeneratorsServiceProvider;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -215,7 +214,6 @@ abstract class BaseServiceProvider extends ServiceProvider
     public function registerEnvironmentSpecificProviders(): void
     {
         if ($this->app->environment() == 'local') {
-            $this->app->register(GeneratorsServiceProvider::class);
             $this->app->register(IdeHelperServiceProvider::class);
         }
     }
