@@ -95,7 +95,7 @@ final class LoginTest extends TestCase
     {
         User::factory()->create([
             'email' => 'guy@smiley.com',
-            'password' => 'do not guess me!'
+            'password' => Hash::make('do not guess me!')
         ]);
 
         $response = $this->json('POST', '/v1/auth/login', [

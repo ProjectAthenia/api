@@ -8,6 +8,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\HeaderBag;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Tests\TestCase;
 
 /**
@@ -20,7 +22,7 @@ final class LogMiddlewareTest extends TestCase
     {
         $request = mock(Request::class);
 
-        $request->headers = ['Authorization: Some Auth'];
+        $request->headers = new HeaderBag( ['Authorization'=> 'Some Auth']);
         $request->shouldReceive('method')->once()->andReturn('GET');
         $request->shouldReceive('fullUrl')->once()->andReturn('test.com');
         $request->shouldReceive('all')->once()->andReturn('{}');
@@ -28,7 +30,10 @@ final class LogMiddlewareTest extends TestCase
 
         $response = mock(Response::class);
 
-        $response->headers = [];
+        $response->headers =  new ResponseHeaderBag([
+            'Cache-Control' => 'private',
+            'Date' => '2020-01-01',
+        ]);
         $response->shouldReceive('getStatusCode')->once()->andReturn(200);
         $response->shouldReceive('getContent')->once()->andReturn('{}');
 
@@ -43,12 +48,17 @@ final class LogMiddlewareTest extends TestCase
                 'method' => 'GET',
                 'url' => 'test.com',
                 'data' => '{}',
-                'headers' => ['Authorization: Some Auth'],
+                'headers' => [
+                    "authorization" => ["Some Auth"]
+                ],
                 'ip' => '129.98.19.54'
             ],
             'response' => [
                 'status' => 200,
-                'headers' => [],
+                'headers' => [
+                    "cache-control" => ["private"],
+                    "date" => ["2020-01-01"]
+                ],
                 'content' => '{}'
             ]
         ]);

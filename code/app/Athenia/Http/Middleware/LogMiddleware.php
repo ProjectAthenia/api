@@ -63,12 +63,12 @@ class LogMiddleware
                     'method' => $request->method(),
                     'url' => $request->fullUrl(),
                     'data' => $request->all(),
-                    'headers' => $request->headers,
+                    'headers' => $request->headers->all(),
                     'ip' => $request->ip()
                 ],
                 'response' => [
                     'status' => $response->getStatusCode(),
-                    'headers' => $response->headers,
+                    'headers' => $response->headers->all(),
                     'content' => $response->getContent()
                 ]
             ]);
