@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Policies;
 
-use App\Athenia\Policies\BasePolicyAbstract;
 use App\Models\Role;
 use Tests\DatabaseSetupTrait;
+use Tests\Mocks\BasePolicy;
 use Tests\TestCase;
 use Tests\Traits\RolesTesting;
 
@@ -19,8 +19,7 @@ final class BasePolicyAbstractTest extends TestCase
 
     public function testBefore(): void
     {
-        /** @var BasePolicyAbstract $policy */
-        $policy = $this->getMockForAbstractClass(BasePolicyAbstract::class);
+        $policy = new BasePolicy();
 
         $this->assertNull($policy->before($this->getUserOfRole(Role::APP_USER)));
 

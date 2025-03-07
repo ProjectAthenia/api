@@ -3,17 +3,16 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Jobs;
 
-use App\Athenia\Jobs\CanDisplayOutputAbstractJob;
 use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Tests\Mocks\CanDisplayOutputJob;
 use Tests\TestCase;
 
 final class CanDisplayOutputAbstractJobTest extends TestCase
 {
     public function testOutMessageDoesNothingWithoutOutput(): void
     {
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class);
+        $job = new CanDisplayOutputJob();
 
         $job->outputMessage("hello");
     }
@@ -22,8 +21,7 @@ final class CanDisplayOutputAbstractJobTest extends TestCase
     {
         $output = mock(OutputStyle::class);
 
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class, [$output]);
+        $job = new CanDisplayOutputJob($output);
 
         $output->shouldReceive('text');
 
@@ -32,8 +30,7 @@ final class CanDisplayOutputAbstractJobTest extends TestCase
 
     public function testCreateProgressBarDoesNothingWithoutOutput(): void
     {
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class);
+        $job = new CanDisplayOutputJob();
 
         $job->createProgress("progress", 100);
     }
@@ -42,8 +39,7 @@ final class CanDisplayOutputAbstractJobTest extends TestCase
     {
         $output = mock(OutputStyle::class);
 
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class, [$output]);
+        $job = new CanDisplayOutputJob($output);
 
         $output->shouldReceive('isDecorated')->andReturn(false);
 
@@ -57,8 +53,7 @@ final class CanDisplayOutputAbstractJobTest extends TestCase
     {
         $output = mock(OutputStyle::class);
 
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class, [$output]);
+        $job = new CanDisplayOutputJob($output);
 
         $output->shouldReceive('isDecorated')->andReturn(false);
 
@@ -69,8 +64,7 @@ final class CanDisplayOutputAbstractJobTest extends TestCase
     {
         $output = mock(OutputStyle::class);
 
-        /** @var CanDisplayOutputAbstractJob $job */
-        $job = $this->getMockForAbstractClass(CanDisplayOutputAbstractJob::class, [$output]);
+        $job = new CanDisplayOutputJob($output);
 
         $output->shouldReceive('isDecorated')->andReturn(false);
 
