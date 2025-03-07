@@ -5,6 +5,7 @@ namespace Tests\Athenia\Unit\Http\Core\Requests;
 
 use App\Athenia\Http\Core\Requests\BaseAssetUploadRequestAbstract;
 use RuntimeException;
+use Tests\Mocks\AssetUploadRequest;
 use Tests\TestCase;
 
 /**
@@ -15,8 +16,7 @@ final class BaseAssetUploadRequestAbstractTest extends TestCase
 {
     public function testValidationDataSetsMimeType(): void
     {
-        /** @var BaseAssetUploadRequestAbstract $request */
-        $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
+        $request = new AssetUploadRequest();
 
         $request->replace([
             'file_contents' => base64_encode('test'),
@@ -31,16 +31,14 @@ final class BaseAssetUploadRequestAbstractTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        /** @var BaseAssetUploadRequestAbstract $request */
-        $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
+        $request = new AssetUploadRequest();
 
         $request->getDecodedContents();
     }
 
     public function testGetDecodedContentsReturnsCorrectContents(): void
     {
-        /** @var BaseAssetUploadRequestAbstract $request */
-        $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
+        $request = new AssetUploadRequest();
 
         $request->replace([
             'file_contents' => base64_encode('<svg></svg>'),
@@ -55,16 +53,14 @@ final class BaseAssetUploadRequestAbstractTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        /** @var BaseAssetUploadRequestAbstract $request */
-        $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
+        $request = new AssetUploadRequest();
 
         $request->getFileMimeType();
     }
 
     public function testGetFileMimeTypeReturnsCorrectContents(): void
     {
-        /** @var BaseAssetUploadRequestAbstract $request */
-        $request = $this->getMockForAbstractClass(BaseAssetUploadRequestAbstract::class);
+        $request = new AssetUploadRequest();
 
         $request->replace([
             'file_contents' => base64_encode('<svg></svg>'),

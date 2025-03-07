@@ -5,6 +5,7 @@ namespace Tests\Athenia\Unit\Validators;
 
 use App\Athenia\Validators\BaseValidatorAbstract;
 use RuntimeException;
+use Tests\Mocks\BaseValidator;
 use Tests\TestCase;
 
 /**
@@ -15,8 +16,7 @@ final class BaseValidatorAbstractTest extends TestCase
 {
     public function testEnsureValidatorAttributePasses(): void
     {
-        /** @var BaseValidatorAbstract $validator */
-        $validator = $this->getMockForAbstractClass(BaseValidatorAbstract::class);
+        $validator = new BaseValidator();
 
         $validator->ensureValidatorAttribute('hello', 'hello');
     }
@@ -25,8 +25,7 @@ final class BaseValidatorAbstractTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        /** @var BaseValidatorAbstract $validator */
-        $validator = $this->getMockForAbstractClass(BaseValidatorAbstract::class);
+        $validator = new BaseValidator();
 
         $validator->ensureValidatorAttribute('hello', 'hi');
     }
