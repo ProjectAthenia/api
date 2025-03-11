@@ -57,11 +57,11 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\RetrieveRequest $request
+     * @param \App\Athenia\Http\Core\Requests\Organization\ViewRequest $request
      * @param Organization $model
      * @return Organization
      */
-    public function show(\App\Athenia\Http\Core\Requests\Organization\RetrieveRequest $request, Organization $model)
+    public function show(\App\Athenia\Http\Core\Requests\Organization\ViewRequest $request, Organization $model)
     {
         return $model->load($this->expand($request));
     }

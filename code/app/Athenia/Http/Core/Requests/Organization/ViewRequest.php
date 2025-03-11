@@ -12,7 +12,7 @@ use App\Policies\Organization\OrganizationPolicy;
  * Class ViewRequest
  * @package App\Http\Core\Requests\Organization
  */
-class RetrieveRequest extends BaseAuthenticatedRequestAbstract
+class ViewRequest extends BaseAuthenticatedRequestAbstract
 {
     use HasNoRules;
 
