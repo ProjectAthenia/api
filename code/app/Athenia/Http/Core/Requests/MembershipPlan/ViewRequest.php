@@ -12,7 +12,7 @@ use App\Policies\Subscription\MembershipPlanPolicy;
  * Class ViewRequest
  * @package App\Http\Core\Requests\MembershipPlan
  */
-class RetrieveRequest extends BaseAuthenticatedRequestAbstract
+class ViewRequest extends BaseAuthenticatedRequestAbstract
 {
     use HasNoRules;
 

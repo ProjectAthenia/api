@@ -153,11 +153,11 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\RetrieveRequest $request
+     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\ViewRequest $request
      * @param MembershipPlan $membershipPlan
      * @return MembershipPlan
      */
-    public function show(\App\Athenia\Http\Core\Requests\MembershipPlan\RetrieveRequest $request, MembershipPlan $membershipPlan)
+    public function show(\App\Athenia\Http\Core\Requests\MembershipPlan\ViewRequest $request, MembershipPlan $membershipPlan)
     {
         return $membershipPlan->load($this->expand($request));
     }
