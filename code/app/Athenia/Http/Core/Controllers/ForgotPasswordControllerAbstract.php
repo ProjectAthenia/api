@@ -80,10 +80,10 @@ abstract class ForgotPasswordControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\ForgotPassword\ForgotPasswordRequest $request
+     * @param Requests\ForgotPassword\ForgotPasswordRequest $request
      * @return JsonResponse
      */
-    public function forgotPassword(\App\Athenia\Http\Core\Requests\ForgotPassword\ForgotPasswordRequest $request)
+    public function forgotPassword(Requests\ForgotPassword\ForgotPasswordRequest $request)
     {
         $user = $this->userRepository->findByEmail($request->input('email'));
 
@@ -152,10 +152,10 @@ abstract class ForgotPasswordControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\ForgotPassword\ResetPasswordRequest $request
+     * @param Requests\ForgotPassword\ResetPasswordRequest $request
      * @return JsonResponse
      */
-    public function resetPassword(\App\Athenia\Http\Core\Requests\ForgotPassword\ResetPasswordRequest $request)
+    public function resetPassword(Requests\ForgotPassword\ResetPasswordRequest $request)
     {
         $user = $this->userRepository->findByEmail($request->input('email'));
 

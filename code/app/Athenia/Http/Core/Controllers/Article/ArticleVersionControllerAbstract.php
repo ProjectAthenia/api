@@ -36,11 +36,11 @@ abstract class ArticleVersionControllerAbstract extends BaseControllerAbstract
     /**
      * Loads all created version for the related article
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\ArticleVersion\IndexRequest $request
+     * @param Requests\Article\ArticleVersion\IndexRequest $request
      * @param Article $article
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Article\ArticleVersion\IndexRequest $request, Article $article)
+    public function index(Requests\Article\ArticleVersion\IndexRequest $request, Article $article)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [$article], (int)$request->input('page', 1));
     }
@@ -48,11 +48,11 @@ abstract class ArticleVersionControllerAbstract extends BaseControllerAbstract
     /**
      * Creates a new article version
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\ArticleVersion\StoreRequest $request
+     * @param Requests\Article\ArticleVersion\StoreRequest $request
      * @param Article $article
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Article\ArticleVersion\StoreRequest $request, Article $article) : JsonResponse
+    public function store(Requests\Article\ArticleVersion\StoreRequest $request, Article $article) : JsonResponse
     {
         $data = $request->json()->all();
 

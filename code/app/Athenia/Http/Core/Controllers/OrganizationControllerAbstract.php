@@ -46,10 +46,10 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\IndexRequest $request
+     * @param Requests\Organization\IndexRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Organization\IndexRequest $request)
+    public function index(Requests\Organization\IndexRequest $request)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
@@ -57,11 +57,11 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\ViewRequest $request
+     * @param Requests\Organization\ViewRequest $request
      * @param Organization $model
      * @return Organization
      */
-    public function show(\App\Athenia\Http\Core\Requests\Organization\ViewRequest $request, Organization $model)
+    public function show(Requests\Organization\ViewRequest $request, Organization $model)
     {
         return $model->load($this->expand($request));
     }
@@ -69,10 +69,10 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\StoreRequest $request
+     * @param Requests\Organization\StoreRequest $request
      * @return Organization
      */
-    public function store(\App\Athenia\Http\Core\Requests\Organization\StoreRequest $request)
+    public function store(Requests\Organization\StoreRequest $request)
     {
         $model = $this->repository->create($request->json()->all());
         $this->organizationManagerRepository->create([
@@ -86,11 +86,11 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\UpdateRequest $request
+     * @param Requests\Organization\UpdateRequest $request
      * @param Organization $model
      * @return BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Organization\UpdateRequest $request, Organization $model)
+    public function update(Requests\Organization\UpdateRequest $request, Organization $model)
     {
         return $this->repository->update($model, $request->json()->all());
     }
@@ -98,11 +98,11 @@ abstract class OrganizationControllerAbstract extends BaseControllerAbstract
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Organization\DeleteRequest $request
+     * @param Requests\Organization\DeleteRequest $request
      * @param Organization $model
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\Organization\DeleteRequest $request, Organization $model)
+    public function destroy(Requests\Organization\DeleteRequest $request, Organization $model)
     {
         $this->repository->delete($model);
         return response(null, 204);

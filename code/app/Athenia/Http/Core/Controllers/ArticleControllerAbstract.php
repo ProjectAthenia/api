@@ -88,10 +88,10 @@ abstract class ArticleControllerAbstract extends BaseControllerAbstract
      *     }
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\IndexRequest $request
+     * @param Requests\Article\IndexRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Article\IndexRequest $request)
+    public function index(Requests\Article\IndexRequest $request)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
@@ -145,11 +145,11 @@ abstract class ArticleControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\ViewRequest $request
+     * @param Requests\Article\ViewRequest $request
      * @param Article $article
      * @return Article
      */
-    public function show(\App\Athenia\Http\Core\Requests\Article\ViewRequest $request, Article $article)
+    public function show(Requests\Article\ViewRequest $request, Article $article)
     {
         return $article->load($this->expand($request));
     }
@@ -198,10 +198,10 @@ abstract class ArticleControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\StoreRequest $request
+     * @param Requests\Article\StoreRequest $request
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Article\StoreRequest $request)
+    public function store(Requests\Article\StoreRequest $request)
     {
         $user = Auth::user();
         $data = $request->json()->all();
@@ -267,11 +267,11 @@ abstract class ArticleControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Article\UpdateRequest $request
+     * @param Requests\Article\UpdateRequest $request
      * @param Article $article
      * @return Article|BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Article\UpdateRequest $request, Article $article)
+    public function update(Requests\Article\UpdateRequest $request, Article $article)
     {
         return $this->repository->update($article, $request->json()->all());
     }

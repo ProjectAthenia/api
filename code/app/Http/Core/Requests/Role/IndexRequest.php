@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Core\Requests\Role;
 
-use App\Athenia\Http\Core\Requests\Resource\IndexRequest as BaseIndexRequest;
+use App\Athenia\Http\Core\Requests\Role\IndexRequest as BaseIndexRequest;
 
 /**
  * Class IndexRequest

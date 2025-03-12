@@ -31,11 +31,11 @@ abstract class BallotControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Ballot\ViewRequest $request
+     * @param Requests\Ballot\ViewRequest $request
      * @param Ballot $ballot
      * @return Ballot
      */
-    public function show(\App\Athenia\Http\Core\Requests\Ballot\ViewRequest $request, Ballot $ballot)
+    public function show(Requests\Ballot\ViewRequest $request, Ballot $ballot)
     {
         return $ballot->load($this->expand($request));
     }

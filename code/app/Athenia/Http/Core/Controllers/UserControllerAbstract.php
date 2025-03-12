@@ -90,11 +90,11 @@ abstract class UserControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\User\ViewRequest $request
+     * @param Requests\User\ViewRequest $request
      * @param User $user
      * @return User
      */
-    public function show(\App\Athenia\Http\Core\Requests\User\ViewRequest $request, User $user)
+    public function show(Requests\User\ViewRequest $request, User $user)
     {
         return $user->load($this->expand($request));
     }
@@ -155,11 +155,11 @@ abstract class UserControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\User\UpdateRequest $request
+     * @param Requests\User\UpdateRequest $request
      * @param User $user
      * @return User|BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\User\UpdateRequest $request, User $user)
+    public function update(Requests\User\UpdateRequest $request, User $user)
     {
         return $this->repository->update($user, $request->json()->all());
     }
@@ -205,10 +205,10 @@ abstract class UserControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\User\MeRequest $request
+     * @param Requests\User\MeRequest $request
      * @return JsonResponse
      */
-    public function me(\App\Athenia\Http\Core\Requests\User\MeRequest $request)
+    public function me(Requests\User\MeRequest $request)
     {
         /** @var User $user */
         $user = auth()->user();

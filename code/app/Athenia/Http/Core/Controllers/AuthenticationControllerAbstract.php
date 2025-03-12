@@ -120,11 +120,11 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Authentication\LoginRequest $request
+     * @param Requests\Authentication\LoginRequest $request
      * @return JsonResponse
      * @throws JWTException
      */
-    public function login(\App\Athenia\Http\Core\Requests\Authentication\LoginRequest $request)
+    public function login(Requests\Authentication\LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if (! $token = $this->auth->attempt($credentials)) {
@@ -236,10 +236,10 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Authentication\SignUpRequest $request
+     * @param Requests\Authentication\SignUpRequest $request
      * @return JsonResponse
      */
-    public function signUp(\App\Athenia\Http\Core\Requests\Authentication\SignUpRequest $request)
+    public function signUp(Requests\Authentication\SignUpRequest $request)
     {
         $data = $request->json()->all();
 

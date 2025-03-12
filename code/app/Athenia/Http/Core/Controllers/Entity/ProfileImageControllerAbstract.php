@@ -89,11 +89,11 @@ abstract class ProfileImageControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\ProfileImage\StoreRequest $request
+     * @param Requests\Entity\ProfileImage\StoreRequest $request
      * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Entity\ProfileImage\StoreRequest $request, IsAnEntityContract $entity)
+    public function store(Requests\Entity\ProfileImage\StoreRequest $request, IsAnEntityContract $entity)
     {
         $data = [];
 
