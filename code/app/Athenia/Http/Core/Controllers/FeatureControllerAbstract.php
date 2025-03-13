@@ -34,10 +34,10 @@ abstract class FeatureControllerAbstract extends BaseControllerAbstract
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Feature\IndexRequest $request
+     * @param Requests\Feature\IndexRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Feature\IndexRequest $request)
+    public function index(Requests\Feature\IndexRequest $request)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
@@ -45,11 +45,11 @@ abstract class FeatureControllerAbstract extends BaseControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Feature\ViewRequest $request
+     * @param Requests\Feature\ViewRequest $request
      * @param Feature $model
      * @return Feature
      */
-    public function show(\App\Athenia\Http\Core\Requests\Feature\ViewRequest $request, Feature $model)
+    public function show(Requests\Feature\ViewRequest $request, Feature $model)
     {
         return $model->load($this->expand($request));
     }

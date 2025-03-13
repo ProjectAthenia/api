@@ -96,10 +96,10 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *     )
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\IndexRequest $request
+     * @param Requests\MembershipPlan\IndexRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\MembershipPlan\IndexRequest $request)
+    public function index(Requests\MembershipPlan\IndexRequest $request)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
@@ -153,11 +153,11 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\RetrieveRequest $request
+     * @param Requests\MembershipPlan\ViewRequest $request
      * @param MembershipPlan $membershipPlan
      * @return MembershipPlan
      */
-    public function show(\App\Athenia\Http\Core\Requests\MembershipPlan\RetrieveRequest $request, MembershipPlan $membershipPlan)
+    public function show(Requests\MembershipPlan\ViewRequest $request, MembershipPlan $membershipPlan)
     {
         return $membershipPlan->load($this->expand($request));
     }
@@ -212,10 +212,10 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\StoreRequest $request
+     * @param Requests\MembershipPlan\StoreRequest $request
      * @return MembershipPlan
      */
-    public function store(\App\Athenia\Http\Core\Requests\MembershipPlan\StoreRequest $request)
+    public function store(Requests\MembershipPlan\StoreRequest $request)
     {
         $model = $this->repository->create($request->json()->all());
         return response($model, 201)->header('Location', route('v1.membership-plans.show', ['membership_plan' => $model]));
@@ -277,11 +277,11 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\UpdateRequest $request
+     * @param Requests\MembershipPlan\UpdateRequest $request
      * @param MembershipPlan $membershipPlan
      * @return BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\MembershipPlan\UpdateRequest $request, MembershipPlan $membershipPlan)
+    public function update(Requests\MembershipPlan\UpdateRequest $request, MembershipPlan $membershipPlan)
     {
         return $this->repository->update($membershipPlan, $request->json()->all());
     }
@@ -334,11 +334,11 @@ abstract class MembershipPlanControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\DeleteRequest $request
+     * @param Requests\MembershipPlan\DeleteRequest $request
      * @param MembershipPlan $model
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\MembershipPlan\DeleteRequest $request, MembershipPlan $model)
+    public function destroy(Requests\MembershipPlan\DeleteRequest $request, MembershipPlan $model)
     {
         $this->repository->delete($model);
         return response(null, 204);

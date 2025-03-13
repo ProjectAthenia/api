@@ -94,11 +94,11 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\PaymentMethod\StoreRequest $request
+     * @param Requests\Entity\PaymentMethod\StoreRequest $request
      * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Entity\PaymentMethod\StoreRequest $request, IsAnEntityContract $entity)
+    public function store(Requests\Entity\PaymentMethod\StoreRequest $request, IsAnEntityContract $entity)
     {
         $data = $request->json()->all();
 
@@ -107,12 +107,12 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Entity\PaymentMethod\UpdateRequest $request
+     * @param Requests\Entity\PaymentMethod\UpdateRequest $request
      * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return \App\Athenia\Models\BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Entity\PaymentMethod\UpdateRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
+    public function update(Requests\Entity\PaymentMethod\UpdateRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         $data = $request->json()->all();
 
@@ -175,12 +175,12 @@ abstract class PaymentMethodControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\PaymentMethod\DeleteRequest $request
+     * @param Requests\Entity\PaymentMethod\DeleteRequest $request
      * @param IsAnEntityContract $entity
      * @param PaymentMethod $paymentMethod
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\Entity\PaymentMethod\DeleteRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
+    public function destroy(Requests\Entity\PaymentMethod\DeleteRequest $request, IsAnEntityContract $entity, PaymentMethod $paymentMethod)
     {
         $this->repository->delete($paymentMethod);
         return response(null, 204);

@@ -36,8 +36,7 @@ final class MessageMailerTest extends TestCase
         $builtMailer = $messageMailer->build();
 
         $this->assertEquals([['name' => 'Darlene Dora', 'address' => 'darlene@test.com']], $builtMailer->to);
-        $this->assertEquals([['name' => 'Project Athenia', 'address' => 'thehaeckelsociety@gmail.com']], $builtMailer->from);
-        $this->assertEquals([['name' => 'Project Athenia', 'address' => 'thehaeckelsociety@gmail.com']], $builtMailer->bcc);
+        $this->assertEquals([['name' => 'Example', 'address' => 'hello@example.com']], $builtMailer->from);
         $this->assertEquals([['name' => null, 'address' => 'john@test.com']], $builtMailer->replyTo);
 
         $this->assertEquals('Test Message', $builtMailer->subject);

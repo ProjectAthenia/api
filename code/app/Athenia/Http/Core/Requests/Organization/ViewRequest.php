@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Http\Core\Requests\MembershipPlan;
+namespace App\Athenia\Http\Core\Requests\Organization;
 
 use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
-use App\Models\Subscription\MembershipPlan;
-use App\Policies\Subscription\MembershipPlanPolicy;
+use App\Models\Organization\Organization;
+use App\Policies\Organization\OrganizationPolicy;
 
 /**
  * Class ViewRequest
- * @package App\Http\Core\Requests\MembershipPlan
+ * @package App\Http\Core\Requests\Organization
  */
-class RetrieveRequest extends BaseAuthenticatedRequestAbstract
+class ViewRequest extends BaseAuthenticatedRequestAbstract
 {
     use HasNoRules;
 
@@ -23,7 +23,7 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyAction(): string
     {
-        return MembershipPlanPolicy::ACTION_VIEW;
+        return OrganizationPolicy::ACTION_VIEW;
     }
 
     /**
@@ -33,7 +33,7 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyModel(): string
     {
-        return MembershipPlan::class;
+        return Organization::class;
     }
 
     /**
@@ -44,19 +44,24 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
     protected function getPolicyParameters(): array
     {
         return [
-            $this->route('membership_plan'),
+            $this->route('organization'),
         ];
     }
 
     /**
-     * All expands that are allowed for this request
+     * All allowed expands for this request
      *
      * @return array
      */
     public function allowedExpands(): array
     {
         return [
-            'features',
+            'paymentMethods',
+            'subscriptions',
+            'subscriptions.membershipPlanRate',
+            'subscriptions.membershipPlanRate.membershipPlan',
+            'subscriptions.membershipPlanRate.membershipPlan.features',
+            'subscriptions.paymentMethod',
         ];
     }
 }

@@ -34,11 +34,11 @@ abstract class PaymentControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Entity\Payment\IndexRequest $request
+     * @param Requests\Entity\Payment\IndexRequest $request
      * @param IsAnEntityContract $entity
      * @return LengthAwarePaginator|Collection
      */
-    public function index(\App\Athenia\Http\Core\Requests\Entity\Payment\IndexRequest $request, IsAnEntityContract $entity)
+    public function index(Requests\Entity\Payment\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 

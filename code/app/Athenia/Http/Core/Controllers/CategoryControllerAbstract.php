@@ -35,10 +35,10 @@ abstract class CategoryControllerAbstract extends BaseControllerAbstract
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Category\IndexRequest $request
+     * @param Requests\Category\IndexRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Category\IndexRequest $request)
+    public function index(Requests\Category\IndexRequest $request)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
@@ -46,11 +46,11 @@ abstract class CategoryControllerAbstract extends BaseControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Category\ViewRequest $request
+     * @param Requests\Category\ViewRequest $request
      * @param Category $model
      * @return Category
      */
-    public function show(\App\Athenia\Http\Core\Requests\Category\ViewRequest $request, Category $model)
+    public function show(Requests\Category\ViewRequest $request, Category $model)
     {
         return $model->load($this->expand($request));
     }
@@ -58,10 +58,10 @@ abstract class CategoryControllerAbstract extends BaseControllerAbstract
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Category\StoreRequest $request
+     * @param Requests\Category\StoreRequest $request
      * @return Category
      */
-    public function store(\App\Athenia\Http\Core\Requests\Category\StoreRequest $request)
+    public function store(Requests\Category\StoreRequest $request)
     {
         $model = $this->repository->create($request->json()->all());
         return response($model, 201);
@@ -70,11 +70,11 @@ abstract class CategoryControllerAbstract extends BaseControllerAbstract
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Category\UpdateRequest $request
+     * @param Requests\Category\UpdateRequest $request
      * @param Category $membershipPlan
      * @return BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Category\UpdateRequest $request, Category $membershipPlan)
+    public function update(Requests\Category\UpdateRequest $request, Category $membershipPlan)
     {
         return $this->repository->update($membershipPlan, $request->json()->all());
     }
@@ -82,11 +82,11 @@ abstract class CategoryControllerAbstract extends BaseControllerAbstract
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Category\DeleteRequest $request
+     * @param Requests\Category\DeleteRequest $request
      * @param Category $model
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\Category\DeleteRequest $request, Category $model)
+    public function destroy(Requests\Category\DeleteRequest $request, Category $model)
     {
         $this->repository->delete($model);
         return response(null, 204);

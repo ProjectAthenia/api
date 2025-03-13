@@ -23,11 +23,11 @@ abstract class CollectionControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\Collection\ViewRequest $request
+     * @param Requests\Collection\ViewRequest $request
      * @param Collection $model
      * @return Category
      */
-    public function show(\App\Athenia\Http\Core\Requests\Collection\ViewRequest $request, Collection $model)
+    public function show(Requests\Collection\ViewRequest $request, Collection $model)
     {
         return $model->load($this->expand($request));
     }
@@ -35,11 +35,11 @@ abstract class CollectionControllerAbstract
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Collection\UpdateRequest $request
+     * @param Requests\Collection\UpdateRequest $request
      * @param Collection $model
      * @return BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Collection\UpdateRequest $request, Collection $model)
+    public function update(Requests\Collection\UpdateRequest $request, Collection $model)
     {
         return $this->repository->update($model, $request->json()->all());
     }
@@ -47,11 +47,11 @@ abstract class CollectionControllerAbstract
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\Collection\DeleteRequest $request
+     * @param Requests\Collection\DeleteRequest $request
      * @param Collection $model
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\Collection\DeleteRequest $request, Collection $model)
+    public function destroy(Requests\Collection\DeleteRequest $request, Collection $model)
     {
         $this->repository->delete($model);
         return response(null, 204);

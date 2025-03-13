@@ -34,11 +34,11 @@ abstract class MembershipPlanRateControllerAbstract extends BaseControllerAbstra
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\MembershipPlan\MembershipPlanRate\IndexRequest $request
+     * @param Requests\MembershipPlan\MembershipPlanRate\IndexRequest $request
      * @param MembershipPlan $membershipPlan
      * @return LengthAwarePaginator|Collection
      */
-    public function index(\App\Athenia\Http\Core\Requests\MembershipPlan\MembershipPlanRate\IndexRequest $request, MembershipPlan $membershipPlan)
+    public function index(Requests\MembershipPlan\MembershipPlanRate\IndexRequest $request, MembershipPlan $membershipPlan)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [$membershipPlan], (int)$request->input('page', 1));
     }

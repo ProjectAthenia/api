@@ -4,11 +4,8 @@ declare(strict_types=1);
 namespace App\Athenia\Http\Core\Controllers;
 
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
-use App\Athenia\Http\Core\Requests\Message\StoreRequest;
-use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Http\Core\Requests;
+use App\Http\Core\Requests;
 use App\Models\Organization\Organization;
-use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -28,7 +25,7 @@ abstract class MessageControllerAbstract extends BaseControllerAbstract
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param Requests\Message\StoreRequest $request
      * @return Organization
      */
     public function store(Requests\Message\StoreRequest $request)

@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Http\Core\Requests\Organization;
+namespace App\Athenia\Http\Core\Requests\MembershipPlan;
 
 use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
-use App\Models\Organization\Organization;
-use App\Policies\Organization\OrganizationPolicy;
+use App\Models\Subscription\MembershipPlan;
+use App\Policies\Subscription\MembershipPlanPolicy;
 
 /**
  * Class ViewRequest
- * @package App\Http\Core\Requests\Organization
+ * @package App\Http\Core\Requests\MembershipPlan
  */
-class RetrieveRequest extends BaseAuthenticatedRequestAbstract
+class ViewRequest extends BaseAuthenticatedRequestAbstract
 {
     use HasNoRules;
 
@@ -23,7 +23,7 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyAction(): string
     {
-        return OrganizationPolicy::ACTION_VIEW;
+        return MembershipPlanPolicy::ACTION_VIEW;
     }
 
     /**
@@ -33,7 +33,7 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyModel(): string
     {
-        return Organization::class;
+        return MembershipPlan::class;
     }
 
     /**
@@ -44,24 +44,19 @@ class RetrieveRequest extends BaseAuthenticatedRequestAbstract
     protected function getPolicyParameters(): array
     {
         return [
-            $this->route('organization'),
+            $this->route('membership_plan'),
         ];
     }
 
     /**
-     * All allowed expands for this request
+     * All expands that are allowed for this request
      *
      * @return array
      */
     public function allowedExpands(): array
     {
         return [
-            'paymentMethods',
-            'subscriptions',
-            'subscriptions.membershipPlanRate',
-            'subscriptions.membershipPlanRate.membershipPlan',
-            'subscriptions.membershipPlanRate.membershipPlan.features',
-            'subscriptions.paymentMethod',
+            'features',
         ];
     }
 }
