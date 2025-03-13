@@ -15,8 +15,11 @@ After that, you always want to make sure you inspect all changes, and you still 
 
 # 3.5.0
 
-This version rearranges all requests to make sure they are easy to modify going forward. After rsync is ran, make sure to inspect all request changes to identify any customizations previously made. All of those customizations should now be put into the new Requests structure in app/Http/Core/Requests. The request code/app/Athenia/Http/Core/Requests/MembershipPlan/RetrieveRequest.php and code/app/Athenia/Http/Core/Requests/Organization/RetrieveRequest.php should both be deleted after rsync as those have been renamed to `ViewRequest`.
+This version rearranges all requests to make sure they are easy to modify going forward. After rsync is ran, make sure to inspect all request changes to identify any customizations previously made. All of those customizations should now be put into the new Requests structure in app/Http/Core/Requests, as opposed to app/Athenia/Http/Core/Requests. The request code/app/Athenia/Http/Core/Requests/MembershipPlan/RetrieveRequest.php and code/app/Athenia/Http/Core/Requests/Organization/RetrieveRequest.php should both be deleted after rsync as those have been renamed to `ViewRequest`.
 
+This version also updates the file `code/app/Athenia/Mail/MessageMailer.php` to take in from information out of config.
+
+This version also fixes a deprecation warning from a recent PHPUnit update. This again will be resolved mostly by syncing the code directory.
 
 # 3.4.0
 
