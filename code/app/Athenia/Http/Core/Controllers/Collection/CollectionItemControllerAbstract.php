@@ -27,21 +27,21 @@ abstract class CollectionItemControllerAbstract extends BaseControllerAbstract
     {}
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Collection\CollectionItem\IndexRequest $request
+     * @param Requests\Collection\CollectionItem\IndexRequest $request
      * @param Collection $collection
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Collection\CollectionItem\IndexRequest $request, Collection $collection)
+    public function index(Requests\Collection\CollectionItem\IndexRequest $request, Collection $collection)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [$collection], (int)$request->input('page', 1));
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Collection\CollectionItem\StoreRequest $request
+     * @param Requests\Collection\CollectionItem\StoreRequest $request
      * @param Collection $collection
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Collection\CollectionItem\StoreRequest $request, Collection $collection) : JsonResponse
+    public function store(Requests\Collection\CollectionItem\StoreRequest $request, Collection $collection) : JsonResponse
     {
         $data = $request->json()->all();
         return new JsonResponse($this->repository->create($data, $collection), 201);

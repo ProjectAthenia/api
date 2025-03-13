@@ -13,6 +13,11 @@ The fastest way to upgrade is to run the following commands from your repos root
 
 After that, you always want to make sure you inspect all changes, and you still want to go through the change log to check for moved files and deleted files, as rsync cannot check for deleted files, since it would delete any files created for the child application.
 
+# 3.5.0
+
+This version rearranges all requests to make sure they are easy to modify going forward. After rsync is ran, make sure to inspect all request changes to identify any customizations previously made. All of those customizations should now be put into the new Requests structure in app/Http/Core/Requests. The request code/app/Athenia/Http/Core/Requests/MembershipPlan/RetrieveRequest.php and code/app/Athenia/Http/Core/Requests/Organization/RetrieveRequest.php should both be deleted after rsync as those have been renamed to `ViewRequest`.
+
+
 # 3.4.0
 
 This update adds some miscellaneous changes as well as updating the environment to php 8.4. It also updates the dependencies to use laravel 11, which has resulted in the generators package to be removed from the base service provider. After updating the Athenia files above, make sure to update the following files.

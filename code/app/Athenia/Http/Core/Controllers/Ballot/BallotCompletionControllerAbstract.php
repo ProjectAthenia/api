@@ -31,11 +31,11 @@ abstract class BallotCompletionControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Ballot\BallotCompletion\StoreRequest $request
+     * @param Requests\Ballot\BallotCompletion\StoreRequest $request
      * @param Ballot $ballot
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Ballot\BallotCompletion\StoreRequest $request, Ballot $ballot)
+    public function store(Requests\Ballot\BallotCompletion\StoreRequest $request, Ballot $ballot)
     {
         $data = $request->json()->all();
 

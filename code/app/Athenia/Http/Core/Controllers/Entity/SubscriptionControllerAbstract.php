@@ -48,11 +48,11 @@ abstract class SubscriptionControllerAbstract extends BaseControllerAbstract
     /**
      * Gets all assets for a user
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\Subscription\IndexRequest $request
+     * @param Requests\Entity\Subscription\IndexRequest $request
      * @param IsAnEntityContract $entity
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Entity\Subscription\IndexRequest $request, IsAnEntityContract $entity)
+    public function index(Requests\Entity\Subscription\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 
@@ -122,11 +122,11 @@ abstract class SubscriptionControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\Subscription\StoreRequest $request
+     * @param Requests\Entity\Subscription\StoreRequest $request
      * @param IsAnEntityContract $entity
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Entity\Subscription\StoreRequest $request, IsAnEntityContract $entity)
+    public function store(Requests\Entity\Subscription\StoreRequest $request, IsAnEntityContract $entity)
     {
         $model = $this->entitySubscriptionCreationService->createSubscription($entity, $request->json()->all());
         return new JsonResponse($model, 201);
@@ -196,12 +196,12 @@ abstract class SubscriptionControllerAbstract extends BaseControllerAbstract
      *      ),
      * )
      *
-     * @param \App\Athenia\Http\Core\Requests\Entity\Subscription\UpdateRequest $request
+     * @param Requests\Entity\Subscription\UpdateRequest $request
      * @param IsAnEntityContract $entity
      * @param Subscription $subscription
      * @return Subscription|BaseModelAbstract
      */
-    public function update(\App\Athenia\Http\Core\Requests\Entity\Subscription\UpdateRequest $request, IsAnEntityContract $entity, Subscription $subscription)
+    public function update(Requests\Entity\Subscription\UpdateRequest $request, IsAnEntityContract $entity, Subscription $subscription)
     {
         $data = $request->json()->all();
 

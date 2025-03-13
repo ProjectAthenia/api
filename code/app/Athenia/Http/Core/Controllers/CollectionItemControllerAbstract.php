@@ -22,11 +22,11 @@ abstract class CollectionItemControllerAbstract
     /**
      * Display the specified resource.
      *
-     * @param \App\Athenia\Http\Core\Requests\CollectionItem\ViewRequest $request
+     * @param Requests\CollectionItem\ViewRequest $request
      * @param CollectionItem $model
      * @return Category
      */
-    public function show(\App\Athenia\Http\Core\Requests\CollectionItem\ViewRequest $request, CollectionItem $model)
+    public function show(Requests\CollectionItem\ViewRequest $request, CollectionItem $model)
     {
         return $model->load($this->expand($request));
     }
@@ -34,11 +34,11 @@ abstract class CollectionItemControllerAbstract
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Athenia\Http\Core\Requests\CollectionItem\DeleteRequest $request
+     * @param Requests\CollectionItem\DeleteRequest $request
      * @param CollectionItem $model
      * @return null
      */
-    public function destroy(\App\Athenia\Http\Core\Requests\CollectionItem\DeleteRequest $request, CollectionItem $model)
+    public function destroy(Requests\CollectionItem\DeleteRequest $request, CollectionItem $model)
     {
         $this->repository->delete($model);
         return response(null, 204);

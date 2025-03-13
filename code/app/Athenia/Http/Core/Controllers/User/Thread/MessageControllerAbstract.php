@@ -38,12 +38,12 @@ abstract class MessageControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Thread\Message\IndexRequest $request
+     * @param Requests\User\Thread\Message\IndexRequest $request
      * @param User $user
      * @param Thread $thread
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\User\Thread\Message\IndexRequest $request, User $user, Thread $thread)
+    public function index(Requests\User\Thread\Message\IndexRequest $request, User $user, Thread $thread)
     {
         $order = $this->order($request);
 
@@ -55,12 +55,12 @@ abstract class MessageControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Thread\Message\StoreRequest $request
+     * @param Requests\User\Thread\Message\StoreRequest $request
      * @param User $user
      * @param Thread $thread
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\User\Thread\Message\StoreRequest $request, User $user, Thread $thread) : JsonResponse
+    public function store(Requests\User\Thread\Message\StoreRequest $request, User $user, Thread $thread) : JsonResponse
     {
         $message = $request->json('message');
         $data = [
@@ -80,14 +80,14 @@ abstract class MessageControllerAbstract extends BaseControllerAbstract
     /**
      * Updates a message, mostly used to set the message as seen
      *
-     * @param \App\Athenia\Http\Core\Requests\User\Thread\Message\UpdateRequest $request
+     * @param Requests\User\Thread\Message\UpdateRequest $request
      * @param User $user
      * @param Thread $thread
      * @param Message $message
      * @return BaseModelAbstract
      * @throws \Exception
      */
-    public function update(\App\Athenia\Http\Core\Requests\User\Thread\Message\UpdateRequest $request, User $user, Thread $thread, Message $message)
+    public function update(Requests\User\Thread\Message\UpdateRequest $request, User $user, Thread $thread, Message $message)
     {
         $requestData = $request->json()->all();
 

@@ -34,21 +34,21 @@ abstract class ThreadControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Thread\IndexRequest $request
+     * @param Requests\User\Thread\IndexRequest $request
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\User\Thread\IndexRequest $request, User $user)
+    public function index(Requests\User\Thread\IndexRequest $request, User $user)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [$user], (int)$request->input('page', 1));
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Thread\StoreRequest $request
+     * @param Requests\User\Thread\StoreRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\User\Thread\StoreRequest $request, User $user) : JsonResponse
+    public function store(Requests\User\Thread\StoreRequest $request, User $user) : JsonResponse
     {
         $data = $request->json()->all();
         $data['users'][] = $user->id;

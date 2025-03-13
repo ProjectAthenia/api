@@ -46,21 +46,21 @@ abstract class ContactControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Contact\IndexRequest $request
+     * @param Requests\User\Contact\IndexRequest $request
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\User\Contact\IndexRequest $request, User $user)
+    public function index(Requests\User\Contact\IndexRequest $request, User $user)
     {
         return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [$user], (int)$request->input('page', 1));
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\User\Contact\StoreRequest $request
+     * @param Requests\User\Contact\StoreRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\User\Contact\StoreRequest $request, User $user)
+    public function store(Requests\User\Contact\StoreRequest $request, User $user)
     {
         $data = $request->json()->all();
 
@@ -77,13 +77,13 @@ abstract class ContactControllerAbstract extends BaseControllerAbstract
     /**
      * Updates an event participant, mostly used to link assets
      *
-     * @param \App\Athenia\Http\Core\Requests\User\Contact\UpdateRequest $request
+     * @param Requests\User\Contact\UpdateRequest $request
      * @param User $user
      * @param Contact $contact
      * @return BaseModelAbstract
      * @throws \Exception
      */
-    public function update(\App\Athenia\Http\Core\Requests\User\Contact\UpdateRequest $request, User $user, Contact $contact)
+    public function update(Requests\User\Contact\UpdateRequest $request, User $user, Contact $contact)
     {
         $requestData = $request->json()->all();
 

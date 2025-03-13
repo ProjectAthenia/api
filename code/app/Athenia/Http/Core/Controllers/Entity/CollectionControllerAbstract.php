@@ -30,11 +30,11 @@ abstract class CollectionControllerAbstract extends BaseControllerAbstract
     {}
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Entity\Collection\IndexRequest $request
+     * @param Requests\Entity\Collection\IndexRequest $request
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function index(\App\Athenia\Http\Core\Requests\Entity\Collection\IndexRequest $request, IsAnEntityContract $entity)
+    public function index(Requests\Entity\Collection\IndexRequest $request, IsAnEntityContract $entity)
     {
         $filter = $this->filter($request);
 
@@ -64,11 +64,11 @@ abstract class CollectionControllerAbstract extends BaseControllerAbstract
     }
 
     /**
-     * @param \App\Athenia\Http\Core\Requests\Entity\Collection\StoreRequest $request
+     * @param Requests\Entity\Collection\StoreRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function store(\App\Athenia\Http\Core\Requests\Entity\Collection\StoreRequest $request, IsAnEntityContract $entity) : JsonResponse
+    public function store(Requests\Entity\Collection\StoreRequest $request, IsAnEntityContract $entity) : JsonResponse
     {
         $data = $request->json()->all();
 
