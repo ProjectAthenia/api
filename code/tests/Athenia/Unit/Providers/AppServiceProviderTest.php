@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use App\Providers\AppServiceProvider;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
@@ -15,10 +17,7 @@ use Tests\TestCase;
  */
 final class AppServiceProviderTest extends TestCase
 {
-    /**
-     * @dataProvider allProviders
-     * @param $provide
-     */
+    #[DataProvider('allProviders')]
     public function testBinds($provide): void
     {
         $this->app->make($provide);
@@ -35,7 +34,9 @@ final class AppServiceProviderTest extends TestCase
             return $carry;
         }, []);
 
-        $this->assertEquals(0, count(array_diff(array_merge($provides, $contracts), array_intersect($provides, $contracts))));
+        $misconfigured = array_values(array_diff(array_merge($provides, $contracts), array_intersect($provides, $contracts)));
+
+        $this->assertEmpty($misconfigured, "The following services are misconfigured " . json_encode($misconfigured));
     }
 
     /**
