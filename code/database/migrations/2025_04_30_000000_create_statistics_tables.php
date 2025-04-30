@@ -21,6 +21,8 @@ class CreateStatisticsTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('model');
+            $table->string('relation');
             $table->boolean('public')->default(false);
             $table->timestamps();
             $table->softDeletes();
