@@ -36,6 +36,7 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
@@ -103,6 +104,8 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use App\Athenia\Repositories\Statistics\StatisticRepository;
+use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
+use App\Models\Statistics\TargetStatistic;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -147,6 +150,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             VoteRepositoryContract::class,
             UserRepositoryContract::class,
             StatisticRepositoryContract::class,
+            TargetStatisticRepositoryContract::class,
         ], $this->appProviders());
     }
 
@@ -363,7 +367,18 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log'),
             );
         });
-        $this->app->bind(StatisticRepositoryContract::class, StatisticRepository::class);
+        $this->app->bind(StatisticRepositoryContract::class, function() {
+            return new StatisticRepository(
+                new Statistic(),
+                $this->app->make('log'),
+            );
+        });
+        $this->app->bind(TargetStatisticRepositoryContract::class, function() {
+            return new TargetStatisticRepository(
+                new TargetStatistic(),
+                $this->app->make('log'),
+            );
+        });
         $this->registerApp();
     }
 

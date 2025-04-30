@@ -41,15 +41,14 @@ class CreateStatisticsTables extends Migration
             $table->foreign('statistic_id')->references('id')->on('statistics');
         });
 
-        Schema::create('user_statistics', function (Blueprint $table) {
+        Schema::create('target_statistics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->morphs('target');
             $table->unsignedBigInteger('statistic_id');
             $table->json('filters')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('statistic_id')->references('id')->on('statistics');
         });
     }
@@ -61,7 +60,7 @@ class CreateStatisticsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_statistics');
+        Schema::dropIfExists('target_statistics');
         Schema::dropIfExists('statistic_filters');
         Schema::dropIfExists('statistics');
     }

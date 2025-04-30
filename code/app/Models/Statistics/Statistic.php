@@ -6,7 +6,7 @@ namespace App\Athenia\Models\Statistics;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
-use App\Athenia\Models\User\UserStatistic;
+use App\Models\Statistics\TargetStatistic;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,8 +26,8 @@ use Illuminate\Validation\Rule;
  * @property bool $public
  * @property-read Collection|StatisticFilter[] $statisticFilters
  * @property-read int|null $statistic_filters_count
- * @property-read Collection|UserStatistic[] $userStatistics
- * @property-read int|null $user_statistics_count
+ * @property-read Collection|TargetStatistic[] $targetStatistics
+ * @property-read int|null $target_statistics_count
  * @mixin Eloquent
  */
 class Statistic extends BaseModelAbstract implements HasValidationRulesContract
@@ -45,13 +45,13 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
     }
 
     /**
-     * all instances of the user statistics in the system
+     * All instances of the target statistics in the system
      *
      * @return HasMany
      */
-    public function userStatistics(): HasMany
+    public function targetStatistics(): HasMany
     {
-        return $this->hasMany(UserStatistic::class);
+        return $this->hasMany(TargetStatistic::class);
     }
 
     /**
