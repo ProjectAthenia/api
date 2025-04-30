@@ -170,6 +170,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
     {
         Relation::morphMap(array_merge([
             'article' => Article::class,
+            'collection' => Collection::class,
             'organization' => Organization::class,
             'subscription' => Subscription::class,
             'user' => User::class,

@@ -3,11 +3,15 @@ declare(strict_types=1);
 
 namespace App\Models\Collection;
 
+use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Models\Traits\HasStatistics;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\OwnedByValidator;
+use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Validation\Rule;
 
@@ -25,6 +29,7 @@ use Illuminate\Validation\Rule;
  * @property-read int|null $collection_items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection\CollectionItem> $collectionItems
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Statistics\TargetStatistic> $targetStatistics
  * @method static \Database\Factories\Collection\CollectionFactory factory(...$parameters)
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Collection getAggregateMethod()
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Collection isAppendRelationsCount()
@@ -59,9 +64,9 @@ use Illuminate\Validation\Rule;
  * @method static \Illuminate\Database\Eloquent\Builder|Collection withoutTrashed()
  * @mixin \Eloquent
  */
-class Collection extends BaseModelAbstract implements HasValidationRulesContract
+class Collection extends BaseModelAbstract implements HasValidationRulesContract, CanBeStatisticTargetContract
 {
-    use HasValidationRules;
+    use HasValidationRules, HasStatistics;
 
     /**
      * All collection items
