@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\Domain;
+namespace Tests\Athenia\Unit\Services;
 
 use Illuminate\Contracts\Hashing\Hasher;
 use App\Athenia\Exceptions\AuthenticationException;

@@ -35,6 +35,7 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
@@ -101,6 +102,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use App\Athenia\Repositories\Statistics\StatisticRepository;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -144,6 +146,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ThreadRepositoryContract::class,
             VoteRepositoryContract::class,
             UserRepositoryContract::class,
+            StatisticRepositoryContract::class,
         ], $this->appProviders());
     }
 
@@ -360,6 +363,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log'),
             );
         });
+        $this->app->bind(StatisticRepositoryContract::class, StatisticRepository::class);
         $this->registerApp();
     }
 

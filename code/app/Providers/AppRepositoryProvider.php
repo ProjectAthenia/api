@@ -38,6 +38,5 @@ class AppRepositoryProvider extends BaseRepositoryProvider
      */
     public function registerApp(): void
     {
-
     }
 }
