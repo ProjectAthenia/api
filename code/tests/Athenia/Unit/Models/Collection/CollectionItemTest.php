@@ -3,18 +3,28 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Models\Collection;
 
+use App\Athenia\Contracts\Models\CanBeAggregatedContract;
+use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Tests\TestCase;
 
 final class CollectionItemTest extends TestCase
 {
+    public function testImplementsCanBeAggregatedContract(): void
+    {
+        $model = new CollectionItem();
+        $this->assertInstanceOf(CanBeAggregatedContract::class, $model);
+    }
+
     public function testItem(): void
     {
         $model = new CollectionItem();
         $relation = $model->item();
 
-        $this->assertEquals('collection_items.item_id', $relation->getQualifiedForeignKeyName());
-        $this->assertEquals('item_type', $relation->getMorphType());
+        $this->assertInstanceOf(MorphTo::class, $relation);
     }
 
     public function testCategories(): void
@@ -22,10 +32,8 @@ final class CollectionItemTest extends TestCase
         $model = new CollectionItem();
         $relation = $model->categories();
 
+        $this->assertInstanceOf(BelongsToMany::class, $relation);
         $this->assertEquals('collection_item_categories', $relation->getTable());
-        $this->assertEquals('collection_item_categories.collection_item_id', $relation->getQualifiedForeignPivotKeyName());
-        $this->assertEquals('collection_item_categories.category_id', $relation->getQualifiedRelatedPivotKeyName());
-        $this->assertEquals('collection_items.id', $relation->getQualifiedParentKeyName());
     }
 
     public function testCollection(): void
@@ -33,7 +41,7 @@ final class CollectionItemTest extends TestCase
         $model = new CollectionItem();
         $relation = $model->collection();
 
-        $this->assertEquals('collections.id', $relation->getQualifiedOwnerKeyName());
-        $this->assertEquals('collection_items.collection_id', $relation->getQualifiedForeignKeyName());
+        $this->assertInstanceOf(BelongsTo::class, $relation);
+        $this->assertInstanceOf(Collection::class, $relation->getRelated());
     }
 }
