@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Services\Statistics;
 
-use App\Athenia\Contracts\Services\Statistics\StatisticRelationTraversalServiceContract;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
 use App\Models\Statistics\StatisticFilter;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,15 +16,15 @@ use Illuminate\Support\Collection as BaseCollection;
 class TargetStatisticProcessingService
 {
     /**
-     * @var StatisticRelationTraversalServiceContract
+     * @var RelationTraversalServiceContract
      */
-    private StatisticRelationTraversalServiceContract $relationTraversalService;
+    private RelationTraversalServiceContract $relationTraversalService;
 
     /**
      * TargetStatisticProcessingService constructor.
-     * @param StatisticRelationTraversalServiceContract $relationTraversalService
+     * @param RelationTraversalServiceContract $relationTraversalService
      */
-    public function __construct(StatisticRelationTraversalServiceContract $relationTraversalService)
+    public function __construct(RelationTraversalServiceContract $relationTraversalService)
     {
         $this->relationTraversalService = $relationTraversalService;
     }
@@ -38,9 +38,9 @@ class TargetStatisticProcessingService
     public function processTargetStatistic(TargetStatistic $targetStatistic): array
     {
         // Get all models at the end of the relation chain
-        $models = $this->relationTraversalService->getRelatedModels(
-            $targetStatistic->statistic,
-            $targetStatistic->target
+        $models = $this->relationTraversalService->traverseRelations(
+            $targetStatistic->target,
+            $targetStatistic->statistic->relation
         );
 
         // Get all filters for this statistic

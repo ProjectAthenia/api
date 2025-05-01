@@ -1,32 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Services\Statistics;
+namespace App\Athenia\Services\Relations;
 
-use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
-use App\Athenia\Contracts\Services\Statistics\StatisticRelationTraversalServiceContract;
-use App\Models\Statistics\Statistic;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class StatisticRelationTraversalService
- * @package App\Athenia\Services\Statistics
+ * Class RelationTraversalService
+ * A general-purpose service for traversing model relations
+ * @package App\Athenia\Services\Relations
  */
-class StatisticRelationTraversalService implements StatisticRelationTraversalServiceContract
+class RelationTraversalService implements RelationTraversalServiceContract
 {
     /**
-     * Takes a statistic and a target, and traverses through the relation chain specified
-     * in the statistic to return all models at the end of the relation chain
+     * Traverses through a chain of relations starting from a model and returns all models at the end of the chain
      *
-     * @param Statistic $statistic The statistic containing the relation path
-     * @param CanBeStatisticTargetContract&Model $target The model to start traversing from
+     * @param Model $startingModel The model to start traversing from
+     * @param string $relationPath The dot-notation path of relations to traverse (e.g. "parent.children.items")
      * @return Collection The collection of models at the end of the relation chain
      */
-    public function getRelatedModels(Statistic $statistic, CanBeStatisticTargetContract $target): Collection
+    public function traverseRelations(Model $startingModel, string $relationPath): Collection
     {
-        $relationPath = $statistic->relation;
-        $currentModels = collect([$target]);
+        $currentModels = collect([$startingModel]);
 
         if (empty($relationPath)) {
             return $currentModels;
