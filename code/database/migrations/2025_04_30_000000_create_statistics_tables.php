@@ -15,41 +15,41 @@ class CreateStatisticsTables extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
+        // Create statistics table
         Schema::create('statistics', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
             $table->string('model');
             $table->string('relation');
-            $table->boolean('public')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
 
+        // Create statistic filters table
         Schema::create('statistic_filters', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('statistic_id');
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('type');
-            $table->json('options')->nullable();
+            $table->id();
+            $table->foreignId('statistic_id')
+                ->constrained('statistics')
+                ->onDelete('cascade');
+            $table->string('field');
+            $table->string('operator');
+            $table->string('value')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('statistic_id')->references('id')->on('statistics');
         });
 
+        // Create target statistics table
         Schema::create('target_statistics', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
+            $table->foreignId('statistic_id')
+                ->constrained('statistics')
+                ->onDelete('cascade');
             $table->morphs('target');
-            $table->unsignedBigInteger('statistic_id');
-            $table->json('filters')->nullable();
+            $table->json('result')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('statistic_id')->references('id')->on('statistics');
         });
     }
 
@@ -58,7 +58,7 @@ class CreateStatisticsTables extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('target_statistics');
         Schema::dropIfExists('statistic_filters');
