@@ -34,6 +34,8 @@ use App\Listeners\Vote\VoteCreatedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
+use App\Athenia\Models\Collection\CollectionItem;
+use App\Athenia\Observers\AggregatedModelObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 /**
@@ -117,6 +119,7 @@ abstract class BaseEventServiceProvider extends ServiceProvider
         Article::observe(IndexableModelObserver::class);
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
+        CollectionItem::observe(AggregatedModelObserver::class);
 
         $this->registerObservers();
     }

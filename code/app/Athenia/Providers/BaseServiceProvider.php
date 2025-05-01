@@ -28,6 +28,7 @@ use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Athenia\Services\Asset\AssetImportService;
@@ -46,6 +47,7 @@ use App\Athenia\Services\StripeCustomerService;
 use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
+use App\Athenia\Services\Statistics\TargetStatisticProcessingService;
 use App\Models\Messaging\Message;
 use App\Services\Indexing\ResourceRepositoryService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -80,6 +82,7 @@ abstract class BaseServiceProvider extends ServiceProvider
             StripeCustomerServiceContract::class,
             StripePaymentServiceContract::class,
             TokenGenerationServiceContract::class,
+            TargetStatisticProcessingServiceContract::class,
         ], $this->appProviders());
     }
 
@@ -204,6 +207,9 @@ abstract class BaseServiceProvider extends ServiceProvider
         });
         $this->app->bind(TokenGenerationServiceContract::class, fn () =>
             new TokenGenerationService()
+        );
+        $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
+            new TargetStatisticProcessingService()
         );
         $this->registerApp();
     }
