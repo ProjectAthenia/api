@@ -23,6 +23,7 @@ class CreateStatisticsTables extends Migration
             $table->string('name');
             $table->string('model');
             $table->string('relation');
+            $table->boolean('public')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
