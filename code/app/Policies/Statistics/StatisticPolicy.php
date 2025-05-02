@@ -5,7 +5,7 @@ namespace App\Policies\Statistics;
 
 use App\Models\Role;
 use App\Models\User\User;
-use App\Policies\BasePolicyAbstract;
+use App\Athenia\Policies\BasePolicyAbstract;
 
 /**
  * Class StatisticPolicy
