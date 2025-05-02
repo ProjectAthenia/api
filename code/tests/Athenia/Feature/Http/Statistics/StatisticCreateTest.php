@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Tests\Athenia\Feature\Http\Statistics;
 
 use App\Athenia\Models\Statistics\Statistic;
+use App\Athenia\Models\Role;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
+use Tests\Traits\RolesTesting;
 
 /**
  * Class StatisticCreateTest
@@ -13,7 +15,7 @@ use Tests\TestCase;
  */
 class StatisticCreateTest extends TestCase
 {
-    use DatabaseSetupTrait;
+    use DatabaseSetupTrait, RolesTesting;
 
     private $route = '/v1/statistics';
 
@@ -32,7 +34,7 @@ class StatisticCreateTest extends TestCase
 
     public function testNotAuthorizedUserBlocked()
     {
-        $this->actingAs($this->createUser());
+        $this->actAsUser();
         $response = $this->json('POST', $this->route);
 
         $response->assertStatus(403);
@@ -40,7 +42,7 @@ class StatisticCreateTest extends TestCase
 
     public function testCreateSuccessWithoutStatisticFilters()
     {
-        $this->actingAs($this->createUser(['roles' => ['content_editor']]));
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $properties = [
             'name' => 'Test Statistic',
@@ -57,7 +59,7 @@ class StatisticCreateTest extends TestCase
 
     public function testCreateSuccessWithStatisticFilters()
     {
-        $this->actingAs($this->createUser(['roles' => ['content_editor']]));
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $properties = [
             'name' => 'Test Statistic',
@@ -86,7 +88,7 @@ class StatisticCreateTest extends TestCase
 
     public function testCreateFailsValidation()
     {
-        $this->actingAs($this->createUser(['roles' => ['content_editor']]));
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $response = $this->json('POST', $this->route, [
             'name' => '',
@@ -108,7 +110,7 @@ class StatisticCreateTest extends TestCase
 
     public function testCreateFailsStatisticFilterValidation()
     {
-        $this->actingAs($this->createUser(['roles' => ['content_editor']]));
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
