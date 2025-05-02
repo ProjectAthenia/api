@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Feature\Http\Statistics;
 
-use App\Athenia\Models\Statistics\Statistic;
-use App\Athenia\Models\Role;
+use App\Models\Statistics\Statistic;
+use App\Models\Role;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\RolesTesting;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class StatisticCreateTest
@@ -43,15 +44,20 @@ class StatisticCreateTest extends TestCase
     public function testCreateSuccessWithoutStatisticFilters()
     {
         $this->actAs(Role::CONTENT_EDITOR);
+        \Log::info('User roles: ' . $this->actingAs->roles()->pluck('id')->toJson());
 
         $properties = [
             'name' => 'Test Statistic',
-            'description' => 'A test statistic',
-            'type' => 'character',
+            'model' => 'collection',
+            'relation' => 'collectionItems',
             'public' => true,
         ];
 
         $response = $this->json('POST', $this->route, $properties);
+        \Log::info('Response: ' . $response->getContent());
+        \Log::info('Response status: ' . $response->getStatusCode());
+        \Log::info('User ID: ' . $this->actingAs->id);
+        \Log::info('User has role: ' . $this->actingAs->hasRole(Role::CONTENT_EDITOR));
 
         $response->assertStatus(201);
         $response->assertJsonFragment($properties);
@@ -63,8 +69,8 @@ class StatisticCreateTest extends TestCase
 
         $properties = [
             'name' => 'Test Statistic',
-            'description' => 'A test statistic',
-            'type' => 'character',
+            'model' => 'collection',
+            'relation' => 'collectionItems',
             'public' => true,
             'statistic_filters' => [
                 [
@@ -92,8 +98,8 @@ class StatisticCreateTest extends TestCase
 
         $response = $this->json('POST', $this->route, [
             'name' => '',
-            'description' => [],
-            'type' => '',
+            'model' => [],
+            'relation' => [],
             'public' => 'yes',
             'statistic_filters' => 'hi',
         ]);
@@ -101,8 +107,8 @@ class StatisticCreateTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors([
             'name' => ['The name field is required.'],
-            'description' => ['The description must be a string.'],
-            'type' => ['The type field is required.'],
+            'model' => ['The model must be a string.'],
+            'relation' => ['The relation must be a string.'],
             'public' => ['The public field must be true or false.'],
             'statistic_filters' => ['The statistic filters must be an array.'],
         ]);
@@ -114,7 +120,7 @@ class StatisticCreateTest extends TestCase
 
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
-            'type' => 'character',
+            'model' => 'collection',
             'statistic_filters' => [
                 'not an array',
             ],
@@ -127,7 +133,7 @@ class StatisticCreateTest extends TestCase
 
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
-            'type' => 'character',
+            'model' => 'collection',
             'statistic_filters' => [
                 [],
             ],
@@ -142,7 +148,7 @@ class StatisticCreateTest extends TestCase
 
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
-            'type' => 'character',
+            'model' => 'collection',
             'statistic_filters' => [
                 [
                     'field' => [],

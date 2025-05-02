@@ -50,7 +50,7 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
     public function synchronizeTargetStatistics(CanBeStatisticTargetContract $model): Collection
     {
         // Get the morph type for this model
-        $morphType = get_class($model);
+        $morphType = $model->morphRelationName();
         
         // Load all statistics that apply to this model type
         $statistics = $this->statisticRepository->findWhere([
