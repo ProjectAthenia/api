@@ -106,6 +106,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Athenia\Repositories\Statistics\StatisticRepository;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistics\Statistic;
 
 /**
  * Class AtheniaRepositoryProvider

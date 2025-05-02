@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Models\Statistics;
+namespace App\Models\Statistics;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
