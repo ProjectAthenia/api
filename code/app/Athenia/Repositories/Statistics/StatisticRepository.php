@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Repositories\Statistics;
 
-use App\Athenia\Models\Statistics\Statistic;
+use App\Models\Statistics\Statistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Models\BaseModelAbstract;
@@ -43,10 +43,13 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
      */
     public function create(array $data = [], ?BaseModelAbstract $relatedModel = null, array $forcedValues = [])
     {
+        $statisticFilters = $data['statistic_filters'] ?? [];
+        unset($data['statistic_filters']);
+
         $model = parent::create($data, $relatedModel, $forcedValues);
 
-        if (isset($data['statistic_filters'])) {
-            foreach ($data['statistic_filters'] as $filter) {
+        if ($statisticFilters) {
+            foreach ($statisticFilters as $filter) {
                 $model->statisticFilters()->create($filter);
             }
         }
