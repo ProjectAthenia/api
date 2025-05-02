@@ -64,9 +64,11 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
                 'name' => [
                     'string',
                 ],
-                'type' => [
+                'model' => [
                     'string',
-                    Rule::in(['user', 'content', 'interaction']), // Customize these types based on your needs
+                ],
+                'relation' => [
+                    'string',
                 ],
                 'public' => [
                     'boolean',
@@ -92,12 +94,15 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
             ],
             static::VALIDATION_RULES_CREATE => [
                 static::VALIDATION_PREPEND_REQUIRED => [
-                    'type',
+                    'name',
+                    'model',
+                    'relation',
                 ],
             ],
             static::VALIDATION_RULES_UPDATE => [
                 static::VALIDATION_PREPEND_NOT_PRESENT => [
-                    'type',
+                    'model',
+                    'relation',
                 ],
             ],
         ];
