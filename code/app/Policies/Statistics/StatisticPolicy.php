@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Policies\Statistics;
+namespace App\Policies\Statistics;
 
 use App\Models\Role;
 use App\Models\User\User;
-use App\Athenia\Policies\BasePolicyAbstract;
+use App\Policies\BasePolicyAbstract;
 
 /**
  * Class StatisticPolicy
- * @package App\Athenia\Policies\Statistics
+ * @package App\Policies\Statistics
  */
 class StatisticPolicy extends BasePolicyAbstract
 {
