@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Contracts\Repositories\Statistics;
+namespace App\Athenia\Contracts\Repositories\Statistics;
 
-use App\Contracts\Repositories\BaseRepositoryContract;
+use App\Athenia\Contracts\Repositories\BaseRepositoryContract;
 
 /**
  * Interface StatisticRepositoryContract

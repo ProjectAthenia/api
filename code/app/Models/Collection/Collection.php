@@ -129,4 +129,14 @@ class Collection extends BaseModelAbstract implements HasValidationRulesContract
     {
         return $this->morphMany(TargetStatistic::class, 'target');
     }
+
+    /**
+     * The name of the morph relation
+     *
+     * @return string
+     */
+    public function morphRelationName(): string
+    {
+        return 'collection';
+    }
 }

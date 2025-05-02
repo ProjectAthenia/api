@@ -51,7 +51,7 @@ class AggregatedModelObserverTest extends TestCase
         Queue::assertNotPushed(ProcessTargetStatisticsJob::class);
     }
 
-    public function modelEventProvider(): array
+    public static function modelEventProvider(): array
     {
         return [
             'created event' => ['created'],

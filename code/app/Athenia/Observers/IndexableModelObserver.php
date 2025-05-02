@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Observer;
+namespace App\Athenia\Observers;
 
 use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;

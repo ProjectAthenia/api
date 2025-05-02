@@ -6,6 +6,7 @@ namespace App\Athenia\Repositories\Statistics;
 use App\Athenia\Models\Statistics\Statistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Models\BaseModelAbstract;
 
 /**
  * Class StatisticRepository
@@ -23,9 +24,9 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
     /**
      * @inheritDoc
      */
-    public function update($model, array $data)
+    public function update(BaseModelAbstract $model, array $data, array $forcedValues = []): BaseModelAbstract
     {
-        $model = parent::update($model, $data);
+        $model = parent::update($model, $data, $forcedValues);
 
         if (isset($data['statistic_filters'])) {
             $model->statisticFilters()->delete();
@@ -40,9 +41,9 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
     /**
      * @inheritDoc
      */
-    public function create(array $data)
+    public function create(array $data = [], ?BaseModelAbstract $relatedModel = null, array $forcedValues = [])
     {
-        $model = parent::create($data);
+        $model = parent::create($data, $relatedModel, $forcedValues);
 
         if (isset($data['statistic_filters'])) {
             foreach ($data['statistic_filters'] as $filter) {

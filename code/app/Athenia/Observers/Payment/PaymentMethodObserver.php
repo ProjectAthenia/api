@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Observer\Payment;
+namespace App\Athenia\Observers\Payment;
 
 use App\Athenia\Events\Payment\DefaultPaymentMethodSetEvent;
 use App\Models\Payment\PaymentMethod;
