@@ -9,6 +9,7 @@ use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\RolesTesting;
 use Illuminate\Support\Facades\DB;
+use App\Http\V1\Controllers\StatisticController;
 
 /**
  * Class StatisticCreateTest
