@@ -1,31 +1,40 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Models\Statistics;
+namespace App\Models\Statistics;
 
 use App\Athenia\Models\BaseModelAbstract;
-use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * Class StatisticFilter
+ * @package App\Models\Statistics
  *
  * @property int $id
  * @property int $statistic_id
  * @property string $field
  * @property string $operator
- * @property string $value
- * @property Carbon|null $deleted_at
+ * @property string|null $value
  * @property \datetime|null $created_at
  * @property \datetime|null $updated_at
+ * @property \datetime|null $deleted_at
  * @property-read Statistic $statistic
- * @mixin Eloquent
  */
 class StatisticFilter extends BaseModelAbstract
 {
     /**
-     * The statistic this belongs to
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'field',
+        'operator',
+        'value',
+    ];
+
+    /**
+     * The statistic that this filter belongs to
      *
      * @return BelongsTo
      */
