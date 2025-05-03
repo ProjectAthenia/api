@@ -23,6 +23,7 @@ use App\Athenia\Contracts\Services\Messaging\SendPushNotificationServiceContract
 use App\Athenia\Contracts\Services\Messaging\SendSlackNotificationServiceContract;
 use App\Athenia\Contracts\Services\Messaging\SendSMSServiceContract;
 use App\Athenia\Contracts\Services\ProratingCalculationServiceContract;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
 use App\Athenia\Contracts\Services\StringHelperServiceContract;
 use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
@@ -55,6 +56,7 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
+use App\Athenia\Services\Relations\RelationTraversalService;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -83,6 +85,7 @@ abstract class BaseServiceProvider extends ServiceProvider
             StripePaymentServiceContract::class,
             TokenGenerationServiceContract::class,
             TargetStatisticProcessingServiceContract::class,
+            RelationTraversalServiceContract::class,
         ], $this->appProviders());
     }
 
@@ -208,8 +211,13 @@ abstract class BaseServiceProvider extends ServiceProvider
         $this->app->bind(TokenGenerationServiceContract::class, fn () =>
             new TokenGenerationService()
         );
+        $this->app->bind(RelationTraversalServiceContract::class, fn () =>
+            new RelationTraversalService()
+        );
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
-            new TargetStatisticProcessingService()
+            new TargetStatisticProcessingService(
+                $this->app->make(RelationTraversalServiceContract::class)
+            )
         );
         $this->registerApp();
     }
