@@ -16,11 +16,14 @@ abstract class BasePolicyAbstract implements BasePolicyContract
     /**
      * No one in this app should be able to see everything
      *
-     * @param User $user
-     * @return null
+     * @param User|null $user
+     * @return null|bool
      */
-    public function before(User $user)
+    public function before(?User $user)
     {
+        if (!$user) {
+            return false;
+        }
         return $user->hasRole([Role::SUPER_ADMIN]) ?: null;
     }
 } 

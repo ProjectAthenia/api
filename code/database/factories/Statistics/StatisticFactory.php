@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\Statistics;
 
-use App\Athenia\Models\Statistics\Statistic;
+use App\Models\Statistics\Statistic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,8 +28,8 @@ class StatisticFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'type' => $this->faker->randomElement(['character', 'word', 'radical']),
+            'model' => $this->faker->word,
+            'relation' => $this->faker->word,
             'public' => $this->faker->boolean,
         ];
     }

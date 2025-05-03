@@ -33,15 +33,6 @@ Route::group(['middleware' => 'jwt.auth.unprotected'], function() {
             'store',
         ]
     ]);
-
-    /**
-     * Statistics Context
-     */
-    Route::resource('statistics', 'StatisticController', [
-        'only' => [
-            'show',
-        ]
-    ]);
 });
 
 /**
