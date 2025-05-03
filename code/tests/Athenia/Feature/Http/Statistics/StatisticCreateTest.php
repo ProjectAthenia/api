@@ -99,8 +99,8 @@ class StatisticCreateTest extends TestCase
 
         $response = $this->json('POST', $this->route, [
             'name' => '',
-            'model' => [],
-            'relation' => [],
+            'model' => '',
+            'relation' => '',
             'public' => 'yes',
             'statistic_filters' => 'hi',
         ]);
@@ -108,8 +108,8 @@ class StatisticCreateTest extends TestCase
         $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'name' => ['The name field is required.'],
-            'model' => ['The model must be a string.'],
-            'relation' => ['The relation must be a string.'],
+            'model' => ['The model field is required.'],
+            'relation' => ['The relation field is required.'],
             'public' => ['The public field must be true or false.'],
             'statistic_filters' => ['The statistic filters must be an array.'],
         ]);
@@ -127,7 +127,7 @@ class StatisticCreateTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'statistic_filters.0' => ['The statistic_filters.0 must be an array.'],
         ]);
@@ -140,7 +140,7 @@ class StatisticCreateTest extends TestCase
             ],
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'statistic_filters.0.field' => ['The statistic_filters.0.field field is required.'],
             'statistic_filters.0.operator' => ['The statistic_filters.0.operator field is required.'],
@@ -150,16 +150,17 @@ class StatisticCreateTest extends TestCase
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
             'model' => 'collection',
+            'relation' => 'collectionItems',
             'statistic_filters' => [
                 [
-                    'field' => [],
-                    'operator' => [],
-                    'value' => [],
+                    'field' => 123,
+                    'operator' => 456,
+                    'value' => 789,
                 ],
             ],
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'statistic_filters.0.field' => ['The statistic_filters.0.field must be a string.'],
             'statistic_filters.0.operator' => ['The statistic_filters.0.operator must be a string.'],
