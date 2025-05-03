@@ -34,9 +34,9 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      * @param Requests\Statistics\IndexRequest $request
      * @return JsonResponse
      */
-    public function index(Requests\Statistics\IndexRequest $request): JsonResponse
+    public function index(Requests\Statistics\IndexRequest $request)
     {
-        return $this->response($this->repository->findAll());
+        return $this->repository->findAll();
     }
 
     /**
@@ -45,9 +45,10 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      * @param Requests\Statistics\StoreRequest $request
      * @return JsonResponse
      */
-    public function store(Requests\Statistics\StoreRequest $request): JsonResponse
+    public function store(Requests\Statistics\StoreRequest $request)
     {
-        return $this->response($this->repository->create($request->validated()), 201);
+        $model = $this->repository->create($request->validated());
+        return response($model, 201);
     }
 
     /**
@@ -57,9 +58,9 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      * @param Statistic $statistic
      * @return JsonResponse
      */
-    public function show(Requests\Statistics\ViewRequest $request, Statistic $statistic): JsonResponse
+    public function show(Requests\Statistics\ViewRequest $request, Statistic $statistic)
     {
-        return $this->response($statistic);
+        return $statistic;
     }
 
     /**
@@ -69,9 +70,9 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      * @param Statistic $statistic
      * @return JsonResponse
      */
-    public function update(Requests\Statistics\UpdateRequest $request, Statistic $statistic): JsonResponse
+    public function update(Requests\Statistics\UpdateRequest $request, Statistic $statistic)
     {
-        return $this->response($this->repository->update($statistic, $request->validated()));
+        return $this->repository->update($statistic, $request->validated());
     }
 
     /**
@@ -81,9 +82,9 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      * @param Statistic $statistic
      * @return JsonResponse
      */
-    public function destroy(Requests\Statistics\DeleteRequest $request, Statistic $statistic): JsonResponse
+    public function destroy(Requests\Statistics\DeleteRequest $request, Statistic $statistic)
     {
         $this->repository->delete($statistic);
-        return $this->response(null, 204);
+        return response(null, 204);
     }
 } 
