@@ -19,6 +19,15 @@ class EventServiceProvider extends BaseEventServiceProvider
     public function getAppListenerMapping(): array
     {
         return [
+            \App\Athenia\Events\Statistics\StatisticUpdatedEvent::class => [
+                \App\Athenia\Listeners\Statistics\StatisticUpdatedListener::class,
+            ],
+            \App\Athenia\Events\Statistics\StatisticCreatedEvent::class => [
+                \App\Athenia\Listeners\Statistics\StatisticCreatedListener::class,
+            ],
+            \App\Athenia\Events\Statistics\StatisticDeletedEvent::class => [
+                \App\Athenia\Listeners\Statistics\StatisticDeletedListener::class,
+            ],
         ];
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Events\Statistics;
 
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
-use App\Athenia\Models\Statistics\Statistic;
+use App\Models\Statistics\Statistic;
 use Tests\TestCase;
 
 /**
