@@ -49,6 +49,8 @@ class CreateStatisticsTables extends Migration
                 ->onDelete('cascade');
             $table->morphs('target');
             $table->json('result')->nullable();
+            $table->float('value')->default(0);
+            $table->json('filters')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

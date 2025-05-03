@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RelationTraversalService
- * A general-purpose service for traversing model relations
  * @package App\Athenia\Services\Relations
  */
 class RelationTraversalService implements RelationTraversalServiceContract
@@ -23,7 +22,7 @@ class RelationTraversalService implements RelationTraversalServiceContract
      */
     public function traverseRelations(Model $startingModel, string $relationPath): Collection
     {
-        $currentModels = collect([$startingModel]);
+        $currentModels = new Collection([$startingModel]);
 
         if (empty($relationPath)) {
             return $currentModels;
@@ -32,7 +31,7 @@ class RelationTraversalService implements RelationTraversalServiceContract
         $relations = explode('.', $relationPath);
 
         foreach ($relations as $relation) {
-            $nextModels = collect();
+            $nextModels = new Collection();
             
             foreach ($currentModels as $model) {
                 // Load the relation if it hasn't been loaded
@@ -44,7 +43,9 @@ class RelationTraversalService implements RelationTraversalServiceContract
                 
                 // Handle both single models and collections
                 if ($related instanceof Collection) {
-                    $nextModels = $nextModels->concat($related);
+                    foreach ($related as $relatedModel) {
+                        $nextModels->push($relatedModel);
+                    }
                 } elseif ($related instanceof Model) {
                     $nextModels->push($related);
                 }
