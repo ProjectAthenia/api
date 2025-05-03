@@ -55,9 +55,10 @@ class IndexableModelObserver
      */
     private function indexModel(CanBeIndexedContract $model)
     {
-        if ($model->getContentString()) {
+        $content = $model->getContentString();
+        if ($content) {
             $data = [
-                'content' => $model->getContentString(),
+                'content' => $content,
                 'resource_id' => $model->id,
                 'resource_type' => $model->morphRelationName(),
             ];
