@@ -5,7 +5,7 @@ namespace Tests\Athenia\Unit\Models\Statistics;
 
 use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
-use App\Models\User;
+use App\Models\User\User;
 use Tests\TestCase;
 
 /**

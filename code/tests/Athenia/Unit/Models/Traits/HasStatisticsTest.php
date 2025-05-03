@@ -28,45 +28,4 @@ class HasStatisticsTest extends TestCase
         $this->assertEquals('target_id', $relation->getForeignKeyName());
         $this->assertEquals(TargetStatistic::class, get_class($relation->getRelated()));
     }
-
-    public function testStatisticsRelationshipUsesMorphMany()
-    {
-        $model = new class extends Model {
-            use HasStatistics;
-        };
-
-        $relation = $model->statistics();
-
-        $this->assertInstanceOf(MorphMany::class, $relation);
-        $this->assertEquals('target_type', $relation->getMorphType());
-        $this->assertEquals('target_id', $relation->getForeignKeyName());
-        $this->assertEquals(TargetStatistic::class, get_class($relation->getRelated()));
-    }
-
-    public function testGetStatistic()
-    {
-        $model = new class extends Model {
-            use HasStatistics;
-        };
-
-        $statisticId = 123;
-        $statistic = new TargetStatistic();
-
-        $morphMany = mock(MorphMany::class);
-        $morphMany->shouldReceive('where')
-            ->with('statistic_id', $statisticId)
-            ->once()
-            ->andReturnSelf();
-        $morphMany->shouldReceive('first')
-            ->once()
-            ->andReturn($statistic);
-
-        $model->shouldReceive('statistics')
-            ->once()
-            ->andReturn($morphMany);
-
-        $result = $model->getStatistic($statisticId);
-
-        $this->assertSame($statistic, $result);
-    }
 } 

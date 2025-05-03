@@ -6,8 +6,8 @@ namespace Tests\Athenia\Unit\Listeners\Statistic;
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
 use App\Athenia\Jobs\Statistics\RecountStatisticJob;
 use App\Athenia\Listeners\Statistics\StatisticUpdatedListener;
-use App\Athenia\Models\Statistics\Statistic;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Models\Statistics\Statistic;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Tests\TestCase;
 
 /**
