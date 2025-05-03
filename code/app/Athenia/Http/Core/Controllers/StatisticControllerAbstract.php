@@ -47,7 +47,7 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      */
     public function store(Requests\Statistics\StoreRequest $request)
     {
-        $model = $this->repository->create($request->validated());
+        $model = $this->repository->create($request->json()->all());
         return response($model, 201);
     }
 
@@ -60,7 +60,7 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      */
     public function show(Requests\Statistics\ViewRequest $request, Statistic $statistic)
     {
-        return $statistic;
+        return $statistic->load($this->expand($request));
     }
 
     /**
@@ -72,7 +72,7 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      */
     public function update(Requests\Statistics\UpdateRequest $request, Statistic $statistic)
     {
-        return $this->repository->update($statistic, $request->validated());
+        return $this->repository->update($statistic, $request->json()->all());
     }
 
     /**

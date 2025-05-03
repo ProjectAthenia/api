@@ -105,7 +105,7 @@ class StatisticCreateTest extends TestCase
             'statistic_filters' => 'hi',
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'name' => ['The name field is required.'],
             'model' => ['The model must be a string.'],
