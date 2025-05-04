@@ -16,6 +16,7 @@ use Mockery\MockInterface;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
 use App\Athenia\Models\Traits\HasStatistics;
+use App\Models\Collection\Collection as CollectionModel;
 
 /**
  * Class StatisticSynchronizationServiceTest
@@ -51,7 +52,6 @@ class StatisticSynchronizationServiceTest extends TestCase
 
     public function testSynchronizeTargetStatisticsWithNoExistingTargets()
     {
-        $modelClass = 'App\Models\TestModel';
         $modelId = 123;
 
         $statistic = new Statistic();
@@ -60,18 +60,14 @@ class StatisticSynchronizationServiceTest extends TestCase
         $targetStatistic = new TargetStatistic();
         $targetStatistic->statistic_id = 456;
         $targetStatistic->target_id = $modelId;
-        $targetStatistic->target_type = $modelClass;
+        $targetStatistic->target_type = 'collection';
 
-        $model = new class extends Model implements CanBeStatisticTargetContract {
-            use HasStatistics;
-            public $id = 123;
-            public $targetStatistics;
-            public function morphRelationName(): string { return 'test_model'; }
-        };
+        $model = new CollectionModel();
+        $model->id = $modelId;
         $model->targetStatistics = new BaseCollection();
 
         $this->statisticRepository->shouldReceive('findAll')
-            ->with(['model' => 'test_model'])
+            ->with(['model' => 'collection'])
             ->once()
             ->andReturn(new BaseCollection([$statistic]));
 
@@ -80,7 +76,7 @@ class StatisticSynchronizationServiceTest extends TestCase
             ->with([
                 'statistic_id' => 456,
                 'target_id' => 123,
-                'target_type' => 'test_model',
+                'target_type' => 'collection',
             ])
             ->andReturn($targetStatistic);
 
@@ -105,35 +101,31 @@ class StatisticSynchronizationServiceTest extends TestCase
             'id' => 1,
             'statistic_id' => 456,
             'target_id' => 123,
-            'target_type' => 'test_model',
+            'target_type' => 'collection',
         ]);
 
         $newTargetStatistic = new TargetStatistic([
             'id' => 2,
             'statistic_id' => 789,
             'target_id' => 123,
-            'target_type' => 'test_model',
+            'target_type' => 'collection',
         ]);
 
         $existingTargetStatistics = new Collection([$existingTargetStatistic]);
 
-        $model = new class extends Model implements CanBeStatisticTargetContract {
-            use HasStatistics;
-            public $id = 123;
-            public $targetStatistics;
-            public function morphRelationName(): string { return 'test_model'; }
-        };
+        $model = new CollectionModel();
+        $model->id = 123;
         $model->targetStatistics = $existingTargetStatistics;
 
         $this->statisticRepository->shouldReceive('findAll')
-            ->with(['model' => 'test_model'])
+            ->with(['model' => 'collection'])
             ->andReturn(collect([$existingStatistic, $newStatistic]));
 
         $this->targetStatisticRepository->shouldReceive('create')
             ->with([
                 'statistic_id' => 789,
                 'target_id' => 123,
-                'target_type' => 'test_model',
+                'target_type' => 'collection',
             ])
             ->andReturn($newTargetStatistic);
 
