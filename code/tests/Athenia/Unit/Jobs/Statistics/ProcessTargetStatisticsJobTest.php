@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Jobs\Statistics;
 
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
-use App\Athenia\Contracts\Services\Statistics\SingleTargetStatisticProcessingServiceContract;
+use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,8 +33,8 @@ class ProcessTargetStatisticsJobTest extends TestCase
             ->with('targetStatistics')
             ->andReturn(new Collection($targetStatistics));
 
-        /** @var SingleTargetStatisticProcessingServiceContract|MockInterface $processingService */
-        $processingService = Mockery::mock(SingleTargetStatisticProcessingServiceContract::class);
+        /** @var TargetStatisticProcessingServiceContract|MockInterface $processingService */
+        $processingService = Mockery::mock(TargetStatisticProcessingServiceContract::class);
         
         // Setup expectations for each statistic
         foreach ($targetStatistics as $targetStatistic) {
@@ -55,8 +55,8 @@ class ProcessTargetStatisticsJobTest extends TestCase
             ->with('targetStatistics')
             ->andReturn(new Collection([]));
 
-        /** @var SingleTargetStatisticProcessingServiceContract|MockInterface $processingService */
-        $processingService = Mockery::mock(SingleTargetStatisticProcessingServiceContract::class);
+        /** @var TargetStatisticProcessingServiceContract|MockInterface $processingService */
+        $processingService = Mockery::mock(TargetStatisticProcessingServiceContract::class);
         $processingService->shouldNotReceive('processSingleTargetStatistic');
 
         $job = new ProcessTargetStatisticsJob($target);

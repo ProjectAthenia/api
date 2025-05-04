@@ -220,7 +220,8 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
             new TargetStatisticProcessingService(
-                $this->app->make(RelationTraversalServiceContract::class)
+                $this->app->make(RelationTraversalServiceContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
             )
         );
         $this->app->bind(SingleTargetStatisticProcessingServiceContract::class, fn () =>
