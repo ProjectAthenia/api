@@ -37,27 +37,17 @@ final class IndexableModelObserverTest extends TestCase
 
     public function testCreated(): void
     {
-        $model = mock(CanBeIndexedContract::class);
-        $model->shouldReceive('getContentString')
-            ->once()
-            ->andReturn('test content');
-        $model->shouldReceive('morphRelationName')
-            ->once()
-            ->andReturn('test_type');
-        $model->shouldReceive('getAttribute')
-            ->with('id')
-            ->once()
-            ->andReturn(123);
-        $model->shouldReceive('getAttribute')
-            ->with('resource')
-            ->once()
-            ->andReturn(null);
+        $model = new User([
+            'id' => 123,
+            'name' => 'Test User',
+            'resource' => null,
+        ]);
 
         $this->resourceRepository->shouldReceive('create')
             ->with([
-                'content' => 'test content',
+                'content' => $model->getContentString(),
                 'resource_id' => 123,
-                'resource_type' => 'test_type',
+                'resource_type' => 'user',
             ])
             ->once();
 
