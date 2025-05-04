@@ -7,7 +7,9 @@ use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContr
 use App\Models\Statistics\TargetStatistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Contracts\Models\CanBeStatisticTargetContract;
 
 /**
  * Class TargetStatisticRepository
@@ -16,31 +18,28 @@ use Illuminate\Database\Eloquent\Model;
 class TargetStatisticRepository extends BaseRepositoryAbstract implements TargetStatisticRepositoryContract
 {
     /**
-     * @var TargetStatistic
-     */
-    protected $model;
-
-    /**
      * TargetStatisticRepository constructor.
      * @param TargetStatistic $model
      * @param Dispatcher $dispatcher
      */
-    public function __construct(TargetStatistic $model, Dispatcher $dispatcher)
-    {
+    public function __construct(
+        protected readonly TargetStatistic $model,
+        private readonly Dispatcher $dispatcher
+    ) {
         parent::__construct($model, $dispatcher);
     }
 
     /**
      * Creates a new target statistic model
      *
-     * @param Model $target
-     * @param array $data
-     * @return TargetStatistic
+     * @param CanBeStatisticTargetContract $target The target model to create statistics for
+     * @param array<string, mixed> $data The data to create the statistic with
+     * @return TargetStatistic The newly created target statistic
      */
-    public function createForTarget(Model $target, array $data): TargetStatistic
+    public function createForTarget(CanBeStatisticTargetContract $target, array $data): TargetStatistic
     {
         $data['target_id'] = $target->id;
-        $data['target_type'] = get_class($target);
+        $data['target_type'] = $target->morphRelationName();
 
         return $this->create($data);
     }
@@ -48,13 +47,13 @@ class TargetStatisticRepository extends BaseRepositoryAbstract implements Target
     /**
      * Find all statistics for a specific target
      *
-     * @param Model $target
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param CanBeStatisticTargetContract $target The target model to find statistics for
+     * @return Collection<int, TargetStatistic> Collection of target statistics
      */
-    public function findAllForTarget(Model $target)
+    public function findAllForTarget(CanBeStatisticTargetContract $target): Collection
     {
         return $this->model
-            ->where('target_type', get_class($target))
+            ->where('target_type', $target->morphRelationName())
             ->where('target_id', $target->id)
             ->get();
     }
@@ -62,14 +61,14 @@ class TargetStatisticRepository extends BaseRepositoryAbstract implements Target
     /**
      * Find a specific statistic for a target
      *
-     * @param Model $target
-     * @param int $statisticId
-     * @return TargetStatistic|null
+     * @param CanBeStatisticTargetContract $target The target model to find the statistic for
+     * @param int $statisticId The ID of the statistic to find
+     * @return TargetStatistic|null The found target statistic or null if not found
      */
-    public function findForTarget(Model $target, int $statisticId): ?TargetStatistic
+    public function findForTarget(CanBeStatisticTargetContract $target, int $statisticId): ?TargetStatistic
     {
         return $this->model
-            ->where('target_type', get_class($target))
+            ->where('target_type', $target->morphRelationName())
             ->where('target_id', $target->id)
             ->where('statistic_id', $statisticId)
             ->first();
