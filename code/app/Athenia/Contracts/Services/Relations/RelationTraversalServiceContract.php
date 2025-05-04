@@ -13,11 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 interface RelationTraversalServiceContract
 {
     /**
-     * Traverses through a chain of relations starting from a model and returns all models at the end of the chain
+     * Traverses the relations on a model and returns all related models
      *
-     * @param Model $startingModel The model to start traversing from
-     * @param string $relationPath The dot-notation path of relations to traverse (e.g. "parent.children.items")
-     * @return Collection The collection of models at the end of the relation chain
+     * @param Model $model
+     * @param string $relationPath
+     * @return Collection
      */
-    public function traverseRelations(Model $startingModel, string $relationPath): Collection;
+    public function traverseRelations(Model $model, string $relationPath): Collection;
 } 

@@ -7,6 +7,7 @@ use App\Athenia\Contracts\Repositories\BaseRepositoryContract;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Model;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Interface TargetStatisticRepositoryContract
@@ -27,9 +28,9 @@ interface TargetStatisticRepositoryContract extends BaseRepositoryContract
      * Find all statistics for a specific target
      *
      * @param CanBeStatisticTargetContract $target
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function findAllForTarget(CanBeStatisticTargetContract $target);
+    public function findAllForTarget(CanBeStatisticTargetContract $target): Collection;
 
     /**
      * Find a specific statistic for a target

@@ -15,7 +15,7 @@ interface CanBeStatisticTargetContract extends CanBeMorphedToContract
     /**
      * Gets all statistics that belong to this model through a morph many relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
-    public function targetStatistics(): \Illuminate\Database\Eloquent\Relations\MorphMany;
+    public function targetStatistics(): MorphMany;
 } 
