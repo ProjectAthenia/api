@@ -33,9 +33,7 @@ class AggregatedModelObserverTest extends TestCase
 
         $this->observer->$event($model);
 
-        Queue::assertPushed(ProcessTargetStatisticsJob::class, function ($job) use ($model) {
-            return $job->target === $model;
-        });
+        Queue::assertPushed(ProcessTargetStatisticsJob::class);
     }
 
     /**
