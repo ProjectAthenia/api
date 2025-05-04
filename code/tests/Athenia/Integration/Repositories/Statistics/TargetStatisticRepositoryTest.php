@@ -5,7 +5,7 @@ namespace Tests\Athenia\Integration\Repositories\Statistics;
 
 use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
-use App\Models\User;
+use App\Models\User\User;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\DatabaseSetupTrait;
@@ -37,6 +37,7 @@ class TargetStatisticRepositoryTest extends TestCase
         $this->dispatcher = mock(Dispatcher::class);
         $this->repository = new TargetStatisticRepository(
             new TargetStatistic(),
+            $this->getGenericLogMock(),
             $this->dispatcher
         );
     }
