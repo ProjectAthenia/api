@@ -53,7 +53,7 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
         $morphType = $model->morphRelationName();
         
         // Load all statistics that apply to this model type
-        $statistics = $this->statisticRepository->findWhere([
+        $statistics = $this->statisticRepository->findAll([
             'model' => $morphType,
         ]);
 
@@ -78,6 +78,6 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
         }
         
         // Merge existing and new target statistics and return
-        return $existingTargetStatistics->concat($newTargetStatistics);
+        return new Collection($existingTargetStatistics->concat($newTargetStatistics));
     }
 } 

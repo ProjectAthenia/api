@@ -15,7 +15,7 @@ use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasStatistics;
+use App\Athenia\Models\Traits\HasStatistics;
 
 /**
  * Class StatisticSynchronizationServiceTest
@@ -66,11 +66,12 @@ class StatisticSynchronizationServiceTest extends TestCase
             use HasStatistics;
             public $id = 123;
             public $targetStatistics;
-            public function morphRelationName(): string { return 'App\Models\TestModel'; }
+            public function morphRelationName(): string { return 'test_model'; }
         };
         $model->targetStatistics = new BaseCollection();
 
         $this->statisticRepository->shouldReceive('findAll')
+            ->with(['model' => 'test_model'])
             ->once()
             ->andReturn(new BaseCollection([$statistic]));
 
@@ -79,7 +80,7 @@ class StatisticSynchronizationServiceTest extends TestCase
             ->with([
                 'statistic_id' => 456,
                 'target_id' => 123,
-                'target_type' => 'App\Models\TestModel',
+                'target_type' => 'test_model',
             ])
             ->andReturn($targetStatistic);
 
@@ -92,86 +93,47 @@ class StatisticSynchronizationServiceTest extends TestCase
 
     public function testSynchronizeTargetStatisticsWithExistingTargets()
     {
-        $modelClass = 'App\Models\TestModel';
-        $modelId = 123;
+        $existingStatistic = new Statistic([
+            'id' => 456,
+        ]);
 
-        /** @var Statistic|MockInterface $existingStatistic */
-        $existingStatistic = Mockery::mock(Statistic::class);
-        $existingStatistic->shouldReceive('getAttribute')
-            ->with('id')
-            ->andReturn(456);
-        $existingStatistic->shouldReceive('setAttribute')
-            ->withAnyArgs()
-            ->andReturnSelf();
+        $newStatistic = new Statistic([
+            'id' => 789,
+        ]);
 
-        /** @var Statistic|MockInterface $newStatistic */
-        $newStatistic = Mockery::mock(Statistic::class);
-        $newStatistic->shouldReceive('getAttribute')
-            ->with('id')
-            ->andReturn(789);
-        $newStatistic->shouldReceive('setAttribute')
-            ->withAnyArgs()
-            ->andReturnSelf();
+        $existingTargetStatistic = new TargetStatistic([
+            'id' => 1,
+            'statistic_id' => 456,
+            'target_id' => 123,
+            'target_type' => 'test_model',
+        ]);
 
-        /** @var TargetStatistic|MockInterface $existingTargetStatistic */
-        $existingTargetStatistic = Mockery::mock(TargetStatistic::class);
-        $existingTargetStatistic->shouldReceive('getAttribute')
-            ->with('statistic_id')
-            ->andReturn(456);
-        $existingTargetStatistic->shouldReceive('setAttribute')
-            ->withAnyArgs()
-            ->andReturnSelf();
-        $existingTargetStatistic->shouldReceive('offsetExists')
-            ->withAnyArgs()
-            ->andReturn(false);
-        $existingTargetStatistic->shouldReceive('offsetGet')
-            ->withAnyArgs()
-            ->andReturn(null);
-        $existingTargetStatistic->shouldReceive('offsetSet')
-            ->withAnyArgs()
-            ->andReturnSelf();
+        $newTargetStatistic = new TargetStatistic([
+            'id' => 2,
+            'statistic_id' => 789,
+            'target_id' => 123,
+            'target_type' => 'test_model',
+        ]);
 
-        /** @var TargetStatistic|MockInterface $newTargetStatistic */
-        $newTargetStatistic = Mockery::mock(TargetStatistic::class);
-        $newTargetStatistic->shouldReceive('offsetExists')
-            ->withAnyArgs()
-            ->andReturn(false);
-        $newTargetStatistic->shouldReceive('offsetGet')
-            ->withAnyArgs()
-            ->andReturn(null);
-        $newTargetStatistic->shouldReceive('offsetSet')
-            ->withAnyArgs()
-            ->andReturnSelf();
+        $existingTargetStatistics = new Collection([$existingTargetStatistic]);
 
-        /** @var Collection|MockInterface $existingTargetStatistics */
-        $existingTargetStatistics = Mockery::mock(Collection::class);
-        $existingTargetStatistics->shouldReceive('keyBy')
-            ->with('statistic_id')
-            ->andReturn(new BaseCollection([456 => $existingTargetStatistic]));
-        $existingTargetStatistics->shouldReceive('concat')
-            ->withAnyArgs()
-            ->andReturn(new Collection([$existingTargetStatistic, $newTargetStatistic]));
+        $model = new class extends Model implements CanBeStatisticTargetContract {
+            use HasStatistics;
+            public $id = 123;
+            public $targetStatistics;
+            public function morphRelationName(): string { return 'test_model'; }
+        };
+        $model->targetStatistics = $existingTargetStatistics;
 
-        /** @var CanBeStatisticTargetContract|Model|MockInterface $model */
-        $model = Mockery::mock(CanBeStatisticTargetContract::class, Model::class);
-        $model->shouldReceive('getAttribute')
-            ->with('id')
-            ->andReturn($modelId);
-        $model->shouldReceive('getAttribute')
-            ->with('targetStatistics')
-            ->andReturn($existingTargetStatistics);
-        $model->shouldReceive('morphRelationName')
-            ->andReturn($modelClass);
-
-        $this->statisticRepository->shouldReceive('findWhere')
-            ->with(['model' => $modelClass])
+        $this->statisticRepository->shouldReceive('findAll')
+            ->with(['model' => 'test_model'])
             ->andReturn(collect([$existingStatistic, $newStatistic]));
 
         $this->targetStatisticRepository->shouldReceive('create')
             ->with([
                 'statistic_id' => 789,
-                'target_id' => $modelId,
-                'target_type' => $modelClass,
+                'target_id' => 123,
+                'target_type' => 'test_model',
             ])
             ->andReturn($newTargetStatistic);
 

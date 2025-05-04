@@ -58,21 +58,25 @@ class TargetStatisticProcessingServiceTest extends TestCase
             $this->createModelWithValue('test2', 20),
         ]);
 
-        /** @var StatisticFilter|MockInterface $filter */
-        $filter = Mockery::mock(StatisticFilter::class);
-        $filter->operator = '>';
-        $filter->field = 'value';
-        $filter->value = '15';
+        $filter = new StatisticFilter([
+            'operator' => '>',
+            'field' => 'value',
+            'value' => '15',
+        ]);
 
-        /** @var Statistic|MockInterface $statistic */
-        $statistic = Mockery::mock(Statistic::class);
+        $statistic = new Statistic([
+            'relation' => 'test_relation',
+        ]);
         $statistic->filters = collect([$filter]);
-        $statistic->relation = 'test_relation';
 
-        /** @var TargetStatistic|MockInterface $targetStatistic */
-        $targetStatistic = Mockery::mock(TargetStatistic::class);
-        $targetStatistic->statistic = $statistic;
-        $targetStatistic->target = new class extends Model {};
+        $targetStatistic = new TargetStatistic([
+            'id' => 1,
+            'target_id' => 1,
+            'target_type' => 'test_model',
+            'statistic_id' => 1,
+        ]);
+        $targetStatistic->setRelation('statistic', $statistic);
+        $targetStatistic->setRelation('target', new class extends Model {});
 
         $this->relationTraversalService->shouldReceive('traverseRelations')
             ->with($targetStatistic->target, 'test_relation')
@@ -93,26 +97,30 @@ class TargetStatisticProcessingServiceTest extends TestCase
             $this->createModelWithValue('category2', 30),
         ]);
 
-        /** @var StatisticFilter|MockInterface $uniqueFilter */
-        $uniqueFilter = Mockery::mock(StatisticFilter::class);
-        $uniqueFilter->operator = 'unique';
-        $uniqueFilter->field = 'category';
+        $uniqueFilter = new StatisticFilter([
+            'operator' => 'unique',
+            'field' => 'category',
+        ]);
 
-        /** @var StatisticFilter|MockInterface $valueFilter */
-        $valueFilter = Mockery::mock(StatisticFilter::class);
-        $valueFilter->operator = '>';
-        $valueFilter->field = 'value';
-        $valueFilter->value = '15';
+        $valueFilter = new StatisticFilter([
+            'operator' => '>',
+            'field' => 'value',
+            'value' => '15',
+        ]);
 
-        /** @var Statistic|MockInterface $statistic */
-        $statistic = Mockery::mock(Statistic::class);
+        $statistic = new Statistic([
+            'relation' => 'test_relation',
+        ]);
         $statistic->filters = collect([$uniqueFilter, $valueFilter]);
-        $statistic->relation = 'test_relation';
 
-        /** @var TargetStatistic|MockInterface $targetStatistic */
-        $targetStatistic = Mockery::mock(TargetStatistic::class);
-        $targetStatistic->statistic = $statistic;
-        $targetStatistic->target = new class extends Model {};
+        $targetStatistic = new TargetStatistic([
+            'id' => 1,
+            'target_id' => 1,
+            'target_type' => 'test_model',
+            'statistic_id' => 1,
+        ]);
+        $targetStatistic->setRelation('statistic', $statistic);
+        $targetStatistic->setRelation('target', new class extends Model {});
 
         $this->relationTraversalService->shouldReceive('traverseRelations')
             ->with($targetStatistic->target, 'test_relation')
@@ -169,15 +177,17 @@ class TargetStatisticProcessingServiceTest extends TestCase
 
     private function createModelWithValue(string $category, int $value): Model
     {
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
-        $model->shouldReceive('getAttribute')
-            ->with('category')
-            ->andReturn($category);
-        $model->shouldReceive('getAttribute')
-            ->with('value')
-            ->andReturn($value);
-        return $model;
+        return new class extends Model {
+            protected $attributes = [];
+            
+            public function __construct() {
+                parent::__construct();
+                $this->attributes = [
+                    'category' => func_get_arg(0),
+                    'value' => func_get_arg(1),
+                ];
+            }
+        };
     }
 
     protected function tearDown(): void
