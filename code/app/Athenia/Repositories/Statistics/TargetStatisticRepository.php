@@ -10,6 +10,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Contracts\Models\CanBeStatisticTargetContract;
+use Psr\Log\LoggerInterface as LogContract;
 
 /**
  * Class TargetStatisticRepository
@@ -20,13 +21,15 @@ class TargetStatisticRepository extends BaseRepositoryAbstract implements Target
     /**
      * TargetStatisticRepository constructor.
      * @param TargetStatistic $model
+     * @param LogContract $log
      * @param Dispatcher $dispatcher
      */
     public function __construct(
         protected readonly TargetStatistic $model,
+        LogContract $log,
         private readonly Dispatcher $dispatcher
     ) {
-        parent::__construct($model, $dispatcher);
+        parent::__construct($model, $log);
     }
 
     /**

@@ -390,6 +390,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new TargetStatisticRepository(
                 new TargetStatistic(),
                 $this->app->make('log'),
+                $this->app->make('events')
             );
         });
         $this->registerApp();
