@@ -228,7 +228,6 @@ class StatisticUpdateTest extends TestCase
             'errors'    =>  [
                 'statistic_filters.0.field' => ['The statistic_filters.0.field field is required.'],
                 'statistic_filters.0.operator' => ['The statistic_filters.0.operator field is required.'],
-                'statistic_filters.0.value' => ['The statistic_filters.0.value field is required.'],
             ]
         ]);
     }

@@ -9,12 +9,13 @@ use App\Models\Statistics\StatisticFilter;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
+use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 
 /**
  * Class TargetStatisticProcessingService
  * @package App\Athenia\Services\Statistics
  */
-class TargetStatisticProcessingService
+class TargetStatisticProcessingService implements TargetStatisticProcessingServiceContract
 {
     /**
      * @var RelationTraversalServiceContract
