@@ -32,10 +32,6 @@ class StatisticFilterFactory extends Factory
             'field' => $this->faker->word,
             'operator' => $this->faker->randomElement(['=', '>', '<', '>=', '<=', '!=']),
             'value' => $this->faker->word,
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'type' => $this->faker->word,
-            'options' => null,
         ];
     }
 } 

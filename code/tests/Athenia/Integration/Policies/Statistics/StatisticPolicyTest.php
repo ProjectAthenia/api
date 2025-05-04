@@ -5,7 +5,7 @@ namespace Tests\Athenia\Integration\Policies\Statistics;
 
 use App\Models\Role;
 use App\Models\User\User;
-use App\Athenia\Policies\Statistics\StatisticPolicy;
+use App\Policies\Statistics\StatisticPolicy;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\RolesTesting;
