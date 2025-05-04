@@ -103,7 +103,6 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
                 static::VALIDATION_PREPEND_NOT_PRESENT => [
                     'model',
                     'relation',
-                    'type',
                 ],
             ],
         ];
