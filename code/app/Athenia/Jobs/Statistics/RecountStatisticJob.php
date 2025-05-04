@@ -3,31 +3,25 @@ declare(strict_types=1);
 
 namespace App\Athenia\Jobs\Statistics;
 
-use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
+use App\Models\Statistics\Statistic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcessTargetStatisticsJob implements ShouldQueue
+class RecountStatisticJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var CanBeStatisticTargetContract
-     */
-    private CanBeStatisticTargetContract $target;
-
-    /**
      * Create a new job instance.
      *
-     * @param CanBeStatisticTargetContract $target
+     * @param Statistic $statistic
      */
-    public function __construct(CanBeStatisticTargetContract $target)
+    public function __construct(public Statistic $statistic)
     {
-        $this->target = $target;
     }
 
     /**
@@ -38,7 +32,7 @@ class ProcessTargetStatisticsJob implements ShouldQueue
      */
     public function handle(TargetStatisticProcessingServiceContract $processingService): void
     {
-        foreach ($this->target->targetStatistics as $targetStatistic) {
+        foreach ($this->statistic->targetStatistics as $targetStatistic) {
             $processingService->processSingleTargetStatistic($targetStatistic);
         }
     }

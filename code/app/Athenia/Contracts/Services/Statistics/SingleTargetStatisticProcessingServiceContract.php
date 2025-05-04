@@ -5,11 +5,7 @@ namespace App\Athenia\Contracts\Services\Statistics;
 
 use App\Models\Statistics\TargetStatistic;
 
-/**
- * Interface TargetStatisticProcessingServiceContract
- * @package App\Athenia\Contracts\Services\Statistics
- */
-interface TargetStatisticProcessingServiceContract
+interface SingleTargetStatisticProcessingServiceContract
 {
     /**
      * Processes a single target statistic and updates its result

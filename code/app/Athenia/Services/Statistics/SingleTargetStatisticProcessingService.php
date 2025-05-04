@@ -10,23 +10,11 @@ use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 
-/**
- * Class TargetStatisticProcessingService
- * @package App\Athenia\Services\Statistics
- */
-class TargetStatisticProcessingService
+class SingleTargetStatisticProcessingService
 {
-    /**
-     * @var RelationTraversalServiceContract
-     */
     private RelationTraversalServiceContract $relationTraversalService;
     private TargetStatisticRepositoryContract $targetStatisticRepository;
 
-    /**
-     * TargetStatisticProcessingService constructor.
-     * @param RelationTraversalServiceContract $relationTraversalService
-     * @param TargetStatisticRepositoryContract $targetStatisticRepository
-     */
     public function __construct(
         RelationTraversalServiceContract $relationTraversalService,
         TargetStatisticRepositoryContract $targetStatisticRepository
@@ -35,12 +23,6 @@ class TargetStatisticProcessingService
         $this->targetStatisticRepository = $targetStatisticRepository;
     }
 
-    /**
-     * Processes a target statistic by traversing relations and applying filters
-     *
-     * @param TargetStatistic $targetStatistic
-     * @return void
-     */
     public function processSingleTargetStatistic(TargetStatistic $targetStatistic): void
     {
         // Get all models at the end of the relation chain
@@ -69,13 +51,6 @@ class TargetStatisticProcessingService
         $this->targetStatisticRepository->update($targetStatistic, ['result' => $result]);
     }
 
-    /**
-     * Applies all filters to the collection of models
-     *
-     * @param Collection $models
-     * @param Collection $filters
-     * @return Collection
-     */
     private function applyFilters(Collection $models, Collection $filters): Collection
     {
         return $models->filter(function ($model) use ($filters) {
@@ -95,14 +70,6 @@ class TargetStatisticProcessingService
         });
     }
 
-    /**
-     * Evaluates a single filter condition
-     *
-     * @param mixed $fieldValue
-     * @param string $operator
-     * @param mixed $filterValue
-     * @return bool
-     */
     private function evaluateFilter($fieldValue, string $operator, $filterValue): bool
     {
         switch ($operator) {
@@ -118,26 +85,11 @@ class TargetStatisticProcessingService
                 return $fieldValue < $filterValue;
             case '<=':
                 return $fieldValue <= $filterValue;
-            case 'in':
-                return in_array($fieldValue, explode(',', $filterValue));
-            case 'not in':
-                return !in_array($fieldValue, explode(',', $filterValue));
-            case 'like':
-                return str_contains(strtolower($fieldValue), strtolower($filterValue));
-            case 'not like':
-                return !str_contains(strtolower($fieldValue), strtolower($filterValue));
             default:
                 return false;
         }
     }
 
-    /**
-     * Processes results for unique value grouping
-     *
-     * @param Collection $models
-     * @param StatisticFilter $uniqueFilter
-     * @return array
-     */
     private function processUniqueResults(Collection $models, StatisticFilter $uniqueFilter): array
     {
         $uniqueValues = $models->pluck($uniqueFilter->field)->unique();

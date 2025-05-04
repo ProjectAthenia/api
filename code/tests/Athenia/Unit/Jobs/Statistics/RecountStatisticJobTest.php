@@ -3,21 +3,16 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Jobs\Statistics;
 
-use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Services\Statistics\SingleTargetStatisticProcessingServiceContract;
-use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
+use App\Athenia\Jobs\Statistics\RecountStatisticJob;
+use App\Models\Statistics\Statistic;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-/**
- * Class ProcessTargetStatisticsJobTest
- * @package Tests\Athenia\Unit\Jobs\Statistics
- */
-class ProcessTargetStatisticsJobTest extends TestCase
+class RecountStatisticJobTest extends TestCase
 {
     public function testHandleProcessesAllTargetStatistics()
     {
@@ -27,9 +22,9 @@ class ProcessTargetStatisticsJobTest extends TestCase
             Mockery::mock(TargetStatistic::class),
         ];
 
-        /** @var CanBeStatisticTargetContract|Model|MockInterface $target */
-        $target = Mockery::mock(CanBeStatisticTargetContract::class, Model::class);
-        $target->shouldReceive('getAttribute')
+        /** @var Statistic|MockInterface $statistic */
+        $statistic = Mockery::mock(Statistic::class);
+        $statistic->shouldReceive('getAttribute')
             ->with('targetStatistics')
             ->andReturn(new Collection($targetStatistics));
 
@@ -43,15 +38,15 @@ class ProcessTargetStatisticsJobTest extends TestCase
                 ->once();
         }
 
-        $job = new ProcessTargetStatisticsJob($target);
+        $job = new RecountStatisticJob($statistic);
         $job->handle($processingService);
     }
 
     public function testHandleWithNoTargetStatistics()
     {
-        /** @var CanBeStatisticTargetContract|Model|MockInterface $target */
-        $target = Mockery::mock(CanBeStatisticTargetContract::class, Model::class);
-        $target->shouldReceive('getAttribute')
+        /** @var Statistic|MockInterface $statistic */
+        $statistic = Mockery::mock(Statistic::class);
+        $statistic->shouldReceive('getAttribute')
             ->with('targetStatistics')
             ->andReturn(new Collection([]));
 
@@ -59,7 +54,7 @@ class ProcessTargetStatisticsJobTest extends TestCase
         $processingService = Mockery::mock(SingleTargetStatisticProcessingServiceContract::class);
         $processingService->shouldNotReceive('processSingleTargetStatistic');
 
-        $job = new ProcessTargetStatisticsJob($target);
+        $job = new RecountStatisticJob($statistic);
         $job->handle($processingService);
     }
 
