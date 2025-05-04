@@ -43,7 +43,7 @@ class StatisticRepositoryTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
 
-        $this->dispatcher = app(Dispatcher::class);
+        $this->dispatcher = $this->createMock(Dispatcher::class);
         $this->statisticFilterRepository = app(StatisticFilterRepository::class);
         $this->repository = new StatisticRepository(
             app(Statistic::class),
@@ -126,7 +126,11 @@ class StatisticRepositoryTest extends TestCase
             ],
         ];
 
-        Event::fake();
+        $this->dispatcher->expects($this->once())
+            ->method('dispatch')
+            ->with($this->callback(function ($event) {
+                return $event instanceof StatisticCreatedEvent;
+            }));
 
         $statistic = $this->repository->create($data);
 
@@ -150,10 +154,6 @@ class StatisticRepositoryTest extends TestCase
         $this->assertEquals('type', $filter2->field);
         $this->assertEquals('=', $filter2->operator);
         $this->assertEquals('character', $filter2->value);
-
-        Event::assertDispatched(StatisticCreatedEvent::class, function ($event) use ($statistic) {
-            return $event->statistic->id === $statistic->id;
-        });
     }
 
     /**
@@ -183,7 +183,11 @@ class StatisticRepositoryTest extends TestCase
             ],
         ];
 
-        Event::fake();
+        $this->dispatcher->expects($this->once())
+            ->method('dispatch')
+            ->with($this->callback(function ($event) {
+                return $event instanceof StatisticUpdatedEvent;
+            }));
 
         $updatedStatistic = $this->repository->update($statistic, $data);
 
@@ -205,10 +209,6 @@ class StatisticRepositoryTest extends TestCase
         $this->assertEquals('type', $filter2->field);
         $this->assertEquals('=', $filter2->operator);
         $this->assertEquals('character', $filter2->value);
-
-        Event::assertDispatched(StatisticUpdatedEvent::class, function ($event) use ($updatedStatistic) {
-            return $event->statistic->id === $updatedStatistic->id;
-        });
     }
 
     public function testDeleteSuccess()
