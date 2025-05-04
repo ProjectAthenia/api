@@ -23,17 +23,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StatisticFilter extends BaseModelAbstract
 {
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'field',
-        'operator',
-        'value',
-    ];
-
-    /**
      * The statistic that this filter belongs to
      *
      * @return BelongsTo
