@@ -12,12 +12,15 @@ use App\Athenia\Events\Statistics\StatisticCreatedEvent;
 use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface as LogContract;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Traits\CanGetAndUnset;
 
 /**
  * Class StatisticRepository
  */
 class StatisticRepository extends BaseRepositoryAbstract implements StatisticRepositoryContract
 {
+    use CanGetAndUnset;
+
     public function __construct(
         Statistic $model,
         LogContract $log,
@@ -40,12 +43,11 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
      */
     public function update(BaseModelAbstract $model, array $data, array $forcedValues = []): BaseModelAbstract
     {
-        $statisticFilters = $data['statistic_filters'] ?? [];
-        unset($data['statistic_filters']);
+        $statisticFilters = $this->getAndUnset($data, 'statistic_filters');
 
         $model = parent::update($model, $data, $forcedValues);
 
-        if ($statisticFilters) {
+        if ($statisticFilters !== null) {
             // Delete all existing filters
             foreach ($model->statisticFilters as $filter) {
                 $this->statisticFilterRepository->delete($filter);
@@ -70,8 +72,7 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
      */
     public function create(array $data = [], ?BaseModelAbstract $relatedModel = null, array $forcedValues = [])
     {
-        $statisticFilters = $data['statistic_filters'] ?? [];
-        unset($data['statistic_filters']);
+        $statisticFilters = $this->getAndUnset($data, 'statistic_filters') ?? [];
 
         $model = parent::create($data, $relatedModel, $forcedValues);
 
