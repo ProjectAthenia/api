@@ -109,14 +109,16 @@ class StatisticUpdateTest extends TestCase
 
         $this->actAs(Role::SUPER_ADMIN);
         $response = $this->json('PATCH', static::BASE_ROUTE . $statistic->id, [
-            'type' => 'character'
+            'model' => 'character',
+            'relation' => 'active'
         ]);
 
         $response->assertStatus(400);
         $response->assertJson([
             'message'   => 'Sorry, something went wrong.',
             'errors'    =>  [
-                'type' => ['The type field is not allowed or can not be set for this request.'],
+                'model' => ['The model field is not allowed or can not be set for this request.'],
+                'relation' => ['The relation field is not allowed or can not be set for this request.'],
             ]
         ]);
     }
