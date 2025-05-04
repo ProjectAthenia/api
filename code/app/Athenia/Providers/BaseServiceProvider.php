@@ -30,7 +30,6 @@ use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
-use App\Athenia\Contracts\Services\Statistics\SingleTargetStatisticProcessingServiceContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
@@ -51,7 +50,6 @@ use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
 use App\Athenia\Services\Statistics\TargetStatisticProcessingService;
-use App\Athenia\Services\Statistics\SingleTargetStatisticProcessingService;
 use App\Models\Messaging\Message;
 use App\Services\Indexing\ResourceRepositoryService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -92,7 +90,6 @@ abstract class BaseServiceProvider extends ServiceProvider
             StripePaymentServiceContract::class,
             TokenGenerationServiceContract::class,
             TargetStatisticProcessingServiceContract::class,
-            SingleTargetStatisticProcessingServiceContract::class,
             RelationTraversalServiceContract::class,
         ], $this->appProviders());
     }
@@ -224,12 +221,6 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
             new TargetStatisticProcessingService(
-                $this->app->make(RelationTraversalServiceContract::class),
-                $this->app->make(TargetStatisticRepositoryContract::class)
-            )
-        );
-        $this->app->bind(SingleTargetStatisticProcessingServiceContract::class, fn () =>
-            new SingleTargetStatisticProcessingService(
                 $this->app->make(RelationTraversalServiceContract::class),
                 $this->app->make(TargetStatisticRepositoryContract::class)
             )
