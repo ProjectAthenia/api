@@ -27,7 +27,6 @@ class StatisticIndexTest extends TestCase
     public function testNotLoggedInUserBlocked()
     {
         $response = $this->json('GET', '/v1/statistics');
-        dump($response);
         $response->assertStatus(403);
     }
 
@@ -35,7 +34,6 @@ class StatisticIndexTest extends TestCase
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/statistics');
-        dump($response);
         $response->assertStatus(200);
         $response->assertJson([
             'total' => 0,
