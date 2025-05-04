@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Athenia\Contracts\Services\Relations;
 
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface RelationTraversalServiceContract
@@ -15,9 +15,9 @@ interface RelationTraversalServiceContract
     /**
      * Traverses the relations on a model and returns all related models
      *
-     * @param Model $model
+     * @param BaseModelAbstract $model
      * @param string $relationPath
      * @return Collection
      */
-    public function traverseRelations(Model $model, string $relationPath): Collection;
+    public function traverseRelations(BaseModelAbstract $model, string $relationPath): Collection;
 } 

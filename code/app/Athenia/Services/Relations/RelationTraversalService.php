@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Athenia\Services\Relations;
 
 use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RelationTraversalService
@@ -16,11 +16,11 @@ class RelationTraversalService implements RelationTraversalServiceContract
     /**
      * Traverses through a chain of relations starting from a model and returns all models at the end of the chain
      *
-     * @param Model $startingModel The model to start traversing from
+     * @param BaseModelAbstract $startingModel The model to start traversing from
      * @param string $relationPath The dot-notation path of relations to traverse (e.g. "parent.children.items")
      * @return Collection The collection of models at the end of the relation chain
      */
-    public function traverseRelations(Model $startingModel, string $relationPath): Collection
+    public function traverseRelations(BaseModelAbstract $startingModel, string $relationPath): Collection
     {
         $currentModels = new Collection([$startingModel]);
 
@@ -44,11 +44,11 @@ class RelationTraversalService implements RelationTraversalServiceContract
                 // Handle both single models and collections
                 if ($related instanceof Collection) {
                     $nextModels = $nextModels->merge($related);
-                } elseif ($related instanceof Model) {
+                } elseif ($related instanceof BaseModelAbstract) {
                     foreach ($related as $relatedModel) {
                         $nextModels->push($relatedModel);
                     }
-                } elseif ($related instanceof Model) {
+                } elseif ($related instanceof BaseModelAbstract) {
                     $nextModels->push($related);
                 }
             }

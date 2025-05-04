@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Services\Relations;
 
 use App\Athenia\Services\Relations\RelationTraversalService;
+use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -31,8 +31,8 @@ class RelationTraversalServiceTest extends TestCase
 
     public function testTraverseRelationsWithEmptyPath()
     {
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
+        /** @var BaseModelAbstract|MockInterface $model */
+        $model = Mockery::mock(BaseModelAbstract::class);
 
         $result = $this->service->traverseRelations($model, '');
 
