@@ -7,12 +7,26 @@ use App\Models\Statistics\Statistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Models\BaseModelAbstract;
+use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
+use App\Athenia\Events\Statistics\StatisticCreatedEvent;
+use Illuminate\Contracts\Events\Dispatcher;
+use Psr\Log\LoggerInterface as LogContract;
+use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 
 /**
  * Class StatisticRepository
  */
 class StatisticRepository extends BaseRepositoryAbstract implements StatisticRepositoryContract
 {
+    public function __construct(
+        Statistic $model,
+        LogContract $log,
+        private readonly StatisticFilterRepository $statisticFilterRepository,
+        private readonly Dispatcher $dispatcher
+    ) {
+        parent::__construct($model, $log);
+    }
+
     /**
      * @inheritDoc
      */
@@ -26,14 +40,27 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
      */
     public function update(BaseModelAbstract $model, array $data, array $forcedValues = []): BaseModelAbstract
     {
+        $statisticFilters = $data['statistic_filters'] ?? [];
+        unset($data['statistic_filters']);
+
         $model = parent::update($model, $data, $forcedValues);
 
-        if (isset($data['statistic_filters'])) {
-            $model->statisticFilters()->delete();
-            foreach ($data['statistic_filters'] as $filter) {
-                $model->statisticFilters()->create($filter);
+        if ($statisticFilters) {
+            // Delete all existing filters
+            foreach ($model->statisticFilters as $filter) {
+                $this->statisticFilterRepository->delete($filter);
             }
+
+            // Create new filters
+            foreach ($statisticFilters as $filter) {
+                $this->statisticFilterRepository->create($filter, $model);
+            }
+
+            // Refresh the relationship
+            $model->load('statisticFilters');
         }
+
+        $this->dispatcher->dispatch(new StatisticUpdatedEvent($model));
 
         return $model;
     }
@@ -50,9 +77,11 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
 
         if ($statisticFilters) {
             foreach ($statisticFilters as $filter) {
-                $model->statisticFilters()->create($filter);
+                $this->statisticFilterRepository->create($filter, $model);
             }
         }
+
+        $this->dispatcher->dispatch(new StatisticCreatedEvent($model));
 
         return $model;
     }
