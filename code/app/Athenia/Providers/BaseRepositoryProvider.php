@@ -107,6 +107,8 @@ use App\Athenia\Repositories\Statistics\StatisticRepository;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
+use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticFilterRepositoryContract;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -152,6 +154,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             UserRepositoryContract::class,
             StatisticRepositoryContract::class,
             TargetStatisticRepositoryContract::class,
+            StatisticFilterRepositoryContract::class,
         ], $this->appProviders());
     }
 
@@ -369,10 +372,18 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log'),
             );
         });
+        $this->app->bind(StatisticFilterRepositoryContract::class, function() {
+            return new StatisticFilterRepository(
+                new StatisticFilter(),
+                $this->app->make('log')
+            );
+        });
         $this->app->bind(StatisticRepositoryContract::class, function() {
             return new StatisticRepository(
                 new Statistic(),
                 $this->app->make('log'),
+                $this->app->make(StatisticFilterRepositoryContract::class),
+                $this->app->make(Dispatcher::class)
             );
         });
         $this->app->bind(TargetStatisticRepositoryContract::class, function() {
