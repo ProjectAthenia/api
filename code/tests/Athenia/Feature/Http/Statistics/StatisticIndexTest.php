@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Feature\Http\Statistics;
 
-use App\Athenia\Models\Role;
+use App\Models\Role;
 use App\Models\Statistics\Statistic;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -27,6 +27,7 @@ class StatisticIndexTest extends TestCase
     public function testNotLoggedInUserBlocked()
     {
         $response = $this->json('GET', '/v1/statistics');
+        dump($response);
         $response->assertStatus(403);
     }
 
@@ -34,7 +35,7 @@ class StatisticIndexTest extends TestCase
     {
         $this->actAs(Role::APP_USER);
         $response = $this->json('GET', '/v1/statistics');
-
+        dump($response);
         $response->assertStatus(200);
         $response->assertJson([
             'total' => 0,

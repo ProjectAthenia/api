@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Policies\Statistics;
 
-use App\Athenia\Models\Role;
-use App\Athenia\Models\User\User;
+use App\Models\Role;
+use App\Models\User\User;
 use App\Athenia\Policies\Statistics\StatisticPolicy;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

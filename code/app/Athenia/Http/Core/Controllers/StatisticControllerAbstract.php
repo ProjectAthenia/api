@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Athenia\Http\Core\Controllers;
 
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Http\Core\Controllers\Traits\HasIndexRequests;
 use App\Http\Core\Requests;
 use App\Models\Statistics\Statistic;
 use Illuminate\Http\JsonResponse;
@@ -14,6 +15,8 @@ use Illuminate\Http\JsonResponse;
  */
 abstract class StatisticControllerAbstract extends BaseControllerAbstract
 {
+    use HasIndexRequests;
+
     /**
      * @var StatisticRepositoryContract
      */
@@ -36,7 +39,7 @@ abstract class StatisticControllerAbstract extends BaseControllerAbstract
      */
     public function index(Requests\Statistics\IndexRequest $request)
     {
-        return $this->repository->findAll();
+        return $this->repository->findAll($this->filter($request), $this->search($request), $this->order($request), $this->expand($request), $this->limit($request), [], (int)$request->input('page', 1));
     }
 
     /**
