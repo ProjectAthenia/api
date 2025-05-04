@@ -6,9 +6,9 @@ namespace Tests\Athenia\Integration\Repositories\Statistics;
 use App\Models\Statistics\Statistic;
 use App\Models\Statistics\StatisticFilter;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
+use Tests\Traits\MocksApplicationLog;
 
 /**
  * Class StatisticFilterRepositoryTest
@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class StatisticFilterRepositoryTest extends TestCase
 {
-    use DatabaseSetupTrait;
+    use DatabaseSetupTrait, MocksApplicationLog;
 
     /**
      * @var StatisticFilterRepository
@@ -27,10 +27,11 @@ class StatisticFilterRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->setupDatabase();
+        $this->mockApplicationLog();
 
         $this->repository = new StatisticFilterRepository(
             new StatisticFilter(),
-            mock(Dispatcher::class)
+            $this->getGenericLogMock()
         );
     }
 
@@ -47,7 +48,7 @@ class StatisticFilterRepositoryTest extends TestCase
     {
         $model = StatisticFilter::factory()->create();
 
-        $foundModel = $this->repository->find($model->id);
+        $foundModel = $this->repository->findOrFail($model->id);
 
         $this->assertEquals($model->id, $foundModel->id);
     }
