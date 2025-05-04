@@ -107,6 +107,7 @@ use App\Athenia\Repositories\Statistics\StatisticRepository;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
+use App\Models\Statistics\StatisticFilter;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticFilterRepositoryContract;
 
