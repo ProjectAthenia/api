@@ -54,7 +54,6 @@ class StatisticCreateTest extends TestCase
         ];
 
         $response = $this->json('POST', $this->route, $properties);
-
         $response->assertStatus(201);
         $response->assertJsonFragment($properties);
     }
@@ -78,7 +77,6 @@ class StatisticCreateTest extends TestCase
         ];
 
         $response = $this->json('POST', $this->route, $properties);
-
         $response->assertStatus(201);
         unset($properties['statistic_filters']);
         $response->assertJsonFragment($properties);
@@ -117,6 +115,7 @@ class StatisticCreateTest extends TestCase
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
             'model' => 'collection',
+            'relation' => '',
             'statistic_filters' => [
                 'not an array',
             ],
@@ -125,11 +124,14 @@ class StatisticCreateTest extends TestCase
         $response->assertStatus(400);
         $response->assertJsonValidationErrors([
             'statistic_filters.0' => ['The statistic_filters.0 must be an array.'],
+            'statistic_filters.0.field' => ['The statistic_filters.0.field field is required.'],
+            'statistic_filters.0.operator' => ['The statistic_filters.0.operator field is required.'],
         ]);
 
         $response = $this->json('POST', $this->route, [
             'name' => 'Test',
             'model' => 'collection',
+            'relation' => 'collectionItems',
             'statistic_filters' => [
                 [],
             ],
@@ -139,7 +141,6 @@ class StatisticCreateTest extends TestCase
         $response->assertJsonValidationErrors([
             'statistic_filters.0.field' => ['The statistic_filters.0.field field is required.'],
             'statistic_filters.0.operator' => ['The statistic_filters.0.operator field is required.'],
-            'statistic_filters.0.value' => ['The statistic_filters.0.value field is required.'],
         ]);
 
         $response = $this->json('POST', $this->route, [

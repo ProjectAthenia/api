@@ -25,7 +25,7 @@ class TargetStatisticRepository extends BaseRepositoryAbstract implements Target
      * @param Dispatcher $dispatcher
      */
     public function __construct(
-        protected readonly TargetStatistic $model,
+        TargetStatistic $model,
         LogContract $log,
         private readonly Dispatcher $dispatcher
     ) {

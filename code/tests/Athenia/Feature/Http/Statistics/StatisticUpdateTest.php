@@ -61,7 +61,6 @@ class StatisticUpdateTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson($data);
 
-
         /** @var Statistic $updated */
         $updated = Statistic::find($statistic->id);
 

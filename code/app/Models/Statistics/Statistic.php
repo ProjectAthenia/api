@@ -88,7 +88,7 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
                     'string',
                 ],
                 'statistic_filters.*.value' => [
-                    'required',
+                    'nullable',
                     'string',
                 ],
             ],
