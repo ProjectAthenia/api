@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Feature\Http\Statistics;
 
-use App\Athenia\Models\Role;
+use App\Models\Role;
 use App\Models\Statistics\Statistic;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -44,7 +44,7 @@ class StatisticDeleteTest extends TestCase
 
     public function testDeleteSingle()
     {
-        $this->actAs(Role::SUPER_ADMIN);
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $model = Statistic::factory()->create();
 
@@ -56,7 +56,7 @@ class StatisticDeleteTest extends TestCase
 
     public function testDeleteSingleInvalidIdFails()
     {
-        $this->actAs(Role::SUPER_ADMIN);
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $response = $this->json('DELETE', '/v1/statistics/a')
             ->assertExactJson([
@@ -67,7 +67,7 @@ class StatisticDeleteTest extends TestCase
 
     public function testDeleteSingleNotFoundFails()
     {
-        $this->actAs(Role::SUPER_ADMIN);
+        $this->actAs(Role::CONTENT_EDITOR);
 
         $response = $this->json('DELETE', '/v1/statistics/1')
             ->assertExactJson([

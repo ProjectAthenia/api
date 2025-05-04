@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Repositories\Statistics;
 
-use App\Athenia\Models\Statistics\Statistic;
-use App\Athenia\Models\Statistics\StatisticFilter;
+use App\Models\Statistics\Statistic;
+use App\Models\Statistics\StatisticFilter;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\DatabaseSetupTrait;

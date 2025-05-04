@@ -10,7 +10,7 @@ use App\Athenia\Http\Core\Requests\Statistics\IndexRequest;
 use App\Athenia\Http\Core\Requests\Statistics\ViewRequest;
 use App\Athenia\Http\Core\Requests\Statistics\StoreRequest;
 use App\Athenia\Http\Core\Requests\Statistics\UpdateRequest;
-use App\Athenia\Models\Statistics\Statistic;
+use App\Models\Statistics\Statistic;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Http\JsonResponse;
 

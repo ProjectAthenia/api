@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Tests\Athenia\Integration\Repositories\Statistics;
 
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
-use App\Athenia\Models\Statistics\Statistic;
-use App\Athenia\Models\Statistics\StatisticFilter;
+use App\Models\Statistics\Statistic;
+use App\Models\Statistics\StatisticFilter;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 use App\Athenia\Repositories\Statistics\StatisticRepository;
 use Illuminate\Contracts\Events\Dispatcher;

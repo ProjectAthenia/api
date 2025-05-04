@@ -7,7 +7,7 @@ use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;
 use App\Athenia\Http\Core\Requests\Traits\HasNoPolicyParameters;
 use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
-use App\Athenia\Models\Statistics\Statistic;
+use App\Models\Statistics\Statistic;
 use App\Policies\Statistics\StatisticPolicy;
 
 /**
