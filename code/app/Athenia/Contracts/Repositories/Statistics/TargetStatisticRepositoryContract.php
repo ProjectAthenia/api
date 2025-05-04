@@ -6,7 +6,7 @@ namespace App\Athenia\Contracts\Repositories\Statistics;
 use App\Athenia\Contracts\Repositories\BaseRepositoryContract;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Model;
-use App\Contracts\Models\CanBeStatisticTargetContract;
+use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 
 /**
  * Interface TargetStatisticRepositoryContract

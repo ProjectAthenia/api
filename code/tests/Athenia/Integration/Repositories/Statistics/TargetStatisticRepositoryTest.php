@@ -5,7 +5,7 @@ namespace Tests\Athenia\Integration\Repositories\Statistics;
 
 use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
-use App\Models\User\User;
+use App\Models\Collection\Collection;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\DatabaseSetupTrait;
@@ -44,17 +44,17 @@ class TargetStatisticRepositoryTest extends TestCase
 
     public function testCreateForTargetSuccess()
     {
-        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
         $statistic = Statistic::factory()->create();
 
-        $targetStatistic = $this->repository->createForTarget($user, [
+        $targetStatistic = $this->repository->createForTarget($collection, [
             'statistic_id' => $statistic->id,
             'value' => 42.5,
             'filters' => ['type' => 'test'],
         ]);
 
-        $this->assertEquals($user->id, $targetStatistic->target_id);
-        $this->assertEquals(User::class, $targetStatistic->target_type);
+        $this->assertEquals($collection->id, $targetStatistic->target_id);
+        $this->assertEquals('collection', $targetStatistic->target_type);
         $this->assertEquals($statistic->id, $targetStatistic->statistic_id);
         $this->assertEquals(42.5, $targetStatistic->value);
         $this->assertEquals(['type' => 'test'], $targetStatistic->filters);
@@ -62,44 +62,44 @@ class TargetStatisticRepositoryTest extends TestCase
 
     public function testFindAllForTargetSuccess()
     {
-        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
         TargetStatistic::factory()->count(3)->create([
-            'target_id' => $user->id,
-            'target_type' => User::class,
+            'target_id' => $collection->id,
+            'target_type' => 'collection',
         ]);
-        // Create some stats for another user to ensure filtering works
+        // Create some stats for another collection to ensure filtering works
         TargetStatistic::factory()->count(2)->create();
 
-        $results = $this->repository->findAllForTarget($user);
+        $results = $this->repository->findAllForTarget($collection);
 
         $this->assertCount(3, $results);
         foreach ($results as $stat) {
-            $this->assertEquals($user->id, $stat->target_id);
-            $this->assertEquals(User::class, $stat->target_type);
+            $this->assertEquals($collection->id, $stat->target_id);
+            $this->assertEquals('collection', $stat->target_type);
         }
     }
 
     public function testFindForTargetSuccess()
     {
-        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
         $statistic = Statistic::factory()->create();
         TargetStatistic::factory()->create([
-            'target_id' => $user->id,
-            'target_type' => User::class,
+            'target_id' => $collection->id,
+            'target_type' => 'collection',
             'statistic_id' => $statistic->id,
         ]);
 
-        $result = $this->repository->findForTarget($user, $statistic->id);
+        $result = $this->repository->findForTarget($collection, $statistic->id);
 
         $this->assertNotNull($result);
-        $this->assertEquals($user->id, $result->target_id);
+        $this->assertEquals($collection->id, $result->target_id);
         $this->assertEquals($statistic->id, $result->statistic_id);
     }
 
     public function testFindForTargetReturnsNullWhenNotFound()
     {
-        $user = User::factory()->create();
-        $result = $this->repository->findForTarget($user, 999);
+        $collection = Collection::factory()->create();
+        $result = $this->repository->findForTarget($collection, 999);
 
         $this->assertNull($result);
     }
