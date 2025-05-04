@@ -120,14 +120,14 @@ class CollectionItem extends BaseModelAbstract implements HasValidationRulesCont
     }
 
     /**
-     * Returns the relation path to the models that can be target statistics
-     * For example: "collectionItem.collection" would mean this model affects statistics on collections
-     * through the collectionItem relation
+     * Returns the relation paths to the models that can be target statistics
+     * For example: ["collection"] would mean this model affects statistics on collections
+     * through the collection relation
      *
-     * @return string
+     * @return string[]
      */
-    public function getStatisticTargetRelationPath(): string
+    public function getStatisticTargetRelationPath(): array
     {
-        return 'collection';
+        return ['collection'];
     }
 }
