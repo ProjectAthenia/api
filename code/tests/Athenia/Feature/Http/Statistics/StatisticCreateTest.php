@@ -45,7 +45,6 @@ class StatisticCreateTest extends TestCase
     public function testCreateSuccessWithoutStatisticFilters()
     {
         $this->actAs(Role::CONTENT_EDITOR);
-        \Log::info('User roles: ' . $this->actingAs->roles()->pluck('id')->toJson());
 
         $properties = [
             'name' => 'Test Statistic',
@@ -55,10 +54,6 @@ class StatisticCreateTest extends TestCase
         ];
 
         $response = $this->json('POST', $this->route, $properties);
-        \Log::info('Response: ' . $response->getContent());
-        \Log::info('Response status: ' . $response->getStatusCode());
-        \Log::info('User ID: ' . $this->actingAs->id);
-        \Log::info('User has role: ' . $this->actingAs->hasRole(Role::CONTENT_EDITOR));
 
         $response->assertStatus(201);
         $response->assertJsonFragment($properties);
