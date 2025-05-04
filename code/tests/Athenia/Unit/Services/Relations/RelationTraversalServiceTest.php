@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
+use App\Models\Collection\Collection as CollectionModel;
+use App\Models\Collection\CollectionItem;
 
 /**
  * Class RelationTraversalServiceTest
@@ -41,121 +43,83 @@ class RelationTraversalServiceTest extends TestCase
 
     public function testTraverseRelationsWithSingleRelation()
     {
-        /** @var Model|MockInterface $relatedModel */
-        $relatedModel = Mockery::mock(Model::class);
+        $collection = new CollectionModel();
+        $collection->id = 1;
 
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
-        $model->shouldReceive('relationLoaded')
-            ->with('items')
-            ->andReturn(false);
-        $model->shouldReceive('load')
-            ->with('items')
-            ->once();
-        $model->shouldReceive('getAttribute')
-            ->with('items')
-            ->andReturn(collect([$relatedModel]));
+        $collectionItem = new CollectionItem();
+        $collectionItem->id = 2;
+        $collectionItem->collection_id = $collection->id;
 
-        $result = $this->service->traverseRelations($model, 'items');
+        $collection->setRelation('items', new Collection([$collectionItem]));
+
+        $result = $this->service->traverseRelations($collection, 'items');
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(1, $result->count());
-        $this->assertSame($relatedModel, $result->first());
+        $this->assertSame($collectionItem, $result->first());
     }
 
     public function testTraverseRelationsWithNestedRelations()
     {
-        /** @var Model|MockInterface $finalModel */
-        $finalModel = Mockery::mock(Model::class);
+        $collection = new CollectionModel();
+        $collection->id = 1;
 
-        /** @var Model|MockInterface $intermediateModel */
-        $intermediateModel = Mockery::mock(Model::class);
-        $intermediateModel->shouldReceive('relationLoaded')
-            ->with('children')
-            ->andReturn(false);
-        $intermediateModel->shouldReceive('load')
-            ->with('children')
-            ->once();
-        $intermediateModel->shouldReceive('getAttribute')
-            ->with('children')
-            ->andReturn(collect([$finalModel]));
+        $parentItem = new CollectionItem();
+        $parentItem->id = 2;
+        $parentItem->collection_id = $collection->id;
 
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
-        $model->shouldReceive('relationLoaded')
-            ->with('parent')
-            ->andReturn(false);
-        $model->shouldReceive('load')
-            ->with('parent')
-            ->once();
-        $model->shouldReceive('getAttribute')
-            ->with('parent')
-            ->andReturn($intermediateModel);
+        $childItem = new CollectionItem();
+        $childItem->id = 3;
+        $childItem->collection_id = $collection->id;
 
-        $result = $this->service->traverseRelations($model, 'parent.children');
+        $parentItem->setRelation('children', new Collection([$childItem]));
+        $collection->setRelation('items', new Collection([$parentItem]));
+
+        $result = $this->service->traverseRelations($collection, 'items.children');
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(1, $result->count());
-        $this->assertSame($finalModel, $result->first());
+        $this->assertSame($childItem, $result->first());
     }
 
     public function testTraverseRelationsWithMixedRelationTypes()
     {
-        /** @var Model|MockInterface $finalModel1 */
-        $finalModel1 = Mockery::mock(Model::class);
-        /** @var Model|MockInterface $finalModel2 */
-        $finalModel2 = Mockery::mock(Model::class);
+        $collection = new CollectionModel();
+        $collection->id = 1;
 
-        /** @var Model|MockInterface $intermediateModel */
-        $intermediateModel = Mockery::mock(Model::class);
-        $intermediateModel->shouldReceive('relationLoaded')
-            ->with('items')
-            ->andReturn(false);
-        $intermediateModel->shouldReceive('load')
-            ->with('items')
-            ->once();
-        $intermediateModel->shouldReceive('getAttribute')
-            ->with('items')
-            ->andReturn(collect([$finalModel1, $finalModel2]));
+        $collectionItem1 = new CollectionItem();
+        $collectionItem1->id = 2;
+        $collectionItem1->collection_id = $collection->id;
 
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
-        $model->shouldReceive('relationLoaded')
-            ->with('owner')
-            ->andReturn(false);
-        $model->shouldReceive('load')
-            ->with('owner')
-            ->once();
-        $model->shouldReceive('getAttribute')
-            ->with('owner')
-            ->andReturn($intermediateModel);
+        $collectionItem2 = new CollectionItem();
+        $collectionItem2->id = 3;
+        $collectionItem2->collection_id = $collection->id;
 
-        $result = $this->service->traverseRelations($model, 'owner.items');
+        $collection->setRelation('items', new Collection([$collectionItem1, $collectionItem2]));
+
+        $result = $this->service->traverseRelations($collection, 'items');
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(2, $result->count());
-        $this->assertSame($finalModel1, $result->first());
-        $this->assertSame($finalModel2, $result->last());
+        $this->assertSame($collectionItem1, $result->first());
+        $this->assertSame($collectionItem2, $result->last());
     }
 
     public function testTraverseRelationsWithPreloadedRelations()
     {
-        /** @var Model|MockInterface $finalModel */
-        $finalModel = Mockery::mock(Model::class);
+        $collection = new CollectionModel();
+        $collection->id = 1;
 
-        /** @var Model|MockInterface $model */
-        $model = Mockery::mock(Model::class);
-        $model->shouldReceive('relationLoaded')
-            ->with('items')
-            ->andReturn(true);
-        $model->shouldReceive('getAttribute')
-            ->with('items')
-            ->andReturn(collect([$finalModel]));
+        $collectionItem = new CollectionItem();
+        $collectionItem->id = 2;
+        $collectionItem->collection_id = $collection->id;
 
-        $result = $this->service->traverseRelations($model, 'items');
+        $collection->setRelation('items', new Collection([$collectionItem]));
+
+        $result = $this->service->traverseRelations($collection, 'items');
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(1, $result->count());
-        $this->assertSame($finalModel, $result->first());
+        $this->assertSame($collectionItem, $result->first());
     }
 } 
