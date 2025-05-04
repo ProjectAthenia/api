@@ -60,6 +60,10 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\ServiceProvider;
 use App\Athenia\Services\Relations\RelationTraversalService;
+use App\Athenia\Contracts\Models\CanBeAggregatedContract;
+use App\Athenia\Observers\AggregatedModelObserver;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Collection\CollectionItem;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -230,6 +234,9 @@ abstract class BaseServiceProvider extends ServiceProvider
                 $this->app->make(TargetStatisticRepositoryContract::class)
             )
         );
+
+        CollectionItem::observe(AggregatedModelObserver::class);
+        
         $this->registerApp();
     }
 

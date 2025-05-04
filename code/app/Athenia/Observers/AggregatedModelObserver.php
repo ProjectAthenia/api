@@ -3,16 +3,23 @@ declare(strict_types=1);
 
 namespace App\Athenia\Observers;
 
+use App\Athenia\Contracts\Models\CanBeAggregatedContract;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
 use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 class AggregatedModelObserver
 {
+    public function __construct(
+        private readonly RelationTraversalServiceContract $relationTraversalService,
+        private readonly Dispatcher $dispatcher
+    ) {}
+
     /**
      * Handle the Model "created" event.
      */
-    public function created(Model $model): void
+    public function created(CanBeAggregatedContract $model): void
     {
         $this->dispatchStatisticProcessing($model);
     }
@@ -20,7 +27,7 @@ class AggregatedModelObserver
     /**
      * Handle the Model "updated" event.
      */
-    public function updated(Model $model): void
+    public function updated(CanBeAggregatedContract $model): void
     {
         $this->dispatchStatisticProcessing($model);
     }
@@ -28,7 +35,7 @@ class AggregatedModelObserver
     /**
      * Handle the Model "deleted" event.
      */
-    public function deleted(Model $model): void
+    public function deleted(CanBeAggregatedContract $model): void
     {
         $this->dispatchStatisticProcessing($model);
     }
@@ -42,12 +49,18 @@ class AggregatedModelObserver
     }
 
     /**
-     * Dispatches statistic processing for models that can be statistic targets
+     * Dispatches statistic processing for models that can be aggregated
      */
-    private function dispatchStatisticProcessing(Model $model): void
+    private function dispatchStatisticProcessing(CanBeAggregatedContract $model): void
     {
-        if ($model instanceof CanBeStatisticTargetContract) {
-            ProcessTargetStatisticsJob::dispatch($model);
+        foreach ($model->getStatisticTargetRelationPath() as $relationPath) {
+            $targetModels = $this->relationTraversalService->traverseRelations($model, $relationPath);
+            
+            foreach ($targetModels as $targetModel) {
+                if ($targetModel instanceof CanBeStatisticTargetContract) {
+                    $this->dispatcher->dispatch(new ProcessTargetStatisticsJob($targetModel));
+                }
+            }
         }
     }
 } 
