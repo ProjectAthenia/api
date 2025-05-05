@@ -13,6 +13,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface as LogContract;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 use App\Athenia\Traits\CanGetAndUnset;
+use App\Athenia\Events\Statistics\StatisticDeletedEvent;
 
 /**
  * Class StatisticRepository
@@ -85,5 +86,11 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
         $this->dispatcher->dispatch(new StatisticCreatedEvent($model));
 
         return $model;
+    }
+
+    public function delete(BaseModelAbstract $model): void
+    {
+        parent::delete($model);
+        $this->dispatcher->dispatch(new StatisticDeletedEvent($model));
     }
 } 

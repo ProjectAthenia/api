@@ -5,6 +5,7 @@ namespace Tests\Athenia\Integration\Repositories\Statistics;
 
 use App\Athenia\Events\Statistics\StatisticCreatedEvent;
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
+use App\Athenia\Events\Statistics\StatisticDeletedEvent;
 use App\Models\Statistics\Statistic;
 use App\Models\Statistics\StatisticFilter;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
@@ -213,10 +214,16 @@ class StatisticRepositoryTest extends TestCase
 
     public function testDeleteSuccess()
     {
-        $model = Statistic::factory()->create();
+        $statistic = Statistic::factory()->create();
 
-        $this->repository->delete($model);
+        $this->dispatcher->expects($this->once())
+            ->method('dispatch')
+            ->with($this->callback(function ($event) {
+                return $event instanceof StatisticDeletedEvent;
+            }));
 
-        $this->assertNull(Statistic::find($model->id));
+        $this->repository->delete($statistic);
+
+        $this->assertNull(Statistic::find($statistic->id));
     }
 } 
