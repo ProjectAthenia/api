@@ -36,13 +36,13 @@ class ProcessTargetStatisticsJobTest extends TestCase
             new TargetStatistic([
                 'id' => 1,
                 'target_id' => $collection->id,
-                'target_type' => Collection::class,
+                'target_type' => 'collection',
                 'statistic_id' => $statistic->id,
             ]),
             new TargetStatistic([
                 'id' => 2,
                 'target_id' => $collection->id,
-                'target_type' => Collection::class,
+                'target_type' => 'collection',
                 'statistic_id' => $statistic->id,
             ]),
         ]);
