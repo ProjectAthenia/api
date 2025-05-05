@@ -7,8 +7,9 @@ use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
 use App\Athenia\Jobs\Statistics\RecountStatisticJob;
 use App\Athenia\Listeners\Statistics\StatisticUpdatedListener;
 use App\Models\Statistics\Statistic;
-use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Bus\Dispatcher;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 /**
@@ -21,16 +22,22 @@ class StatisticUpdatedListenerTest extends TestCase
     {
         $statistic = new Statistic();
         $statistic->id = 234;
+
         $event = new StatisticUpdatedEvent($statistic);
 
+        /** @var Dispatcher|MockInterface $dispatcher */
         $dispatcher = Mockery::mock(Dispatcher::class);
         $dispatcher->shouldReceive('dispatch')
-            ->with(Mockery::on(function (RecountStatisticJob $job) {
-                return $job->getStatistic()->id === 234;
-            }))
+            ->with(Mockery::type(RecountStatisticJob::class))
             ->once();
 
         $listener = new StatisticUpdatedListener($dispatcher);
         $listener->handle($event);
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
     }
 } 

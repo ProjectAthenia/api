@@ -6,6 +6,7 @@ namespace App\Athenia\Contracts\Services\Statistics;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Statistics\Statistic;
 
 /**
  * Interface StatisticSynchronizationServiceContract
@@ -21,4 +22,12 @@ interface StatisticSynchronizationServiceContract
      * @return Collection|TargetStatistic[]
      */
     public function synchronizeTargetStatistics(CanBeStatisticTargetContract $model): Collection;
+
+    /**
+     * Create target statistics for a newly created statistic.
+     *
+     * @param Statistic $statistic
+     * @return TargetStatistic[]
+     */
+    public function createTargetStatisticsForStatistic(Statistic $statistic): array;
 } 

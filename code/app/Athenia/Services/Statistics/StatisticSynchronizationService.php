@@ -7,9 +7,13 @@ use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
+use App\Models\Statistics\Statistic;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection as BaseCollection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class StatisticSynchronizationService
@@ -17,27 +21,10 @@ use Illuminate\Support\Collection as BaseCollection;
  */
 class StatisticSynchronizationService implements StatisticSynchronizationServiceContract
 {
-    /**
-     * @var StatisticRepositoryContract
-     */
-    private StatisticRepositoryContract $statisticRepository;
-
-    /**
-     * @var TargetStatisticRepositoryContract
-     */
-    private TargetStatisticRepositoryContract $targetStatisticRepository;
-
-    /**
-     * StatisticSynchronizationService constructor.
-     * @param StatisticRepositoryContract $statisticRepository
-     * @param TargetStatisticRepositoryContract $targetStatisticRepository
-     */
     public function __construct(
-        StatisticRepositoryContract $statisticRepository,
-        TargetStatisticRepositoryContract $targetStatisticRepository
+        private readonly StatisticRepositoryContract $statisticRepository,
+        private readonly TargetStatisticRepositoryContract $targetStatisticRepository
     ) {
-        $this->statisticRepository = $statisticRepository;
-        $this->targetStatisticRepository = $targetStatisticRepository;
     }
 
     /**
@@ -49,35 +36,61 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
      */
     public function synchronizeTargetStatistics(CanBeStatisticTargetContract $model): Collection
     {
-        // Get the morph type for this model
-        $morphType = $model->morphRelationName();
-        
-        // Load all statistics that apply to this model type
-        $statistics = $this->statisticRepository->findAll([
-            'model' => $morphType,
-        ]);
+        $existingTargetStatistics = $model->targetStatistics ?? new Collection();
+        $statistics = $this->statisticRepository->findAll(['model' => $model->morphRelationName()]);
+        $newTargetStatistics = new Collection();
 
-        // Load all existing target statistics for this model
-        $existingTargetStatistics = $model->targetStatistics;
-        
-        // Create a map of existing target statistics by statistic ID for easy lookup
-        $existingTargetStatisticMap = $existingTargetStatistics->keyBy('statistic_id');
-        
-        // Create any missing target statistics
-        $newTargetStatistics = new BaseCollection();
         foreach ($statistics as $statistic) {
-            if (!$existingTargetStatisticMap->has($statistic->id)) {
-                $newTargetStatistics->push(
-                    $this->targetStatisticRepository->create([
-                        'statistic_id' => $statistic->id,
-                        'target_id' => $model->id,
-                        'target_type' => $morphType,
-                    ])
-                );
+            if (!$existingTargetStatistics->contains('statistic_id', $statistic->id)) {
+                $newTargetStatistic = $this->targetStatisticRepository->create([
+                    'statistic_id' => $statistic->id,
+                    'target_id' => $model->id,
+                    'target_type' => $model->morphRelationName(),
+                ]);
+
+                $newTargetStatistics->push($newTargetStatistic);
             }
         }
+
+        // Create a new Eloquent Collection with all items
+        $allItems = array_merge($existingTargetStatistics->all(), $newTargetStatistics->all());
+        return new Collection($allItems);
+    }
+
+    public function createTargetStatisticsForStatistic(Statistic $statistic): array
+    {
+        $targetStatistics = [];
+        $models = $this->getModelsForStatistic($statistic);
+
+        foreach ($models as $model) {
+            $targetStatistic = $this->targetStatisticRepository->create([
+                'statistic_id' => $statistic->id,
+                'target_id' => $model->id,
+                'target_type' => $model->morphRelationName(),
+            ]);
+
+            $targetStatistics[] = $targetStatistic;
+        }
+
+        return $targetStatistics;
+    }
+
+    /**
+     * Get all models that should have target statistics for the given statistic.
+     *
+     * @param Statistic $statistic
+     * @return CanBeStatisticTargetContract[]
+     */
+    private function getModelsForStatistic(Statistic $statistic): array
+    {
+        // Get the model class from Laravel's morph map
+        $modelClass = Relation::getMorphedModel($statistic->model);
         
-        // Merge existing and new target statistics and return
-        return new Collection($existingTargetStatistics->concat($newTargetStatistics));
+        if (!$modelClass) {
+            throw new \RuntimeException("No morph map found for model type: {$statistic->model}");
+        }
+        
+        // Build and execute the query using the model's query builder
+        return $modelClass::query()->get()->all();
     }
 } 

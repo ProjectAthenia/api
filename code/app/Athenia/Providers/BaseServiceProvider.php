@@ -31,6 +31,7 @@ use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
 use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Athenia\Services\Asset\AssetImportService;
@@ -50,6 +51,7 @@ use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
 use App\Athenia\Services\Statistics\TargetStatisticProcessingService;
+use App\Athenia\Services\Statistics\StatisticSynchronizationService;
 use App\Models\Messaging\Message;
 use App\Services\Indexing\ResourceRepositoryService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -91,6 +93,7 @@ abstract class BaseServiceProvider extends ServiceProvider
             TokenGenerationServiceContract::class,
             TargetStatisticProcessingServiceContract::class,
             RelationTraversalServiceContract::class,
+            StatisticSynchronizationServiceContract::class,
         ], $this->appProviders());
     }
 
@@ -222,6 +225,11 @@ abstract class BaseServiceProvider extends ServiceProvider
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
             new TargetStatisticProcessingService(
                 $this->app->make(RelationTraversalServiceContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
+            )
+        );
+        $this->app->bind(StatisticSynchronizationServiceContract::class, fn () =>
+            new StatisticSynchronizationService(
                 $this->app->make(TargetStatisticRepositoryContract::class)
             )
         );
