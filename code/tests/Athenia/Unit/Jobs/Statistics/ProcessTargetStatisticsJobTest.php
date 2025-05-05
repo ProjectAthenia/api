@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Jobs\Statistics;
 
-use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
+use App\Models\Collection\Collection;
+use App\Models\Statistics\Statistic;
 use App\Models\Statistics\TargetStatistic;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -19,19 +19,36 @@ use Tests\TestCase;
  */
 class ProcessTargetStatisticsJobTest extends TestCase
 {
-    public function testHandleProcessesAllTargetStatistics()
+    public function testHandleProcessesAllTargetStatistics(): void
     {
-        // Create mock target statistics
-        $targetStatistics = [
-            Mockery::mock(TargetStatistic::class),
-            Mockery::mock(TargetStatistic::class),
-        ];
+        // Create a real Collection model without saving
+        $collection = new Collection();
+        $collection->id = 1;
+        $collection->name = 'Test Collection';
 
-        /** @var CanBeStatisticTargetContract|Model|MockInterface $target */
-        $target = Mockery::mock(CanBeStatisticTargetContract::class, Model::class);
-        $target->shouldReceive('getAttribute')
-            ->with('targetStatistics')
-            ->andReturn(new Collection($targetStatistics));
+        // Create a real Statistic model without saving
+        $statistic = new Statistic();
+        $statistic->id = 1;
+        $statistic->name = 'Test Statistic';
+
+        // Create real TargetStatistic models without saving
+        $targetStatistics = new EloquentCollection([
+            new TargetStatistic([
+                'id' => 1,
+                'target_id' => $collection->id,
+                'target_type' => Collection::class,
+                'statistic_id' => $statistic->id,
+            ]),
+            new TargetStatistic([
+                'id' => 2,
+                'target_id' => $collection->id,
+                'target_type' => Collection::class,
+                'statistic_id' => $statistic->id,
+            ]),
+        ]);
+
+        // Associate the target statistics with the collection
+        $collection->setRelation('targetStatistics', $targetStatistics);
 
         /** @var TargetStatisticProcessingServiceContract|MockInterface $processingService */
         $processingService = Mockery::mock(TargetStatisticProcessingServiceContract::class);
@@ -43,23 +60,25 @@ class ProcessTargetStatisticsJobTest extends TestCase
                 ->once();
         }
 
-        $job = new ProcessTargetStatisticsJob($target);
+        $job = new ProcessTargetStatisticsJob($collection);
         $job->handle($processingService);
     }
 
-    public function testHandleWithNoTargetStatistics()
+    public function testHandleWithNoTargetStatistics(): void
     {
-        /** @var CanBeStatisticTargetContract|Model|MockInterface $target */
-        $target = Mockery::mock(CanBeStatisticTargetContract::class, Model::class);
-        $target->shouldReceive('getAttribute')
-            ->with('targetStatistics')
-            ->andReturn(new Collection([]));
+        // Create a real Collection model without saving
+        $collection = new Collection();
+        $collection->id = 1;
+        $collection->name = 'Test Collection';
+
+        // Set empty relation
+        $collection->setRelation('targetStatistics', new EloquentCollection([]));
 
         /** @var TargetStatisticProcessingServiceContract|MockInterface $processingService */
         $processingService = Mockery::mock(TargetStatisticProcessingServiceContract::class);
         $processingService->shouldNotReceive('processSingleTargetStatistic');
 
-        $job = new ProcessTargetStatisticsJob($target);
+        $job = new ProcessTargetStatisticsJob($collection);
         $job->handle($processingService);
     }
 
