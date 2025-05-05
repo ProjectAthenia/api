@@ -10,11 +10,9 @@ use Illuminate\Contracts\Bus\Dispatcher;
 
 class StatisticUpdatedListener
 {
-    private Dispatcher $dispatcher;
-
-    public function __construct(Dispatcher $dispatcher)
-    {
-        $this->dispatcher = $dispatcher;
+    public function __construct(
+        private readonly Dispatcher $dispatcher
+    ) {
     }
 
     public function handle(StatisticUpdatedEvent $event)
