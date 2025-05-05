@@ -32,6 +32,7 @@ use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Athenia\Services\Asset\AssetImportService;
@@ -230,6 +231,7 @@ abstract class BaseServiceProvider extends ServiceProvider
         );
         $this->app->bind(StatisticSynchronizationServiceContract::class, fn () =>
             new StatisticSynchronizationService(
+                $this->app->make(StatisticRepositoryContract::class),
                 $this->app->make(TargetStatisticRepositoryContract::class)
             )
         );
