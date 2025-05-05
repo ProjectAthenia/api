@@ -20,8 +20,13 @@ class RecountStatisticJob implements ShouldQueue
      *
      * @param Statistic $statistic
      */
-    public function __construct(public Statistic $statistic)
+    public function __construct(
+        private readonly Statistic $statistic
+    ) {}
+
+    public function getStatistic(): Statistic
     {
+        return $this->statistic;
     }
 
     /**
@@ -32,7 +37,7 @@ class RecountStatisticJob implements ShouldQueue
      */
     public function handle(TargetStatisticProcessingServiceContract $processingService): void
     {
-        foreach ($this->statistic->targetStatistics as $targetStatistic) {
+        foreach ($this->getStatistic()->targetStatistics as $targetStatistic) {
             $processingService->processSingleTargetStatistic($targetStatistic);
         }
     }

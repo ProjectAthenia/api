@@ -19,7 +19,7 @@ class StatisticUpdatedListener
 
     public function handle(StatisticUpdatedEvent $event)
     {
-        $statistic = $event->statistic;
+        $statistic = $event->getStatistic();
         $statistic->unsetRelations();
         $this->dispatcher->dispatch(new RecountStatisticJob($statistic));
     }

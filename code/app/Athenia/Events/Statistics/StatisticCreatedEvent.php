@@ -8,10 +8,12 @@ use App\Models\Statistics\Statistic;
 
 class StatisticCreatedEvent
 {
-    public Statistic $statistic;
+    public function __construct(
+        private readonly Statistic $statistic
+    ) {}
 
-    public function __construct(Statistic $statistic)
+    public function getStatistic(): Statistic
     {
-        $this->statistic = $statistic;
+        return $this->statistic;
     }
 } 
