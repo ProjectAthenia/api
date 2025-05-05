@@ -13,7 +13,10 @@ use Illuminate\Queue\SerializesModels;
 
 class RecountStatisticJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
@@ -22,11 +25,7 @@ class RecountStatisticJob implements ShouldQueue
      */
     public function __construct(
         private readonly Statistic $statistic
-    ) {}
-
-    public function getStatistic(): Statistic
-    {
-        return $this->statistic;
+    ) {
     }
 
     /**
@@ -37,7 +36,7 @@ class RecountStatisticJob implements ShouldQueue
      */
     public function handle(TargetStatisticProcessingServiceContract $processingService): void
     {
-        foreach ($this->getStatistic()->targetStatistics as $targetStatistic) {
+        foreach ($this->statistic->targetStatistics as $targetStatistic) {
             $processingService->processSingleTargetStatistic($targetStatistic);
         }
     }
