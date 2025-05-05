@@ -84,10 +84,8 @@ class TargetStatisticProcessingServiceTest extends TestCase
 
         $this->targetStatisticRepository->shouldReceive('update')
             ->with(Mockery::on(function ($targetStat) use ($targetStatistic) {
-                var_dump('Target Statistic:', $targetStat);
                 return $targetStat instanceof TargetStatistic;
             }), Mockery::on(function ($data) {
-                var_dump('Update Data:', $data);
                 return isset($data['result']) && $data['result']['total'] === 1;
             }))
             ->once();

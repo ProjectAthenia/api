@@ -225,8 +225,6 @@ abstract class BaseServiceProvider extends ServiceProvider
                 $this->app->make(TargetStatisticRepositoryContract::class)
             )
         );
-
-        CollectionItem::observe(AggregatedModelObserver::class);
         
         $this->registerApp();
     }
