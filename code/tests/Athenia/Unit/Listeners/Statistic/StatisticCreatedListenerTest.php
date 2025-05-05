@@ -10,6 +10,7 @@ use App\Athenia\Listeners\Statistics\StatisticCreatedListener;
 use App\Models\Statistics\Statistic;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Bus\Dispatcher;
+use Illuminate\Database\Eloquent\Collection;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -26,14 +27,14 @@ class StatisticCreatedListenerTest extends TestCase
         $event = new StatisticCreatedEvent($statistic);
 
         // Create mock target statistics
-        $targetStatistics = [
+        $targetStatistics = new Collection([
             new TargetStatistic([
                 'id' => 1,
                 'target_id' => 1,
                 'target_type' => 'collection',
                 'statistic_id' => $statistic->id,
             ]),
-        ];
+        ]);
 
         /** @var StatisticSynchronizationServiceContract|MockInterface $synchronizationService */
         $synchronizationService = Mockery::mock(StatisticSynchronizationServiceContract::class);

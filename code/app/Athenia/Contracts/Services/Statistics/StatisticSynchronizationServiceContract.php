@@ -27,7 +27,7 @@ interface StatisticSynchronizationServiceContract
      * Create target statistics for a newly created statistic.
      *
      * @param Statistic $statistic
-     * @return TargetStatistic[]
+     * @return Collection|TargetStatistic[]
      */
-    public function createTargetStatisticsForStatistic(Statistic $statistic): array;
+    public function createTargetStatisticsForStatistic(Statistic $statistic): Collection;
 } 

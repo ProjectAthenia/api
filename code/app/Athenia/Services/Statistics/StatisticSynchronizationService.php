@@ -57,9 +57,9 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
         return new Collection($allItems);
     }
 
-    public function createTargetStatisticsForStatistic(Statistic $statistic): array
+    public function createTargetStatisticsForStatistic(Statistic $statistic): Collection
     {
-        $targetStatistics = [];
+        $targetStatistics = new Collection();
         $models = $this->getModelsForStatistic($statistic);
 
         foreach ($models as $model) {
@@ -69,7 +69,7 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
                 'target_type' => $model->morphRelationName(),
             ]);
 
-            $targetStatistics[] = $targetStatistic;
+            $targetStatistics->push($targetStatistic);
         }
 
         return $targetStatistics;

@@ -34,8 +34,8 @@ class StatisticSynchronizationServiceTest extends TestCase
         // Create target statistics for the statistic
         $targetStatistics = $this->service->createTargetStatisticsForStatistic($statistic);
 
-        // Assert we got an array of target statistics
-        $this->assertIsArray($targetStatistics);
+        // Assert we got a collection of target statistics
+        $this->assertInstanceOf(EloquentCollection::class, $targetStatistics);
         $this->assertCount(2, $targetStatistics);
         
         // Assert each target statistic was created correctly
