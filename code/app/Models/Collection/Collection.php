@@ -6,7 +6,7 @@ namespace App\Models\Collection;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Models\Traits\HasStatistics;
+use App\Athenia\Models\Traits\HasStatisticTargets;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\OwnedByValidator;
 use App\Models\Statistics\TargetStatistic;
@@ -66,7 +66,7 @@ use Illuminate\Validation\Rule;
  */
 class Collection extends BaseModelAbstract implements HasValidationRulesContract, CanBeStatisticTargetContract
 {
-    use HasValidationRules, HasStatistics;
+    use HasValidationRules, HasStatisticTargets;
 
     /**
      * All collection items

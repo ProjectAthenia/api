@@ -3,22 +3,22 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Models\Traits;
 
-use App\Athenia\Models\Traits\HasStatistics;
+use App\Athenia\Models\Traits\HasStatisticTargets;
 use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Tests\TestCase;
 
 /**
- * Class HasStatisticsTest
+ * Class HasStatisticTargetsTest
  * @package Tests\Athenia\Unit\Models\Traits
  */
-class HasStatisticsTest extends TestCase
+class HasStatisticTargetsTest extends TestCase
 {
     public function testTargetStatisticsRelationship()
     {
         $model = new class extends Model {
-            use HasStatistics;
+            use HasStatisticTargets;
         };
 
         $relation = $model->targetStatistics();

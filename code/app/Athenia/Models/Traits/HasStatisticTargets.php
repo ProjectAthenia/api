@@ -7,10 +7,10 @@ use App\Models\Statistics\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * Trait HasStatistics
+ * Trait HasStatisticTargets
  * @package App\Athenia\Models\Traits
  */
-trait HasStatistics
+trait HasStatisticTargets
 {
     /**
      * Gets all statistics that belong to this model through a morph many relationship
