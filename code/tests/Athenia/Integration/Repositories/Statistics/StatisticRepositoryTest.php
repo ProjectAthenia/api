@@ -103,10 +103,7 @@ class StatisticRepositoryTest extends TestCase
         $this->repository->findOrFail(1);
     }
 
-    /**
-     * @test
-     */
-    public function it_can_create_a_statistic_with_filters()
+    public function testCreateStatisticWithFilters()
     {
         $data = [
             'name' => 'Test Statistic',
@@ -157,10 +154,7 @@ class StatisticRepositoryTest extends TestCase
         $this->assertEquals('character', $filter2->value);
     }
 
-    /**
-     * @test
-     */
-    public function it_can_update_a_statistic_with_filters()
+    public function testUpdateStatisticWithFilters()
     {
         $statistic = Statistic::factory()->create();
         StatisticFilter::factory()->count(2)->create([
