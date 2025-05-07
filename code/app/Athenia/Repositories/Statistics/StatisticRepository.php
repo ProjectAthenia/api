@@ -49,18 +49,12 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
         $model = parent::update($model, $data, $forcedValues);
 
         if ($statisticFilters !== null) {
-            // Delete all existing filters
-            foreach ($model->statisticFilters as $filter) {
-                $this->statisticFilterRepository->delete($filter);
-            }
-
-            // Create new filters
-            foreach ($statisticFilters as $filter) {
-                $this->statisticFilterRepository->create($filter, $model);
-            }
-
-            // Refresh the relationship
-            $model->load('statisticFilters');
+            $this->syncChildModels(
+                $this->statisticFilterRepository,
+                $model,
+                $statisticFilters,
+                $model->statisticFilters
+            );
         }
 
         $this->dispatcher->dispatch(new StatisticUpdatedEvent($model));
@@ -78,9 +72,11 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
         $model = parent::create($data, $relatedModel, $forcedValues);
 
         if ($statisticFilters) {
-            foreach ($statisticFilters as $filter) {
-                $this->statisticFilterRepository->create($filter, $model);
-            }
+            $this->syncChildModels(
+                $this->statisticFilterRepository,
+                $model,
+                $statisticFilters
+            );
         }
 
         $this->dispatcher->dispatch(new StatisticCreatedEvent($model));
