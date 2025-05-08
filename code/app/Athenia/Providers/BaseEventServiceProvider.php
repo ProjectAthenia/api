@@ -25,14 +25,12 @@ use App\Athenia\Listeners\User\UserMerge\UserCreatedIterationsMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserMessagesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserPropertiesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserSubscriptionsMergeListener;
-use App\Athenia\Observers\AggregatedModelObserver;
-use App\Athenia\Observers\IndexableModelObserver;
-use App\Athenia\Observers\Payment\PaymentMethodObserver;
+use App\Athenia\Observer\IndexableModelObserver;
+use App\Athenia\Observer\Payment\PaymentMethodObserver;
 use App\Listeners\Organization\OrganizationManagerCreatedListener;
 use App\Listeners\User\Contact\ContactCreatedListener;
 use App\Listeners\User\SignUpListener;
 use App\Listeners\Vote\VoteCreatedListener;
-use App\Models\Collection\CollectionItem;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
@@ -73,7 +71,9 @@ abstract class BaseEventServiceProvider extends ServiceProvider
             OrganizationManagerCreatedEvent::class => [
                 OrganizationManagerCreatedListener::class,
             ],
-            PaymentReversedEvent::class => [],
+            PaymentReversedEvent::class => [
+
+            ],
             SignUpEvent::class => [
                 SignUpListener::class,
             ],
@@ -117,7 +117,6 @@ abstract class BaseEventServiceProvider extends ServiceProvider
         Article::observe(IndexableModelObserver::class);
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
-        CollectionItem::observe(AggregatedModelObserver::class);
 
         $this->registerObservers();
     }
