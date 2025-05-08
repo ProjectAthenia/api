@@ -276,7 +276,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(MessageRepositoryContract::class, function() {
             return new MessageRepository(
                 new Message(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(UserRepositoryContract::class)
             );
         });
         $this->app->bind(OrganizationRepositoryContract::class, function() {
@@ -301,7 +302,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(PaymentRepositoryContract::class, function() {
             return new PaymentRepository(
                 new Payment(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(LineItemRepositoryContract::class)
             );
         });
         $this->app->bind(PaymentMethodRepositoryContract::class, function() {
@@ -332,7 +334,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(SubscriptionRepositoryContract::class, function() {
             return new SubscriptionRepository(
                 new Subscription(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(MembershipPlanRateRepositoryContract::class)
             );
         });
         $this->app->bind(ThreadRepositoryContract::class, function() {

@@ -8,7 +8,7 @@ use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
 
 /**
  * Class IndexableModelObserver
- * @package App\Observers
+ * @package App\Athenia\Observers
  */
 class IndexableModelObserver
 {
