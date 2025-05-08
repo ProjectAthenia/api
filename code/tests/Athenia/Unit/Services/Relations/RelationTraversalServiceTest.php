@@ -31,14 +31,14 @@ class RelationTraversalServiceTest extends TestCase
 
     public function testTraverseRelationsWithEmptyPath()
     {
-        /** @var BaseModelAbstract|MockInterface $model */
-        $model = Mockery::mock(BaseModelAbstract::class);
+        $collection = new CollectionModel();
+        $collection->id = 1;
 
-        $result = $this->service->traverseRelations($model, '');
+        $result = $this->service->traverseRelations($collection, '');
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(1, $result->count());
-        $this->assertSame($model, $result->first());
+        $this->assertSame($collection, $result->first());
     }
 
     public function testTraverseRelationsWithSingleRelation()
