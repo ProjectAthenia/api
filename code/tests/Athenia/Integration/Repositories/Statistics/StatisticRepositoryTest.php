@@ -157,8 +157,17 @@ class StatisticRepositoryTest extends TestCase
     public function testUpdateStatisticWithFilters()
     {
         $statistic = Statistic::factory()->create();
-        StatisticFilter::factory()->count(2)->create([
+        $filter1 = StatisticFilter::factory()->create([
             'statistic_id' => $statistic->id,
+            'field' => 'active',
+            'operator' => '=',
+            'value' => '0',
+        ]);
+        $filter2 = StatisticFilter::factory()->create([
+            'statistic_id' => $statistic->id,
+            'field' => 'type',
+            'operator' => '=',
+            'value' => 'user',
         ]);
 
         $data = [
@@ -166,11 +175,13 @@ class StatisticRepositoryTest extends TestCase
             'public' => false,
             'statistic_filters' => [
                 [
+                    'id' => $filter1->id,
                     'field' => 'active',
                     'operator' => '=',
                     'value' => '1',
                 ],
                 [
+                    'id' => $filter2->id,
                     'field' => 'type',
                     'operator' => '=',
                     'value' => 'character',

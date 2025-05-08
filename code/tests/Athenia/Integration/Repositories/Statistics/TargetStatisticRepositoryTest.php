@@ -56,7 +56,7 @@ class TargetStatisticRepositoryTest extends TestCase
         $models = $this->repository->findAll();
 
         $this->assertCount(5, $models);
-        $this->assertInstanceOf(EloquentCollection::class, $models);
+        $this->assertInstanceOf(\Illuminate\Contracts\Pagination\LengthAwarePaginator::class, $models);
     }
 
     public function testFindAllWithFilterReturnsCollection()
@@ -70,7 +70,7 @@ class TargetStatisticRepositoryTest extends TestCase
         $models = $this->repository->findAll(['id' => 1]);
 
         $this->assertCount(1, $models);
-        $this->assertInstanceOf(EloquentCollection::class, $models);
+        $this->assertInstanceOf(\Illuminate\Contracts\Pagination\LengthAwarePaginator::class, $models);
     }
 
     public function testFindReturnsModel()
