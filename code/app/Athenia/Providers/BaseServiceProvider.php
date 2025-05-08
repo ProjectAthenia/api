@@ -208,11 +208,24 @@ abstract class BaseServiceProvider extends ServiceProvider
             new StringHelperService()
         );
         $this->app->bind(StripeCustomerServiceContract::class, fn () =>
-            new StripeCustomerService()
+            new StripeCustomerService(
+                $this->app->make(UserRepositoryContract::class),
+                $this->app->make(OrganizationRepositoryContract::class),
+                $this->app->make(PaymentMethodRepositoryContract::class),
+                $this->app->make('stripe')->customers(),
+                $this->app->make('stripe')->cards(),
+            )
         );
-        $this->app->bind(StripePaymentServiceContract::class, fn () =>
-            new StripePaymentService()
-        );
+        $this->app->bind(StripePaymentServiceContract::class, function () {
+            $stripe = $this->app->make('stripe');
+                return new StripePaymentService(
+                    $this->app->make(PaymentRepositoryContract::class),
+                    $this->app->make(LineItemRepositoryContract::class),
+                    $this->app->make(Dispatcher::class),
+                    $stripe->charges(),
+                    $stripe->refunds(),
+                );
+        });
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
             new TargetStatisticProcessingService()
         );
