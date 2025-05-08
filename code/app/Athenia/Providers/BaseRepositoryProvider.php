@@ -33,8 +33,6 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
-use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
-use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Repositories\AssetRepository;
@@ -67,7 +65,9 @@ use App\Athenia\Repositories\Wiki\ArticleIterationRepository;
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
-use App\Athenia\Services\Asset\AssetConfigurationService;
+use App\Athenia\Repositories\Statistics\StatisticRepository;
+use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Collection\Collection;
@@ -105,10 +105,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use App\Athenia\Repositories\Statistics\StatisticRepository;
-use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
-use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
-use Illuminate\Contracts\Container\Factory;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -333,7 +330,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new ProfileImageRepository(
                 new ProfileImage(),
                 $this->app->make('log'),
-                $this->app->make(Factory::class),
+                $this->app->make(FilesystemManager::class),
                 $this->app->make(AssetConfigurationServiceContract::class)
             );
         });
