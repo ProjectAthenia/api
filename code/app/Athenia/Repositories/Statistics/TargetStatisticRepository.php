@@ -6,9 +6,7 @@ namespace App\Athenia\Repositories\Statistics;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Models\Statistics\TargetStatistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use Psr\Log\LoggerInterface as LogContract;
 
@@ -22,12 +20,10 @@ class TargetStatisticRepository extends BaseRepositoryAbstract implements Target
      * TargetStatisticRepository constructor.
      * @param TargetStatistic $model
      * @param LogContract $log
-     * @param Dispatcher $dispatcher
      */
     public function __construct(
         TargetStatistic $model,
-        LogContract $log,
-        private readonly Dispatcher $dispatcher
+        LogContract $log
     ) {
         parent::__construct($model, $log);
     }

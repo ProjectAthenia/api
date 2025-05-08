@@ -7,10 +7,6 @@ use App\Models\Statistics\TargetStatistic;
 use App\Models\Statistics\Statistic;
 use App\Models\Collection\Collection;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
-use App\Athenia\Events\Statistics\TargetStatisticCreatedEvent;
-use App\Athenia\Events\Statistics\TargetStatisticUpdatedEvent;
-use App\Athenia\Events\Statistics\TargetStatisticDeletedEvent;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -28,21 +24,14 @@ class TargetStatisticRepositoryTest extends TestCase
      */
     protected $repository;
 
-    /**
-     * @var Dispatcher|\Mockery\LegacyMockInterface|\Mockery\MockInterface
-     */
-    private $dispatcher;
-
     public function setUp(): void
     {
         parent::setUp();
         $this->setupDatabase();
 
-        $this->dispatcher = mock(Dispatcher::class);
         $this->repository = new TargetStatisticRepository(
             new TargetStatistic(),
-            $this->getGenericLogMock(),
-            $this->dispatcher
+            $this->getGenericLogMock()
         );
     }
 
@@ -101,12 +90,6 @@ class TargetStatisticRepositoryTest extends TestCase
     {
         $collection = Collection::factory()->create();
         $statistic = Statistic::factory()->create();
-
-        $this->dispatcher->expects($this->once())
-            ->method('dispatch')
-            ->with($this->callback(function ($event) {
-                return $event instanceof TargetStatisticCreatedEvent;
-            }));
 
         $targetStatistic = $this->repository->createForTarget($collection, [
             'statistic_id' => $statistic->id,
@@ -175,12 +158,6 @@ class TargetStatisticRepositoryTest extends TestCase
             'filters' => ['old' => 'value'],
         ]);
 
-        $this->dispatcher->expects($this->once())
-            ->method('dispatch')
-            ->with($this->callback(function ($event) {
-                return $event instanceof TargetStatisticUpdatedEvent;
-            }));
-
         $updatedStatistic = $this->repository->update($targetStatistic, [
             'value' => 20.0,
             'filters' => ['new' => 'value'],
@@ -194,12 +171,6 @@ class TargetStatisticRepositoryTest extends TestCase
     public function testDeleteSuccess()
     {
         $targetStatistic = TargetStatistic::factory()->create();
-
-        $this->dispatcher->expects($this->once())
-            ->method('dispatch')
-            ->with($this->callback(function ($event) {
-                return $event instanceof TargetStatisticDeletedEvent;
-            }));
 
         $this->repository->delete($targetStatistic);
 

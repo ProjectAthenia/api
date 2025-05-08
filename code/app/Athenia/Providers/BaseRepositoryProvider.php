@@ -35,6 +35,8 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
+use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
@@ -96,11 +98,16 @@ use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
 use App\Models\Wiki\ArticleVersion;
+use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistics\Statistic;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use App\Athenia\Repositories\Statistics\StatisticRepository;
+use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -140,10 +147,12 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ProfileImageRepositoryContract::class,
             ResourceRepositoryContract::class,
             RoleRepositoryContract::class,
+            StatisticRepositoryContract::class,
             SubscriptionRepositoryContract::class,
+            TargetStatisticRepositoryContract::class,
             ThreadRepositoryContract::class,
-            VoteRepositoryContract::class,
             UserRepositoryContract::class,
+            VoteRepositoryContract::class,
         ], $this->appProviders());
     }
 
@@ -166,6 +175,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             'organization' => Organization::class,
             'subscription' => Subscription::class,
             'user' => User::class,
+            'collection' => Collection::class,
         ], $this->appMorphMaps()));
 
         $this->app->bind(ArticleRepositoryContract::class, function() {
@@ -216,7 +226,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(BallotItemRepositoryContract::class, function() {
             return new BallotItemRepository(
                 new BallotItem(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(BallotItemOptionRepositoryContract::class)
             );
         });
         $this->app->bind(BallotItemOptionRepositoryContract::class, function() {
@@ -331,6 +342,14 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log')
             );
         });
+        $this->app->bind(StatisticRepositoryContract::class, function() {
+            return new StatisticRepository(
+                new Statistic(),
+                $this->app->make('log'),
+                $this->app->make(StatisticFilterRepository::class),
+                $this->app->make(Dispatcher::class)
+            );
+        });
         $this->app->bind(SubscriptionRepositoryContract::class, function() {
             return new SubscriptionRepository(
                 new Subscription(),
@@ -338,15 +357,15 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make(MembershipPlanRateRepositoryContract::class)
             );
         });
-        $this->app->bind(ThreadRepositoryContract::class, function() {
-            return new ThreadRepository(
-                new Thread(),
+        $this->app->bind(TargetStatisticRepositoryContract::class, function() {
+            return new TargetStatisticRepository(
+                new TargetStatistic(),
                 $this->app->make('log')
             );
         });
-        $this->app->bind(VoteRepositoryContract::class, function() {
-            return new VoteRepository(
-                new Vote(),
+        $this->app->bind(ThreadRepositoryContract::class, function() {
+            return new ThreadRepository(
+                new Thread(),
                 $this->app->make('log')
             );
         });
@@ -356,6 +375,12 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log'),
                 $this->app->make(Hasher::class),
                 $this->app->make(Repository::class)
+            );
+        });
+        $this->app->bind(VoteRepositoryContract::class, function() {
+            return new VoteRepository(
+                new Vote(),
+                $this->app->make('log')
             );
         });
         $this->registerApp();
