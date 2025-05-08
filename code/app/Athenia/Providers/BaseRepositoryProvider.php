@@ -108,6 +108,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Athenia\Repositories\Statistics\StatisticRepository;
 use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
 use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
+use Illuminate\Contracts\Container\Factory;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -221,7 +222,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(BallotCompletionRepositoryContract::class, function() {
             return new BallotCompletionRepository(
                 new BallotCompletion(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(VoteRepositoryContract::class)
             );
         });
         $this->app->bind(BallotItemRepositoryContract::class, function() {
@@ -246,7 +248,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(CollectionRepositoryContract::class, function() {
             return new CollectionRepository(
                 new Collection(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(CollectionItemRepositoryContract::class)
             );
         });
         $this->app->bind(CollectionItemRepositoryContract::class, function() {
@@ -276,7 +279,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(MembershipPlanRepositoryContract::class, function() {
             return new MembershipPlanRepository(
                 new MembershipPlan(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(MembershipPlanRateRepositoryContract::class)
             );
         });
         $this->app->bind(MembershipPlanRateRepositoryContract::class, function() {
@@ -308,6 +312,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new PasswordTokenRepository(
                 new PasswordToken(),
                 $this->app->make('log'),
+                $this->app->make(Dispatcher::class),
                 $this->app->make(TokenGenerationServiceContract::class)
             );
         });
@@ -328,7 +333,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new ProfileImageRepository(
                 new ProfileImage(),
                 $this->app->make('log'),
-                $this->app->make('filesystem')
+                $this->app->make(Factory::class),
+                $this->app->make(AssetConfigurationServiceContract::class)
             );
         });
         $this->app->bind(ResourceRepositoryContract::class, function() {
