@@ -214,7 +214,8 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(BallotRepositoryContract::class, function() {
             return new BallotRepository(
                 new Ballot(),
-                $this->app->make('log')
+                $this->app->make('log'),
+                $this->app->make(BallotItemRepositoryContract::class)
             );
         });
         $this->app->bind(BallotCompletionRepositoryContract::class, function() {
