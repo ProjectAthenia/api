@@ -10,6 +10,8 @@ use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\ArchiveHelperServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
@@ -216,10 +218,16 @@ abstract class BaseServiceProvider extends ServiceProvider
             new RelationTraversalService()
         );
         $this->app->bind(StatisticSynchronizationServiceContract::class, fn () =>
-            new StatisticSynchronizationService()
+            new StatisticSynchronizationService(
+                $this->app->make(StatisticRepositoryContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
+            )
         );
         $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
-            new TargetStatisticProcessingService()
+            new TargetStatisticProcessingService(
+                $this->app->make(RelationTraversalServiceContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
+            )
         );
         $this->app->bind(TokenGenerationServiceContract::class, fn () =>
             new TokenGenerationService()
