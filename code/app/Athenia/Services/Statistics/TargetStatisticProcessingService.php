@@ -18,22 +18,13 @@ use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceCo
 class TargetStatisticProcessingService implements TargetStatisticProcessingServiceContract
 {
     /**
-     * @var RelationTraversalServiceContract
-     */
-    private RelationTraversalServiceContract $relationTraversalService;
-    private TargetStatisticRepositoryContract $targetStatisticRepository;
-
-    /**
-     * TargetStatisticProcessingService constructor.
      * @param RelationTraversalServiceContract $relationTraversalService
      * @param TargetStatisticRepositoryContract $targetStatisticRepository
      */
     public function __construct(
-        RelationTraversalServiceContract $relationTraversalService,
-        TargetStatisticRepositoryContract $targetStatisticRepository
+        private readonly RelationTraversalServiceContract $relationTraversalService,
+        private readonly TargetStatisticRepositoryContract $targetStatisticRepository
     ) {
-        $this->relationTraversalService = $relationTraversalService;
-        $this->targetStatisticRepository = $targetStatisticRepository;
     }
 
     /**
