@@ -99,6 +99,7 @@ class TargetStatisticProcessingServiceTest extends TestCase
             $this->createModelWithValue('collection1', 10),
             $this->createModelWithValue('collection1', 20),
             $this->createModelWithValue('collection2', 30),
+            $this->createModelWithValue('collection2', 40),
         ]);
 
         $uniqueFilter = new StatisticFilter([
@@ -132,7 +133,7 @@ class TargetStatisticProcessingServiceTest extends TestCase
 
         $expectedResult = [
             'collection1' => 1,
-            'collection2' => 1,
+            'collection2' => 2,
         ];
 
         $this->targetStatisticRepository->shouldReceive('update')
