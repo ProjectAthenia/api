@@ -11,6 +11,9 @@ use Mockery\MockInterface;
 use Tests\TestCase;
 use App\Models\Collection\Collection as CollectionModel;
 use App\Models\Collection\CollectionItem;
+use App\Models\User\User;
+use App\Models\Wiki\Article;
+use App\Models\Wiki\ArticleIteration;
 
 /**
  * Class RelationTraversalServiceTest
@@ -121,5 +124,38 @@ class RelationTraversalServiceTest extends TestCase
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertEquals(1, $result->count());
         $this->assertSame($collectionItem, $result->first());
+    }
+
+    public function testTraverseRelationsWithThreeLevelNesting()
+    {
+        // Create the initial user
+        $user = new User();
+        $user->id = 1;
+
+        // Create an article created by the user
+        $article = new Article();
+        $article->id = 2;
+        $article->created_by_id = $user->id;
+
+        // Create an iteration of the article
+        $iteration = new ArticleIteration();
+        $iteration->id = 3;
+        $iteration->article_id = $article->id;
+        $iteration->created_by_id = 4; // Different user created the iteration
+
+        // Create the user who created the iteration
+        $iterationCreator = new User();
+        $iterationCreator->id = 4;
+
+        // Set up the relations
+        $user->setRelation('createdArticles', new Collection([$article]));
+        $article->setRelation('iterations', new Collection([$iteration]));
+        $iteration->setRelation('createdBy', $iterationCreator);
+
+        $result = $this->service->traverseRelations($user, 'createdArticles.iterations.createdBy');
+
+        $this->assertInstanceOf(Collection::class, $result);
+        $this->assertEquals(1, $result->count());
+        $this->assertSame($iterationCreator, $result->first());
     }
 } 

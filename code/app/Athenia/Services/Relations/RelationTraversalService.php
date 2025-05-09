@@ -45,10 +45,6 @@ class RelationTraversalService implements RelationTraversalServiceContract
                 if ($related instanceof Collection) {
                     $nextModels = $nextModels->merge($related);
                 } elseif ($related instanceof BaseModelAbstract) {
-                    foreach ($related as $relatedModel) {
-                        $nextModels->push($relatedModel);
-                    }
-                } elseif ($related instanceof BaseModelAbstract) {
                     $nextModels->push($related);
                 }
             }
