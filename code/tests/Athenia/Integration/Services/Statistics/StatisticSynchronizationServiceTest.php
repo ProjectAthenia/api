@@ -23,6 +23,10 @@ class StatisticSynchronizationServiceTest extends TestCase
 
     public function testCreateTargetStatisticsForStatistic(): void
     {
+        // Clean up any existing collections and statistics
+        DB::table('collections')->delete();
+        DB::table('statistics')->delete();
+        
         // Create two collections
         $collections = Collection::factory()->count(2)->create();
 

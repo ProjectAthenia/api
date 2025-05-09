@@ -57,19 +57,32 @@ class StatisticSynchronizationService implements StatisticSynchronizationService
         return new Collection($allItems);
     }
 
+    /**
+     * Creates target statistics for all models that should have them for the given statistic
+     *
+     * @param Statistic $statistic
+     * @return Collection
+     */
     public function createTargetStatisticsForStatistic(Statistic $statistic): Collection
     {
         $targetStatistics = new Collection();
         $models = $this->getModelsForStatistic($statistic);
 
         foreach ($models as $model) {
-            $targetStatistic = $this->targetStatisticRepository->create([
-                'statistic_id' => $statistic->id,
-                'target_id' => $model->id,
-                'target_type' => $model->morphRelationName(),
-            ]);
+            // Check if a target statistic already exists for this model and statistic
+            $existingTargetStatistic = $this->targetStatisticRepository->findForTarget($model, $statistic->id);
 
-            $targetStatistics->push($targetStatistic);
+            if (!$existingTargetStatistic) {
+                $targetStatistic = $this->targetStatisticRepository->create([
+                    'statistic_id' => $statistic->id,
+                    'target_id' => $model->id,
+                    'target_type' => $model->morphRelationName(),
+                ]);
+
+                $targetStatistics->push($targetStatistic);
+            } else {
+                $targetStatistics->push($existingTargetStatistic);
+            }
         }
 
         return $targetStatistics;
