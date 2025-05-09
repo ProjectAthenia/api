@@ -32,7 +32,7 @@ class TargetStatisticFactory extends Factory
             'target_type' => User::class,
             'statistic_id' => Statistic::factory(),
             'value' => $this->faker->randomFloat(2, 0, 1000),
-            'filters' => null,
+            'result' => null,
         ];
     }
 

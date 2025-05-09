@@ -10,6 +10,7 @@ use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
+use App\Models\User;
 
 /**
  * Class TargetStatisticRepositoryTest
@@ -94,7 +95,7 @@ class TargetStatisticRepositoryTest extends TestCase
         $targetStatistic = $this->repository->createForTarget($collection, [
             'statistic_id' => $statistic->id,
             'value' => 42.5,
-            'filters' => ['type' => 'test'],
+            'result' => ['type' => 'test'],
         ]);
 
         $this->assertInstanceOf(TargetStatistic::class, $targetStatistic);
@@ -102,7 +103,7 @@ class TargetStatisticRepositoryTest extends TestCase
         $this->assertEquals('collection', $targetStatistic->target_type);
         $this->assertEquals($statistic->id, $targetStatistic->statistic_id);
         $this->assertEquals(42.5, $targetStatistic->value);
-        $this->assertEquals(['type' => 'test'], $targetStatistic->filters);
+        $this->assertEquals(['type' => 'test'], $targetStatistic->result);
     }
 
     public function testFindAllForTargetSuccess()
@@ -151,21 +152,41 @@ class TargetStatisticRepositoryTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testUpdateSuccess()
+    public function testCreateSuccess(): void
+    {
+        $statistic = Statistic::factory()->create();
+
+        $targetStatistic = $this->repository->create([
+            'statistic_id' => $statistic->id,
+            'target_type' => User::class,
+            'target_id' => 1,
+            'result' => ['test' => 'value'],
+            'value' => 1.0,
+        ]);
+
+        $this->assertInstanceOf(TargetStatistic::class, $targetStatistic);
+        $this->assertEquals($statistic->id, $targetStatistic->statistic_id);
+        $this->assertEquals(User::class, $targetStatistic->target_type);
+        $this->assertEquals(1, $targetStatistic->target_id);
+        $this->assertEquals(['test' => 'value'], $targetStatistic->result);
+        $this->assertEquals(1.0, $targetStatistic->value);
+    }
+
+    public function testUpdateSuccess(): void
     {
         $targetStatistic = TargetStatistic::factory()->create([
-            'value' => 10.0,
-            'filters' => ['old' => 'value'],
+            'result' => ['old' => 'value'],
+            'value' => 1.0,
         ]);
 
         $updatedStatistic = $this->repository->update($targetStatistic, [
-            'value' => 20.0,
-            'filters' => ['new' => 'value'],
+            'result' => ['new' => 'value'],
+            'value' => 2.0,
         ]);
 
         $this->assertInstanceOf(TargetStatistic::class, $updatedStatistic);
-        $this->assertEquals(20.0, $updatedStatistic->value);
-        $this->assertEquals(['new' => 'value'], $updatedStatistic->filters);
+        $this->assertEquals(['new' => 'value'], $updatedStatistic->result);
+        $this->assertEquals(2.0, $updatedStatistic->value);
     }
 
     public function testDeleteSuccess()

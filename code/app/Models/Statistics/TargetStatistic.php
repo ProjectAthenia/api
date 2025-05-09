@@ -37,11 +37,11 @@ class TargetStatistic extends BaseModelAbstract
      * @var array
      */
     protected $fillable = [
-        'target_id',
-        'target_type',
         'statistic_id',
+        'target_type',
+        'target_id',
+        'result',
         'value',
-        'filters',
     ];
 
     /**
@@ -50,7 +50,7 @@ class TargetStatistic extends BaseModelAbstract
      * @var array
      */
     protected $casts = [
-        'filters' => 'array',
+        'result' => 'array',
         'value' => 'float',
     ];
 

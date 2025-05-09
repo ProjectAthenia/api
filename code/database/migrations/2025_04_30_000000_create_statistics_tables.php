@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class CreateStatisticsTables
@@ -50,10 +52,25 @@ class CreateStatisticsTables extends Migration
             $table->morphs('target');
             $table->json('result')->nullable();
             $table->float('value')->default(0);
-            $table->json('filters')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // Add Content Editor role
+        DB::table('roles')->insert([
+            'id' => Role::CONTENT_EDITOR,
+            'name' => 'Content Editor',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Add Support Staff role
+        DB::table('roles')->insert([
+            'id' => Role::SUPPORT_STAFF,
+            'name' => 'Support Staff',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
@@ -63,6 +80,12 @@ class CreateStatisticsTables extends Migration
      */
     public function down(): void
     {
+        // Remove roles
+        DB::table('roles')->whereIn('id', [
+            Role::CONTENT_EDITOR,
+            Role::SUPPORT_STAFF,
+        ])->delete();
+
         Schema::dropIfExists('target_statistics');
         Schema::dropIfExists('statistic_filters');
         Schema::dropIfExists('statistics');
