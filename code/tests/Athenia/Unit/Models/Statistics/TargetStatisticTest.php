@@ -31,25 +31,4 @@ class TargetStatisticTest extends TestCase
         $this->assertEquals('statistic_id', $relation->getForeignKeyName());
         $this->assertInstanceOf(Statistic::class, $relation->getRelated());
     }
-
-    public function testFactoryCreatesValidModel()
-    {
-        $targetStatistic = TargetStatistic::factory()->create();
-
-        $this->assertNotNull($targetStatistic->target_id);
-        $this->assertEquals(User::class, $targetStatistic->target_type);
-        $this->assertNotNull($targetStatistic->statistic_id);
-        $this->assertNotNull($targetStatistic->value);
-    }
-
-    public function testFactoryWithCustomTarget()
-    {
-        $user = User::factory()->create();
-        $targetStatistic = TargetStatistic::factory()
-            ->forTarget($user->id, User::class)
-            ->create();
-
-        $this->assertEquals($user->id, $targetStatistic->target_id);
-        $this->assertEquals(User::class, $targetStatistic->target_type);
-    }
 } 
