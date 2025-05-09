@@ -35,6 +35,7 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
