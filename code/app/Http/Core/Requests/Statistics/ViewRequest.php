@@ -11,13 +11,4 @@ use App\Athenia\Http\Core\Requests\Statistics\ViewRequestAbstract;
  */
 class ViewRequest extends ViewRequestAbstract
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules(): array
-    {
-        return [];
-    }
 } 
