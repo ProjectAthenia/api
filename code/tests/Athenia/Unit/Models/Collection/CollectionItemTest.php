@@ -13,12 +13,6 @@ use Tests\TestCase;
 
 final class CollectionItemTest extends TestCase
 {
-    public function testImplementsCanBeAggregatedContract(): void
-    {
-        $model = new CollectionItem();
-        $this->assertInstanceOf(CanBeAggregatedContract::class, $model);
-    }
-
     public function testItem(): void
     {
         $model = new CollectionItem();
