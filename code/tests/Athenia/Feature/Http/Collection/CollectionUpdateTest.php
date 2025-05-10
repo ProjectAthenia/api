@@ -224,10 +224,10 @@ final class CollectionUpdateTest extends TestCase
 
         $response->assertStatus(400);
         $response->assertJson([
+            'message'   => 'Sorry, something went wrong.',
             'errors'    =>  [
                 'collection_item_order.0' => [
                     'The selected collection_item_order.0 is invalid.',
-                    'The collection_item_order.0 must be owned by the appropriate model.',
                 ],
             ]
         ]);
