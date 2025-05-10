@@ -1,0 +1,21 @@
+<?php
+declare(strict_types=1);
+
+namespace Tests\Athenia\Unit\Models\Statistics;
+
+use App\Models\Statistics\StatisticFilter;
+use App\Models\Statistics\Statistic;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Tests\TestCase;
+
+class StatisticFilterTest extends TestCase
+{
+    public function testStatisticRelation(): void
+    {
+        $model = new StatisticFilter();
+        $relation = $model->statistic();
+
+        $this->assertInstanceOf(BelongsTo::class, $relation);
+        $this->assertEquals(Statistic::class, get_class($relation->getRelated()));
+    }
+} 

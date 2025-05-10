@@ -32,19 +32,6 @@ class TargetStatistic extends BaseModelAbstract
     protected $table = 'target_statistics';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'statistic_id',
-        'target_type',
-        'target_id',
-        'result',
-        'value',
-    ];
-
-    /**
      * The attributes that should be cast.
      *
      * @var array
