@@ -18,8 +18,7 @@ class EventServiceProvider extends BaseEventServiceProvider
      */
     public function getAppListenerMapping(): array
     {
-        return [
-        ];
+        return [];
     }
 
     /**

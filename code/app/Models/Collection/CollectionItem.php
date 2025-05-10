@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models\Collection;
 
+use App\Athenia\Contracts\Models\CanBeAggregatedContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
@@ -60,7 +61,7 @@ use Illuminate\Validation\Rule;
  * @method static \Illuminate\Database\Eloquent\Builder|CollectionItem withoutTrashed()
  * @mixin \Eloquent
  */
-class CollectionItem extends BaseModelAbstract implements HasValidationRulesContract
+class CollectionItem extends BaseModelAbstract implements HasValidationRulesContract, CanBeAggregatedContract
 {
     use HasValidationRules;
 
@@ -116,5 +117,17 @@ class CollectionItem extends BaseModelAbstract implements HasValidationRulesCont
                 self::VALIDATION_PREPEND_REQUIRED => ['item_id', 'item_type', 'order'],
             ]
         ];
+    }
+
+    /**
+     * Returns the relation paths to the models that can be target statistics
+     * For example: ["collection"] would mean this model affects statistics on collections
+     * through the collection relation
+     *
+     * @return string[]
+     */
+    public function getStatisticTargetRelationPath(): array
+    {
+        return ['collection'];
     }
 }

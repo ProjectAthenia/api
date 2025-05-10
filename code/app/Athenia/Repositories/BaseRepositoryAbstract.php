@@ -295,8 +295,9 @@ abstract class BaseRepositoryAbstract implements BaseRepositoryContract
                                        string $morphRelationship = null)
     {
         if ($existingChildren) {
-            $newChildrenIds = collect($childrenData)->pluck('id');
+            $newChildrenIds = collect($childrenData)->pluck('id')->filter();
 
+            // Delete children that are not in the new data
             foreach ($existingChildren as $child) {
                 if (!$newChildrenIds->contains($child->id)) {
                     $childRepository->delete($child);

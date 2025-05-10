@@ -25,4 +25,15 @@ final class CollectionTest extends TestCase
         $this->assertEquals('collections.owner_id', $relation->getQualifiedForeignKeyName());
         $this->assertEquals('owner_type', $relation->getMorphType());
     }
+
+    public function testTargetStatisticsRelation(): void
+    {
+        $model = new \App\Models\Collection\Collection();
+        $relation = $model->targetStatistics();
+
+        $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $relation);
+        $this->assertEquals('target_type', $relation->getMorphType());
+        $this->assertEquals('target_id', $relation->getForeignKeyName());
+        $this->assertEquals(\App\Models\Statistics\TargetStatistic::class, get_class($relation->getRelated()));
+    }
 }

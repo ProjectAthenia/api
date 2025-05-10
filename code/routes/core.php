@@ -230,4 +230,13 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
             'index'
         ]
     ]);
+
+    /**
+     * Statistics Context
+     */
+    Route::resource('statistics', 'StatisticController', [
+        'only' => [
+            'index', 'store', 'show', 'update', 'destroy',
+        ]
+    ]);
 });

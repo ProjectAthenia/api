@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Observers;
 
+use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
-use App\Athenia\Observer\IndexableModelObserver;
+use App\Athenia\Observers\IndexableModelObserver;
 use App\Models\Resource;
 use App\Models\User\User;
 use Tests\CustomMockInterface;
@@ -36,23 +37,21 @@ final class IndexableModelObserverTest extends TestCase
 
     public function testCreated(): void
     {
-        $user = new User([
+        $model = new User([
+            'id' => 123,
+            'name' => 'Test User',
             'resource' => null,
-            'name' => 'Someone',
         ]);
 
-        $this->resourceRepository->shouldReceive('create')->once()->with(\Mockery::on(function($data) {
+        $this->resourceRepository->shouldReceive('create')
+            ->with([
+                'content' => $model->getContentString(),
+                'resource_id' => 123,
+                'resource_type' => 'user',
+            ])
+            ->once();
 
-            $this->assertArrayHasKey('content', $data);
-            $this->assertArrayHasKey('resource_id', $data);
-            $this->assertArrayHasKey('resource_type', $data);
-
-            $this->assertEquals('user', $data['resource_type']);
-
-            return true;
-        }));
-
-        $this->observer->created($user);
+        $this->observer->created($model);
     }
 
     public function testUpdated(): void
