@@ -76,10 +76,10 @@ for FILE in "${ADDED_MODIFIED[@]}"; do
         continue
     fi
     # Generate unified diff in main repo
-    git diff "$LAST_TAG" -- "$FILE" > /tmp/main_diff
+    git diff "$LAST_TAG" -- "$FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/main_diff
     # Generate unified diff in child repo
     pushd "$CHILD_PATH" > /dev/null
-    git diff -- "$FILE" > /tmp/child_diff
+    git diff -- "$FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/child_diff
     popd > /dev/null
     # Compare the diffs byte-for-byte
     if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
@@ -94,10 +94,10 @@ for FILE in "${DELETED[@]}"; do
         continue
     fi
     # Generate unified diff in main repo for deleted file
-    git diff "$LAST_TAG" -- "$FILE" > /tmp/main_diff
+    git diff "$LAST_TAG" -- "$FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/main_diff
     # Generate unified diff in child repo for deleted file
     pushd "$CHILD_PATH" > /dev/null
-    git diff -- "$FILE" > /tmp/child_diff
+    git diff -- "$FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/child_diff
     popd > /dev/null
     # Compare the diffs byte-for-byte
     if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
