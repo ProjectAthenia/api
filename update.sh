@@ -26,7 +26,7 @@ DELETED=()
 while IFS= read -r line; do
     STATUS=$(echo "$line" | awk '{print $1}')
     FILE=$(echo "$line" | awk '{print $2}')
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     if [[ "$STATUS" == "A" || "$STATUS" == "M" ]]; then
@@ -38,7 +38,7 @@ done <<< "$CHANGED"
 
 # 3. Copy new/modified files
 for FILE in "${ADDED_MODIFIED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     DEST="$CHILD_PATH/$FILE"
@@ -49,7 +49,7 @@ done
 
 # 4. Delete removed files
 for FILE in "${DELETED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     TARGET="$CHILD_PATH/$FILE"
@@ -67,7 +67,7 @@ REPORT="$CHILD_PATH/$REPORT_NAME"
 > "$REPORT"
 
 for FILE in "${ADDED_MODIFIED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     if [ -f "$FILE" ] && [ -f "$CHILD_PATH/$FILE" ]; then
@@ -83,7 +83,7 @@ done
 
 # Compare deleted files
 for FILE in "${DELETED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     if [ -f "$CHILD_PATH/$FILE" ]; then
@@ -139,14 +139,14 @@ should_add() {
 }
 
 for FILE in "${ADDED_MODIFIED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     should_add "$FILE" && git add "$FILE"
 done
 
 for FILE in "${DELETED[@]}"; do
-    if [[ "$FILE" == app/Providers/* ]]; then
+    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     if [ ! -f "$FILE" ]; then
