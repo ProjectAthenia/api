@@ -13,12 +13,6 @@ use App\Athenia\Policies\BasePolicyAbstract;
  */
 class StatisticPolicy extends BasePolicyAbstract
 {
-    public const ACTION_LIST = 'all';
-    public const ACTION_VIEW = 'view';
-    public const ACTION_CREATE = 'create';
-    public const ACTION_UPDATE = 'update';
-    public const ACTION_DELETE = 'delete';
-
     /**
      * Any user can index the statistics
      *

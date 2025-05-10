@@ -25,6 +25,16 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class TargetStatistic extends BaseModelAbstract
 {
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'result' => 'array',
+        'value' => 'float',
+    ];
+
+    /**
      * The target model that this statistic belongs to
      *
      * @return MorphTo
