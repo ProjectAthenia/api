@@ -169,6 +169,5 @@ cd "$CHILD_PATH"
 for FILE in "${SAFE_FILES[@]}"; do
     git add "$FILE"
 done
-git add update-report.txt
 git add README.md
 git add $(grep -E '^(Added|Updated|Removed):' update-report.txt | cut -d' ' -f2) 
