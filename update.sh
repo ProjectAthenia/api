@@ -37,11 +37,16 @@ while IFS= read -r line; do
 done <<< "$CHANGED"
 
 # 3. Copy new/modified files
+SAFE_FILES=()
 for FILE in "${ADDED_MODIFIED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
     DEST="$CHILD_PATH/$FILE"
+    # Check if the file is new in the child repo
+    if [ ! -f "$DEST" ]; then
+        SAFE_FILES+=("$FILE")
+    fi
     mkdir -p "$(dirname "$DEST")"
     cp "$FILE" "$DEST"
     echo "Copied $FILE to $DEST"
@@ -70,15 +75,17 @@ for FILE in "${ADDED_MODIFIED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
-    if [ -f "$FILE" ] && [ -f "$CHILD_PATH/$FILE" ]; then
-        DIFF_MAIN=$(git diff "$LAST_TAG" HEAD -- "$FILE")
-        pushd "$CHILD_PATH" > /dev/null
-        DIFF_CHILD=$(git diff "$LAST_TAG" HEAD -- "$FILE" 2>/dev/null || true)
-        popd > /dev/null
-        if [ "$DIFF_MAIN" != "$DIFF_CHILD" ]; then
-            echo "$FILE" >> "$REPORT"
-        fi
+    # Generate unified diff in main repo
+    git diff "$LAST_TAG" -- "$FILE" > /tmp/main_diff
+    # Generate unified diff in child repo
+    pushd "$CHILD_PATH" > /dev/null
+    git diff -- "$FILE" > /tmp/child_diff
+    popd > /dev/null
+    # Compare the diffs byte-for-byte
+    if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
+        echo "$FILE" >> "$REPORT"
     fi
+    rm -f /tmp/main_diff /tmp/child_diff
 done
 
 # Compare deleted files
@@ -86,17 +93,17 @@ for FILE in "${DELETED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
     fi
-    if [ -f "$CHILD_PATH/$FILE" ]; then
-        git show "$LAST_TAG:$FILE" > /tmp/original_file 2>/dev/null || true
-        if [ -s /tmp/original_file ]; then
-            if ! diff -q /tmp/original_file "$CHILD_PATH/$FILE" > /dev/null; then
-                echo "$FILE" >> "$REPORT"
-            fi
-        else
-            echo "$FILE" >> "$REPORT"
-        fi
-        rm -f /tmp/original_file
+    # Generate unified diff in main repo for deleted file
+    git diff "$LAST_TAG" -- "$FILE" > /tmp/main_diff
+    # Generate unified diff in child repo for deleted file
+    pushd "$CHILD_PATH" > /dev/null
+    git diff -- "$FILE" > /tmp/child_diff
+    popd > /dev/null
+    # Compare the diffs byte-for-byte
+    if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
+        echo "$FILE" >> "$REPORT"
     fi
+    rm -f /tmp/main_diff /tmp/child_diff
 done
 
 if [ -s "$REPORT" ]; then
@@ -122,10 +129,11 @@ fi
 
 # Git add all updated files not in the report
 pushd "$CHILD_PATH" > /dev/null
+REPORTED=()
 if [ -f "$REPORT_NAME" ]; then
-    mapfile -t REPORTED < "$REPORT_NAME"
-else
-    REPORTED=()
+    while IFS= read -r line; do
+        REPORTED+=("$line")
+    done < "$REPORT_NAME"
 fi
 
 should_add() {
@@ -153,4 +161,14 @@ for FILE in "${DELETED[@]}"; do
         should_add "$FILE" && git rm --cached "$FILE" 2>/dev/null || true
     fi
 done
-popd > /dev/null 
+popd > /dev/null
+
+# Stage safe files for commit
+echo "Staging safe files for commit..."
+cd "$CHILD_PATH"
+for FILE in "${SAFE_FILES[@]}"; do
+    git add "$FILE"
+done
+git add update-report.txt
+git add README.md
+git add $(grep -E '^(Added|Updated|Removed):' update-report.txt | cut -d' ' -f2) 
