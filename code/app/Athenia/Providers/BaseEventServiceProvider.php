@@ -14,6 +14,9 @@ use App\Athenia\Events\User\ForgotPasswordEvent;
 use App\Athenia\Events\User\SignUpEvent;
 use App\Athenia\Events\User\UserMergeEvent;
 use App\Athenia\Events\Vote\VoteCreatedEvent;
+use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
+use App\Athenia\Events\Statistics\StatisticCreatedEvent;
+use App\Athenia\Events\Statistics\StatisticDeletedEvent;
 use App\Athenia\Listeners\Article\ArticleVersionCreatedListener;
 use App\Athenia\Listeners\Messaging\MessageCreatedListener;
 use App\Athenia\Listeners\Messaging\MessageSentListener;
@@ -31,6 +34,9 @@ use App\Listeners\Organization\OrganizationManagerCreatedListener;
 use App\Listeners\User\Contact\ContactCreatedListener;
 use App\Listeners\User\SignUpListener;
 use App\Listeners\Vote\VoteCreatedListener;
+use App\Listeners\Statistics\StatisticUpdatedListener;
+use App\Listeners\Statistics\StatisticCreatedListener;
+use App\Listeners\Statistics\StatisticDeletedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
@@ -87,6 +93,15 @@ abstract class BaseEventServiceProvider extends ServiceProvider
             ], $this->getAppUserMergeListeners()),
             VoteCreatedEvent::class => [
                 VoteCreatedListener::class,
+            ],
+            StatisticUpdatedEvent::class => [
+                StatisticUpdatedListener::class,
+            ],
+            StatisticCreatedEvent::class => [
+                StatisticCreatedListener::class,
+            ],
+            StatisticDeletedEvent::class => [
+                StatisticDeletedListener::class,
             ],
         ], $this->getAppListenerMapping());
     }
