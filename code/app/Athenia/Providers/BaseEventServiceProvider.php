@@ -40,7 +40,7 @@ use App\Athenia\Listeners\Statistics\StatisticDeletedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
-use App\Athenia\Models\Collection;
+use App\Models\Collection\Collection;
 use App\Athenia\Observers\AggregatedModelObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
