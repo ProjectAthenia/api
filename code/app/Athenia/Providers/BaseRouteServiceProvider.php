@@ -11,6 +11,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Role;
+use App\Models\Statistics\Statistic;
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\Subscription;
 use App\Models\User\User;
@@ -55,6 +56,7 @@ abstract class BaseRouteServiceProvider extends ServiceProvider
             'organization_manager' => OrganizationManager::class,
             'payment_method' => PaymentMethod::class,
             'role' => Role::class,
+            'statistic' => Statistic::class,
             'subscription' => Subscription::class,
             'user' => User::class,
         ], $this->getAppModelPlaceholders());

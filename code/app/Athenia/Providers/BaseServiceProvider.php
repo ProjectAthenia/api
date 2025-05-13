@@ -10,6 +10,8 @@ use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\ArchiveHelperServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\Asset\AssetImportServiceContract;
@@ -28,6 +30,9 @@ use App\Athenia\Contracts\Services\StripeCustomerServiceContract;
 use App\Athenia\Contracts\Services\StripePaymentServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
 use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
+use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
+use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Services\ArchiveHelperService;
 use App\Athenia\Services\Asset\AssetConfigurationService;
 use App\Athenia\Services\Asset\AssetImportService;
@@ -46,6 +51,9 @@ use App\Athenia\Services\StripeCustomerService;
 use App\Athenia\Services\StripePaymentService;
 use App\Athenia\Services\TokenGenerationService;
 use App\Athenia\Services\Wiki\ArticleVersionCalculationService;
+use App\Athenia\Services\Relations\RelationTraversalService;
+use App\Athenia\Services\Statistics\StatisticSynchronizationService;
+use App\Athenia\Services\Statistics\TargetStatisticProcessingService;
 use App\Models\Messaging\Message;
 use App\Services\Indexing\ResourceRepositoryService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -71,14 +79,17 @@ abstract class BaseServiceProvider extends ServiceProvider
             ItemInEntityCollectionServiceContract::class,
             MessageSendingSelectionServiceContract::class,
             ProratingCalculationServiceContract::class,
+            RelationTraversalServiceContract::class,
             ResourceRepositoryServiceContract::class,
             SendEmailServiceContract::class,
             SendPushNotificationServiceContract::class,
             SendSlackNotificationServiceContract::class,
             SendSMSServiceContract::class,
+            StatisticSynchronizationServiceContract::class,
             StringHelperServiceContract::class,
             StripeCustomerServiceContract::class,
             StripePaymentServiceContract::class,
+            TargetStatisticProcessingServiceContract::class,
             TokenGenerationServiceContract::class,
         ], $this->appProviders());
     }
@@ -200,8 +211,24 @@ abstract class BaseServiceProvider extends ServiceProvider
                 $this->app->make(Dispatcher::class),
                 $stripe->charges(),
                 $stripe->refunds(),
+                $this->app->make('log')
             );
         });
+        $this->app->bind(RelationTraversalServiceContract::class, fn () =>
+            new RelationTraversalService()
+        );
+        $this->app->bind(StatisticSynchronizationServiceContract::class, fn () =>
+            new StatisticSynchronizationService(
+                $this->app->make(StatisticRepositoryContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
+            )
+        );
+        $this->app->bind(TargetStatisticProcessingServiceContract::class, fn () =>
+            new TargetStatisticProcessingService(
+                $this->app->make(RelationTraversalServiceContract::class),
+                $this->app->make(TargetStatisticRepositoryContract::class)
+            )
+        );
         $this->app->bind(TokenGenerationServiceContract::class, fn () =>
             new TokenGenerationService()
         );

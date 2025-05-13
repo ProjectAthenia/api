@@ -37,6 +37,8 @@ class Role extends BaseModelAbstract implements HasPolicyContract
     const ARTICLE_EDITOR = 4;
     const ADMINISTRATOR = 10;
     const MANAGER = 11;
+    const CONTENT_EDITOR = 100;
+    const SUPPORT_STAFF = 101;
     // Add more roles here start with 100 in order to avoid application collision
 
     /**
@@ -47,6 +49,8 @@ class Role extends BaseModelAbstract implements HasPolicyContract
         self::SUPER_ADMIN,
         self::ARTICLE_VIEWER,
         self::ARTICLE_EDITOR,
+        self::CONTENT_EDITOR,
+        self::SUPPORT_STAFF,
         // Add application specific roles here too
     ];
 

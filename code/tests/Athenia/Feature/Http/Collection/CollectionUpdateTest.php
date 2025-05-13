@@ -226,7 +226,9 @@ final class CollectionUpdateTest extends TestCase
         $response->assertJson([
             'message'   => 'Sorry, something went wrong.',
             'errors'    =>  [
-                'collection_item_order.0' => ['The selected collection_item_order.0 is invalid.'],
+                'collection_item_order.0' => [
+                    'The selected collection_item_order.0 is invalid.',
+                ],
             ]
         ]);
     }

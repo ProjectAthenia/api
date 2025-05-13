@@ -47,10 +47,6 @@ use Illuminate\Routing\Controller;
  *     description="Any routes related to foreground asset models."
  * )
  * @SWG\Tag(
- *     name="AudioClips",
- *     description="Any routes related to audio clip asset models."
- * )
- * @SWG\Tag(
  *     name="Users",
  *     description="Any information that is related to the user object of the app"
  * )

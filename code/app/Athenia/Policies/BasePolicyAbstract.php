@@ -9,7 +9,7 @@ use App\Models\User\User;
 
 /**
  * Class BasePolicyAbstract
- * @package App\Policies
+ * @package App\Athenia\Policies
  */
 abstract class BasePolicyAbstract implements BasePolicyContract
 {
@@ -17,10 +17,10 @@ abstract class BasePolicyAbstract implements BasePolicyContract
      * No one in this app should be able to see everything
      *
      * @param User $user
-     * @return null
+     * @return null|bool
      */
     public function before(User $user)
     {
         return $user->hasRole([Role::SUPER_ADMIN]) ?: null;
     }
-}
+} 

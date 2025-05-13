@@ -33,8 +33,14 @@ use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Asset\AssetConfigurationServiceContract;
 use App\Athenia\Contracts\Services\TokenGenerationServiceContract;
+use App\Athenia\Contracts\Services\Wiki\ArticleVersionCalculationServiceContract;
+use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
+use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
+use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
 use App\Athenia\Repositories\AssetRepository;
 use App\Athenia\Repositories\CategoryRepository;
 use App\Athenia\Repositories\Collection\CollectionItemRepository;
@@ -65,7 +71,9 @@ use App\Athenia\Repositories\Wiki\ArticleIterationRepository;
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
-use App\Athenia\Services\Asset\AssetConfigurationService;
+use App\Athenia\Repositories\Statistics\StatisticRepository;
+use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Collection\Collection;
@@ -96,11 +104,14 @@ use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
 use App\Models\Wiki\ArticleVersion;
+use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistics\Statistic;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class AtheniaRepositoryProvider
@@ -140,10 +151,12 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ProfileImageRepositoryContract::class,
             ResourceRepositoryContract::class,
             RoleRepositoryContract::class,
+            StatisticRepositoryContract::class,
             SubscriptionRepositoryContract::class,
+            TargetStatisticRepositoryContract::class,
             ThreadRepositoryContract::class,
-            VoteRepositoryContract::class,
             UserRepositoryContract::class,
+            VoteRepositoryContract::class,
         ], $this->appProviders());
     }
 
@@ -166,6 +179,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             'organization' => Organization::class,
             'subscription' => Subscription::class,
             'user' => User::class,
+            'collection' => Collection::class,
         ], $this->appMorphMaps()));
 
         $this->app->bind(ArticleRepositoryContract::class, function() {
@@ -198,152 +212,171 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 new Asset(),
                 $this->app->make('log'),
                 $this->app->make('filesystem'),
-                $this->app->make(AssetConfigurationServiceContract::class),
+                $this->app->make(AssetConfigurationServiceContract::class)
             );
         });
-        $this->app->bind(BallotRepositoryContract::class, function () {
+        $this->app->bind(BallotRepositoryContract::class, function() {
             return new BallotRepository(
                 new Ballot(),
                 $this->app->make('log'),
-                $this->app->make(BallotItemRepositoryContract::class),
+                $this->app->make(BallotItemRepositoryContract::class)
             );
         });
-        $this->app->bind(BallotCompletionRepositoryContract::class, function () {
+        $this->app->bind(BallotCompletionRepositoryContract::class, function() {
             return new BallotCompletionRepository(
                 new BallotCompletion(),
                 $this->app->make('log'),
-                $this->app->make(VoteRepositoryContract::class),
+                $this->app->make(VoteRepositoryContract::class)
             );
         });
-        $this->app->bind(BallotItemOptionRepositoryContract::class, function () {
-            return new BallotItemOptionRepository(
-                new BallotItemOption(),
-                $this->app->make('log'),
-            );
-        });
-        $this->app->bind(BallotItemRepositoryContract::class, function () {
+        $this->app->bind(BallotItemRepositoryContract::class, function() {
             return new BallotItemRepository(
                 new BallotItem(),
                 $this->app->make('log'),
-                $this->app->make(BallotItemOptionRepositoryContract::class),
+                $this->app->make(BallotItemOptionRepositoryContract::class)
             );
         });
-        $this->app->bind(CategoryRepositoryContract::class, function () {
+        $this->app->bind(BallotItemOptionRepositoryContract::class, function() {
+            return new BallotItemOptionRepository(
+                new BallotItemOption(),
+                $this->app->make('log')
+            );
+        });
+        $this->app->bind(CategoryRepositoryContract::class, function() {
             return new CategoryRepository(
                 new Category(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
-        $this->app->bind(CollectionRepositoryContract::class, function () {
+        $this->app->bind(CollectionRepositoryContract::class, function() {
             return new CollectionRepository(
                 new Collection(),
                 $this->app->make('log'),
-                $this->app->make(CollectionItemRepositoryContract::class),
+                $this->app->make(CollectionItemRepositoryContract::class)
             );
         });
-        $this->app->bind(CollectionItemRepositoryContract::class, function () {
+        $this->app->bind(CollectionItemRepositoryContract::class, function() {
             return new CollectionItemRepository(
                 new CollectionItem(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
-        $this->app->bind(ContactRepositoryContract::class, function () {
+        $this->app->bind(ContactRepositoryContract::class, function() {
             return new ContactRepository(
                 new Contact(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(FeatureRepositoryContract::class, function() {
-            return new FeatureRepository(new Feature(), $this->app->make('log'));
+            return new FeatureRepository(
+                new Feature(),
+                $this->app->make('log')
+            );
         });
-        $this->app->bind(LineItemRepositoryContract::class, function () {
+        $this->app->bind(LineItemRepositoryContract::class, function() {
             return new LineItemRepository(
                 new LineItem(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(MembershipPlanRepositoryContract::class, function() {
             return new MembershipPlanRepository(
                 new MembershipPlan(),
                 $this->app->make('log'),
-                $this->app->make(MembershipPlanRateRepositoryContract::class),
+                $this->app->make(MembershipPlanRateRepositoryContract::class)
             );
         });
         $this->app->bind(MembershipPlanRateRepositoryContract::class, function() {
             return new MembershipPlanRateRepository(
                 new MembershipPlanRate(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(MessageRepositoryContract::class, function() {
             return new MessageRepository(
                 new Message(),
                 $this->app->make('log'),
-                $this->app->make(UserRepositoryContract::class),
+                $this->app->make(UserRepositoryContract::class)
             );
         });
-        $this->app->bind(OrganizationRepositoryContract::class, function () {
-            return new OrganizationRepository(new Organization(), $this->app->make('log'));
+        $this->app->bind(OrganizationRepositoryContract::class, function() {
+            return new OrganizationRepository(
+                new Organization(),
+                $this->app->make('log')
+            );
         });
-        $this->app->bind(OrganizationManagerRepositoryContract::class, function () {
-            return new OrganizationManagerRepository(new OrganizationManager(), $this->app->make('log'));
+        $this->app->bind(OrganizationManagerRepositoryContract::class, function() {
+            return new OrganizationManagerRepository(
+                new OrganizationManager(),
+                $this->app->make('log')
+            );
         });
         $this->app->bind(PasswordTokenRepositoryContract::class, function() {
             return new PasswordTokenRepository(
                 new PasswordToken(),
                 $this->app->make('log'),
                 $this->app->make(Dispatcher::class),
-                $this->app->make(TokenGenerationServiceContract::class),
+                $this->app->make(TokenGenerationServiceContract::class)
             );
         });
         $this->app->bind(PaymentRepositoryContract::class, function() {
             return new PaymentRepository(
                 new Payment(),
                 $this->app->make('log'),
-                $this->app->make(LineItemRepositoryContract::class),
+                $this->app->make(LineItemRepositoryContract::class)
             );
         });
         $this->app->bind(PaymentMethodRepositoryContract::class, function() {
             return new PaymentMethodRepository(
                 new PaymentMethod(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(ProfileImageRepositoryContract::class, function() {
             return new ProfileImageRepository(
                 new ProfileImage(),
                 $this->app->make('log'),
-                $this->app->make('filesystem'),
-                new AssetConfigurationService(
-
-                    $this->app->make('config')->get('app.asset_url'),
-                    "profile_images",
-                ),
+                $this->app->make(FilesystemManager::class),
+                $this->app->make(AssetConfigurationServiceContract::class)
             );
         });
         $this->app->bind(ResourceRepositoryContract::class, function() {
             return new ResourceRepository(
                 new Resource(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(RoleRepositoryContract::class, function() {
             return new RoleRepository(
                 new Role(),
+                $this->app->make('log')
+            );
+        });
+        $this->app->bind(StatisticRepositoryContract::class, function() {
+            return new StatisticRepository(
+                new Statistic(),
                 $this->app->make('log'),
+                $this->app->make(StatisticFilterRepository::class),
+                $this->app->make(Dispatcher::class)
             );
         });
         $this->app->bind(SubscriptionRepositoryContract::class, function() {
             return new SubscriptionRepository(
                 new Subscription(),
                 $this->app->make('log'),
-                $this->app->make(MembershipPlanRateRepositoryContract::class),
+                $this->app->make(MembershipPlanRateRepositoryContract::class)
+            );
+        });
+        $this->app->bind(TargetStatisticRepositoryContract::class, function() {
+            return new TargetStatisticRepository(
+                new TargetStatistic(),
+                $this->app->make('log')
             );
         });
         $this->app->bind(ThreadRepositoryContract::class, function() {
             return new ThreadRepository(
                 new Thread(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->app->bind(UserRepositoryContract::class, function() {
@@ -351,13 +384,13 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 new User(),
                 $this->app->make('log'),
                 $this->app->make(Hasher::class),
-                $this->app->make(Repository::class),
+                $this->app->make(Repository::class)
             );
         });
-        $this->app->bind(VoteRepositoryContract::class, function () {
+        $this->app->bind(VoteRepositoryContract::class, function() {
             return new VoteRepository(
                 new Vote(),
-                $this->app->make('log'),
+                $this->app->make('log')
             );
         });
         $this->registerApp();

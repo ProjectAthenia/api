@@ -34,6 +34,8 @@ abstract class BaseValidatorProvider extends ServiceProvider
         $validator->extend(OwnedByValidator::KEY, OwnedByValidator::class);
         $validator->extend(PaymentMethodIsOwnedByEntityValidator::KEY, PaymentMethodIsOwnedByEntityValidator::class);
         $validator->extend(SelectedIterationBelongsToArticleValidator::KEY, SelectedIterationBelongsToArticleValidator::class);
+
+        $this->registerValidators($validator);
     }
 
     /**

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Observer;
+namespace App\Athenia\Observers;
 
 use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Repositories\ResourceRepositoryContract;
 
 /**
  * Class IndexableModelObserver
- * @package App\Observers
+ * @package App\Athenia\Observers
  */
 class IndexableModelObserver
 {
@@ -55,9 +55,10 @@ class IndexableModelObserver
      */
     private function indexModel(CanBeIndexedContract $model)
     {
-        if ($model->getContentString()) {
+        $content = $model->getContentString();
+        if ($content) {
             $data = [
-                'content' => $model->getContentString(),
+                'content' => $content,
                 'resource_id' => $model->id,
                 'resource_type' => $model->morphRelationName(),
             ];

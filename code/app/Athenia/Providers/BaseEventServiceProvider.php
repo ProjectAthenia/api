@@ -14,6 +14,9 @@ use App\Athenia\Events\User\ForgotPasswordEvent;
 use App\Athenia\Events\User\SignUpEvent;
 use App\Athenia\Events\User\UserMergeEvent;
 use App\Athenia\Events\Vote\VoteCreatedEvent;
+use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
+use App\Athenia\Events\Statistics\StatisticCreatedEvent;
+use App\Athenia\Events\Statistics\StatisticDeletedEvent;
 use App\Athenia\Listeners\Article\ArticleVersionCreatedListener;
 use App\Athenia\Listeners\Messaging\MessageCreatedListener;
 use App\Athenia\Listeners\Messaging\MessageSentListener;
@@ -25,15 +28,20 @@ use App\Athenia\Listeners\User\UserMerge\UserCreatedIterationsMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserMessagesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserPropertiesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserSubscriptionsMergeListener;
-use App\Athenia\Observer\IndexableModelObserver;
-use App\Athenia\Observer\Payment\PaymentMethodObserver;
+use App\Athenia\Observers\IndexableModelObserver;
+use App\Athenia\Observers\Payment\PaymentMethodObserver;
 use App\Listeners\Organization\OrganizationManagerCreatedListener;
 use App\Listeners\User\Contact\ContactCreatedListener;
 use App\Listeners\User\SignUpListener;
 use App\Listeners\Vote\VoteCreatedListener;
+use App\Athenia\Listeners\Statistics\StatisticUpdatedListener;
+use App\Athenia\Listeners\Statistics\StatisticCreatedListener;
+use App\Athenia\Listeners\Statistics\StatisticDeletedListener;
 use App\Models\Payment\PaymentMethod;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
+use App\Models\Collection\CollectionItem;
+use App\Athenia\Observers\AggregatedModelObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 /**
@@ -88,6 +96,15 @@ abstract class BaseEventServiceProvider extends ServiceProvider
             VoteCreatedEvent::class => [
                 VoteCreatedListener::class,
             ],
+            StatisticUpdatedEvent::class => [
+                StatisticUpdatedListener::class,
+            ],
+            StatisticCreatedEvent::class => [
+                StatisticCreatedListener::class,
+            ],
+            StatisticDeletedEvent::class => [
+                StatisticDeletedListener::class,
+            ],
         ], $this->getAppListenerMapping());
     }
 
@@ -117,6 +134,7 @@ abstract class BaseEventServiceProvider extends ServiceProvider
         Article::observe(IndexableModelObserver::class);
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
+        CollectionItem::observe(AggregatedModelObserver::class);
 
         $this->registerObservers();
     }
