@@ -21,6 +21,6 @@ abstract class BasePolicyAbstract implements BasePolicyContract
      */
     public function before(User $user)
     {
-        return null;
+        return $user->hasRole([Role::SUPER_ADMIN]) ?: null;
     }
 } 
