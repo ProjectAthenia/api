@@ -4,18 +4,18 @@ declare(strict_types=1);
 namespace App\Athenia\Http\Core\Requests\Statistics;
 
 use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
-use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;
 use App\Athenia\Http\Core\Requests\Traits\HasNoPolicyParameters;
-use App\Models\Statistics\Statistic;
+use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
+use App\Models\Statistic\Statistic;
 use App\Policies\Statistics\StatisticPolicy;
 
 /**
- * Class UpdateRequestAbstract
+ * Class ViewRequestAbstract
  * @package App\Athenia\Http\Core\Requests\Statistics
  */
-abstract class UpdateRequestAbstract extends BaseAuthenticatedRequestAbstract
+abstract class ViewRequestAbstract extends BaseAuthenticatedRequestAbstract
 {
-    use HasNoPolicyParameters, HasNoExpands;
+    use HasNoRules, HasNoPolicyParameters;
 
     /**
      * Get the policy action for the guard
@@ -24,7 +24,7 @@ abstract class UpdateRequestAbstract extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyAction(): string
     {
-        return StatisticPolicy::ACTION_UPDATE;
+        return StatisticPolicy::ACTION_VIEW;
     }
 
     /**
@@ -38,13 +38,12 @@ abstract class UpdateRequestAbstract extends BaseAuthenticatedRequestAbstract
     }
 
     /**
-     * The rules needed for the request
-     *
-     * @param Statistic $statistic
-     * @return array
+     * @inheritDoc
      */
-    public function rules(Statistic $statistic): array
+    public function allowedExpands(): array
     {
-        return $statistic->getValidationRules(Statistic::VALIDATION_RULES_UPDATE);
+        return [
+            'statisticFilters',
+        ];
     }
 } 

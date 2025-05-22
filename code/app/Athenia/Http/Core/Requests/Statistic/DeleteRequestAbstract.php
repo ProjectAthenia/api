@@ -6,16 +6,17 @@ namespace App\Athenia\Http\Core\Requests\Statistics;
 use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;
 use App\Athenia\Http\Core\Requests\Traits\HasNoPolicyParameters;
-use App\Models\Statistics\Statistic;
+use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
+use App\Models\Statistic\Statistic;
 use App\Policies\Statistics\StatisticPolicy;
 
 /**
- * Class StoreRequestAbstract
+ * Class DeleteRequestAbstract
  * @package App\Athenia\Http\Core\Requests\Statistics
  */
-abstract class StoreRequestAbstract extends BaseAuthenticatedRequestAbstract
+abstract class DeleteRequestAbstract extends BaseAuthenticatedRequestAbstract
 {
-    use HasNoPolicyParameters, HasNoExpands;
+    use HasNoRules, HasNoPolicyParameters, HasNoExpands;
 
     /**
      * Get the policy action for the guard
@@ -24,7 +25,7 @@ abstract class StoreRequestAbstract extends BaseAuthenticatedRequestAbstract
      */
     protected function getPolicyAction(): string
     {
-        return StatisticPolicy::ACTION_CREATE;
+        return StatisticPolicy::ACTION_DELETE;
     }
 
     /**
@@ -35,16 +36,5 @@ abstract class StoreRequestAbstract extends BaseAuthenticatedRequestAbstract
     protected function getPolicyModel(): string
     {
         return Statistic::class;
-    }
-
-    /**
-     * The rules needed for the request
-     *
-     * @param Statistic $statistic
-     * @return array
-     */
-    public function rules(Statistic $statistic): array
-    {
-        return $statistic->getValidationRules(Statistic::VALIDATION_RULES_CREATE);
     }
 } 
