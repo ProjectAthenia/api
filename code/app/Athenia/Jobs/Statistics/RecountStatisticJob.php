@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Athenia\Jobs\Statistics;
 
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

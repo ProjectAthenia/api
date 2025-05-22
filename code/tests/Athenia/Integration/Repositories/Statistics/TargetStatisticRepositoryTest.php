@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Repositories\Statistics;
 
-use App\Models\Statistics\TargetStatistic;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\TargetStatistic;
+use App\Models\Statistic\Statistic;
 use App\Models\Collection\Collection;
-use App\Athenia\Repositories\Statistics\TargetStatisticRepository;
+use App\Athenia\Repositories\Statistic\TargetStatisticRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

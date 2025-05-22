@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Feature\Http\Statistics;
 
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use App\Models\Role;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;

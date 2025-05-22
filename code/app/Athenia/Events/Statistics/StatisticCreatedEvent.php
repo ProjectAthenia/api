@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Events\Statistics;
 
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 
 class StatisticCreatedEvent
 {

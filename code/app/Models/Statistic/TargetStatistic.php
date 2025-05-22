@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Statistics;
+namespace App\Models\Statistic;
 
 use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property \Carbon\Carbon|null $deleted_at
- * @property-read \App\Models\Statistics\Statistic $statistic
+ * @property-read \App\Models\Statistic\Statistic $statistic
  * @property-read \Illuminate\Database\Eloquent\Model $target
  */
 class TargetStatistic extends BaseModelAbstract

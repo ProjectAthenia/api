@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace App\Athenia\Contracts\Services\Statistics;
 
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 
 /**
  * Interface StatisticSynchronizationServiceContract

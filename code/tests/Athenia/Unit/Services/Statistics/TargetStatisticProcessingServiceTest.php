@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Services\Statistics;
 
-use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
 use App\Athenia\Services\Statistics\TargetStatisticProcessingService;
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\StatisticFilter;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\StatisticFilter;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Mockery;

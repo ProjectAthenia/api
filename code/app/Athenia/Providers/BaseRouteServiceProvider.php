@@ -11,7 +11,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Payment\PaymentMethod;
 use App\Models\Role;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\Subscription;
 use App\Models\User\User;

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Repositories\Statistics;
 
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\StatisticFilter;
-use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\StatisticFilter;
+use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;

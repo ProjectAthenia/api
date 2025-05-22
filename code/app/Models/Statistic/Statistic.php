@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Statistics;
+namespace App\Models\Statistic;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Athenia\Feature\Http\Statistics;
 
 use App\Models\Role;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
 use Tests\Traits\MocksApplicationLog;

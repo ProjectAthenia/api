@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\Statistics;
 
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

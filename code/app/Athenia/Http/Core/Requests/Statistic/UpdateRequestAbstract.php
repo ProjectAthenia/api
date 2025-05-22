@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Http\Core\Requests\Statistics;
+namespace App\Athenia\Http\Core\Requests\Statistic;
 
 use App\Athenia\Http\Core\Requests\BaseAuthenticatedRequestAbstract;
 use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;

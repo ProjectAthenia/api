@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Athenia\Services\Statistics;
 
-use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
-use App\Models\Statistics\StatisticFilter;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\StatisticFilter;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
 use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;

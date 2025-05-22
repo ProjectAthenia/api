@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Database\Factories\Statistics;
 
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\StatisticFilter;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\StatisticFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

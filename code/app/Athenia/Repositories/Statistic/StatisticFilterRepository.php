@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Athenia\Repositories\Statistics;
+namespace App\Athenia\Repositories\Statistic;
 
-use App\Athenia\Contracts\Repositories\Statistics\StatisticFilterRepositoryContract;
-use App\Models\Statistics\StatisticFilter;
+use App\Athenia\Contracts\Repositories\Statistic\StatisticFilterRepositoryContract;
+use App\Models\Statistic\StatisticFilter;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use Psr\Log\LoggerInterface as LogContract;
 

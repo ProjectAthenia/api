@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Repositories\Statistics;
+namespace App\Athenia\Repositories\Statistic;
 
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
-use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
 use App\Athenia\Events\Statistics\StatisticCreatedEvent;
 use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface as LogContract;
-use App\Athenia\Repositories\Statistics\StatisticFilterRepository;
+use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
 use App\Athenia\Traits\CanGetAndUnset;
 use App\Athenia\Events\Statistics\StatisticDeletedEvent;
 

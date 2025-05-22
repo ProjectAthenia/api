@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Models\Statistics;
 
-use App\Models\Statistics\StatisticFilter;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\StatisticFilter;
+use App\Models\Statistic\Statistic;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Tests\TestCase;
 

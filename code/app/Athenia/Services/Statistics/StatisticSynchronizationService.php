@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Athenia\Services\Statistics;
 
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
-use App\Athenia\Contracts\Repositories\Statistics\StatisticRepositoryContract;
-use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection as BaseCollection;

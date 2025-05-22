@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Athenia\Listeners\Statistics;
 
-use App\Athenia\Contracts\Repositories\Statistics\TargetStatisticRepositoryContract;
+use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Events\Statistics\StatisticDeletedEvent;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 
 class StatisticDeletedListener
 {

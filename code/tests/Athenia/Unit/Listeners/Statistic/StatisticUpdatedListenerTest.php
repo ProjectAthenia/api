@@ -6,7 +6,7 @@ namespace Tests\Athenia\Unit\Listeners\Statistic;
 use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
 use App\Athenia\Jobs\Statistics\RecountStatisticJob;
 use App\Athenia\Listeners\Statistics\StatisticUpdatedListener;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\Statistic;
 use Illuminate\Bus\Dispatcher;
 use Mockery;
 use Mockery\MockInterface;

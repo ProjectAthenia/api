@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Contracts\Repositories\Statistics;
+namespace App\Athenia\Contracts\Repositories\Statistic;
 
 use App\Athenia\Contracts\Repositories\BaseRepositoryContract;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Model;
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use Illuminate\Database\Eloquent\Collection;

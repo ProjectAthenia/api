@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Models\Statistics;
 
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\StatisticFilter;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\StatisticFilter;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\TestCase;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Statistics;
+namespace App\Models\Statistic;
 
 use App\Athenia\Models\BaseModelAbstract;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

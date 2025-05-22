@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Database\Factories\Statistics;
 
-use App\Models\Statistics\TargetStatistic;
-use App\Models\Statistics\Statistic;
+use App\Models\Statistic\TargetStatistic;
+use App\Models\Statistic\Statistic;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

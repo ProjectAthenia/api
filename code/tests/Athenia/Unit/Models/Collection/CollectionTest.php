@@ -34,6 +34,6 @@ final class CollectionTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Database\Eloquent\Relations\MorphMany::class, $relation);
         $this->assertEquals('target_type', $relation->getMorphType());
         $this->assertEquals('target_id', $relation->getForeignKeyName());
-        $this->assertEquals(\App\Models\Statistics\TargetStatistic::class, get_class($relation->getRelated()));
+        $this->assertEquals(\App\Models\Statistic\TargetStatistic::class, get_class($relation->getRelated()));
     }
 }

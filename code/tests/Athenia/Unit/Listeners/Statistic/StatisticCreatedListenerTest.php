@@ -7,8 +7,8 @@ use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceCon
 use App\Athenia\Events\Statistics\StatisticCreatedEvent;
 use App\Athenia\Jobs\Statistics\RecountStatisticJob;
 use App\Athenia\Listeners\Statistics\StatisticCreatedListener;
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Mockery;

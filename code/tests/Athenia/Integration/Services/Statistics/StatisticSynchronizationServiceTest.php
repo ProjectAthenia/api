@@ -5,8 +5,8 @@ namespace Tests\Athenia\Integration\Services\Statistics;
 
 use App\Athenia\Services\Statistics\StatisticSynchronizationService;
 use App\Models\Collection\Collection;
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
