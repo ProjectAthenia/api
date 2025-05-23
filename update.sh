@@ -22,6 +22,7 @@ CHANGED=$(git diff --name-status "$LAST_TAG" HEAD)
 # 2. Prepare lists
 ADDED_MODIFIED=()
 DELETED=()
+RENAMED=()
 
 while IFS= read -r line; do
     STATUS=$(echo "$line" | awk '{print $1}')
@@ -33,10 +34,39 @@ while IFS= read -r line; do
         ADDED_MODIFIED+=("$FILE")
     elif [[ "$STATUS" == "D" ]]; then
         DELETED+=("$FILE")
+    elif [[ "$STATUS" == "R" ]]; then
+        OLD_FILE=$(echo "$line" | awk '{print $2}')
+        NEW_FILE=$(echo "$line" | awk '{print $3}')
+        RENAMED+=("$OLD_FILE|$NEW_FILE")
     fi
 done <<< "$CHANGED"
 
-# 3. Copy new/modified files
+# 3. Handle renamed files first
+for RENAME in "${RENAMED[@]}"; do
+    OLD_FILE=$(echo "$RENAME" | cut -d'|' -f1)
+    NEW_FILE=$(echo "$RENAME" | cut -d'|' -f2)
+    
+    if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
+        continue
+    fi
+    
+    OLD_PATH="$CHILD_PATH/$OLD_FILE"
+    NEW_PATH="$CHILD_PATH/$NEW_FILE"
+    
+    # If the old file exists in child repo, move it to the new location
+    if [ -f "$OLD_PATH" ]; then
+        mkdir -p "$(dirname "$NEW_PATH")"
+        mv "$OLD_PATH" "$NEW_PATH"
+        echo "Renamed $OLD_FILE to $NEW_FILE in child repository"
+    else
+        # If old file doesn't exist, just copy the new file
+        mkdir -p "$(dirname "$NEW_PATH")"
+        cp "$NEW_FILE" "$NEW_PATH"
+        echo "Copied $NEW_FILE to child repository (rename from $OLD_FILE)"
+    fi
+done
+
+# 4. Copy new/modified files
 SAFE_FILES=()
 for FILE in "${ADDED_MODIFIED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
@@ -52,7 +82,7 @@ for FILE in "${ADDED_MODIFIED[@]}"; do
     echo "Copied $FILE to $DEST"
 done
 
-# 4. Delete removed files
+# 5. Delete removed files
 for FILE in "${DELETED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
@@ -64,13 +94,14 @@ for FILE in "${DELETED[@]}"; do
     fi
 done
 
-# 5. Compare diffs and report
+# 6. Compare diffs and report
 # Get the latest tag for the 'to' version
 TO_TAG=$(git describe --tags --abbrev=0)
 REPORT_NAME="update_report_${LAST_TAG}_to_${TO_TAG}.txt"
 REPORT="$CHILD_PATH/$REPORT_NAME"
 > "$REPORT"
 
+# Compare added/modified files
 for FILE in "${ADDED_MODIFIED[@]}"; do
     if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
         continue
@@ -84,6 +115,28 @@ for FILE in "${ADDED_MODIFIED[@]}"; do
     # Compare the diffs byte-for-byte
     if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
         echo "$FILE" >> "$REPORT"
+    fi
+    rm -f /tmp/main_diff /tmp/child_diff
+done
+
+# Compare renamed files
+for RENAME in "${RENAMED[@]}"; do
+    OLD_FILE=$(echo "$RENAME" | cut -d'|' -f1)
+    NEW_FILE=$(echo "$RENAME" | cut -d'|' -f2)
+    
+    if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
+        continue
+    fi
+    
+    # Generate unified diff in main repo for the rename
+    git diff "$LAST_TAG" -- "$NEW_FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/main_diff
+    # Generate unified diff in child repo for the new file
+    pushd "$CHILD_PATH" > /dev/null
+    git diff -- "$NEW_FILE" | grep -v '^index' | sed 's/[[:space:]]*$//' > /tmp/child_diff
+    popd > /dev/null
+    # Compare the diffs byte-for-byte
+    if ! diff -q /tmp/main_diff /tmp/child_diff > /dev/null; then
+        echo "$NEW_FILE (renamed from $OLD_FILE)" >> "$REPORT"
     fi
     rm -f /tmp/main_diff /tmp/child_diff
 done
