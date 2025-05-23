@@ -26,18 +26,26 @@ RENAMED=()
 
 while IFS= read -r line; do
     STATUS=$(echo "$line" | awk '{print $1}')
-    FILE=$(echo "$line" | awk '{print $2}')
-    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
-        continue
-    fi
-    if [[ "$STATUS" == "A" || "$STATUS" == "M" ]]; then
-        ADDED_MODIFIED+=("$FILE")
-    elif [[ "$STATUS" == "D" ]]; then
-        DELETED+=("$FILE")
-    elif [[ "$STATUS" == "R" ]]; then
+    if [[ "$STATUS" == "R"* ]]; then
+        # For renamed files, the format is "R<similarity> old_file new_file"
         OLD_FILE=$(echo "$line" | awk '{print $2}')
         NEW_FILE=$(echo "$line" | awk '{print $3}')
+        if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
+            continue
+        fi
         RENAMED+=("$OLD_FILE|$NEW_FILE")
+    elif [[ "$STATUS" == "A" || "$STATUS" == "M" ]]; then
+        FILE=$(echo "$line" | awk '{print $2}')
+        if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
+            continue
+        fi
+        ADDED_MODIFIED+=("$FILE")
+    elif [[ "$STATUS" == "D" ]]; then
+        FILE=$(echo "$line" | awk '{print $2}')
+        if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
+            continue
+        fi
+        DELETED+=("$FILE")
     fi
 done <<< "$CHANGED"
 
@@ -45,10 +53,6 @@ done <<< "$CHANGED"
 for RENAME in "${RENAMED[@]}"; do
     OLD_FILE=$(echo "$RENAME" | cut -d'|' -f1)
     NEW_FILE=$(echo "$RENAME" | cut -d'|' -f2)
-    
-    if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
-        continue
-    fi
     
     OLD_PATH="$CHILD_PATH/$OLD_FILE"
     NEW_PATH="$CHILD_PATH/$NEW_FILE"
