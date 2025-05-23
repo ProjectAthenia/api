@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Listeners\Statistic;
 
-use App\Athenia\Contracts\Services\Statistics\StatisticSynchronizationServiceContract;
-use App\Athenia\Events\Statistics\StatisticCreatedEvent;
-use App\Athenia\Jobs\Statistics\RecountStatisticJob;
-use App\Athenia\Listeners\Statistics\StatisticCreatedListener;
-use App\Models\Statistics\Statistic;
-use App\Models\Statistics\TargetStatistic;
+use App\Athenia\Contracts\Services\Statistic\StatisticSynchronizationServiceContract;
+use App\Athenia\Events\Statistic\StatisticCreatedEvent;
+use App\Athenia\Jobs\Statistic\RecountStatisticJob;
+use App\Athenia\Listeners\Statistic\StatisticCreatedListener;
+use App\Models\Statistic\Statistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Mockery;

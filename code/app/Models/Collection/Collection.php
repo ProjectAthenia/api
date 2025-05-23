@@ -9,7 +9,7 @@ use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasStatisticTargets;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\OwnedByValidator;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -29,7 +29,7 @@ use Illuminate\Validation\Rule;
  * @property-read int|null $collection_items_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection\CollectionItem> $collectionItems
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $owner
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Statistics\TargetStatistic> $targetStatistics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Statistic\TargetStatistic> $targetStatistics
  * @method static \Database\Factories\Collection\CollectionFactory factory(...$parameters)
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Collection getAggregateMethod()
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Collection isAppendRelationsCount()

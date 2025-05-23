@@ -26,6 +26,74 @@
 
 ---
 
+# 4.0.1
+
+This release includes a major refactor of the statistics system, including directory renames, namespace changes, and various improvements. The following changes have been made:
+
+### Directory and Namespace Changes
+The following directories have been renamed from "Statistics" to "Statistic":
+
+- `code/app/Athenia/Contracts/Repositories/Statistics/*` → `code/app/Athenia/Contracts/Repositories/Statistic/*`
+- `code/app/Athenia/Contracts/Services/Statistics/*` → `code/app/Athenia/Contracts/Services/Statistic/*`
+- `code/app/Athenia/Repositories/Statistics/*` → `code/app/Athenia/Repositories/Statistic/*`
+- `code/app/Athenia/Services/Statistics/*` → `code/app/Athenia/Services/Statistic/*`
+- `code/app/Athenia/Events/Statistics/*` → `code/app/Athenia/Events/Statistic/*`
+- `code/app/Athenia/Listeners/Statistics/*` → `code/app/Athenia/Listeners/Statistic/*`
+- `code/app/Athenia/Jobs/Statistics/*` → `code/app/Athenia/Jobs/Statistic/*`
+- `code/app/Models/Statistics/*` → `code/app/Models/Statistic/*`
+- `code/app/Policies/Statistics/*` → `code/app/Policies/Statistic/*`
+- `code/database/factories/Statistics/*` → `code/database/factories/Statistic/*`
+- `code/tests/Athenia/Feature/Http/Statistics/*` → `code/tests/Athenia/Feature/Http/Statistic/*`
+- `code/tests/Athenia/Integration/Policies/Statistics/*` → `code/tests/Athenia/Integration/Policies/Statistic/*`
+- `code/tests/Athenia/Integration/Repositories/Statistics/*` → `code/tests/Athenia/Integration/Repositories/Statistic/*`
+- `code/tests/Athenia/Integration/Services/Statistics/*` → `code/tests/Athenia/Integration/Services/Statistic/*`
+- `code/tests/Athenia/Integration/Policies/Statistics/*` → `code/tests/Athenia/Integration/Policies/Statistic/*`
+- `code/tests/Athenia/Unit/Events/Statistics/*` → `code/tests/Athenia/Unit/Events/Statistic/*`
+- `code/tests/Athenia/Unit/Jobs/Statistics/*` → `code/tests/Athenia/Unit/Jobs/Statistic/*`
+- `code/tests/Athenia/Unit/Models/Statistics/*` → `code/tests/Athenia/Unit/Models/Statistic/*`
+- `code/tests/Athenia/Unit/Services/Statistics/*` → `code/tests/Athenia/Unit/Services/Statistic/*`
+
+### Modified Files
+
+#### Request Classes
+- `code/app/Athenia/Http/Core/Requests/Statistic/DeleteRequestAbstract.php`
+- `code/app/Athenia/Http/Core/Requests/Statistic/IndexRequestAbstract.php`
+- `code/app/Athenia/Http/Core/Requests/Statistic/StoreRequestAbstract.php`
+- `code/app/Athenia/Http/Core/Requests/Statistic/UpdateRequestAbstract.php`
+- `code/app/Athenia/Http/Core/Requests/Statistic/ViewRequestAbstract.php`
+- `code/app/Http/Core/Requests/Statistic/DeleteRequest.php`
+- `code/app/Http/Core/Requests/Statistic/IndexRequest.php`
+- `code/app/Http/Core/Requests/Statistic/StoreRequest.php`
+- `code/app/Http/Core/Requests/Statistic/UpdateRequest.php`
+- `code/app/Http/Core/Requests/Statistic/ViewRequest.php`
+
+#### Service Providers and Core Components
+- `code/app/Athenia/Providers/BaseEventServiceProvider.php`
+- `code/app/Athenia/Providers/BaseRepositoryProvider.php`
+- `code/app/Athenia/Providers/BaseServiceProvider.php`
+- `code/app/Athenia/Providers/BaseRouteServiceProvider.php`
+- `code/app/Athenia/Observers/AggregatedModelObserver.php`
+- `code/app/Athenia/Models/Traits/HasStatisticTargets.php`
+- `code/app/Athenia/Contracts/Models/CanBeStatisticTargetContract.php`
+
+#### Models and Repositories
+- `code/app/Models/Collection/Collection.php`
+- `code/app/Models/Statistic/Statistic.php`
+- `code/app/Models/Statistic/StatisticFilter.php`
+- `code/app/Models/Statistic/TargetStatistic.php`
+- `code/app/Athenia/Repositories/Statistic/StatisticRepository.php`
+- `code/app/Athenia/Repositories/Statistic/StatisticFilterRepository.php`
+- `code/app/Athenia/Repositories/Statistic/TargetStatisticRepository.php`
+
+#### Tests
+- `code/tests/Athenia/Unit/Models/Collection/CollectionTest.php`
+- `code/tests/Athenia/Unit/Models/Traits/HasStatisticTargetsTest.php`
+- `code/tests/Athenia/Unit/Listeners/Statistic/StatisticCreatedListenerTest.php`
+- `code/tests/Athenia/Unit/Listeners/Statistic/StatisticDeletedListenerTest.php`
+- `code/tests/Athenia/Unit/Listeners/Statistic/StatisticUpdatedListenerTest.php`
+- `code/tests/Athenia/Integration/Policies/Statistics/StatisticPolicyTest.php`
+
+
 # 4.0.0
 
 This release introduces a major refactor and new features, especially around statistics, request structure, and internal architecture. Please review all changes carefully and follow the upgrade steps for each feature area.
@@ -79,4 +147,3 @@ This release introduces a major refactor and new features, especially around sta
 - **Feature Files:**
   - `code/app/Athenia/Models/Traits/HasValidationRules.php`
   - `code/app/Athenia/Observers/IndexableModelObserver.php`
-  - `

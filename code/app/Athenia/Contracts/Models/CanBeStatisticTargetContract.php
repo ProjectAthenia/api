@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Contracts\Models;
 
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**

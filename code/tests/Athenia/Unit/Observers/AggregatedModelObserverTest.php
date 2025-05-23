@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Observers;
 
 use App\Athenia\Contracts\Services\Relations\RelationTraversalServiceContract;
-use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
+use App\Athenia\Jobs\Statistic\ProcessTargetStatisticsJob;
 use App\Athenia\Observers\AggregatedModelObserver;
 use App\Models\Collection\Collection;
 use App\Models\Collection\CollectionItem;

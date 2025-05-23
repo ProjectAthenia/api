@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\Athenia\Unit\Models\Traits;
 
 use App\Athenia\Models\Traits\HasStatisticTargets;
-use App\Models\Statistics\TargetStatistic;
+use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Tests\TestCase;
