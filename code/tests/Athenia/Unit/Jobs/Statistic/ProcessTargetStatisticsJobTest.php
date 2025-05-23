@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Athenia\Unit\Jobs\Statistics;
+namespace Tests\Athenia\Unit\Jobs\Statistic;
 
 use App\Athenia\Contracts\Services\Statistic\TargetStatisticProcessingServiceContract;
 use App\Athenia\Jobs\Statistic\ProcessTargetStatisticsJob;

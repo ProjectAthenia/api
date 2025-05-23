@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Database\Factories\Statistics;
+namespace Database\Factories\Statistic;
 
 use App\Models\Statistic\Statistic;
 use App\Models\Statistic\StatisticFilter;

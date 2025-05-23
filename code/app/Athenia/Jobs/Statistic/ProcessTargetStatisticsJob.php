@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Athenia\Jobs\Statistics;
+namespace App\Athenia\Jobs\Statistic;
 
 use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Services\Statistic\TargetStatisticProcessingServiceContract;
