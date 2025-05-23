@@ -8,7 +8,7 @@ use App\Athenia\Http\Core\Requests\Traits\HasNoExpands;
 use App\Athenia\Http\Core\Requests\Traits\HasNoPolicyParameters;
 use App\Athenia\Http\Core\Requests\Traits\HasNoRules;
 use App\Models\Statistic\Statistic;
-use App\Policies\Statistics\StatisticPolicy;
+use App\Policies\Statistic\StatisticPolicy;
 
 /**
  * Class IndexRequestAbstract

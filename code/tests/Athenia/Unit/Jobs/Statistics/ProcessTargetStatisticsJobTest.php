@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Jobs\Statistics;
 
-use App\Athenia\Contracts\Services\Statistics\TargetStatisticProcessingServiceContract;
-use App\Athenia\Jobs\Statistics\ProcessTargetStatisticsJob;
+use App\Athenia\Contracts\Services\Statistic\TargetStatisticProcessingServiceContract;
+use App\Athenia\Jobs\Statistic\ProcessTargetStatisticsJob;
 use App\Models\Collection\Collection;
 use App\Models\Statistic\Statistic;
 use App\Models\Statistic\TargetStatistic;

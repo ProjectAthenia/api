@@ -79,13 +79,13 @@ return [
          * The only requirement is that the model should extend
          * `WebSocketsStatisticsEntry` provided by this package.
          */
-        'model' => \BeyondCode\LaravelWebSockets\Statistics\Models\WebSocketsStatisticsEntry::class,
+        'model' => \BeyondCode\LaravelWebSockets\Statistic\Models\WebSocketsStatisticsEntry::class,
 
         /**
          * The Statistics Logger will, by default, handle the incoming statistics, store them
          * and then release them into the database on each interval defined below.
          */
-        'logger' => BeyondCode\LaravelWebSockets\Statistics\Logger\HttpStatisticsLogger::class,
+        'logger' => BeyondCode\LaravelWebSockets\Statistic\Logger\HttpStatisticsLogger::class,
 
         /*
          * Here you can specify the interval in seconds at which statistics should be logged.

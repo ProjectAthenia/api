@@ -7,13 +7,13 @@ use App\Models\Statistic\Statistic;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
 use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
 use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
-use App\Athenia\Events\Statistics\StatisticCreatedEvent;
+use App\Athenia\Events\Statistic\StatisticUpdatedEvent;
+use App\Athenia\Events\Statistic\StatisticCreatedEvent;
 use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface as LogContract;
 use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
 use App\Athenia\Traits\CanGetAndUnset;
-use App\Athenia\Events\Statistics\StatisticDeletedEvent;
+use App\Athenia\Events\Statistic\StatisticDeletedEvent;
 
 /**
  * Class StatisticRepository

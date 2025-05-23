@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Unit\Listeners\Statistic;
 
-use App\Athenia\Events\Statistics\StatisticUpdatedEvent;
-use App\Athenia\Jobs\Statistics\RecountStatisticJob;
-use App\Athenia\Listeners\Statistics\StatisticUpdatedListener;
+use App\Athenia\Events\Statistic\StatisticUpdatedEvent;
+use App\Athenia\Jobs\Statistic\RecountStatisticJob;
+use App\Athenia\Listeners\Statistic\StatisticUpdatedListener;
 use App\Models\Statistic\Statistic;
 use Illuminate\Bus\Dispatcher;
 use Mockery;
