@@ -57,16 +57,15 @@ for RENAME in "${RENAMED[@]}"; do
     OLD_PATH="$CHILD_PATH/$OLD_FILE"
     NEW_PATH="$CHILD_PATH/$NEW_FILE"
     
-    # If the old file exists in child repo, move it to the new location
+    # Always copy the new file from the main repo to the new location in the child repo
+    mkdir -p "$(dirname "$NEW_PATH")"
+    cp "$NEW_FILE" "$NEW_PATH"
+    echo "Copied $NEW_FILE to $NEW_PATH in child repository (rename from $OLD_FILE)"
+    
+    # If the old file exists in the child repo, delete it
     if [ -f "$OLD_PATH" ]; then
-        mkdir -p "$(dirname "$NEW_PATH")"
-        mv "$OLD_PATH" "$NEW_PATH"
-        echo "Renamed $OLD_FILE to $NEW_FILE in child repository"
-    else
-        # If old file doesn't exist, just copy the new file
-        mkdir -p "$(dirname "$NEW_PATH")"
-        cp "$NEW_FILE" "$NEW_PATH"
-        echo "Copied $NEW_FILE to child repository (rename from $OLD_FILE)"
+        rm "$OLD_PATH"
+        echo "Deleted old file $OLD_PATH in child repository (renamed to $NEW_FILE)"
     fi
 done
 
