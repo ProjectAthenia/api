@@ -26,18 +26,26 @@ RENAMED=()
 
 while IFS= read -r line; do
     STATUS=$(echo "$line" | awk '{print $1}')
-    FILE=$(echo "$line" | awk '{print $2}')
-    if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
-        continue
-    fi
-    if [[ "$STATUS" == "A" || "$STATUS" == "M" ]]; then
-        ADDED_MODIFIED+=("$FILE")
-    elif [[ "$STATUS" == "D" ]]; then
-        DELETED+=("$FILE")
-    elif [[ "$STATUS" == "R" ]]; then
+    if [[ "$STATUS" == "R"* ]]; then
+        # For renamed files, the format is "R<similarity> old_file new_file"
         OLD_FILE=$(echo "$line" | awk '{print $2}')
         NEW_FILE=$(echo "$line" | awk '{print $3}')
+        if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
+            continue
+        fi
         RENAMED+=("$OLD_FILE|$NEW_FILE")
+    elif [[ "$STATUS" == "A" || "$STATUS" == "M" ]]; then
+        FILE=$(echo "$line" | awk '{print $2}')
+        if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
+            continue
+        fi
+        ADDED_MODIFIED+=("$FILE")
+    elif [[ "$STATUS" == "D" ]]; then
+        FILE=$(echo "$line" | awk '{print $2}')
+        if [[ "$FILE" == app/Providers/* || "$FILE" == UPGRADE*.md || "$FILE" == "update.sh" ]]; then
+            continue
+        fi
+        DELETED+=("$FILE")
     fi
 done <<< "$CHANGED"
 
@@ -46,23 +54,18 @@ for RENAME in "${RENAMED[@]}"; do
     OLD_FILE=$(echo "$RENAME" | cut -d'|' -f1)
     NEW_FILE=$(echo "$RENAME" | cut -d'|' -f2)
     
-    if [[ "$OLD_FILE" == app/Providers/* || "$OLD_FILE" == UPGRADE*.md || "$OLD_FILE" == "update.sh" ]]; then
-        continue
-    fi
-    
     OLD_PATH="$CHILD_PATH/$OLD_FILE"
     NEW_PATH="$CHILD_PATH/$NEW_FILE"
     
-    # If the old file exists in child repo, move it to the new location
+    # Always copy the new file from the main repo to the new location in the child repo
+    mkdir -p "$(dirname "$NEW_PATH")"
+    cp "$NEW_FILE" "$NEW_PATH"
+    echo "Copied $NEW_FILE to $NEW_PATH in child repository (rename from $OLD_FILE)"
+    
+    # If the old file exists in the child repo, delete it
     if [ -f "$OLD_PATH" ]; then
-        mkdir -p "$(dirname "$NEW_PATH")"
-        mv "$OLD_PATH" "$NEW_PATH"
-        echo "Renamed $OLD_FILE to $NEW_FILE in child repository"
-    else
-        # If old file doesn't exist, just copy the new file
-        mkdir -p "$(dirname "$NEW_PATH")"
-        cp "$NEW_FILE" "$NEW_PATH"
-        echo "Copied $NEW_FILE to child repository (rename from $OLD_FILE)"
+        rm "$OLD_PATH"
+        echo "Deleted old file $OLD_PATH in child repository (renamed to $NEW_FILE)"
     fi
 done
 
