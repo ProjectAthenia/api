@@ -44,6 +44,7 @@ The following directories have been renamed from "Statistics" to "Statistic":
 - `code/app/Policies/Statistics/*` → `code/app/Policies/Statistic/*`
 - `code/database/factories/Statistics/*` → `code/database/factories/Statistic/*`
 - `code/tests/Athenia/Feature/Http/Statistics/*` → `code/tests/Athenia/Feature/Http/Statistic/*`
+- `code/tests/Athenia/Integration/Policies/Statistics/*` → `code/tests/Athenia/Integration/Policies/Statistic/*`
 - `code/tests/Athenia/Integration/Repositories/Statistics/*` → `code/tests/Athenia/Integration/Repositories/Statistic/*`
 - `code/tests/Athenia/Integration/Services/Statistics/*` → `code/tests/Athenia/Integration/Services/Statistic/*`
 - `code/tests/Athenia/Integration/Policies/Statistics/*` → `code/tests/Athenia/Integration/Policies/Statistic/*`

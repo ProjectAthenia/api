@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Athenia\Integration\Policies\Statistics;
+namespace Tests\Athenia\Integration\Policies\Statistic;
 
 use App\Models\Role;
 use App\Models\User\User;
