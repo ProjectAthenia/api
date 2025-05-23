@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Athenia\Unit\Models\Statistics;
+namespace Tests\Athenia\Unit\Models\Statistic;
 
 use App\Models\Statistic\Statistic;
 use App\Models\Statistic\StatisticFilter;
