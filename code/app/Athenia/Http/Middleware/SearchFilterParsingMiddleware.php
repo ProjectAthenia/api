@@ -43,7 +43,13 @@ class SearchFilterParsingMiddleware
         if ($filters = $request->query('filter')) {
             if (is_array($filters)) {
                 foreach ($filters as $key => $value) {
-                    $cleanedFilter = $this->processQueryEntry($cleanedFilter, $key, $value);
+                    if (is_array($value)) {
+                        foreach ($value as $individualFilter) {
+                            $cleanedFilter = $this->processQueryEntry($cleanedFilter, $key, $individualFilter);
+                        }
+                    } else {
+                        $cleanedFilter = $this->processQueryEntry($cleanedFilter, $key, $value);
+                    }
                 }
             }
         }
@@ -56,14 +62,11 @@ class SearchFilterParsingMiddleware
         if ($search = $request->query('search')) {
             if (is_array($search)) {
                 foreach ($search as $key => $searchTermContainer) {
-
                     if (is_array($searchTermContainer)) {
-
                         foreach ($searchTermContainer as $individualSearch) {
                             $cleanedSearch = $this->processQueryEntry($cleanedSearch, $key, $individualSearch);
                         }
                     } else {
-
                         $cleanedSearch = $this->processQueryEntry($cleanedSearch, $key, $searchTermContainer);
                     }
                 }
@@ -110,7 +113,6 @@ class SearchFilterParsingMiddleware
 
             $currentQuery[] = [$key, $searchType, $searchTerm];
         } else {
-
             $searchTerm = $parts[1];
 
             switch ($parts[0]) {
