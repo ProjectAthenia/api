@@ -22,10 +22,7 @@ class ArticlePolicy extends BasePolicyAbstract
      */
     public function all(User $user)
     {
-        return $user->hasRole([
-            Role::ARTICLE_VIEWER,
-            Role::ARTICLE_EDITOR,
-        ]);
+        return true;
     }
 
     /**
@@ -37,10 +34,7 @@ class ArticlePolicy extends BasePolicyAbstract
      */
     public function view(User $user, Article $model)
     {
-        return $user->hasRole([
-            Role::ARTICLE_VIEWER,
-            Role::ARTICLE_EDITOR,
-        ]);
+        return true;
     }
 
     /**

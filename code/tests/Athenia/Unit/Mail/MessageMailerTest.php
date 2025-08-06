@@ -31,7 +31,7 @@ final class MessageMailerTest extends TestCase
             ],
         ]);
 
-        $messageMailer = new MessageMailer($user, $message);
+        $messageMailer = new MessageMailer($message, $user);
 
         $builtMailer = $messageMailer->build();
 

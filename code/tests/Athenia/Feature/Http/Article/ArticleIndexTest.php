@@ -37,16 +37,6 @@ final class ArticleIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIncorrectUserRoleBlocked(): void
-    {
-        foreach ($this->rolesWithoutAdmins([Role::ARTICLE_VIEWER, Role::ARTICLE_EDITOR]) as $role ) {
-            $this->actAs($role);
-            $response = $this->json('GET', $this->path);
-
-            $response->assertStatus(403);
-        }
-    }
-
     public function testGetPaginationEmpty(): void
     {
         foreach ([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER] as $role) {
