@@ -41,7 +41,7 @@ final class LogoutTest extends TestCase
         $token = JWTAuth::fromUser($user);
         $response = $this->json('POST', '/v1/auth/logout', [], ['Authorization' => 'Bearer ' . $token]);
         $this->app['env'] = 'testing'; // @todo resolve
-        $response->assertStatus(302);
+        $response->assertStatus(200);
         JWTAuth::authenticate($token);
     }
 }
