@@ -3,35 +3,12 @@ declare(strict_types=1);
 
 namespace App\Models\Messaging;
 
-use App\Athenia\Contracts\Models\Messaging\CanReceivePushNotificationContract;
-use App\Athenia\Models\BaseModelAbstract;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Carbon;
+use App\Athenia\Models\Messaging\PushNotificationKey as AtheniaPushNotificationKey;
 
 /**
- * Class PushNotifications
- *
- * @property int $id
- * @property int $user_id
- * @property string $push_notification_key
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
- * @property-read CanReceivePushNotificationContract $owner
- * @mixin Eloquent
+ * Class PushNotificationKey
+ * @package App\Models\Messaging
  */
-class PushNotificationKey extends BaseModelAbstract
+class PushNotificationKey extends AtheniaPushNotificationKey
 {
-    /**
-     * @var string Table override due to laravel bug
-     */
-    protected $table = 'push_notification_keys';
-
-    /**
-     * @return MorphTo
-     */
-    public function owner(): MorphTo
-    {
-        return $this->morphTo('owner');
-    }
 }
