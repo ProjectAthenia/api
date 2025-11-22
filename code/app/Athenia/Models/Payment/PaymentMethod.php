@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Payment;
+namespace App\Athenia\Models\Payment;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
+use App\Models\Payment\Payment;
 use App\Models\Subscription\Subscription;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;

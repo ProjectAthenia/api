@@ -21,10 +21,10 @@ class MessageMailer extends Mailable implements ShouldQueue
 
     /**
      * NotificationMailer constructor.
+     * @param CanReceiveEmailsContract $receiver
      * @param Message $message
-     * @param CanReceiveEmailsContract|null $receiver
      */
-    public function __construct(private Message $message, private ?CanReceiveEmailsContract $receiver = null)
+    public function __construct(private CanReceiveEmailsContract $receiver, private Message $message)
     {
         $this->chain([new MessageSentEvent($message)]);
     }
@@ -37,7 +37,7 @@ class MessageMailer extends Mailable implements ShouldQueue
     public function build()
     {
         $email = $this->message->email ?? $this->receiver->getEmailAddress();
-        $name = $this->receiver?->getEmailToName();
+        $name = $this->receiver->getEmailToName();
         $data = $this->message->data;
         if (isset ($data['message'])) {
             $data['message_content'] = $data['message'];

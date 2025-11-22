@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Payment;
+namespace App\Athenia\Models\Payment;
 
 use App\Athenia\Models\BaseModelAbstract;
+use App\Models\Payment\Payment;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

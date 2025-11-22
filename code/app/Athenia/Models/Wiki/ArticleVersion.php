@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Wiki;
+namespace App\Athenia\Models\Wiki;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
+use App\Models\Wiki\Article;
+use App\Models\Wiki\ArticleIteration;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 

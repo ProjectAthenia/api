@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Messaging;
+namespace App\Athenia\Models\Messaging;
 
 use App\Athenia\Contracts\Models\Messaging\CanReceivePushNotificationContract;
 use App\Athenia\Models\BaseModelAbstract;

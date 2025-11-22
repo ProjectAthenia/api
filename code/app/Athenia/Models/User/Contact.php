@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Athenia\Models\User;
 
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
+use App\Models\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;

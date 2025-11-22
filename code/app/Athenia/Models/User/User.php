@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Athenia\Models\User;
 
 use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Models\HasPolicyContract;

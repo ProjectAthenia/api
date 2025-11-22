@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Athenia\Models\User;
 
 use App\Models\Asset;
 use App\Models\Organization\Organization;
+use App\Models\User\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Subscription;
+namespace App\Athenia\Models\Subscription;
 
 use App\Athenia\Contracts\Models\HasPolicyContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
@@ -10,6 +10,7 @@ use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\DiscountCode;
 use App\Models\Feature;
 use App\Models\Questionnaire\Question;
+use App\Models\Subscription\MembershipPlanRate;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;

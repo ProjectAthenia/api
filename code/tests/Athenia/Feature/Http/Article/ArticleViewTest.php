@@ -47,6 +47,17 @@ final class ArticleViewTest extends TestCase
         $response->assertStatus(403);
     }
 
+    public function testIncorrectUserRoleBlocked(): void
+    {
+        foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER]) as $role) {
+            $this->actAs($role);
+
+            $response = $this->json('GET', $this->path);
+
+            $response->assertStatus(403);
+        }
+    }
+
     public function testNotFound(): void
     {
         $this->actAsUser();

@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Statistic;
+namespace App\Athenia\Models\Statistic;
 
 use App\Athenia\Models\BaseModelAbstract;
+use App\Models\Statistic\Statistic;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\Traits;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -27,7 +28,11 @@ trait MocksConsoleOutput
         $progressMock = mock(ProgressBar::class);
         $progressMock->shouldIgnoreMissing();
 
+        $formatterMock = mock(OutputFormatterInterface::class);
+        $formatterMock->shouldIgnoreMissing();
+
         $mockOutput->shouldIgnoreMissing($progressMock);
+        $mockOutput->shouldReceive('getFormatter')->andReturn($formatterMock);
 
         $output->setValue($command, $mockOutput);
     }

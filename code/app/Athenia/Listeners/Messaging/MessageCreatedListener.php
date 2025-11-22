@@ -8,7 +8,6 @@ use App\Athenia\Contracts\Models\Messaging\HasMessageReceiversContract;
 use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Contracts\Services\Messaging\BaseMessageSendingServiceContract;
 use App\Athenia\Contracts\Services\Messaging\MessageSendingSelectionServiceContract;
-use App\Athenia\Contracts\Services\Messaging\SendEmailServiceContract;
 use App\Athenia\Events\Messaging\MessageCreatedEvent;
 use App\Athenia\Events\Messaging\MessageSentEvent;
 use App\Models\Messaging\Message;
@@ -57,21 +56,15 @@ class MessageCreatedListener implements ShouldQueue
                 ->filter(fn (?BaseMessageSendingServiceContract $maybeService) => $maybeService);
         foreach ($availableServices as $service) {
 
-            $to = $message->to_id ? $message->to : null;
-            if (!$to && $message->email && $service instanceof SendEmailServiceContract) {
-                $service->sendDirectMessage($message);
+            $to = $message->to;
+            if ($to instanceof CanReceiveMessageContract) {
+                $service->sendMessage($to, $message);
                 $sent = true;
             }
-            else {
-                if ($to instanceof CanReceiveMessageContract) {
-                    $service->sendMessage($to, $message);
+            if ($to instanceof HasMessageReceiversContract) {
+                foreach ($to->messageReceivers($message) as $messageReceiver) {
+                    $service->sendMessage($messageReceiver, $message);
                     $sent = true;
-                }
-                if ($to instanceof HasMessageReceiversContract) {
-                    foreach ($to->messageReceivers($message) as $messageReceiver) {
-                        $service->sendMessage($messageReceiver, $message);
-                        $sent = true;
-                    }
                 }
             }
         }

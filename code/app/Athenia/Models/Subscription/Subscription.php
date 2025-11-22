@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Subscription;
+namespace App\Athenia\Models\Subscription;
 
 use App\Athenia\Contracts\Models\HasPaymentsContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
@@ -11,6 +11,8 @@ use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator;
 use App\Athenia\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator;
 use App\Models\Payment\PaymentMethod;
+use App\Models\Subscription\MembershipPlan;
+use App\Models\Subscription\MembershipPlanRate;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

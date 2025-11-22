@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Subscription;
+namespace App\Athenia\Models\Subscription;
 
 use App\Athenia\Models\BaseModelAbstract;
+use App\Models\Subscription\MembershipPlan;
+use App\Models\Subscription\Subscription;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

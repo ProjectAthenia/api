@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\User;
+namespace App\Athenia\Models\User;
 
 use App\Athenia\Models\BaseModelAbstract;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

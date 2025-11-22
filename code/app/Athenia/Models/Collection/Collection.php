@@ -9,6 +9,7 @@ use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasStatisticTargets;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Athenia\Validators\OwnedByValidator;
+use App\Models\Collection\CollectionItem;
 use App\Models\Statistic\TargetStatistic;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

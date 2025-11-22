@@ -27,22 +27,11 @@ class SendEmailService implements SendEmailServiceContract
     public function sendMessage(CanReceiveMessageContract $receiver, Message $message): bool
     {
         if ($receiver instanceof CanReceiveEmailsContract && $receiver->canReceiveMessage($message)) {
-            $this->mailer->send(new MessageMailer($message, $receiver));
+            $this->mailer->send(new MessageMailer($receiver, $message));
 
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Used when there is no to set on the message
-     *
-     * @param Message $message
-     * @return void
-     */
-    public function sendDirectMessage(Message $message)
-    {
-        $this->mailer->send(new MessageMailer($message));
     }
 }

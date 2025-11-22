@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\Wiki;
+namespace App\Athenia\Models\Wiki;
 
 use App\Athenia\Contracts\Models\CanBeIndexedContract;
 use App\Athenia\Contracts\Models\HasPolicyContract;
@@ -10,6 +10,9 @@ use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\CanBeIndexed;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\User\User;
+use App\Models\Wiki\ArticleIteration;
+use App\Models\Wiki\ArticleModification;
+use App\Models\Wiki\ArticleVersion;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
