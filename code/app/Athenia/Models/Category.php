@@ -6,6 +6,8 @@ namespace App\Athenia\Models;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
+use App\Models\Wiki\Article;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder;
 
 /**
@@ -51,6 +53,18 @@ use Illuminate\Database\Query\Builder;
 class Category extends BaseModelAbstract implements HasValidationRulesContract
 {
     use HasValidationRules;
+
+    /**
+     * All articles associated with this category
+     *
+     * @return BelongsToMany
+     */
+    public function articles() : BelongsToMany
+    {
+        return $this->belongsToMany(Article::class, 'article_category')
+            ->withPivot('relevance')
+            ->withTimestamps();
+    }
 
     /**
      * @param mixed ...$params
