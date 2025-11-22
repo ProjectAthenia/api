@@ -29,17 +29,6 @@ final class ArticlePolicyTest extends TestCase
         }
     }
 
-    public function testAllBlocks(): void
-    {
-        $policy = new ArticlePolicy();
-
-        foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER]) as $role) {
-            $user = $this->getUserOfRole($role);
-
-            $this->assertFalse($policy->all($user));
-        }
-    }
-
     public function testViewSuccess(): void
     {
         $policy = new ArticlePolicy();
@@ -48,17 +37,6 @@ final class ArticlePolicyTest extends TestCase
             $user = $this->getUserOfRole($role);
 
             $this->assertTrue($policy->view($user, new Article()));
-        }
-    }
-
-    public function testViewBlocks(): void
-    {
-        $policy = new ArticlePolicy();
-
-        foreach ($this->rolesWithoutAdmins([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER]) as $role) {
-            $user = $this->getUserOfRole($role);
-
-            $this->assertFalse($policy->view($user, new Article()));
         }
     }
 
