@@ -8,5 +8,4 @@ npm-debug.log
 vagrant-credentials.rb
 ubuntu-bionic-18.04-cloudimg-console.log
 .phpunit.result.cache
-code/public/assets/
-
+code/.laravel

@@ -69,6 +69,21 @@ return [
             'engine' => null,
         ],
 
+        'mysql-tmp' => [
+            'driver' => 'mysql',
+            'host' => env('TMP_DB_HOST', 'mysql-tmp'),
+            'port' => env('TMP_DB_PORT', '3306'),
+            'database' => env('TMP_DB_DATABASE', 'tmp'),
+            'username' => env('TMP_DB_USERNAME', 'tmp'),
+            'password' => env('TMP_DB_PASSWORD', 'tmppassword'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

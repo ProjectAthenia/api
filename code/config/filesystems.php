@@ -50,8 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => public_path(),
-            'url' => env('APP_URL'),
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
@@ -65,5 +65,9 @@ return [
         ],
 
     ],
+
+    'wordpress_sites_home' => env('WORDPRESS_SITE_HOME', storage_path('wordpress')),
+
+    'wordpress_local_repo_home' => env('WORDPRESS_LOCAL_REPO_HOME', storage_path('repo')),
 
 ];

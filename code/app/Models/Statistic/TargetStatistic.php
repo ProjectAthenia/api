@@ -3,54 +3,12 @@ declare(strict_types=1);
 
 namespace App\Models\Statistic;
 
-use App\Athenia\Models\BaseModelAbstract;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use App\Athenia\Models\Statistic\TargetStatistic as AtheniaTargetStatistic;
 
 /**
  * Class TargetStatistic
- * @package App\Models\Statistics
- * @property int $id
- * @property int $target_id
- * @property string $target_type
- * @property int $statistic_id
- * @property float $value
- * @property array|null $filters
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property \Carbon\Carbon|null $deleted_at
- * @property-read \App\Models\Statistic\Statistic $statistic
- * @property-read \Illuminate\Database\Eloquent\Model $target
+ * @package App\Models\Statistic
  */
-class TargetStatistic extends BaseModelAbstract
+class TargetStatistic extends AtheniaTargetStatistic
 {
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'result' => 'array',
-        'value' => 'float',
-    ];
-
-    /**
-     * The target model that this statistic belongs to
-     *
-     * @return MorphTo
-     */
-    public function target(): MorphTo
-    {
-        return $this->morphTo();
-    }
-
-    /**
-     * The statistic that this belongs to
-     *
-     * @return BelongsTo
-     */
-    public function statistic(): BelongsTo
-    {
-        return $this->belongsTo(Statistic::class);
-    }
-} 
+}

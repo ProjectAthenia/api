@@ -57,8 +57,6 @@ class IndexRequest extends BaseAuthenticatedRequestAbstract implements HasEntity
     {
         return [
             'collectionItemCategories',
-            'collectionItemCategories.category',
-            'item',
         ];
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\Athenia\Integration\Policies\Wiki;
 
 use App\Models\Role;
-use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Policies\Wiki\ArticlePolicy;
 use Tests\DatabaseSetupTrait;
@@ -23,14 +22,22 @@ final class ArticlePolicyTest extends TestCase
     {
         $policy = new ArticlePolicy();
 
-        $this->assertTrue($policy->all(new User()));
+        foreach ([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER] as $role) {
+            $user = $this->getUserOfRole($role);
+
+            $this->assertTrue($policy->all($user));
+        }
     }
 
     public function testViewSuccess(): void
     {
         $policy = new ArticlePolicy();
 
-        $this->assertTrue($policy->view(new User(),  new Article()));
+        foreach ([Role::ARTICLE_EDITOR, Role::ARTICLE_VIEWER] as $role) {
+            $user = $this->getUserOfRole($role);
+
+            $this->assertTrue($policy->view($user, new Article()));
+        }
     }
 
     public function testCreateSuccess(): void
