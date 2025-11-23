@@ -36,6 +36,34 @@ use Illuminate\Validation\Rule;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUrl($value)
  * @mixin \Eloquent
+ * @property string|null $source
+ * @property string|null $alt
+ * @property int $width
+ * @property int $height
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset joinRelations($relations, $leftJoin = null)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereAlt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereHeight($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereSource($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset withoutTrashed()
+ * @mixin Eloquent
  */
 class Asset extends BaseModelAbstract implements HasValidationRulesContract
 {

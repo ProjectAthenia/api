@@ -28,6 +28,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role joinRelations($relations, $leftJoin = null)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Role onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Role whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Role withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Role withoutTrashed()
+ * @mixin Eloquent
  */
 class Role extends BaseModelAbstract implements HasPolicyContract
 {

@@ -38,6 +38,29 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleIteration whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $article_modification_id
+ * @property-read ArticleModification|null $modification
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration joinRelations($relations, $leftJoin = null)
+ * @method static Builder<static>|ArticleIteration onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration whereArticleModificationId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleIteration whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static Builder<static>|ArticleIteration withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|ArticleIteration withoutTrashed()
+ * @mixin Eloquent
  */
 class ArticleIteration extends BaseModelAbstract implements HasPolicyContract
 {

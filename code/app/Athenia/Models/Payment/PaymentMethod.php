@@ -50,6 +50,26 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Payment\PaymentMethod wherePaymentMethodType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Payment\PaymentMethod whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod joinRelations($relations, $leftJoin = null)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|PaymentMethod whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentMethod withoutTrashed()
+ * @mixin Eloquent
  */
 class PaymentMethod extends BaseModelAbstract implements HasValidationRulesContract
 {

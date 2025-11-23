@@ -34,6 +34,27 @@ use Illuminate\Validation\Rule;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleVersion whereIterationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleVersion whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\ArticleVersion whereUpdatedAt($value)
+ * @property int $article_iteration_id
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion joinRelations($relations, $leftJoin = null)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ArticleVersion onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion whereArticleIterationId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|ArticleVersion whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ArticleVersion withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ArticleVersion withoutTrashed()
  * @mixin \Eloquent
  */
 class ArticleVersion extends BaseModelAbstract implements HasValidationRulesContract

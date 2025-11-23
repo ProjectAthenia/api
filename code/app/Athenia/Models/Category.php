@@ -48,6 +48,8 @@ use Illuminate\Database\Query\Builder;
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Category withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Article> $articles
+ * @property-read int|null $articles_count
  * @mixin \Eloquent
  */
 class Category extends BaseModelAbstract implements HasValidationRulesContract
