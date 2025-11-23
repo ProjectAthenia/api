@@ -79,6 +79,46 @@ class StatisticRepositoryTest extends TestCase
         $this->assertCount(1, $models);
     }
 
+    public function testFindAllForModelReturnsOnlyStatisticsForThatModel()
+    {
+        foreach (Statistic::all() as $model) {
+            $model->delete();
+        }
+
+        // Create statistics for different models
+        Statistic::factory()->count(3)->create(['model' => 'article']);
+        Statistic::factory()->count(2)->create(['model' => 'user']);
+        Statistic::factory()->count(1)->create(['model' => 'organization']);
+
+        $articleStatistics = $this->repository->findAllForModel('article');
+        $userStatistics = $this->repository->findAllForModel('user');
+        $organizationStatistics = $this->repository->findAllForModel('organization');
+
+        $this->assertCount(3, $articleStatistics);
+        $this->assertCount(2, $userStatistics);
+        $this->assertCount(1, $organizationStatistics);
+
+        // Verify all returned statistics have the correct model
+        foreach ($articleStatistics as $statistic) {
+            $this->assertEquals('article', $statistic->model);
+        }
+        foreach ($userStatistics as $statistic) {
+            $this->assertEquals('user', $statistic->model);
+        }
+    }
+
+    public function testFindAllForModelReturnsEmptyCollectionWhenNoStatisticsExist()
+    {
+        foreach (Statistic::all() as $model) {
+            $model->delete();
+        }
+
+        $statistics = $this->repository->findAllForModel('nonexistent');
+
+        $this->assertCount(0, $statistics);
+        $this->assertInstanceOf(Collection::class, $statistics);
+    }
+
     public function testFindReturnsModel()
     {
         foreach (Statistic::all() as $model) {

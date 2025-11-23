@@ -23,6 +23,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Resource;
 use App\Models\Role;
+use App\Models\User\ArticleNote;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
@@ -97,6 +98,31 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereReceivePushNotifications($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereStripeCustomerKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, ArticleNote> $articleNotes
+ * @property-read int|null $article_notes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection\Collection> $collections
+ * @property-read int|null $collections_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, PushNotificationKey> $pushNotificationKeys
+ * @property-read int|null $push_notification_keys_count
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User joinRelations($relations, $leftJoin = null)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|User whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutTrashed()
  * @mixin \Eloquent
  */
 class User extends BaseModelAbstract
@@ -144,6 +170,16 @@ class User extends BaseModelAbstract
     public function ballotCompletions(): HasMany
     {
         return $this->hasMany(BallotCompletion::class);
+    }
+
+    /**
+     * The article notes this user has created
+     *
+     * @return HasMany
+     */
+    public function articleNotes(): HasMany
+    {
+        return $this->hasMany(ArticleNote::class);
     }
 
     /**

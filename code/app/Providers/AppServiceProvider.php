@@ -18,8 +18,7 @@ class AppServiceProvider extends BaseServiceProvider
      */
     public function appProviders(): array
     {
-        return [
-        ];
+        return [];
     }
 
     /**

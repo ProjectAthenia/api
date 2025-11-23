@@ -63,6 +63,7 @@ use Illuminate\Validation\Rule;
  * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|Collection whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Collection withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Collection withoutTrashed()
+ * @property-read int|null $target_statistics_count
  * @mixin \Eloquent
  */
 class Collection extends BaseModelAbstract implements HasValidationRulesContract, CanBeStatisticTargetContract

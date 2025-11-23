@@ -38,6 +38,7 @@ use App\Athenia\Listeners\Statistic\StatisticUpdatedListener;
 use App\Athenia\Listeners\Statistic\StatisticCreatedListener;
 use App\Athenia\Listeners\Statistic\StatisticDeletedListener;
 use App\Models\Payment\PaymentMethod;
+use App\Models\User\ArticleNote;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Models\Collection\CollectionItem;
@@ -135,6 +136,7 @@ abstract class BaseEventServiceProvider extends ServiceProvider
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
         CollectionItem::observe(AggregatedModelObserver::class);
+        ArticleNote::observe(AggregatedModelObserver::class);
 
         $this->registerObservers();
     }
