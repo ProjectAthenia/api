@@ -15,11 +15,13 @@ use App\Models\Category;
 use App\Models\User\User;
 use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
+use App\Models\Wiki\ArticleSummary;
 use App\Models\Wiki\ArticleVersion;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Article
@@ -161,6 +163,16 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
     public function articleNotes() : HasMany
     {
         return $this->hasMany(\App\Models\User\ArticleNote::class);
+    }
+
+    /**
+     * The summary for this article
+     *
+     * @return HasOne
+     */
+    public function articleSummary() : HasOne
+    {
+        return $this->hasOne(ArticleSummary::class);
     }
 
     /**
