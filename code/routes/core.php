@@ -167,6 +167,9 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
             ],
         ]);
 
+        Route::post('random-article', 'User\ArticleNoteController@randomArticle')
+            ->name('random-article');
+
         Route::resource('ballot-completions', 'User\BallotCompletionController', [
             'only' => [
                 'index',

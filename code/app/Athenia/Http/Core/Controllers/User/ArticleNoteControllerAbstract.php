@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Athenia\Http\Core\Controllers\User;
 
 use App\Athenia\Contracts\Repositories\User\ArticleNoteRepositoryContract;
+use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Http\Core\Controllers\BaseControllerAbstract;
 use App\Athenia\Http\Core\Controllers\Traits\HasIndexRequests;
 use App\Athenia\Models\BaseModelAbstract;
@@ -27,12 +28,19 @@ abstract class ArticleNoteControllerAbstract extends BaseControllerAbstract
     private ArticleNoteRepositoryContract $repository;
 
     /**
+     * @var ArticleRepositoryContract
+     */
+    private ArticleRepositoryContract $articleRepository;
+
+    /**
      * ArticleNoteController constructor.
      * @param ArticleNoteRepositoryContract $repository
+     * @param ArticleRepositoryContract $articleRepository
      */
-    public function __construct(ArticleNoteRepositoryContract $repository)
+    public function __construct(ArticleNoteRepositoryContract $repository, ArticleRepositoryContract $articleRepository)
     {
         $this->repository = $repository;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -104,5 +112,43 @@ abstract class ArticleNoteControllerAbstract extends BaseControllerAbstract
         $this->repository->delete($articleNote);
 
         return new JsonResponse(null, 204);
+    }
+
+    /**
+     * Selects a random article for the user and creates or retrieves an article note
+     *
+     * @param Requests\User\ArticleNote\RandomArticleRequest $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function randomArticle(Requests\User\ArticleNote\RandomArticleRequest $request, User $user): JsonResponse
+    {
+        $article = $this->articleRepository->selectArticleForUser($user);
+
+        if (!$article) {
+            return new JsonResponse([
+                'message' => 'No available articles found.'
+            ], 404);
+        }
+
+        // Check if a note already exists for this article
+        $existingNote = ArticleNote::where('user_id', $user->id)
+            ->where('article_id', $article->id)
+            ->first();
+
+        if ($existingNote) {
+            $existingNote->load('article');
+            return new JsonResponse($existingNote, 200);
+        }
+
+        /** @var ArticleNote $articleNote */
+        $articleNote = $this->repository->create([
+            'user_id' => $user->id,
+            'article_id' => $article->id,
+        ]);
+
+        $articleNote->load('article');
+
+        return new JsonResponse($articleNote, 201);
     }
 }

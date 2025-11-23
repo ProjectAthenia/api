@@ -24,6 +24,9 @@ final class ArticleNoteStatisticsTest extends TestCase
     {
         parent::setUp();
         $this->setupDatabase();
+
+        // Seed article note statistics
+        $this->seed(\Database\Seeders\ArticleNoteStatisticsSeeder::class);
     }
 
     public function testTotalNotesStatisticUpdatesOnCreate(): void

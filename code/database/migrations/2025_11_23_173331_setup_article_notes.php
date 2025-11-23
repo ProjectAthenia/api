@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use App\Models\Statistic\Statistic;
-use App\Models\Statistic\StatisticFilter;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -47,30 +45,6 @@ class SetupArticleNotes extends Migration
             $table->string('url')->nullable()->after('title');
             $table->text('authors')->nullable()->after('url');
         });
-
-        // Create the total_notes statistic
-        $totalNotesStatistic = Statistic::create([
-            'name' => 'total_notes',
-            'model' => 'article',
-            'relation' => 'articleNotes',
-            'public' => true,
-        ]);
-
-        // Create the total_completed_notes statistic with a filter for completed notes
-        $totalCompletedNotesStatistic = Statistic::create([
-            'name' => 'total_completed_notes',
-            'model' => 'article',
-            'relation' => 'articleNotes',
-            'public' => true,
-        ]);
-
-        // Add filter to only count notes where completed_at is not null
-        StatisticFilter::create([
-            'statistic_id' => $totalCompletedNotesStatistic->id,
-            'field' => 'completed_at',
-            'operator' => '!=',
-            'value' => null,
-        ]);
     }
 
     /**
@@ -80,15 +54,6 @@ class SetupArticleNotes extends Migration
      */
     public function down(): void
     {
-        // Delete statistics
-        $statistics = Statistic::whereIn('name', ['total_notes', 'total_completed_notes'])->get();
-
-        foreach ($statistics as $statistic) {
-            // Delete associated filters (cascade delete should handle this, but being explicit)
-            $statistic->filters()->delete();
-            $statistic->delete();
-        }
-
         // Drop url and authors columns from articles
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn(['url', 'authors']);
