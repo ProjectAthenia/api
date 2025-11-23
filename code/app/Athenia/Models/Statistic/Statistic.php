@@ -40,9 +40,19 @@ class Statistic extends BaseModelAbstract implements HasValidationRulesContract
      *
      * @return HasMany
      */
-    public function statisticFilters(): HasMany
+    public function filters(): HasMany
     {
         return $this->hasMany(StatisticFilter::class);
+    }
+
+    /**
+     * Alias for backward compatibility
+     *
+     * @return HasMany
+     */
+    public function statisticFilters(): HasMany
+    {
+        return $this->filters();
     }
 
     /**

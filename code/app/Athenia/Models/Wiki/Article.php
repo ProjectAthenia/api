@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace App\Athenia\Models\Wiki;
 
 use App\Athenia\Contracts\Models\CanBeIndexedContract;
+use App\Athenia\Contracts\Models\CanBeStatisticTargetContract;
 use App\Athenia\Contracts\Models\HasPolicyContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\CanBeIndexed;
+use App\Athenia\Models\Traits\HasStatisticTargets;
 use App\Athenia\Models\Traits\HasValidationRules;
 use App\Models\Category;
 use App\Models\User\User;
@@ -47,9 +49,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContract
+class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContract, CanBeStatisticTargetContract
 {
-    use HasValidationRules, CanBeIndexed;
+    use HasValidationRules, CanBeIndexed, HasStatisticTargets;
 
     /**
      * Values that are appending on a toArray function call
@@ -191,6 +193,15 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
                 'title' => [
                     'string',
                     'max:120',
+                ],
+                'url' => [
+                    'nullable',
+                    'string',
+                    'url',
+                ],
+                'authors' => [
+                    'nullable',
+                    'string',
                 ],
                 'categories' => [
                     'array',

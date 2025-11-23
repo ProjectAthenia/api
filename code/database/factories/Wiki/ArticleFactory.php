@@ -25,6 +25,8 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => $this->faker->title,
+            'url' => $this->faker->optional()->url(),
+            'authors' => $this->faker->optional()->name(),
             'created_by_id' => User::factory()->create()->id,
         ];
     }

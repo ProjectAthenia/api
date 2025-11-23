@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Models\User;
 
+use App\Athenia\Contracts\Models\CanBeAggregatedContract;
 use App\Athenia\Contracts\Models\HasValidationRulesContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Models\Traits\HasValidationRules;
@@ -28,7 +29,7 @@ use Illuminate\Validation\Rule;
  * @property-read \App\Models\Wiki\Article $article
  * @mixin \Eloquent
  */
-class ArticleNote extends BaseModelAbstract implements HasValidationRulesContract
+class ArticleNote extends BaseModelAbstract implements HasValidationRulesContract, CanBeAggregatedContract
 {
     use HasValidationRules, SoftDeletes;
 
@@ -83,5 +84,17 @@ class ArticleNote extends BaseModelAbstract implements HasValidationRulesContrac
                 ],
             ],
         ];
+    }
+
+    /**
+     * Returns the relation paths to the models that can be target statistics
+     * For example: ["article"] would mean this model affects statistics on articles
+     * through the article relation
+     *
+     * @return string[]
+     */
+    public function getStatisticTargetRelationPath(): array
+    {
+        return ['article'];
     }
 }
