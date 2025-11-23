@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Athenia\Repositories\Wiki;
 
+use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
 use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Repositories\BaseRepositoryAbstract;
@@ -26,8 +27,13 @@ class ArticleRepository extends BaseRepositoryAbstract implements ArticleReposit
      * ArticleRepository constructor.
      * @param Article $model
      * @param LogContract $log
+     * @param StatisticRepositoryContract $statisticRepository
      */
-    public function __construct(Article $model, LogContract $log)
+    public function __construct(
+        Article $model,
+        LogContract $log,
+        private readonly StatisticRepositoryContract $statisticRepository
+    )
     {
         parent::__construct($model, $log);
     }
@@ -92,45 +98,73 @@ class ArticleRepository extends BaseRepositoryAbstract implements ArticleReposit
      * Within each priority group, orders by:
      * - Lowest total_completed_notes statistic (fewest completions by all users)
      * - Lowest total_notes statistic (fewest notes started by all users)
+     * - Random order for variety when statistics are equal
      *
      * @param User $user
      * @return Article|null
      */
     public function selectArticleForUser(User $user): ?Article
     {
-        $totalNotesStatId = Statistic::where('name', 'total_notes')->value('id');
-        $totalCompletedNotesStatId = Statistic::where('name', 'total_completed_notes')->value('id');
+        // Get all statistics for the article model
+        $statistics = $this->statisticRepository->findAllForModel('article');
 
-        return Article::query()
+        // Build a map of statistic names to their IDs
+        $statisticMap = [];
+        foreach ($statistics as $statistic) {
+            $statisticMap[$statistic->name] = $statistic->id;
+        }
+
+        // Start building the query
+        $query = $this->model->newQuery()
             ->select('articles.*')
             ->leftJoin('article_notes as user_notes', function($join) use ($user) {
                 $join->on('articles.id', '=', 'user_notes.article_id')
                      ->where('user_notes.user_id', '=', $user->id)
                      ->whereNull('user_notes.deleted_at');
-            })
-            ->leftJoin('target_statistics as completed_stats', function($join) use ($totalCompletedNotesStatId) {
+            });
+
+        // Conditionally add join for total_completed_notes statistic
+        if (isset($statisticMap['total_completed_notes'])) {
+            $completedStatId = $statisticMap['total_completed_notes'];
+            $query->leftJoin('target_statistics as completed_stats', function($join) use ($completedStatId) {
                 $join->on('articles.id', '=', 'completed_stats.target_id')
                      ->where('completed_stats.target_type', '=', 'article')
-                     ->where('completed_stats.statistic_id', '=', $totalCompletedNotesStatId);
-            })
-            ->leftJoin('target_statistics as total_stats', function($join) use ($totalNotesStatId) {
+                     ->where('completed_stats.statistic_id', '=', $completedStatId);
+            });
+        }
+
+        // Conditionally add join for total_notes statistic
+        if (isset($statisticMap['total_notes'])) {
+            $totalNotesStatId = $statisticMap['total_notes'];
+            $query->leftJoin('target_statistics as total_stats', function($join) use ($totalNotesStatId) {
                 $join->on('articles.id', '=', 'total_stats.target_id')
                      ->where('total_stats.target_type', '=', 'article')
                      ->where('total_stats.statistic_id', '=', $totalNotesStatId);
-            })
-            // Exclude articles where user has completed a note
-            ->where(function($query) {
-                $query->whereNull('user_notes.id')
-                      ->orWhereNull('user_notes.completed_at');
-            })
-            // Order by priority: no note (1) before incomplete note (2)
-            ->orderByRaw('CASE WHEN user_notes.id IS NULL THEN 1 ELSE 2 END ASC')
-            // Then order by lowest completed notes count
-            ->orderByRaw('COALESCE(CAST(JSON_EXTRACT(completed_stats.result, "$.total") AS UNSIGNED), 0) ASC')
-            // Then order by lowest total notes count
-            ->orderByRaw('COALESCE(CAST(JSON_EXTRACT(total_stats.result, "$.total") AS UNSIGNED), 0) ASC')
-            // Finally order by article ID for deterministic results
-            ->orderBy('articles.id', 'ASC')
-            ->first();
+            });
+        }
+
+        // Exclude articles where user has completed a note
+        $query->where(function($query) {
+            $query->whereNull('user_notes.id')
+                  ->orWhereNull('user_notes.completed_at');
+        });
+
+        // Order by priority: no note (1) before incomplete note (2)
+        $query->orderByRaw('CASE WHEN user_notes.id IS NULL THEN 1 ELSE 2 END ASC');
+
+        // Conditionally add ordering by completed notes count
+        if (isset($statisticMap['total_completed_notes'])) {
+            $query->orderByRaw('COALESCE(CAST(JSON_EXTRACT(completed_stats.result, "$.total") AS UNSIGNED), 0) ASC');
+        }
+
+        // Conditionally add ordering by total notes count
+        if (isset($statisticMap['total_notes'])) {
+            $query->orderByRaw('COALESCE(CAST(JSON_EXTRACT(total_stats.result, "$.total") AS UNSIGNED), 0) ASC');
+        }
+
+        // Finally order randomly for variety
+        $query->inRandomOrder();
+
+        return $query->first();
     }
 }

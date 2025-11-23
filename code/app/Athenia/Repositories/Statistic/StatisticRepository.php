@@ -10,6 +10,7 @@ use App\Athenia\Models\BaseModelAbstract;
 use App\Athenia\Events\Statistic\StatisticUpdatedEvent;
 use App\Athenia\Events\Statistic\StatisticCreatedEvent;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Collection;
 use Psr\Log\LoggerInterface as LogContract;
 use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
 use App\Athenia\Traits\CanGetAndUnset;
@@ -88,5 +89,17 @@ class StatisticRepository extends BaseRepositoryAbstract implements StatisticRep
     {
         parent::delete($model);
         $this->dispatcher->dispatch(new StatisticDeletedEvent($model));
+    }
+
+    /**
+     * Get all statistics for a given model
+     *
+     * @param string $model
+     * @return Collection
+     */
+    public function findAllForModel(string $model): Collection
+    {
+        return $this->model->newQuery()
+            ->where('model', $model)->get();
     }
 } 

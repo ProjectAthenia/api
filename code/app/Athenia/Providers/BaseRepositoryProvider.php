@@ -190,6 +190,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new ArticleRepository(
                 new Article(),
                 $this->app->make('log'),
+                $this->app->make(StatisticRepositoryContract::class),
             );
         });
         $this->app->bind(ArticleIterationRepositoryContract::class, function() {
