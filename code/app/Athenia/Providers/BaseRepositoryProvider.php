@@ -33,6 +33,7 @@ use App\Athenia\Contracts\Repositories\Vote\VoteRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
+use App\Athenia\Contracts\Repositories\Wiki\ArticleSummaryRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
@@ -72,6 +73,7 @@ use App\Athenia\Repositories\Vote\VoteRepository;
 use App\Athenia\Repositories\Wiki\ArticleIterationRepository;
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
+use App\Athenia\Repositories\Wiki\ArticleSummaryRepository;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
 use App\Athenia\Repositories\Statistic\StatisticRepository;
 use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
@@ -106,6 +108,7 @@ use App\Models\Vote\Vote;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
+use App\Models\Wiki\ArticleSummary;
 use App\Models\Wiki\ArticleVersion;
 use App\Models\Statistic\TargetStatistic;
 use App\Models\Statistic\Statistic;
@@ -131,6 +134,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ArticleRepositoryContract::class,
             ArticleIterationRepositoryContract::class,
             ArticleModificationRepositoryContract::class,
+            ArticleSummaryRepositoryContract::class,
             ArticleVersionRepositoryContract::class,
             ArticleNoteRepositoryContract::class,
             AssetRepositoryContract::class,
@@ -202,6 +206,12 @@ abstract class BaseRepositoryProvider extends ServiceProvider
         $this->app->bind(ArticleModificationRepositoryContract::class, function() {
             return new ArticleModificationRepository(
                 new ArticleModification(),
+                $this->app->make('log'),
+            );
+        });
+        $this->app->bind(ArticleSummaryRepositoryContract::class, function() {
+            return new ArticleSummaryRepository(
+                new ArticleSummary(),
                 $this->app->make('log'),
             );
         });
