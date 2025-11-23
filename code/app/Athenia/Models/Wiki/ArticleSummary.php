@@ -70,10 +70,6 @@ class ArticleSummary extends BaseModelAbstract implements HasValidationRulesCont
     {
         return [
             static::VALIDATION_RULES_BASE => [
-                'article_id' => [
-                    'integer',
-                    Rule::exists('articles', 'id'),
-                ],
                 'content' => [
                     'string',
                 ],
@@ -84,7 +80,6 @@ class ArticleSummary extends BaseModelAbstract implements HasValidationRulesCont
             ],
             static::VALIDATION_RULES_CREATE => [
                 static::VALIDATION_PREPEND_REQUIRED => [
-                    'article_id',
                     'content',
                 ],
             ],
