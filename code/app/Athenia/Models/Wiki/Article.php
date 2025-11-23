@@ -117,6 +117,16 @@ class Article extends BaseModelAbstract implements HasPolicyContract, HasValidat
     }
 
     /**
+     * All notes associated with this article
+     *
+     * @return HasMany
+     */
+    public function articleNotes() : HasMany
+    {
+        return $this->hasMany(\App\Models\User\ArticleNote::class);
+    }
+
+    /**
      * Gets the content of the article
      *
      * @return null|string

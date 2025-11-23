@@ -161,6 +161,12 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
     Route::group(['prefix' => 'users/{user}', 'as' => 'user.'], function () {
         require 'entity-routes.php';
 
+        Route::resource('article-notes', 'User\ArticleNoteController', [
+            'except' => [
+                'create', 'edit',
+            ],
+        ]);
+
         Route::resource('ballot-completions', 'User\BallotCompletionController', [
             'only' => [
                 'index',

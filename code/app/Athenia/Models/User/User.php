@@ -23,6 +23,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationManager;
 use App\Models\Resource;
 use App\Models\Role;
+use App\Models\User\ArticleNote;
 use App\Models\Vote\BallotCompletion;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
@@ -144,6 +145,16 @@ class User extends BaseModelAbstract
     public function ballotCompletions(): HasMany
     {
         return $this->hasMany(BallotCompletion::class);
+    }
+
+    /**
+     * The article notes this user has created
+     *
+     * @return HasMany
+     */
+    public function articleNotes(): HasMany
+    {
+        return $this->hasMany(ArticleNote::class);
     }
 
     /**

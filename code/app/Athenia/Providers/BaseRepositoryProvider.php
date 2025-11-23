@@ -20,6 +20,7 @@ use App\Athenia\Contracts\Repositories\RoleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRateRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
+use App\Athenia\Contracts\Repositories\User\ArticleNoteRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\ContactRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\PasswordTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\ProfileImageRepositoryContract;
@@ -58,6 +59,7 @@ use App\Athenia\Repositories\RoleRepository;
 use App\Athenia\Repositories\Subscription\MembershipPlanRateRepository;
 use App\Athenia\Repositories\Subscription\MembershipPlanRepository;
 use App\Athenia\Repositories\Subscription\SubscriptionRepository;
+use App\Athenia\Repositories\User\ArticleNoteRepository;
 use App\Athenia\Repositories\User\ContactRepository;
 use App\Athenia\Repositories\User\PasswordTokenRepository;
 use App\Athenia\Repositories\User\ProfileImageRepository;
@@ -91,6 +93,7 @@ use App\Models\Role;
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\MembershipPlanRate;
 use App\Models\Subscription\Subscription;
+use App\Models\User\ArticleNote;
 use App\Models\User\Contact;
 use App\Models\User\PasswordToken;
 use App\Models\User\ProfileImage;
@@ -129,6 +132,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ArticleIterationRepositoryContract::class,
             ArticleModificationRepositoryContract::class,
             ArticleVersionRepositoryContract::class,
+            ArticleNoteRepositoryContract::class,
             AssetRepositoryContract::class,
             BallotRepositoryContract::class,
             BallotCompletionRepositoryContract::class,
@@ -205,6 +209,12 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 new ArticleVersion(),
                 $this->app->make('log'),
                 $this->app->make(Dispatcher::class),
+            );
+        });
+        $this->app->bind(ArticleNoteRepositoryContract::class, function() {
+            return new ArticleNoteRepository(
+                new ArticleNote(),
+                $this->app->make('log'),
             );
         });
         $this->app->bind(AssetRepositoryContract::class, function() {
