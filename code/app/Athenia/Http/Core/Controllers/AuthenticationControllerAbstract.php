@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Athenia\Http\Core\Controllers;
 
+use App\Athenia\Contracts\Repositories\User\InvitationTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\UserRepositoryContract;
+use App\Athenia\Events\User\InvitationAcceptedEvent;
 use App\Athenia\Events\User\SignUpEvent;
 use App\Http\Core\Requests;
 use App\Models\User\User;
@@ -52,18 +54,25 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
     protected $dispatcher;
 
     /**
+     * @var InvitationTokenRepositoryContract
+     */
+    protected $invitationTokenRepository;
+
+    /**
      * AuthenticationController constructor.
      * @param UserRepositoryContract $userRepository
      * @param Hasher $hasher
      * @param JWTAuth $auth
      * @param Dispatcher $dispatcher
+     * @param InvitationTokenRepositoryContract $invitationTokenRepository
      */
-    public function __construct(UserRepositoryContract $userRepository, Hasher $hasher, JWTAuth $auth, Dispatcher $dispatcher)
+    public function __construct(UserRepositoryContract $userRepository, Hasher $hasher, JWTAuth $auth, Dispatcher $dispatcher, InvitationTokenRepositoryContract $invitationTokenRepository)
     {
         $this->userRepository = $userRepository;
         $this->hasher = $hasher;
         $this->auth = $auth;
         $this->dispatcher = $dispatcher;
+        $this->invitationTokenRepository = $invitationTokenRepository;
     }
 
     /**
@@ -243,6 +252,10 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
     {
         $data = $request->json()->all();
 
+        // Store invitation token separately and remove it from user data
+        $invitationTokenValue = $data['invitation_token'] ?? null;
+        unset($data['invitation_token']);
+
         $forcedData = [
             'password' => $this->hasher->make($data['password']),
         ];
@@ -251,6 +264,14 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
         $model = $this->userRepository->create($data, null, $forcedData);
 
         $this->dispatcher->dispatch(new SignUpEvent($model));
+
+        // If an invitation token was provided, dispatch the InvitationAcceptedEvent
+        if ($invitationTokenValue) {
+            $invitationToken = $this->invitationTokenRepository->findByToken($invitationTokenValue);
+            if ($invitationToken) {
+                $this->dispatcher->dispatch(new InvitationAcceptedEvent($model, $invitationToken));
+            }
+        }
 
         $token = $this->auth->fromUser($model);
         return new JsonResponse([
