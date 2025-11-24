@@ -3,95 +3,54 @@ declare(strict_types=1);
 
 namespace App\Models\Organization;
 
-use App\Athenia\Contracts\Models\BelongsToOrganizationContract;
-use App\Athenia\Contracts\Models\HasValidationRulesContract;
-use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Models\Traits\BelongsToOrganization;
-use App\Athenia\Models\Traits\HasValidationRules;
-use App\Models\Role;
-use App\Models\User\User;
-use Eloquent;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Validation\Rule;
+use App\Athenia\Models\Organization\OrganizationManager as AtheniaOrganizationManager;
 
 /**
  * Class OrganizationManager
  *
+ * @package App\Models\Organization
  * @property int $id
  * @property int $user_id
  * @property int $organization_id
  * @property int $role_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property mixed|null $created_at
- * @property mixed|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Organization\Organization $organization
  * @property-read \App\Models\Role $role
  * @property-read \App\Models\User\User $user
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newModelQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager newQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Organization\OrganizationManager query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereOrganizationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereRoleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization\OrganizationManager whereUserId($value)
+ * @method static \Database\Factories\Organization\OrganizationManagerFactory factory($count = null, $state = [])
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager joinRelations($relations, $leftJoin = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationManager onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereCreatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereDeletedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereOrganizationId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereRoleId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereUpdatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|OrganizationManager whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationManager withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationManager withoutTrashed()
  * @mixin \Eloquent
  */
-class OrganizationManager extends BaseModelAbstract implements HasValidationRulesContract, BelongsToOrganizationContract
+class OrganizationManager extends AtheniaOrganizationManager
 {
-    use HasValidationRules, BelongsToOrganization;
-
-    /**
-     * The related organization
-     *
-     * @return BelongsTo
-     */
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    /**
-     * The related user
-     *
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Build the model validation rules
-     * @param array $params
-     * @return array
-     */
-    public function buildModelValidationRules(...$params): array
-    {
-        return [
-            static::VALIDATION_RULES_BASE => [
-                'role_id' => [
-                    'required',
-                    'integer',
-                    Rule::in(Role::ENTITY_ROLES),
-                ],
-                'email' => [
-                    'string',
-                    'email',
-                ],
-            ],
-            static::VALIDATION_RULES_CREATE => [
-                static::VALIDATION_PREPEND_REQUIRED => [
-                    'email',
-                ],
-            ],
-            static::VALIDATION_RULES_UPDATE => [
-                static::VALIDATION_PREPEND_NOT_PRESENT => [
-                    'email',
-                ],
-            ],
-        ];
-    }
 }

@@ -12,6 +12,7 @@ use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Contracts\Repositories\Messaging\ThreadRepositoryContract;
 use App\Athenia\Contracts\Repositories\Organization\OrganizationManagerRepositoryContract;
 use App\Athenia\Contracts\Repositories\Organization\OrganizationRepositoryContract;
+use App\Athenia\Contracts\Repositories\User\InvitationTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
@@ -20,6 +21,7 @@ use App\Athenia\Contracts\Repositories\RoleRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRateRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\MembershipPlanRepositoryContract;
 use App\Athenia\Contracts\Repositories\Subscription\SubscriptionRepositoryContract;
+use App\Athenia\Contracts\Repositories\User\ArticleNoteRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\ContactRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\PasswordTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\User\ProfileImageRepositoryContract;
@@ -32,6 +34,7 @@ use App\Athenia\Contracts\Repositories\Vote\VoteRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleIterationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleModificationRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleRepositoryContract;
+use App\Athenia\Contracts\Repositories\Wiki\ArticleSummaryRepositoryContract;
 use App\Athenia\Contracts\Repositories\Wiki\ArticleVersionRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistic\TargetStatisticRepositoryContract;
 use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
@@ -58,7 +61,9 @@ use App\Athenia\Repositories\RoleRepository;
 use App\Athenia\Repositories\Subscription\MembershipPlanRateRepository;
 use App\Athenia\Repositories\Subscription\MembershipPlanRepository;
 use App\Athenia\Repositories\Subscription\SubscriptionRepository;
+use App\Athenia\Repositories\User\ArticleNoteRepository;
 use App\Athenia\Repositories\User\ContactRepository;
+use App\Athenia\Repositories\User\InvitationTokenRepository;
 use App\Athenia\Repositories\User\PasswordTokenRepository;
 use App\Athenia\Repositories\User\ProfileImageRepository;
 use App\Athenia\Repositories\User\UserRepository;
@@ -70,6 +75,7 @@ use App\Athenia\Repositories\Vote\VoteRepository;
 use App\Athenia\Repositories\Wiki\ArticleIterationRepository;
 use App\Athenia\Repositories\Wiki\ArticleModificationRepository;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
+use App\Athenia\Repositories\Wiki\ArticleSummaryRepository;
 use App\Athenia\Repositories\Wiki\ArticleVersionRepository;
 use App\Athenia\Repositories\Statistic\StatisticRepository;
 use App\Athenia\Repositories\Statistic\StatisticFilterRepository;
@@ -91,7 +97,9 @@ use App\Models\Role;
 use App\Models\Subscription\MembershipPlan;
 use App\Models\Subscription\MembershipPlanRate;
 use App\Models\Subscription\Subscription;
+use App\Models\User\ArticleNote;
 use App\Models\User\Contact;
+use App\Models\User\InvitationToken;
 use App\Models\User\PasswordToken;
 use App\Models\User\ProfileImage;
 use App\Models\User\User;
@@ -103,6 +111,7 @@ use App\Models\Vote\Vote;
 use App\Models\Wiki\Article;
 use App\Models\Wiki\ArticleIteration;
 use App\Models\Wiki\ArticleModification;
+use App\Models\Wiki\ArticleSummary;
 use App\Models\Wiki\ArticleVersion;
 use App\Models\Statistic\TargetStatistic;
 use App\Models\Statistic\Statistic;
@@ -128,7 +137,9 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             ArticleRepositoryContract::class,
             ArticleIterationRepositoryContract::class,
             ArticleModificationRepositoryContract::class,
+            ArticleSummaryRepositoryContract::class,
             ArticleVersionRepositoryContract::class,
+            ArticleNoteRepositoryContract::class,
             AssetRepositoryContract::class,
             BallotRepositoryContract::class,
             BallotCompletionRepositoryContract::class,
@@ -139,6 +150,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             CollectionItemRepositoryContract::class,
             ContactRepositoryContract::class,
             FeatureRepositoryContract::class,
+            InvitationTokenRepositoryContract::class,
             LineItemRepositoryContract::class,
             MembershipPlanRepositoryContract::class,
             MembershipPlanRateRepositoryContract::class,
@@ -186,6 +198,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new ArticleRepository(
                 new Article(),
                 $this->app->make('log'),
+                $this->app->make(StatisticRepositoryContract::class),
             );
         });
         $this->app->bind(ArticleIterationRepositoryContract::class, function() {
@@ -200,11 +213,23 @@ abstract class BaseRepositoryProvider extends ServiceProvider
                 $this->app->make('log'),
             );
         });
+        $this->app->bind(ArticleSummaryRepositoryContract::class, function() {
+            return new ArticleSummaryRepository(
+                new ArticleSummary(),
+                $this->app->make('log'),
+            );
+        });
         $this->app->bind(ArticleVersionRepositoryContract::class, function() {
             return new ArticleVersionRepository(
                 new ArticleVersion(),
                 $this->app->make('log'),
                 $this->app->make(Dispatcher::class),
+            );
+        });
+        $this->app->bind(ArticleNoteRepositoryContract::class, function() {
+            return new ArticleNoteRepository(
+                new ArticleNote(),
+                $this->app->make('log'),
             );
         });
         $this->app->bind(AssetRepositoryContract::class, function() {
@@ -309,6 +334,13 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new OrganizationManagerRepository(
                 new OrganizationManager(),
                 $this->app->make('log')
+            );
+        });
+        $this->app->bind(InvitationTokenRepositoryContract::class, function() {
+            return new InvitationTokenRepository(
+                new InvitationToken(),
+                $this->app->make('log'),
+                $this->app->make(TokenGenerationServiceContract::class)
             );
         });
         $this->app->bind(PasswordTokenRepositoryContract::class, function() {

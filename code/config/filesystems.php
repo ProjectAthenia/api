@@ -66,4 +66,8 @@ return [
 
     ],
 
+    'wordpress_sites_home' => env('WORDPRESS_SITE_HOME', storage_path('wordpress')),
+
+    'wordpress_local_repo_home' => env('WORDPRESS_LOCAL_REPO_HOME', storage_path('repo')),
+
 ];

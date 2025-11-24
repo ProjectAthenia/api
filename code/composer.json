@@ -19,8 +19,10 @@
         "pusher/pusher-php-server": "~7.0",
         "roave/security-advisories": "dev-master",
         "sebastian/diff": "^6.0",
+        "vemcogroup/laravel-sparkpost-driver": "^5.0",
         "xantios/mimey": "^2.0",
         "ext-zip": "*",
+        "ext-pdo": "*",
         "ext-imagick": "*"
     },
     "require-dev": {

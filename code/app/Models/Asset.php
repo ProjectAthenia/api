@@ -3,111 +3,64 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Athenia\Contracts\Models\HasValidationRulesContract;
-use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Models\Traits\HasValidationRules;
-use Eloquent;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Validation\Rule;
+use App\Athenia\Models\Asset as AtheniaAsset;
 
 /**
  * Class Asset
  *
+ * @package App\Models
  * @property int $id
  * @property int|null $owner_id
  * @property string|null $name
  * @property string|null $caption
  * @property string $url
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property mixed|null $created_at
- * @property mixed|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $owner_type
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $owner
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Asset newModelQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Asset newQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Asset query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCaption($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOwnerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOwnerType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUrl($value)
+ * @property string|null $source
+ * @property string|null $alt
+ * @property int $width
+ * @property int $height
+ * @property-read Asset|null $owner
+ * @method static \Database\Factories\AssetFactory factory($count = null, $state = [])
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset joinRelations($relations, $leftJoin = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereAlt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereCaption($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereCreatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereDeletedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereHeight($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereName($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereOwnerId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereOwnerType($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereSource($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereUpdatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereUrl($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Asset whereWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asset withoutTrashed()
  * @mixin \Eloquent
  */
-class Asset extends BaseModelAbstract implements HasValidationRulesContract
+class Asset extends AtheniaAsset
 {
-    use HasValidationRules;
-
-    /**
-     * @var string Makes sure to override all children
-     */
-    protected $table = 'assets';
-
-    /**
-     * The user that created this asset
-     *
-     * @return BelongsTo
-     */
-    public function owner()
-    {
-        return $this->morphTo();
-    }
-
-    /**
-     * All mime types that can be uploaded to the server for this asset
-     *
-     * @return array
-     */
-    protected function getAvailableMimeTypes(): array
-    {
-        return [
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-        ];
-    }
-
-    /**
-     * Build the model validation rules
-     * @param array $params
-     * @return array
-     */
-    public function buildModelValidationRules(...$params): array
-    {
-        return [
-            self::VALIDATION_RULES_BASE => [
-                'file_contents' => [
-                    'string',
-                ],
-
-                'name' => [
-                    'nullable',
-                    'string',
-                ],
-
-                'caption' => [
-                    'nullable',
-                    'string',
-                ],
-
-                // Set in the request object, and not set from the user request
-                'mime_type' => [
-                    Rule::in($this->getAvailableMimeTypes()),
-                ],
-            ],
-            self::VALIDATION_RULES_CREATE => [
-                self::VALIDATION_PREPEND_REQUIRED => [
-                    'file_contents',
-                ],
-            ],
-            self::VALIDATION_RULES_UPDATE => [
-                self::VALIDATION_PREPEND_NOT_PRESENT => [
-                    'file_contents',
-                ],
-            ]
-        ];
-    }
 }

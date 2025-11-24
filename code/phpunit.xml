@@ -6,8 +6,6 @@
         colors="true"
         processIsolation="false"
         beStrictAboutTestsThatDoNotTestAnything="false"
-        stopOnFailure="true"
-        stopOnError="true"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
         cacheDirectory=".phpunit.cache"
         backupStaticProperties="false"

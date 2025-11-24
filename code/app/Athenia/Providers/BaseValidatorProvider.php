@@ -6,6 +6,7 @@ namespace App\Athenia\Providers;
 use App\Athenia\Validators\ArticleVersion\SelectedIterationBelongsToArticleValidator;
 use App\Athenia\Validators\ForgotPassword\TokenIsNotExpiredValidator;
 use App\Athenia\Validators\ForgotPassword\UserOwnsTokenValidator;
+use App\Athenia\Validators\InvitationTokenIsValidValidator;
 use App\Athenia\Validators\NotPresentValidator;
 use App\Athenia\Validators\OwnedByValidator;
 use App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator;
@@ -30,6 +31,7 @@ abstract class BaseValidatorProvider extends ServiceProvider
         $validator->extend('token_is_not_expired', TokenIsNotExpiredValidator::class);
         $validator->extend('user_owns_token', UserOwnsTokenValidator::class);
         $validator->extend('not_present', NotPresentValidator::class);
+        $validator->extend(InvitationTokenIsValidValidator::KEY, InvitationTokenIsValidValidator::class);
         $validator->extend(MembershipPlanRateIsActiveValidator::KEY, MembershipPlanRateIsActiveValidator::class);
         $validator->extend(OwnedByValidator::KEY, OwnedByValidator::class);
         $validator->extend(PaymentMethodIsOwnedByEntityValidator::KEY, PaymentMethodIsOwnedByEntityValidator::class);

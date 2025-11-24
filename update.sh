@@ -98,8 +98,8 @@ for FILE in "${DELETED[@]}"; do
 done
 
 # 6. Compare diffs and report
-# Get the latest tag for the 'to' version
-TO_TAG=$(git describe --tags --abbrev=0)
+# Get the latest tag for the 'to' version (from entire repository, not just current branch)
+TO_TAG=$(git tag --list --sort=-version:refname | head -n 1)
 REPORT_NAME="update_report_${LAST_TAG}_to_${TO_TAG}.txt"
 REPORT="$CHILD_PATH/$REPORT_NAME"
 > "$REPORT"

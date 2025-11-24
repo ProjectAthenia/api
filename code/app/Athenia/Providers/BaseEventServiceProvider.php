@@ -11,6 +11,7 @@ use App\Athenia\Events\Payment\DefaultPaymentMethodSetEvent;
 use App\Athenia\Events\Payment\PaymentReversedEvent;
 use App\Athenia\Events\User\Contact\ContactCreatedEvent;
 use App\Athenia\Events\User\ForgotPasswordEvent;
+use App\Athenia\Events\User\InvitationAcceptedEvent;
 use App\Athenia\Events\User\SignUpEvent;
 use App\Athenia\Events\User\UserMergeEvent;
 use App\Athenia\Events\Vote\VoteCreatedEvent;
@@ -22,6 +23,7 @@ use App\Athenia\Listeners\Messaging\MessageCreatedListener;
 use App\Athenia\Listeners\Messaging\MessageSentListener;
 use App\Athenia\Listeners\Payment\DefaultPaymentMethodSetListener;
 use App\Athenia\Listeners\User\ForgotPasswordListener;
+use App\Athenia\Listeners\User\InvitationAcceptedListener;
 use App\Athenia\Listeners\User\UserMerge\UserBallotCompletionsMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserCreatedArticlesMergeListener;
 use App\Athenia\Listeners\User\UserMerge\UserCreatedIterationsMergeListener;
@@ -38,6 +40,7 @@ use App\Athenia\Listeners\Statistic\StatisticUpdatedListener;
 use App\Athenia\Listeners\Statistic\StatisticCreatedListener;
 use App\Athenia\Listeners\Statistic\StatisticDeletedListener;
 use App\Models\Payment\PaymentMethod;
+use App\Models\User\ArticleNote;
 use App\Models\User\User;
 use App\Models\Wiki\Article;
 use App\Models\Collection\CollectionItem;
@@ -69,6 +72,9 @@ abstract class BaseEventServiceProvider extends ServiceProvider
             ],
             ForgotPasswordEvent::class => [
                 ForgotPasswordListener::class,
+            ],
+            InvitationAcceptedEvent::class => [
+                InvitationAcceptedListener::class,
             ],
             MessageCreatedEvent::class => [
                 MessageCreatedListener::class,
@@ -135,6 +141,7 @@ abstract class BaseEventServiceProvider extends ServiceProvider
         User::observe(IndexableModelObserver::class);
         PaymentMethod::observe(PaymentMethodObserver::class);
         CollectionItem::observe(AggregatedModelObserver::class);
+        ArticleNote::observe(AggregatedModelObserver::class);
 
         $this->registerObservers();
     }

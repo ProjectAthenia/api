@@ -3,174 +3,72 @@ declare(strict_types=1);
 
 namespace App\Models\Wiki;
 
-use App\Athenia\Contracts\Models\CanBeIndexedContract;
-use App\Athenia\Contracts\Models\HasPolicyContract;
-use App\Athenia\Contracts\Models\HasValidationRulesContract;
-use App\Athenia\Models\BaseModelAbstract;
-use App\Athenia\Models\Traits\CanBeIndexed;
-use App\Athenia\Models\Traits\HasValidationRules;
-use App\Models\User\User;
-use Eloquent;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Athenia\Models\Wiki\Article as AtheniaArticle;
 
 /**
  * Class Article
  *
+ * @package App\Models\Wiki
  * @property int $id
  * @property int $created_by_id
  * @property string $title
+ * @property string|null $url
+ * @property string|null $authors
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property mixed|null $created_at
- * @property mixed|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $has_full_modification_history
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\ArticleNote> $articleNotes
+ * @property-read int|null $article_notes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
+ * @property-read int|null $categories_count
  * @property-read \App\Models\User\User $createdBy
  * @property-read null|string $content
- * @property-read null|ArticleVersion $current_version
+ * @property-read null|\App\Models\Wiki\ArticleVersion $current_version
  * @property-read null|string $last_iteration_content
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleIteration[] $iterations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wiki\ArticleIteration> $iterations
  * @property-read int|null $iterations_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wiki\ArticleVersion[] $versions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wiki\ArticleModification> $modifications
+ * @property-read int|null $modifications_count
+ * @property-read \App\Models\Resource|null $resource
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Statistic\TargetStatistic> $targetStatistics
+ * @property-read int|null $target_statistics_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wiki\ArticleVersion> $versions
  * @property-read int|null $versions_count
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Article newModelQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Article newQuery()
- * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder|\App\Models\Wiki\Article query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereCreatedById($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wiki\Article whereUpdatedAt($value)
+ * @method static \Database\Factories\Wiki\ArticleFactory factory($count = null, $state = [])
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article getAggregateMethod()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article isAppendRelationsCount()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article isLeftJoin()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article isUseTableAlias()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article joinRelations($relations, $leftJoin = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article newModelQuery()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Article onlyTrashed()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article orWhereInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article orWhereJoin($column, $operator, $value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article orWhereNotInJoin($column, $values)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article orderByJoin($column, $direction = 'asc', $aggregateMethod = null)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article query()
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article setAggregateMethod(string $aggregateMethod)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article setAppendRelationsCount(bool $appendRelationsCount)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article setLeftJoin(bool $leftJoin)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article setUseTableAlias(bool $useTableAlias)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereAuthors($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereCreatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereCreatedById($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereDeletedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereHasFullModificationHistory($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereId($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereInJoin($column, $values, $boolean = 'and', $not = false)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereJoin($column, $operator, $value, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereNotInJoin($column, $values, $boolean = 'and')
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereTitle($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereUpdatedAt($value)
+ * @method static \AdminUI\Laravel\EloquentJoin\EloquentJoinBuilder<static>|Article whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Article withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Article withoutTrashed()
  * @mixin \Eloquent
  */
-class Article extends BaseModelAbstract implements HasPolicyContract, HasValidationRulesContract, CanBeIndexedContract
+class Article extends AtheniaArticle
 {
-    use HasValidationRules, CanBeIndexed;
-
-    /**
-     * Values that are appending on a toArray function call
-     *
-     * @var array
-     */
-    protected $appends = [
-        'content',
-        'last_iteration_content',
-    ];
-
-    /**
-     * The user that originally created this article
-     *
-     * @return BelongsTo
-     */
-    public function createdBy() : BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by_id');
-    }
-
-    /**
-     * All of the iterations
-     *
-     * @return HasMany
-     */
-    public function iterations() : HasMany
-    {
-        return $this->hasMany(ArticleIteration::class)
-            ->orderByDesc('created_at')->orderByDesc('id');
-    }
-
-    /**
-     * All modifications for this article
-     *
-     * @return HasMany
-     */
-    public function modifications() : HasMany
-    {
-        return $this->hasMany(ArticleModification::class)
-            ->orderByDesc('created_at')->orderByDesc('id');
-    }
-
-    /**
-     * All versions related to this article
-     *
-     * @return HasMany
-     */
-    public function versions() : HasMany
-    {
-        return $this->hasMany(ArticleVersion::class)
-            ->orderByDesc('created_at')->orderByDesc('id');
-    }
-
-    /**
-     * Gets the content of the article
-     *
-     * @return null|string
-     */
-    public function getContentAttribute() : ?string
-    {
-        return $this->current_version?->articleIteration?->content;
-    }
-
-    /**
-     * Gets the content of the article
-     *
-     * @return null|ArticleVersion
-     */
-    public function getCurrentVersionAttribute() : ?ArticleVersion
-    {
-        return $this->versions()->limit(1)->get()->first();
-    }
-
-    /**
-     * Gets the content of the article
-     *
-     * @return null|string
-     */
-    public function getLastIterationContentAttribute() : ?string
-    {
-        if (isset($this->attributes['last_iteration_content'])) {
-            return $this->attributes['last_iteration_content'];
-        }
-        /** @var ArticleIteration|null $iteration */
-        $iteration = $this->iterations()->limit(1)->get()->first();
-        return $iteration ? $iteration->content : null;
-    }
-
-    /**
-     * @return string
-     */
-    public function morphRelationName(): string
-    {
-        return 'article';
-    }
-
-    /**
-     * Gets the content that will be indexed for this resource
-     *
-     * @return string|null
-     */
-    public function getContentString(): ?string
-    {
-        return $this->title . ' ' . ($this->content ?? '');
-    }
-
-    /**
-     * Build the model validation rules
-     * @param array $params
-     * @return array
-     */
-    public function buildModelValidationRules(...$params): array
-    {
-        return [
-            static::VALIDATION_RULES_BASE => [
-                'title' => [
-                    'string',
-                    'max:120',
-                ],
-            ],
-            static::VALIDATION_RULES_CREATE => [
-                static::VALIDATION_PREPEND_REQUIRED => [
-                    'title',
-                ],
-            ],
-        ];
-    }
 }

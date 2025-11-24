@@ -90,6 +90,12 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
                 'index', 'store',
             ],
         ]);
+
+        // Article summary routes (singular resource pattern)
+        Route::get('article-summary', 'Wiki\ArticleSummaryController@show')->name('article-summary.show');
+        Route::post('article-summary', 'Wiki\ArticleSummaryController@store')->name('article-summary.store');
+        Route::put('article-summary', 'Wiki\ArticleSummaryController@update')->name('article-summary.update');
+        Route::delete('article-summary', 'Wiki\ArticleSummaryController@destroy')->name('article-summary.destroy');
     });
 
     Route::resource('ballots', 'BallotController', [
@@ -160,6 +166,15 @@ Route::group(['middleware' => 'jwt.auth.protected'], function() {
     ]);
     Route::group(['prefix' => 'users/{user}', 'as' => 'user.'], function () {
         require 'entity-routes.php';
+
+        Route::resource('article-notes', 'User\ArticleNoteController', [
+            'except' => [
+                'create', 'edit',
+            ],
+        ]);
+
+        Route::post('random-article', 'User\ArticleNoteController@randomArticle')
+            ->name('random-article');
 
         Route::resource('ballot-completions', 'User\BallotCompletionController', [
             'only' => [

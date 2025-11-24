@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Integration\Repositories\Wiki;
 
+use App\Athenia\Contracts\Repositories\Statistic\StatisticRepositoryContract;
 use App\Athenia\Exceptions\NotImplementedException;
 use App\Athenia\Repositories\Wiki\ArticleRepository;
 use App\Models\User\User;
@@ -30,7 +31,11 @@ final class ArticleRepositoryTest extends TestCase
         parent::setUp();
         $this->setupDatabase();
 
-        $this->repository = new ArticleRepository(new Article(), $this->getGenericLogMock());
+        $this->repository = new ArticleRepository(
+            new Article(),
+            $this->getGenericLogMock(),
+            app(StatisticRepositoryContract::class)
+        );
     }
 
     public function testDeleteThrowsException(): void

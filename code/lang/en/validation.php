@@ -130,6 +130,8 @@ return [
     'token_is_not_expired' => 'The reset password token has expired. You are going to have to request a new one.',
     'user_owns_token' => 'The reset password token does not seem to be for the entered email address.',
     'not_present' => 'The :attribute field is not allowed or can not be set for this request.',
+    \App\Athenia\Validators\InvitationTokenIsValidValidator::KEY =>
+        'The :attribute is invalid.',
     \App\Athenia\Validators\Subscription\MembershipPlanRateIsActiveValidator::KEY =>
         'The membership plan rate must be active for you to purchase it.',
     \App\Athenia\Validators\Subscription\PaymentMethodIsOwnedByEntityValidator::KEY =>

@@ -6,5 +6,7 @@ return [
         'slack_enabled' => env('ATHENIA_SLACK_ENABLED', false),
         'sms_enabled' => env('ATHENIA_SMS_ENABLED', false),
         'push_enabled' => env('ATHENIA_PUSH_ENABLED', false),
-    ]
+    ],
+
+    'invitation_required' => env('INVITATION_REQUIRED', false),
 ];
