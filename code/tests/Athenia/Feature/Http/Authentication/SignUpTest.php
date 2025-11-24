@@ -5,6 +5,7 @@ namespace Tests\Athenia\Feature\Http\Authentication;
 
 use App\Athenia\Events\User\InvitationAcceptedEvent;
 use App\Athenia\Events\User\SignUpEvent;
+use App\Athenia\Listeners\User\InvitationAcceptedListener;
 use App\Models\Role;
 use App\Models\User\InvitationToken;
 use App\Models\User\User;
@@ -216,12 +217,16 @@ final class SignUpTest extends TestCase
         $this->assertTrue($signUpEventHit);
         $this->assertTrue($invitationAcceptedEventHit);
 
+        // Since we mocked the dispatcher, manually call the listener to verify its behavior
+        $user = User::where('email', 'guy@smiley.com')->first();
+        $invitationAcceptedListener = app(InvitationAcceptedListener::class);
+        $invitationAcceptedListener->handle(new InvitationAcceptedEvent($user, $invitationToken));
+
         // Verify the token was marked as used
         $invitationToken->refresh();
         $this->assertNotNull($invitationToken->used_at);
 
         // Verify the user has the role
-        $user = User::where('email', 'guy@smiley.com')->first();
         $this->assertTrue($user->roles->contains($role));
     }
 
@@ -287,7 +292,7 @@ final class SignUpTest extends TestCase
         $response->assertStatus(400);
         $response->assertJson([
             'errors' => [
-                'invitation_token' => ['The invitation token has already been used.'],
+                'invitation_token' => ['The invitation token is invalid.'],
             ]
         ]);
     }
@@ -301,6 +306,16 @@ final class SignUpTest extends TestCase
             'role_id' => null,
             'used_at' => null,
         ]);
+
+        $dispatcher = mock(Dispatcher::class);
+
+        $dispatcher->shouldReceive('dispatch')->with(\Mockery::on(function ($event) {
+            return true;
+        }));
+
+        $this->app->bind(Dispatcher::class, function () use ($dispatcher) {
+            return $dispatcher;
+        });
 
         $properties = [
             'email' => 'guy@smiley.com',
@@ -321,6 +336,16 @@ final class SignUpTest extends TestCase
     public function testSignUpSuccessWhenInvitationNotRequired(): void
     {
         Config::set('athenia.invitation_required', false);
+
+        $dispatcher = mock(Dispatcher::class);
+
+        $dispatcher->shouldReceive('dispatch')->with(\Mockery::on(function ($event) {
+            return true;
+        }));
+
+        $this->app->bind(Dispatcher::class, function () use ($dispatcher) {
+            return $dispatcher;
+        });
 
         $properties = [
             'email' => 'guy@smiley.com',

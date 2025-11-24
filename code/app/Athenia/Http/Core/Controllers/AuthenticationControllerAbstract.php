@@ -252,6 +252,10 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
     {
         $data = $request->json()->all();
 
+        // Store invitation token separately and remove it from user data
+        $invitationTokenValue = $data['invitation_token'] ?? null;
+        unset($data['invitation_token']);
+
         $forcedData = [
             'password' => $this->hasher->make($data['password']),
         ];
@@ -262,8 +266,8 @@ abstract class AuthenticationControllerAbstract extends BaseControllerAbstract
         $this->dispatcher->dispatch(new SignUpEvent($model));
 
         // If an invitation token was provided, dispatch the InvitationAcceptedEvent
-        if (isset($data['invitation_token'])) {
-            $invitationToken = $this->invitationTokenRepository->findByToken($data['invitation_token']);
+        if ($invitationTokenValue) {
+            $invitationToken = $this->invitationTokenRepository->findByToken($invitationTokenValue);
             if ($invitationToken) {
                 $this->dispatcher->dispatch(new InvitationAcceptedEvent($model, $invitationToken));
             }
