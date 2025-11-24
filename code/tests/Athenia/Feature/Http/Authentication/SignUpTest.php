@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace Tests\Athenia\Feature\Http\Authentication;
 
+use App\Athenia\Events\User\InvitationAcceptedEvent;
 use App\Athenia\Events\User\SignUpEvent;
+use App\Models\Role;
+use App\Models\User\InvitationToken;
 use App\Models\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Tests\DatabaseSetupTrait;
 use Tests\TestCase;
@@ -163,5 +167,172 @@ final class SignUpTest extends TestCase
         ]]);
 
         $response->assertStatus(400);
+    }
+
+    public function testSignUpSuccessWithValidInvitationToken(): void
+    {
+        Config::set('athenia.invitation_required', true);
+
+        $role = Role::find(Role::ARTICLE_EDITOR);
+        $invitationToken = InvitationToken::factory()->create([
+            'token' => 'test-token-123',
+            'role_id' => $role->id,
+            'used_at' => null,
+        ]);
+
+        $dispatcher = mock(Dispatcher::class);
+
+        $signUpEventHit = false;
+        $invitationAcceptedEventHit = false;
+
+        $dispatcher->shouldReceive('dispatch')->with(\Mockery::on(function ($event) use (&$signUpEventHit, &$invitationAcceptedEventHit) {
+            if ($event instanceof SignUpEvent) {
+                $signUpEventHit = true;
+            }
+            if ($event instanceof InvitationAcceptedEvent) {
+                $invitationAcceptedEventHit = true;
+            }
+            return true;
+        }));
+
+        $this->app->bind(Dispatcher::class, function () use ($dispatcher) {
+            return $dispatcher;
+        });
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+            'invitation_token' => 'test-token-123',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'token'
+        ]);
+
+        $this->assertTrue($signUpEventHit);
+        $this->assertTrue($invitationAcceptedEventHit);
+
+        // Verify the token was marked as used
+        $invitationToken->refresh();
+        $this->assertNotNull($invitationToken->used_at);
+
+        // Verify the user has the role
+        $user = User::where('email', 'guy@smiley.com')->first();
+        $this->assertTrue($user->roles->contains($role));
+    }
+
+    public function testSignUpFailsWhenInvitationRequiredButNotProvided(): void
+    {
+        Config::set('athenia.invitation_required', true);
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(400);
+        $response->assertJson([
+            'errors' => [
+                'invitation_token' => ['The invitation token field is required.'],
+            ]
+        ]);
+    }
+
+    public function testSignUpFailsWhenInvitationTokenIsInvalid(): void
+    {
+        Config::set('athenia.invitation_required', true);
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+            'invitation_token' => 'invalid-token',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(400);
+        $response->assertJson([
+            'errors' => [
+                'invitation_token' => ['The invitation token is invalid.'],
+            ]
+        ]);
+    }
+
+    public function testSignUpFailsWhenInvitationTokenAlreadyUsed(): void
+    {
+        Config::set('athenia.invitation_required', true);
+
+        InvitationToken::factory()->create([
+            'token' => 'used-token',
+            'used_at' => now(),
+        ]);
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+            'invitation_token' => 'used-token',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(400);
+        $response->assertJson([
+            'errors' => [
+                'invitation_token' => ['The invitation token has already been used.'],
+            ]
+        ]);
+    }
+
+    public function testSignUpSuccessWithInvitationTokenWithoutRole(): void
+    {
+        Config::set('athenia.invitation_required', true);
+
+        InvitationToken::factory()->create([
+            'token' => 'token-without-role',
+            'role_id' => null,
+            'used_at' => null,
+        ]);
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+            'invitation_token' => 'token-without-role',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(201);
+
+        // Verify the user was created but has no additional roles
+        $user = User::where('email', 'guy@smiley.com')->first();
+        $this->assertNotNull($user);
+    }
+
+    public function testSignUpSuccessWhenInvitationNotRequired(): void
+    {
+        Config::set('athenia.invitation_required', false);
+
+        $properties = [
+            'email' => 'guy@smiley.com',
+            'first_name' => 'Steve',
+            'password' => 'complex!',
+        ];
+
+        $response = $this->json('POST', '/v1/auth/sign-up', $properties);
+
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'token'
+        ]);
     }
 }

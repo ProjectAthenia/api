@@ -12,6 +12,7 @@ use App\Athenia\Contracts\Repositories\Messaging\MessageRepositoryContract;
 use App\Athenia\Contracts\Repositories\Messaging\ThreadRepositoryContract;
 use App\Athenia\Contracts\Repositories\Organization\OrganizationManagerRepositoryContract;
 use App\Athenia\Contracts\Repositories\Organization\OrganizationRepositoryContract;
+use App\Athenia\Contracts\Repositories\User\InvitationTokenRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\LineItemRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentMethodRepositoryContract;
 use App\Athenia\Contracts\Repositories\Payment\PaymentRepositoryContract;
@@ -62,6 +63,7 @@ use App\Athenia\Repositories\Subscription\MembershipPlanRepository;
 use App\Athenia\Repositories\Subscription\SubscriptionRepository;
 use App\Athenia\Repositories\User\ArticleNoteRepository;
 use App\Athenia\Repositories\User\ContactRepository;
+use App\Athenia\Repositories\User\InvitationTokenRepository;
 use App\Athenia\Repositories\User\PasswordTokenRepository;
 use App\Athenia\Repositories\User\ProfileImageRepository;
 use App\Athenia\Repositories\User\UserRepository;
@@ -97,6 +99,7 @@ use App\Models\Subscription\MembershipPlanRate;
 use App\Models\Subscription\Subscription;
 use App\Models\User\ArticleNote;
 use App\Models\User\Contact;
+use App\Models\User\InvitationToken;
 use App\Models\User\PasswordToken;
 use App\Models\User\ProfileImage;
 use App\Models\User\User;
@@ -147,6 +150,7 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             CollectionItemRepositoryContract::class,
             ContactRepositoryContract::class,
             FeatureRepositoryContract::class,
+            InvitationTokenRepositoryContract::class,
             LineItemRepositoryContract::class,
             MembershipPlanRepositoryContract::class,
             MembershipPlanRateRepositoryContract::class,
@@ -330,6 +334,13 @@ abstract class BaseRepositoryProvider extends ServiceProvider
             return new OrganizationManagerRepository(
                 new OrganizationManager(),
                 $this->app->make('log')
+            );
+        });
+        $this->app->bind(InvitationTokenRepositoryContract::class, function() {
+            return new InvitationTokenRepository(
+                new InvitationToken(),
+                $this->app->make('log'),
+                $this->app->make(TokenGenerationServiceContract::class)
             );
         });
         $this->app->bind(PasswordTokenRepositoryContract::class, function() {
